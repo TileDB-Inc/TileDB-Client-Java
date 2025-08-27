@@ -41,14 +41,15 @@ public class QueryApiTest {
      */
     @Test
     public void finalizeQueryTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
+        String teamspace = null;
         String array = null;
         String type = null;
         String contentType = null;
         Query query = null;
         String xPayer = null;
         Integer openAt = null;
-        Query response = api.finalizeQuery(namespace, array, type, contentType, query, xPayer, openAt);
+        Query response = api.finalizeQuery(workspace, teamspace, array, type, contentType, query, xPayer, openAt);
         // TODO: test validations
     }
 
@@ -59,14 +60,15 @@ public class QueryApiTest {
      */
     @Test
     public void getEstResultSizesTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
+        String teamspace = null;
         String array = null;
         String type = null;
         String contentType = null;
         Query query = null;
         String xPayer = null;
         Integer openAt = null;
-        Query response = api.getEstResultSizes(namespace, array, type, contentType, query, xPayer, openAt);
+        Query response = api.getEstResultSizes(workspace, teamspace, array, type, contentType, query, xPayer, openAt);
         // TODO: test validations
     }
 
@@ -77,11 +79,12 @@ public class QueryApiTest {
      */
     @Test
     public void getFileTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
+        String teamspace = null;
         String array = null;
         String contentType = null;
         String xPayer = null;
-        File response = api.getFile(namespace, array, contentType, xPayer);
+        File response = api.getFile(workspace, teamspace, array, contentType, xPayer);
         // TODO: test validations
     }
 
@@ -92,14 +95,15 @@ public class QueryApiTest {
      */
     @Test
     public void submitQueryTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
+        String teamspace = null;
         String array = null;
         String type = null;
         String contentType = null;
         Query query = null;
         String xPayer = null;
         Integer openAt = null;
-        Query response = api.submitQuery(namespace, array, type, contentType, query, xPayer, openAt);
+        Query response = api.submitQuery(workspace, teamspace, array, type, contentType, query, xPayer, openAt);
         // TODO: test validations
     }
 
@@ -110,12 +114,13 @@ public class QueryApiTest {
      */
     @Test
     public void submitQueryJsonTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
+        String teamspace = null;
         String array = null;
         String contentType = null;
         QueryJson queryJson = null;
         String xPayer = null;
-        Object response = api.submitQueryJson(namespace, array, contentType, queryJson, xPayer);
+        Object response = api.submitQueryJson(workspace, teamspace, array, contentType, queryJson, xPayer);
         // TODO: test validations
     }
 

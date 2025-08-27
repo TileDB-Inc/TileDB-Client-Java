@@ -4,28 +4,28 @@ All URIs are relative to */v1*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**changeGroupContents**](GroupsApi.md#changeGroupContents) | **POST** /groups/{group_namespace}/{group_name}/contents |  |
-| [**createGroup**](GroupsApi.md#createGroup) | **POST** /groups/{namespace}/create |  |
-| [**deleteGroup**](GroupsApi.md#deleteGroup) | **DELETE** /groups/{group_namespace}/{group_name} |  |
-| [**getGroup**](GroupsApi.md#getGroup) | **GET** /groups/{group_namespace}/{group_name} |  |
-| [**getGroupActivity**](GroupsApi.md#getGroupActivity) | **GET** /groups/{group_namespace}/{group_name}/content_activity |  |
-| [**getGroupContents**](GroupsApi.md#getGroupContents) | **GET** /groups/{group_namespace}/{group_name}/contents |  |
-| [**getGroupSharingPolicies**](GroupsApi.md#getGroupSharingPolicies) | **GET** /groups/{group_namespace}/{group_name}/share |  |
+| [**changeGroupContents**](GroupsApi.md#changeGroupContents) | **POST** /groups/{workspace}/{teamspace}/{group_name}/contents |  |
+| [**createGroup**](GroupsApi.md#createGroup) | **POST** /groups/{workspace}/{teamspace}/create |  |
+| [**deleteGroup**](GroupsApi.md#deleteGroup) | **DELETE** /groups/{workspace}/{teamspace}/{group_name} |  |
+| [**getGroup**](GroupsApi.md#getGroup) | **GET** /groups/{workspace}/{teamspace}/{group_name} |  |
+| [**getGroupActivity**](GroupsApi.md#getGroupActivity) | **GET** /groups/{workspace}/{teamspace}/{group_name}/content_activity |  |
+| [**getGroupContents**](GroupsApi.md#getGroupContents) | **GET** /groups/{workspace}/{teamspace}/{group_name}/contents |  |
+| [**getGroupSharingPolicies**](GroupsApi.md#getGroupSharingPolicies) | **GET** /groups/{workspace}/{teamspace}/{group_name}/share |  |
 | [**groupsBrowserOwnedFiltersGet**](GroupsApi.md#groupsBrowserOwnedFiltersGet) | **GET** /groups/browser/owned/filters |  |
 | [**groupsBrowserPublicFiltersGet**](GroupsApi.md#groupsBrowserPublicFiltersGet) | **GET** /groups/browser/public/filters |  |
 | [**groupsBrowserSharedFiltersGet**](GroupsApi.md#groupsBrowserSharedFiltersGet) | **GET** /groups/browser/shared/filters |  |
-| [**groupsGroupNamespaceGroupNameContentsFiltersGet**](GroupsApi.md#groupsGroupNamespaceGroupNameContentsFiltersGet) | **GET** /groups/{group_namespace}/{group_name}/contents/filters |  |
+| [**groupsWorkspaceTeamspaceGroupNameContentsFiltersGet**](GroupsApi.md#groupsWorkspaceTeamspaceGroupNameContentsFiltersGet) | **GET** /groups/{workspace}/{teamspace}/{group_name}/contents/filters |  |
 | [**listOwnedGroups**](GroupsApi.md#listOwnedGroups) | **GET** /groups/browser/owned |  |
 | [**listPublicGroups**](GroupsApi.md#listPublicGroups) | **GET** /groups/browser/public |  |
 | [**listSharedGroups**](GroupsApi.md#listSharedGroups) | **GET** /groups/browser/shared |  |
-| [**registerGroup**](GroupsApi.md#registerGroup) | **POST** /groups/{namespace}/{array}/register |  |
-| [**shareGroup**](GroupsApi.md#shareGroup) | **PATCH** /groups/{group_namespace}/{group_name}/share |  |
-| [**updateGroup**](GroupsApi.md#updateGroup) | **PATCH** /groups/{group_namespace}/{group_name} |  |
+| [**registerGroup**](GroupsApi.md#registerGroup) | **POST** /groups/{workspace}/{teamspace}/{array}/register |  |
+| [**shareGroup**](GroupsApi.md#shareGroup) | **PATCH** /groups/{workspace}/{teamspace}/{group_name}/share |  |
+| [**updateGroup**](GroupsApi.md#updateGroup) | **PATCH** /groups/{workspace}/{teamspace}/{group_name} |  |
 
 
 <a id="changeGroupContents"></a>
 # **changeGroupContents**
-> changeGroupContents(groupNamespace, groupName, groupChanges)
+> changeGroupContents(workspace, teamspace, groupName, groupChanges)
 
 
 
@@ -58,11 +58,12 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     GroupsApi apiInstance = new GroupsApi(defaultClient);
-    String groupNamespace = "groupNamespace_example"; // String | The namespace of the group
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
     String groupName = "groupName_example"; // String | The unique name or id of the group
     GroupChanges groupChanges = new GroupChanges(); // GroupChanges | 
     try {
-      apiInstance.changeGroupContents(groupNamespace, groupName, groupChanges);
+      apiInstance.changeGroupContents(workspace, teamspace, groupName, groupChanges);
     } catch (ApiException e) {
       System.err.println("Exception when calling GroupsApi#changeGroupContents");
       System.err.println("Status code: " + e.getCode());
@@ -78,7 +79,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **groupNamespace** | **String**| The namespace of the group | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
 | **groupName** | **String**| The unique name or id of the group | |
 | **groupChanges** | [**GroupChanges**](GroupChanges.md)|  | [optional] |
 
@@ -104,7 +106,7 @@ null (empty response body)
 
 <a id="createGroup"></a>
 # **createGroup**
-> createGroup(namespace, groupCreate)
+> createGroup(workspace, teamspace, groupCreate)
 
 
 
@@ -137,10 +139,11 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     GroupsApi apiInstance = new GroupsApi(defaultClient);
-    String namespace = "namespace_example"; // String | The namespace of the group
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
     GroupCreate groupCreate = new GroupCreate(); // GroupCreate | 
     try {
-      apiInstance.createGroup(namespace, groupCreate);
+      apiInstance.createGroup(workspace, teamspace, groupCreate);
     } catch (ApiException e) {
       System.err.println("Exception when calling GroupsApi#createGroup");
       System.err.println("Status code: " + e.getCode());
@@ -156,7 +159,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| The namespace of the group | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
 | **groupCreate** | [**GroupCreate**](GroupCreate.md)|  | [optional] |
 
 ### Return type
@@ -181,7 +185,7 @@ null (empty response body)
 
 <a id="deleteGroup"></a>
 # **deleteGroup**
-> deleteGroup(groupNamespace, groupName)
+> deleteGroup(workspace, teamspace, groupName)
 
 
 
@@ -214,10 +218,11 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     GroupsApi apiInstance = new GroupsApi(defaultClient);
-    String groupNamespace = "groupNamespace_example"; // String | The namespace of the group
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
     String groupName = "groupName_example"; // String | The unique name or id of the group
     try {
-      apiInstance.deleteGroup(groupNamespace, groupName);
+      apiInstance.deleteGroup(workspace, teamspace, groupName);
     } catch (ApiException e) {
       System.err.println("Exception when calling GroupsApi#deleteGroup");
       System.err.println("Status code: " + e.getCode());
@@ -233,7 +238,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **groupNamespace** | **String**| The namespace of the group | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
 | **groupName** | **String**| The unique name or id of the group | |
 
 ### Return type
@@ -258,7 +264,7 @@ null (empty response body)
 
 <a id="getGroup"></a>
 # **getGroup**
-> GroupInfo getGroup(groupNamespace, groupName)
+> GroupInfo getGroup(workspace, teamspace, groupName)
 
 
 
@@ -291,10 +297,11 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     GroupsApi apiInstance = new GroupsApi(defaultClient);
-    String groupNamespace = "groupNamespace_example"; // String | The namespace of the group
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
     String groupName = "groupName_example"; // String | The unique name or id of the group
     try {
-      GroupInfo result = apiInstance.getGroup(groupNamespace, groupName);
+      GroupInfo result = apiInstance.getGroup(workspace, teamspace, groupName);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling GroupsApi#getGroup");
@@ -311,7 +318,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **groupNamespace** | **String**| The namespace of the group | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
 | **groupName** | **String**| The unique name or id of the group | |
 
 ### Return type
@@ -336,7 +344,7 @@ public class Example {
 
 <a id="getGroupActivity"></a>
 # **getGroupActivity**
-> GroupContentActivityResponse getGroupActivity(groupNamespace, groupName, page, perPage)
+> GroupContentActivityResponse getGroupActivity(workspace, teamspace, groupName, page, perPage)
 
 
 
@@ -369,12 +377,13 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     GroupsApi apiInstance = new GroupsApi(defaultClient);
-    String groupNamespace = "groupNamespace_example"; // String | The namespace of the group
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
     String groupName = "groupName_example"; // String | The unique name or id of the group
     Integer page = 56; // Integer | pagination offset
     Integer perPage = 56; // Integer | pagination limit
     try {
-      GroupContentActivityResponse result = apiInstance.getGroupActivity(groupNamespace, groupName, page, perPage);
+      GroupContentActivityResponse result = apiInstance.getGroupActivity(workspace, teamspace, groupName, page, perPage);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling GroupsApi#getGroupActivity");
@@ -391,7 +400,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **groupNamespace** | **String**| The namespace of the group | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
 | **groupName** | **String**| The unique name or id of the group | |
 | **page** | **Integer**| pagination offset | [optional] |
 | **perPage** | **Integer**| pagination limit | [optional] |
@@ -418,7 +428,7 @@ public class Example {
 
 <a id="getGroupContents"></a>
 # **getGroupContents**
-> GroupContents getGroupContents(groupNamespace, groupName, page, perPage, namespace, search, orderby, tag, excludeTag, memberType, excludeMemberType)
+> GroupContents getGroupContents(workspace, teamspace, groupName, page, perPage, namespace, search, orderby, tag, excludeTag, memberType, excludeMemberType)
 
 
 
@@ -451,7 +461,8 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     GroupsApi apiInstance = new GroupsApi(defaultClient);
-    String groupNamespace = "groupNamespace_example"; // String | The namespace of the group
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
     String groupName = "groupName_example"; // String | The unique name or id of the group
     Integer page = 56; // Integer | pagination offset for assets
     Integer perPage = 56; // Integer | pagination limit for assets
@@ -463,7 +474,7 @@ public class Example {
     List<String> memberType = Arrays.asList(); // List<String> | member type to search for, more than one can be included
     List<String> excludeMemberType = Arrays.asList(); // List<String> | member type to exclude matching groups in results, more than one can be included
     try {
-      GroupContents result = apiInstance.getGroupContents(groupNamespace, groupName, page, perPage, namespace, search, orderby, tag, excludeTag, memberType, excludeMemberType);
+      GroupContents result = apiInstance.getGroupContents(workspace, teamspace, groupName, page, perPage, namespace, search, orderby, tag, excludeTag, memberType, excludeMemberType);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling GroupsApi#getGroupContents");
@@ -480,7 +491,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **groupNamespace** | **String**| The namespace of the group | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
 | **groupName** | **String**| The unique name or id of the group | |
 | **page** | **Integer**| pagination offset for assets | [optional] |
 | **perPage** | **Integer**| pagination limit for assets | [optional] |
@@ -514,7 +526,7 @@ public class Example {
 
 <a id="getGroupSharingPolicies"></a>
 # **getGroupSharingPolicies**
-> List&lt;GroupSharing&gt; getGroupSharingPolicies(groupNamespace, groupName)
+> List&lt;GroupSharing&gt; getGroupSharingPolicies(workspace, teamspace, groupName)
 
 
 
@@ -547,10 +559,11 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     GroupsApi apiInstance = new GroupsApi(defaultClient);
-    String groupNamespace = "groupNamespace_example"; // String | The namespace of the group
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
     String groupName = "groupName_example"; // String | The unique name or id of the group
     try {
-      List<GroupSharing> result = apiInstance.getGroupSharingPolicies(groupNamespace, groupName);
+      List<GroupSharing> result = apiInstance.getGroupSharingPolicies(workspace, teamspace, groupName);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling GroupsApi#getGroupSharingPolicies");
@@ -567,7 +580,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **groupNamespace** | **String**| The namespace of the group | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
 | **groupName** | **String**| The unique name or id of the group | |
 
 ### Return type
@@ -815,9 +829,9 @@ public class Example {
 | **502** | Bad Gateway |  -  |
 | **0** | error response |  -  |
 
-<a id="groupsGroupNamespaceGroupNameContentsFiltersGet"></a>
-# **groupsGroupNamespaceGroupNameContentsFiltersGet**
-> GroupContentsFilterData groupsGroupNamespaceGroupNameContentsFiltersGet(groupNamespace, groupName)
+<a id="groupsWorkspaceTeamspaceGroupNameContentsFiltersGet"></a>
+# **groupsWorkspaceTeamspaceGroupNameContentsFiltersGet**
+> GroupContentsFilterData groupsWorkspaceTeamspaceGroupNameContentsFiltersGet(workspace, teamspace, groupName)
 
 
 
@@ -850,13 +864,14 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     GroupsApi apiInstance = new GroupsApi(defaultClient);
-    String groupNamespace = "groupNamespace_example"; // String | The namespace of the group
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
     String groupName = "groupName_example"; // String | The unique name or id of the group
     try {
-      GroupContentsFilterData result = apiInstance.groupsGroupNamespaceGroupNameContentsFiltersGet(groupNamespace, groupName);
+      GroupContentsFilterData result = apiInstance.groupsWorkspaceTeamspaceGroupNameContentsFiltersGet(workspace, teamspace, groupName);
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling GroupsApi#groupsGroupNamespaceGroupNameContentsFiltersGet");
+      System.err.println("Exception when calling GroupsApi#groupsWorkspaceTeamspaceGroupNameContentsFiltersGet");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -870,7 +885,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **groupNamespace** | **String**| The namespace of the group | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
 | **groupName** | **String**| The unique name or id of the group | |
 
 ### Return type
@@ -1191,7 +1207,7 @@ public class Example {
 
 <a id="registerGroup"></a>
 # **registerGroup**
-> registerGroup(namespace, array, groupRegister)
+> registerGroup(workspace, teamspace, array, groupRegister)
 
 
 
@@ -1224,11 +1240,12 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     GroupsApi apiInstance = new GroupsApi(defaultClient);
-    String namespace = "namespace_example"; // String | The namespace of the group
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
     String array = "array_example"; // String | The unique name or id of the group
     GroupRegister groupRegister = new GroupRegister(); // GroupRegister | 
     try {
-      apiInstance.registerGroup(namespace, array, groupRegister);
+      apiInstance.registerGroup(workspace, teamspace, array, groupRegister);
     } catch (ApiException e) {
       System.err.println("Exception when calling GroupsApi#registerGroup");
       System.err.println("Status code: " + e.getCode());
@@ -1244,7 +1261,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| The namespace of the group | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
 | **array** | **String**| The unique name or id of the group | |
 | **groupRegister** | [**GroupRegister**](GroupRegister.md)|  | [optional] |
 
@@ -1270,7 +1288,7 @@ null (empty response body)
 
 <a id="shareGroup"></a>
 # **shareGroup**
-> shareGroup(groupNamespace, groupName, groupSharingRequest)
+> shareGroup(workspace, teamspace, groupName, groupSharingRequest)
 
 
 
@@ -1303,11 +1321,12 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     GroupsApi apiInstance = new GroupsApi(defaultClient);
-    String groupNamespace = "groupNamespace_example"; // String | The namespace of the group
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
     String groupName = "groupName_example"; // String | The unique name or id of the group
     GroupSharingRequest groupSharingRequest = new GroupSharingRequest(); // GroupSharingRequest | Namespace and list of permissions to share with. Sharing is recursive, it is applied to all reachable subgroups and arrays of the group. An empty list of permissions will remove the namespace; if permissions already exist they will be deleted then new ones added. In the event of a failure, the new policies will be rolled back to prevent partial policies, and it's likely the group will not be shared with the namespace at all.
     try {
-      apiInstance.shareGroup(groupNamespace, groupName, groupSharingRequest);
+      apiInstance.shareGroup(workspace, teamspace, groupName, groupSharingRequest);
     } catch (ApiException e) {
       System.err.println("Exception when calling GroupsApi#shareGroup");
       System.err.println("Status code: " + e.getCode());
@@ -1323,7 +1342,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **groupNamespace** | **String**| The namespace of the group | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
 | **groupName** | **String**| The unique name or id of the group | |
 | **groupSharingRequest** | [**GroupSharingRequest**](GroupSharingRequest.md)| Namespace and list of permissions to share with. Sharing is recursive, it is applied to all reachable subgroups and arrays of the group. An empty list of permissions will remove the namespace; if permissions already exist they will be deleted then new ones added. In the event of a failure, the new policies will be rolled back to prevent partial policies, and it&#39;s likely the group will not be shared with the namespace at all. | |
 
@@ -1350,7 +1370,7 @@ null (empty response body)
 
 <a id="updateGroup"></a>
 # **updateGroup**
-> updateGroup(groupNamespace, groupName, groupUpdate)
+> updateGroup(workspace, teamspace, groupName, groupUpdate)
 
 
 
@@ -1383,11 +1403,12 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     GroupsApi apiInstance = new GroupsApi(defaultClient);
-    String groupNamespace = "groupNamespace_example"; // String | The namespace of the group
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
     String groupName = "groupName_example"; // String | The unique name or id of the group
     GroupUpdate groupUpdate = new GroupUpdate(); // GroupUpdate | 
     try {
-      apiInstance.updateGroup(groupNamespace, groupName, groupUpdate);
+      apiInstance.updateGroup(workspace, teamspace, groupName, groupUpdate);
     } catch (ApiException e) {
       System.err.println("Exception when calling GroupsApi#updateGroup");
       System.err.println("Status code: " + e.getCode());
@@ -1403,7 +1424,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **groupNamespace** | **String**| The namespace of the group | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
 | **groupName** | **String**| The unique name or id of the group | |
 | **groupUpdate** | [**GroupUpdate**](GroupUpdate.md)|  | [optional] |
 

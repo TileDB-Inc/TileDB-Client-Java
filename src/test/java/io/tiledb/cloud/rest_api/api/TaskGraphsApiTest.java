@@ -41,9 +41,9 @@ public class TaskGraphsApiTest {
      */
     @Test
     public void createTaskGraphTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
         TaskGraph graph = null;
-        TaskGraph response = api.createTaskGraph(namespace, graph);
+        TaskGraph response = api.createTaskGraph(workspace, graph);
         // TODO: test validations
     }
 
@@ -54,9 +54,9 @@ public class TaskGraphsApiTest {
      */
     @Test
     public void getTaskGraphTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
         String id = null;
-        TaskGraph response = api.getTaskGraph(namespace, id);
+        TaskGraph response = api.getTaskGraph(workspace, id);
         // TODO: test validations
     }
 
@@ -67,8 +67,8 @@ public class TaskGraphsApiTest {
      */
     @Test
     public void listTaskGraphsTest() throws ApiException {
-        String namespace = null;
-        TaskGraphs response = api.listTaskGraphs(namespace);
+        String workspace = null;
+        TaskGraphs response = api.listTaskGraphs(workspace);
         // TODO: test validations
     }
 
@@ -79,9 +79,10 @@ public class TaskGraphsApiTest {
      */
     @Test
     public void submitTaskGraphTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
         String id = null;
-        TaskGraphLog response = api.submitTaskGraph(namespace, id);
+        String rootTaskGraphUuid = null;
+        TaskGraphLog response = api.submitTaskGraph(workspace, id, rootTaskGraphUuid);
         // TODO: test validations
     }
 
@@ -92,10 +93,10 @@ public class TaskGraphsApiTest {
      */
     @Test
     public void updateTaskGraphTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
         String id = null;
         TaskGraph graph = null;
-        api.updateTaskGraph(namespace, id, graph);
+        api.updateTaskGraph(workspace, id, graph);
         // TODO: test validations
     }
 

@@ -9,5 +9,7 @@
 
 * `REALTIME` (value: `"realtime"`)
 
+* `NEXTFLOW` (value: `"nextflow"`)
+
 
 

@@ -2,15 +2,16 @@
 
 # TGUDFStorage
 
-Storage mount details
+Storage options for mounting persistent volumes.
 
 ## Properties
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**path** | **String** | mount path |  [optional] |
-|**size** | **Integer** | storage size in bytes |  [optional] |
-|**storageClass** | **String** | storage class |  [optional] |
+|**path** | **String** | Mount path for the attached volume.  |  [optional] |
+|**tiledbUri** | **String** | TileDB filesystem to mount  |  [optional] |
+|**size** | **String** | Storage size.  |  [optional] |
+|**storageClass** | **String** | Storage class to use for creating the volume.  |  [optional] |
 
 
 

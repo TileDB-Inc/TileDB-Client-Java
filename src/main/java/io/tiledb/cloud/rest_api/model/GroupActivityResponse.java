@@ -228,7 +228,7 @@ public class GroupActivityResponse {
       }
       // validate the optional field `pagination_metadata`
       if (jsonObj.get("pagination_metadata") != null && !jsonObj.get("pagination_metadata").isJsonNull()) {
-        PaginationMetadata.validateJsonObject(jsonObj.getAsJsonObject("pagination_metadata"));
+        PaginationMetadata.validateJsonElement(jsonObj.getAsJsonObject("pagination_metadata"));
       }
   }
 

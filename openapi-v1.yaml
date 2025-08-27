@@ -2,7 +2,7 @@ swagger: "2.0"
 info:
   description: TileDB Storage Platform REST API
   title: TileDB Storage Platform API
-  version: 2.2.19
+  version: 2.17.51
 
 produces:
   - application/json
@@ -89,6 +89,54 @@ definitions:
       - STRING_UCS4
       # This can be any datatype. Must store (type tag, value) pairs.
       - ANY
+      # Datetime with year resolution
+      - DATETIME_YEAR
+      # Datetime with month resolution
+      - DATETIME_MONTH
+      # Datetime with week resolution
+      - DATETIME_WEEK
+      # Datetime with day resolution
+      - DATETIME_DAY
+      # Datetime with hour resolution
+      - DATETIME_HR
+      # Datetime with minute resolution
+      - DATETIME_MIN
+      # Datetime with second resolution
+      - DATETIME_SEC
+      # Datetime with millisecond resolution
+      - DATETIME_MS
+      # Datetime with microsecond resolution
+      - DATETIME_US
+      # Datetime with nanosecond resolution
+      - DATETIME_NS
+      # Datetime with picosecond resolution
+      - DATETIME_PS
+      # Datetime with femtosecond resolution
+      - DATETIME_FS
+      # Datetime with attosecond resolution
+      - DATETIME_AS
+      # Time with hour resolution
+      - TIME_HR
+      # Time with minute resolution
+      - TIME_MIN
+      # Time with second resolution
+      - TIME_SEC
+      # Time with millisecond resolution
+      - TIME_MS
+      # Time with microsecond resolution
+      - TIME_US
+      # Time with nanosecond resolution
+      - TIME_NS
+      # Time with picosecond resolution
+      - TIME_PS
+      # Time with femtosecond resolution
+      - TIME_FS
+      # Time with attosecond resolution
+      - TIME_AS
+      # 8-bit unsigned integer
+      - BLOB
+      # Boolean
+      - BOOL
 
   ActivityEventType:
     description: Type of activity logged
@@ -124,7 +172,10 @@ definitions:
       - estimated_result_sizes
       # read_fragment_info
       - read_fragment_info
-
+      # read_enumerations
+      - read_enumerations
+      # nextflow
+      - nextflow
   UDFLanguage:
     description: UDF Type
     type: string
@@ -246,6 +297,8 @@ definitions:
       - owner
       # Admin almost all rights but can't delete organization
       - admin
+      # Read, write, and delete User
+      - read_write_delete
       # Read and write User
       - read_write
       # Read Only User
@@ -625,6 +678,7 @@ definitions:
         package: "github.com/TileDB-Inc/TileDB-Go"
         alias: "tiledb"
       type: "ArraySchema"
+      embedded: true
 
   AttributeBufferHeader:
     description: Represents an attribute buffer header information
@@ -913,6 +967,24 @@ definitions:
         items:
           $ref: "#/definitions/ArrayMetadataEntry"
 
+  MetadataStringifiedEntry:
+    type: object
+    description: key/value pair representing an asset metadata map entry
+    properties:
+      key:
+        description: The metadata key
+        type: string
+        x-omitempty: false
+      value:
+        description: The metadata value
+        type: string
+        x-omitempty: false
+      type:
+        description: The metadata type
+        type: string
+        x-omitempty: false
+        example: array_metadata
+
   TileDBConfig:
     description: TileDB config used for interaction with the embedded library
     type: object
@@ -1068,6 +1140,7 @@ definitions:
         description: Start time RFC3339 for job
         type: string
         format: date-time
+        x-nullable: true
       finish_time:
         description: Finish time RFC3339 for job
         type: string
@@ -1141,6 +1214,14 @@ definitions:
         x-omitempty: true
         description: >
           If set, the client-defined ID of the node within this task's graph.
+      cloud_provider:
+        type: string
+        x-omitempty: true
+        description: The name of the cloud provider where this task executed.
+      cloud_region:
+        type: string
+        x-omitempty: true
+        description: The region of the cloud provider where this task executed.
 
   PaginationMetadata:
     properties:
@@ -1391,6 +1472,11 @@ definitions:
       default_namespace_charged:
         description: Override the default namespace charged for actions when no namespace is specified
         type: string
+      default_region:
+        description: >
+          The default region to use for notebooks and other operations. It must be a region supported by TileDB,
+          see https://docs.tiledb.com/cloud/concepts/tiledb-cloud-internals/architecture#orchestration
+        type: string
 
   OrganizationUser:
     description: user in an organization
@@ -1408,6 +1494,14 @@ definitions:
         description: username for user
         type: string
         example: "username"
+      user_full_name:
+        description: full name of the user; available to organization admins
+        type: string
+        example: "Alice Hanna"
+      user_email:
+        description: email address of the user; available to organization admins
+        type: string
+        example: alice@example.com
       organization_name:
         description: name of organization
         type: string
@@ -1606,6 +1700,47 @@ definitions:
         type: boolean
         readOnly: true
         example: false
+      assume_role_arn:
+        description: >
+          A AWS Role that will be first assumed before assuming the organization's AWS Role.
+          Visible to owners and admins.
+        type: string
+        x-omitempty: true
+
+  OrganizationUpdate:
+    description: OrganizationUpdate
+    type: object
+    properties:
+      name:
+        type: string
+        minLength: 1
+        maxLength: 63
+        pattern: "^[\\w.\\-]+$" # only allows alphanumeric characters
+        description: organization name must be unique
+        x-nullable: true
+      logo:
+        description: Organization logo
+        type: string
+        x-nullable: true
+      description:
+        description: Organization description
+        type: string
+        x-nullable: true
+      default_s3_path:
+        description: >
+          The default location to store newly-created notebooks and other assets
+          like UDFs. The name `default_s3_path` is a legacy holdover; it may
+          refer to any supported storage location.
+        type: string
+        x-nullable: true
+      default_s3_path_credentials_name:
+        description: >
+          The name of the credentials used to create and access files in the
+          `default_s3_path`, if needed.
+        type: string
+        x-nullable: true
+      asset_locations:
+        $ref: "#/definitions/AssetLocations"
 
   AssetLocations:
     description: >
@@ -1743,7 +1878,7 @@ definitions:
       # Raster
       - raster
       # Vector search
-      - vector_search      
+      - vector_search
 
   FilePropertyName:
     description: File property assigned to a specific file (array)
@@ -1884,6 +2019,10 @@ definitions:
         description: unique ID of registered array
         type: string
         example: "00000000-0000-0000-0000-000000000000"
+      asset_id:
+        type: string
+        description: The asset id of the created array
+        x-omitempty: false
       file_type:
         description: File type stored /wrapped by this array
         x-omitempty: true
@@ -1992,6 +2131,22 @@ definitions:
         type: boolean
         x-omitempty: true
         example: true
+      created_at:
+        description: Datetime array was registered with tiledb
+        type: string
+        format: date-time
+      created_by:
+        description: The user who created the array, if known.
+        type: string
+        x-omitempty: true
+      metadata:
+        description: |
+          Contains the metadata of the array.
+          **Note:** This property is included in the response only if the `with_metadata` query parameter is set to `true`.
+        type: array
+        x-omitempty: true
+        items:
+          $ref: "#/definitions/MetadataStringifiedEntry"
 
   ArrayInfoUpdate:
     description: metadata of an array
@@ -2140,6 +2295,10 @@ definitions:
       - stripe
       # Okta
       - okta
+      # perdomain
+      - perdomain
+      # SCIM
+      - scim
 
   PublicShareFilter:
     description: Query parameter to get array metadatas
@@ -2708,12 +2867,28 @@ definitions:
         format: uint64
         example: 4000
       cost:
-        description: cost in USD for the current notebook session 
+        description: cost in USD for the current notebook session
         x-omitempty: true
         x-nullable: true
         type: number
         format: double
         example: 0.27
+      pod_status:
+        description: Status of the pod
+        $ref: "#/definitions/PodStatus"
+        example: RUNNING
+        x-omitempty: true
+
+  PodStatus:
+    description: List of all available pod statuses
+    type: string
+    enum:
+      # Terminating
+      - TERMINATING
+      # Running
+      - RUNNING
+      # Launching
+      - LAUNCHING
 
   ArrayFavorite:
     description: A user-favorite array item
@@ -2833,6 +3008,8 @@ definitions:
       - GROUP_SHARE
       # Join Organization
       - JOIN_ORGANIZATION
+      # Allow a child namespace to use a payment instrument
+      - PAYMENT_SHARE
 
   InvitationStatus:
     description: List of values that InvitationStatus can take
@@ -3089,6 +3266,7 @@ definitions:
     type: object
     required:
       - id
+      - asset_id
     properties:
       output_uri:
         type: string
@@ -3096,6 +3274,10 @@ definitions:
       file_name:
         type: string
         description: name of the file uploaded
+      asset_id:
+        type: string
+        description: The asset id of the created Group
+        x-omitempty: false
       id:
         description: unique ID of the uploaded file
         type: string
@@ -3316,6 +3498,22 @@ definitions:
         type: string
         x-omitempty: true
         description: License text
+      created_at:
+        description: Datetime the group was registered with tiledb
+        type: string
+        format: date-time
+      created_by:
+        description: The username of the group's creator, if known.
+        type: string
+        x-omitempty: true
+      metadata:
+        description: |
+          Contains metadata of the group.
+          **Note:** This property is included in the response only if the `with_metadata` query parameter is set to `true`.
+        type: array
+        x-omitempty: true
+        items:
+          $ref: "#/definitions/MetadataStringifiedEntry"
 
   GroupEntry:
     description: Object describing a single member of a group, which can be an array or a group
@@ -3625,7 +3823,7 @@ definitions:
         type: string
         example: "MyOrganization"
 
-  GroupActivity:
+  GroupContentActivity:
     description: Object containing activity of an asset of a group
     type: object
     properties:
@@ -3649,7 +3847,7 @@ definitions:
         description: Object containing the activity log
         $ref: "#/definitions/ArrayActivityLog"
 
-  GroupActivityResponse:
+  GroupContentActivityResponse:
     description: Object containing activity logs of group content along with the pagination metadata
     type: object
     properties:
@@ -3659,7 +3857,7 @@ definitions:
         x-omitempty: false
         x-nullable: false
         items:
-          $ref: "#/definitions/GroupActivity"
+          $ref: "#/definitions/GroupContentActivity"
       pagination_metadata:
         x-omitempty: false
         x-nullable: false
@@ -3719,6 +3917,7 @@ definitions:
     enum:
       - batch
       - realtime
+      - nextflow
 
   TaskGraphLog:
     description: Logging information about the execution of a task graph.
@@ -3815,6 +4014,28 @@ definitions:
       task_graph_id:
         type: string
         description: The UUID of the task graph.
+      cloud_provider:
+        type: string
+        x-omitempty: true
+        description: The name of the cloud provider where this task graph executed.
+      cloud_region:
+        type: string
+        x-omitempty: true
+        description: The region of the cloud provider where this task graph executed.
+      root_task_graph_uuid:
+        type: string
+        x-omitempty: true
+        description: >
+          The UUID of the root taskgraph that this taskgraph is related to.
+          This is used to provide consistent tracking and UI view for graphs that
+          are executed by a set of taskgraphs.
+      children_task_graph_uuids:
+        description: >
+          If this is a root taskgraph, this contains the list of all its children
+          taskgraph UUIDs.
+        type: array
+        items:
+          type: string
 
   TaskGraphNodeMetadata:
     description: Metadata about an individual node in a task graph.
@@ -3825,6 +4046,7 @@ definitions:
         description: The client-generated UUID of the given graph node.
       name:
         type: string
+        maxLength: 255
         description: >
           The client-generated name of the node.
           This is not guaranteed to be unique.
@@ -3908,6 +4130,7 @@ definitions:
         description: The name of the user who created this task graph log.
       name:
         type: string
+        maxLength: 255
         description: >
           A name for this task graph, displayed in the UI.
           Does not need to be unique.
@@ -3923,7 +4146,7 @@ definitions:
           $ref: "#/definitions/TaskGraphNode"
         description: >
           The structure of the graph. This is provided by the client
-          when first setting up the task graph. 
+          when first setting up the task graph.
           This must be topographically sorted; that is, each node must appear
           after all nodes that it depends upon.
       parallelism:
@@ -3943,7 +4166,7 @@ definitions:
         x-omitempty: true
         description: >
           Duration in seconds relative to the workflow start time which the
-          workflow is allowed to run before it gets terminated.
+          workflow is allowed to run before it gets terminated. Defaults to 24h when unset
       task_graph_type:
         $ref: "#/definitions/TaskGraphType"
 
@@ -3974,6 +4197,7 @@ definitions:
         description: The namespace that owns this task graph log.
       name:
         type: string
+        maxLength: 255
         description: >
           The name of this graph, to appear in URLs.
           Must be unique per-namespace.
@@ -4049,6 +4273,7 @@ definitions:
         description: The client-generated UUID of the given graph node.
       name:
         type: string
+        maxLength: 255
         x-nullable: true
         description: >
           A client-specified name for the node. If provided, this must be
@@ -4363,8 +4588,8 @@ definitions:
       resources:
         type: object
         description: >
-          The resources requested for this particular node. If resources are not 
-          specified resource_class is used, if it is not set the standard resource 
+          The resources requested for this particular node. If resources are not
+          specified resource_class is used, if it is not set the standard resource
           // defaults are used
         properties:
           cpu:
@@ -4393,6 +4618,38 @@ definitions:
           allowed to run indefinitely (subject to the server’s global limits).
         type: number
         x-nullable: true
+      storage:
+        description: >
+          Storage options for mounting persistent volumes.
+        type: array
+        x-omitempty: true
+        items:
+          $ref: "#/definitions/TGUDFStorage"
+
+  TGUDFStorage:
+    description: Storage options for mounting persistent volumes.
+    type: object
+    properties:
+      path:
+        description: >
+          Mount path for the attached volume.
+        type: string
+      tiledb_uri:
+        description: >
+          TileDB filesystem to mount
+        type: string
+        example: tiledb://<workspace>/<teamspace>
+      size:
+        description: >
+          Storage size.
+        type: string
+        example: 8Gi
+      storage_class:
+        description: >
+          Storage class to use for creating the volume.
+        type: string
+        example: gp2
+
 
   FragmentMetadata:
     description: Fragment Metadata
@@ -4591,6 +4848,12 @@ definitions:
         type: object
         description: config to use to retrieve the contents
         $ref: "#/definitions/TileDBConfig"
+      fragments:
+        description: list of fragments in the array to consolidate
+        type: array
+        x-omitempty: true
+        items:
+          type: string
 
   ArrayVacuumRequest:
     description: Request to consolidate an array
@@ -4600,6 +4863,75 @@ definitions:
         type: object
         description: config to use to retrieve the contents
         $ref: "#/definitions/TileDBConfig"
+
+  Enumeration:
+    description: The enumerations of a single attribute
+    type: object
+    properties:
+      name:
+        type: string
+      path_name:
+        type: string
+      type:
+        type: string
+      cell_val_num:
+        type: integer
+        format: uint32
+      ordered:
+        type: boolean
+      data:
+        type: array
+        items:
+          type: integer
+          format: uint8
+      offsets:
+        type: array
+        items:
+          type: integer
+          format: uint8
+
+  LoadEnumerationsRequest:
+    description: Request to return enumerations for attributes
+    type: object
+    properties:
+      config:
+        type: object
+        description: config to use to retrieve the contents
+        $ref: "#/definitions/TileDBConfig"
+      enumerations:
+        type: array
+        items:
+          type: string
+
+  LoadEnumerationsResponse:
+    description: Contains the enumerations of the array's attributes
+    type: object
+    properties:
+      enumerations:
+        type: array
+        items:
+          $ref: '#/definitions/Enumeration'
+
+  LoadArraySchemaRequest:
+    description: Request to load an array schema
+    type: object
+    properties:
+      config:
+        type: object
+        description: config to use to retrieve the contents
+        $ref: "#/definitions/TileDBConfig"
+
+  LoadArraySchemaResponse:
+    description: Contains the latest schema and all schemas for the opened array
+    type: object
+    properties:
+      latest_array_schema:
+        $ref: "#/definitions/ArraySchema"
+      all_array_schemas:
+        description: map of all array schemas
+        type: object
+        additionalProperties:
+          $ref: "#/definitions/ArraySchema"
 
   RetryStrategy:
     description: RetryStrategy provides controls on how to retry a taskgraph node
@@ -4646,6 +4978,108 @@ definitions:
       - OnError
       # Retry task transient errors
       - OnTransientError
+
+  AssetBackingType:
+    description: The technology that an asset is backed by
+    type: string
+    enum:
+      # Array
+      - array
+      # Groups
+      - group
+
+  AssetOwnershipLevel:
+    description: The ownership level of the asset
+    type: string
+    enum:
+      # Owned
+      - owned
+      # Shared
+      - shared
+
+  MetadataStringified:
+    type: object
+    description: The user's TileDB metadata
+    properties:
+      entries:
+        description: List of metadata entries
+        type: array
+        x-omitempty: true
+        items:
+          $ref: "#/definitions/MetadataStringifiedEntry"
+
+  AssetInfo:
+    description: metadata of an asset
+    type: object
+    properties:
+      uuid:
+        description: unique ID of a registered asset
+        type: string
+        example: "00000000-0000-0000-0000-000000000000"
+      asset_type:
+        description: Asset type of an asset
+        $ref: "#/definitions/AssetType"
+      asset_backing_type:
+        description: Asset type of an asset
+        $ref: "#/definitions/AssetBackingType"
+      asset_ownership_level:
+        description: Ownership level of the asset
+        $ref: "#/definitions/AssetOwnershipLevel"
+      namespace_name:
+        description: namespace_name that the asset is registered to
+        type: string
+        example: "user1"
+      namespace_uuid:
+        description: namespace_uuid that the asset is registered to
+        type: string
+        example: "00000000-0000-0000-0000-000000000000"
+      name:
+        description: name of asset
+        type: string
+        example: myarray1
+      mime_type:
+        description: mime type of the asset
+        type: string
+        example: application/vnd.tiledb.v1.array
+      created_at:
+        description: "Time when the asset was created (rfc3339)"
+        type: string
+        format: date-time
+        readOnly: true
+      metadata:
+        description: metadata for the asset, only included when expanded
+        $ref: "#/definitions/MetadataStringified"
+
+  AssetListResponse:
+    description: Asset associated with a TileDB Cloud account
+    type: object
+    properties:
+      data:
+        description: asset information for each asset
+        type: array
+        x-omitempty: true
+        items:
+          $ref: "#/definitions/AssetInfo"
+      pagination_metadata:
+        $ref: "#/definitions/PaginationMetadata"
+
+  ChangeAssetCredentialsRequest:
+    description: Request body to change the credentials of the given assets
+    type: object
+    required:
+      - access_credentials
+      - asset_uuids
+    properties:
+      access_credentials:
+        description: The name or uuid of the access credentials
+        type: string
+        x-nullable: false
+      asset_uuids:
+        description: The list of asset uuids to have their credentials changed
+        type: array
+        items:
+          type: string
+        x-nullable: false
 
 paths:
   /.stats:
@@ -4700,13 +5134,23 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
-  /arrays/{namespace}:
+  /arrays/{workspace}/{teamspace}:
     parameters:
-      - name: namespace
+      - name: workspace
         in: path
-        description: namespace array is in (an organization name or user's username)
+        description: the workspace containing the teamspace the array belongs to
         type: string
         required: true
+      - name: teamspace
+        in: path
+        description: the teamspace the array belongs to
+        type: string
+        required: true
+      - name: with_metadata
+        in: query
+        description: include the metadata of the arrays
+        type: boolean
+        required: false
     get:
       description: get metadata on all arrays in a namespace
       tags:
@@ -4727,11 +5171,16 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
-  /arrays/{namespace}/{array}:
+  /arrays/{workspace}/{teamspace}/{array}:
     parameters:
-      - name: namespace
+      - name: workspace
         in: path
-        description: namespace array is in (an organization name or user's username)
+        description: the workspace containing the teamspace the array belongs to
+        type: string
+        required: true
+      - name: teamspace
+        in: path
+        description: the teamspace the array belongs to
         type: string
         required: true
       - name: array
@@ -4808,11 +5257,16 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
-  /arrays/{namespace}/{array}/activity:
+  /arrays/{workspace}/{teamspace}/{array}/activity:
     parameters:
-      - name: namespace
+      - name: workspace
         in: path
-        description: namespace array is in (an organization name or user's username)
+        description: the workspace containing the teamspace the array belongs to
+        type: string
+        required: true
+      - name: teamspace
+        in: path
+        description: the teamspace the array belongs to
         type: string
         required: true
       - name: array
@@ -4864,11 +5318,16 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
-  /arrays/{namespace}/{array}/activity/{id}:
+  /arrays/{workspace}/{teamspace}/{array}/activity/{id}:
     parameters:
-      - name: namespace
+      - name: workspace
         in: path
-        description: namespace array is in (an organization name or user's username)
+        description: the workspace containing the teamspace the array belongs to
+        type: string
+        required: true
+      - name: teamspace
+        in: path
+        description: the teamspace the array belongs to
         type: string
         required: true
       - name: array
@@ -4898,11 +5357,16 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
-  /arrays/{namespace}/{array}/deregister:
+  /arrays/{workspace}/{teamspace}/{array}/deregister:
     parameters:
-      - name: namespace
+      - name: workspace
         in: path
-        description: namespace array is in (an organization name or user's username)
+        description: the workspace containing the teamspace the array belongs to
+        type: string
+        required: true
+      - name: teamspace
+        in: path
+        description: the teamspace the array belongs to
         type: string
         required: true
       - name: array
@@ -4925,11 +5389,16 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
-  /arrays/{namespace}/{array}/array_metadata:
+  /arrays/{workspace}/{teamspace}/{array}/array_metadata:
     parameters:
-      - name: namespace
+      - name: workspace
         in: path
-        description: namespace array is in (an organization name or user's username)
+        description: the workspace containing the teamspace the array belongs to
+        type: string
+        required: true
+      - name: teamspace
+        in: path
+        description: the teamspace the array belongs to
         type: string
         required: true
       - name: array
@@ -4987,11 +5456,16 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
-  /arrays/{namespace}/{array}/fragment_info:
+  /arrays/{workspace}/{teamspace}/{array}/fragment_info:
     parameters:
-      - name: namespace
+      - name: workspace
         in: path
-        description: namespace array is in (an organization name or user's username)
+        description: the workspace containing the teamspace the array belongs to
+        type: string
+        required: true
+      - name: teamspace
+        in: path
+        description: the teamspace the array belongs to
         type: string
         required: true
       - name: array
@@ -5027,11 +5501,16 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
-  /arrays/{namespace}/{array}/metadata:
+  /arrays/{workspace}/{teamspace}/{array}/metadata:
     parameters:
-      - name: namespace
+      - name: workspace
         in: path
-        description: namespace array is in (an organization name or user's username)
+        description: the workspace containing the teamspace the array belongs to
+        type: string
+        required: true
+      - name: teamspace
+        in: path
+        description: the teamspace the array belongs to
         type: string
         required: true
       - name: array
@@ -5077,11 +5556,16 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
-  /arrays/{namespace}/{array}/fragment_end_timestamp:
+  /arrays/{workspace}/{teamspace}/{array}/fragment_end_timestamp:
     parameters:
-      - name: namespace
+      - name: workspace
         in: path
-        description: namespace array is in (an organization name or user's username)
+        description: the workspace containing the teamspace the array belongs to
+        type: string
+        required: true
+      - name: teamspace
+        in: path
+        description: the teamspace the array belongs to
         type: string
         required: true
       - name: array
@@ -5114,16 +5598,21 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
-  /arrays/{namespace}/{array}/register:
+  /arrays/{workspace}/{teamspace}/{array}/register:
     parameters:
-      - name: namespace
+      - name: workspace
         in: path
-        description: namespace array is in (an organization name or user's username)
+        description: the workspace containing the teamspace the array belongs to
+        type: string
+        required: true
+      - name: teamspace
+        in: path
+        description: the teamspace the array belongs to
         type: string
         required: true
       - name: array
         in: path
-        description: name/uri of array that is url-encoded
+        description: asset id or path of array that is url-encoded
         type: string
         required: true
     post:
@@ -5150,11 +5639,16 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
-  /arrays/{namespace}/{array}/consolidate:
+  /arrays/{workspace}/{teamspace}/{array}/consolidate:
     parameters:
-      - name: namespace
+      - name: workspace
         in: path
-        description: namespace array is in (an organization name or user's username)
+        description: the workspace containing the teamspace the array belongs to
+        type: string
+        required: true
+      - name: teamspace
+        in: path
+        description: the teamspace the array belongs to
         type: string
         required: true
       - name: array
@@ -5184,11 +5678,16 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
-  /arrays/{namespace}/{array}/vacuum:
+  /arrays/{workspace}/{teamspace}/{array}/vacuum:
     parameters:
-      - name: namespace
+      - name: workspace
         in: path
-        description: namespace array is in (an organization name or user's username)
+        description: the workspace containing the teamspace the array belongs to
+        type: string
+        required: true
+      - name: teamspace
+        in: path
+        description: the teamspace the array belongs to
         type: string
         required: true
       - name: array
@@ -5218,11 +5717,102 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
-  /arrays/{namespace}/{array}/share:
+  /arrays/{workspace}/{teamspace}/{array}/enumerations:
     parameters:
-      - name: namespace
+      - name: workspace
         in: path
-        description: namespace array is in (an organization name or user's username)
+        description: the workspace containing the teamspace the array belongs to
+        type: string
+        required: true
+      - name: teamspace
+        in: path
+        description: the teamspace the array belongs to
+        type: string
+        required: true
+      - name: array
+        in: path
+        description: name/uri of array that is url-encoded
+        type: string
+        required: true
+    post:
+      description: request to get the enumerations of the arrays' attributes
+      tags:
+        - array
+      operationId: loadEnumerations
+      parameters:
+        - name: load_enumerations_request
+          in: body
+          description: Load Enumerations Request
+          schema:
+            $ref: "#/definitions/LoadEnumerationsRequest"
+          required: true
+      responses:
+        200:
+          description: enumerations returned successfully
+          schema:
+            $ref: "#/definitions/LoadEnumerationsResponse"
+        404:
+          description: Array does not exist or user does not have permissions to access it
+        502:
+          description: Bad Gateway
+        default:
+          description: error response
+          schema:
+            $ref: "#/definitions/Error"
+
+  /arrays/{workspace}/{teamspace}/{array}/schema:
+    parameters:
+      - name: workspace
+        in: path
+        description: the workspace containing the teamspace the array belongs to
+        type: string
+        required: true
+      - name: teamspace
+        in: path
+        description: the teamspace the array belongs to
+        type: string
+        required: true
+      - name: array
+        in: path
+        description: name/uri of array that is url-encoded
+        type: string
+        required: true
+    post:
+      description: request to get the array schema
+      tags:
+        - array
+      operationId: loadArraySchema
+      parameters:
+        - name: load_array_schema_request
+          in: body
+          description: Load Array Schema Request
+          schema:
+            $ref: "#/definitions/LoadArraySchemaRequest"
+          required: true
+      responses:
+        200:
+          description: array schemas returned successfully
+          schema:
+            $ref: "#/definitions/LoadArraySchemaResponse"
+        404:
+          description: Array does not exist or user does not have permissions to access it
+        502:
+          description: Bad Gateway
+        default:
+          description: error response
+          schema:
+            $ref: "#/definitions/Error"
+
+  /arrays/{workspace}/{teamspace}/{array}/share:
+    parameters:
+      - name: workspace
+        in: path
+        description: the workspace containing the teamspace the array belongs to
+        type: string
+        required: true
+      - name: teamspace
+        in: path
+        description: the teamspace the array belongs to
         type: string
         required: true
       - name: array
@@ -5275,11 +5865,16 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
-  /arrays/{namespace}/{array}/non_empty_domain:
+  /arrays/{workspace}/{teamspace}/{array}/non_empty_domain:
     parameters:
-      - name: namespace
+      - name: workspace
         in: path
-        description: namespace array is in (an organization name or user's username)
+        description: the workspace containing the teamspace the array belongs to
+        type: string
+        required: true
+      - name: teamspace
+        in: path
+        description: the teamspace the array belongs to
         type: string
         required: true
       - name: array
@@ -5314,11 +5909,16 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
-  /arrays/{namespace}/{array}/max_buffer_sizes:
+  /arrays/{workspace}/{teamspace}/{array}/max_buffer_sizes:
     parameters:
-      - name: namespace
+      - name: workspace
         in: path
-        description: namespace array is in (an organization name or user's username)
+        description: the workspace containing the teamspace the array belongs to
+        type: string
+        required: true
+      - name: teamspace
+        in: path
+        description: the teamspace the array belongs to
         type: string
         required: true
       - name: array
@@ -5358,11 +5958,16 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
-  /arrays/{namespace}/{array}/udf/submit:
+  /arrays/{workspace}/{teamspace}/{array}/udf/submit:
     parameters:
-      - name: namespace
+      - name: workspace
         in: path
-        description: namespace array is in (an organization name or user's username)
+        description: the workspace containing the teamspace the array belongs to
+        type: string
+        required: true
+      - name: teamspace
+        in: path
+        description: the teamspace the array belongs to
         type: string
         required: true
       - name: array
@@ -5421,11 +6026,16 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
-  /arrays/{namespace}/{array}/query/submit:
+  /arrays/{workspace}/{teamspace}/{array}/query/submit:
     parameters:
-      - name: namespace
+      - name: workspace
         in: path
-        description: namespace array is in (an organization name or user's username)
+        description: the workspace containing the teamspace the array belongs to
+        type: string
+        required: true
+      - name: teamspace
+        in: path
+        description: the teamspace the array belongs to
         type: string
         required: true
       - name: array
@@ -5489,11 +6099,16 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
-  /arrays/{namespace}/{array}/query/submit_query_json:
+  /arrays/{workspace}/{teamspace}/{array}/query/submit_query_json:
     parameters:
-      - name: namespace
+      - name: workspace
         in: path
-        description: namespace array is in (an organization name or user's username)
+        description: the workspace containing the teamspace the array belongs to
+        type: string
+        required: true
+      - name: teamspace
+        in: path
+        description: the teamspace the array belongs to
         type: string
         required: true
       - name: array
@@ -5547,11 +6162,16 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
-  /arrays/{namespace}/{array}/query/get_file:
+  /arrays/{workspace}/{teamspace}/{array}/query/get_file:
     parameters:
-      - name: namespace
+      - name: workspace
         in: path
-        description: namespace array is in (an organization name or user's username)
+        description: the workspace containing the teamspace the array belongs to
+        type: string
+        required: true
+      - name: teamspace
+        in: path
+        description: the teamspace the array belongs to
         type: string
         required: true
       - name: array
@@ -5597,11 +6217,16 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
-  /arrays/{namespace}/{array}/query/finalize:
+  /arrays/{workspace}/{teamspace}/{array}/query/finalize:
     parameters:
-      - name: namespace
+      - name: workspace
         in: path
-        description: namespace array is in (an organization name or user's username)
+        description: the workspace containing the teamspace the array belongs to
+        type: string
+        required: true
+      - name: teamspace
+        in: path
+        description: the teamspace the array belongs to
         type: string
         required: true
       - name: array
@@ -5665,11 +6290,16 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
-  /arrays/{namespace}/{array}/query/est_result_sizes:
+  /arrays/{workspace}/{teamspace}/{array}/query/est_result_sizes:
     parameters:
-      - name: namespace
+      - name: workspace
         in: path
-        description: namespace array is in (an organization name or user's username)
+        description: the workspace containing the teamspace the array belongs to
+        type: string
+        required: true
+      - name: teamspace
+        in: path
+        description: the teamspace the array belongs to
         type: string
         required: true
       - name: array
@@ -5733,11 +6363,16 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
-  /arrays/{namespace}/{array}/sample:
+  /arrays/{workspace}/{teamspace}/{array}/sample:
     parameters:
-      - name: namespace
+      - name: workspace
         in: path
-        description: namespace array is in (an organization name or user's username)
+        description: the workspace containing the teamspace the array belongs to
+        type: string
+        required: true
+      - name: teamspace
+        in: path
+        description: the teamspace the array belongs to
         type: string
         required: true
       - name: array
@@ -5798,11 +6433,16 @@ paths:
               message: "Error try again"
               code: 1
 
-  /arrays/{namespace}/{array}/metadata_json:
+  /arrays/{workspace}/{teamspace}/{array}/metadata_json:
     parameters:
-      - name: namespace
+      - name: workspace
         in: path
-        description: namespace array is in (an organization name or user's username)
+        description: the workspace containing the teamspace the array belongs to
+        type: string
+        required: true
+      - name: teamspace
+        in: path
+        description: the teamspace the array belongs to
         type: string
         required: true
       - name: array
@@ -5857,11 +6497,16 @@ paths:
               message: "Error try again"
               code: 1
 
-  /arrays/{namespace}/{array}/non_empty_domain_json:
+  /arrays/{workspace}/{teamspace}/{array}/non_empty_domain_json:
     parameters:
-      - name: namespace
+      - name: workspace
         in: path
-        description: namespace array is in (an organization name or user's username)
+        description: the workspace containing the teamspace the array belongs to
+        type: string
+        required: true
+      - name: teamspace
+        in: path
+        description: the teamspace the array belongs to
         type: string
         required: true
       - name: array
@@ -5898,11 +6543,16 @@ paths:
               message: "Error try again"
               code: 1
 
-  /arrays/{namespace}/{array}/end_timestamps:
+  /arrays/{workspace}/{teamspace}/{array}/end_timestamps:
     parameters:
-      - name: namespace
+      - name: workspace
         in: path
-        description: namespace array is in (an organization name or user's username)
+        description: the workspace containing the teamspace the array belongs to
+        type: string
+        required: true
+      - name: teamspace
+        in: path
+        description: the teamspace the array belongs to
         type: string
         required: true
       - name: array
@@ -6113,13 +6763,18 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
-  /credentials/{namespace}/aws:
+  /credentials/{workspace}/{teamspace}/aws:
     parameters:
-      - name: namespace
+      - name: workspace
         in: path
-        description: namespace
-        required: true
+        description: the workspace containing the teamspace the array belongs to
         type: string
+        required: true
+      - name: teamspace
+        in: path
+        description: the teamspace the credentials belongs to
+        type: string
+        required: true
     get:
       tags:
         - user
@@ -6162,13 +6817,18 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
-  /credentials/{namespace}/aws/{name}:
+  /credentials/{workspace}/{teamspace}/aws/{name}:
     parameters:
-      - name: namespace
+      - name: workspace
         in: path
-        description: namespace
-        required: true
+        description: the workspace containing the teamspace the array belongs to
         type: string
+        required: true
+      - name: teamspace
+        in: path
+        description: the teamspace the credentials belongs to
+        type: string
+        required: true
       - name: name
         in: path
         description: name
@@ -6326,7 +6986,7 @@ paths:
           in: body
           description: organization details to update
           schema:
-            $ref: "#/definitions/Organization"
+            $ref: "#/definitions/OrganizationUpdate"
           required: true
       responses:
         204:
@@ -6587,6 +7247,12 @@ paths:
         in: query
         description: flag to create a token with expiration of 30 days, default is false
         type: string
+        required: false
+      - name: expires
+        in: query
+        description: Expiration date for token, if empty token defaults to 30 minutes
+        type: string
+        format: date-time
         required: false
     get:
       tags:
@@ -6918,11 +7584,16 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
-  /sql/{namespace}:
+  /sql/{workspace}/{teamspace}:
     parameters:
-      - name: namespace
+      - name: workspace
         in: path
-        description: namespace to run task under is in (an organization name or user's username)
+        description: the workspace containing the teamspace the array belongs to
+        type: string
+        required: true
+      - name: teamspace
+        in: path
+        description: the teamspace the sql query belongs to
         type: string
         required: true
       - name: Accept-Encoding
@@ -6967,11 +7638,11 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
-  /udfs/generic/{namespace}:
+  /udfs/generic/{workspace}:
     parameters:
-      - name: namespace
+      - name: workspace
         in: path
-        description: namespace array is in (an organization name or user's username)
+        description: the workspace containing the teamspace the array belongs to
         type: string
         required: true
       - name: Accept-Encoding
@@ -7016,11 +7687,11 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
-  /udfs/arrays/{namespace}:
+  /udfs/arrays/{workspace}:
     parameters:
-      - name: namespace
+      - name: workspace
         in: path
-        description: namespace array is in (an organization name or user's username)
+        description: the workspace containing the teamspace the array belongs to
         type: string
         required: true
       - name: Accept-Encoding
@@ -7065,11 +7736,11 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
-  /udf/{namespace}/{name}:
+  /udf/{workspace}/{name}:
     parameters:
-      - name: namespace
+      - name: workspace
         in: path
-        description: namespace array is in (an organization name or user's username)
+        description: the workspace containing the teamspace the array belongs to
         type: string
         required: true
       - name: name
@@ -7152,11 +7823,11 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
-  /udf/{namespace}/{name}/share:
+  /udf/{workspace}/{name}/share:
     parameters:
-      - name: namespace
+      - name: workspace
         in: path
-        description: namespace array is in (an organization name or user's username)
+        description: the workspace containing the teamspace the array belongs to
         type: string
         required: true
       - name: name
@@ -7209,11 +7880,11 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
-  /udf/{namespace}/{name}/copy:
+  /udf/{workspace}/{name}/copy:
     parameters:
-      - name: namespace
+      - name: workspace
         in: path
-        description: namespace array is in (an organization name or user's username)
+        description: the workspace containing the teamspace the array belongs to
         type: string
         required: true
       - name: name
@@ -7256,11 +7927,11 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
-  /udf/{namespace}/{array}/end_timestamps:
+  /udf/{workspace}/{array}/end_timestamps:
     parameters:
-      - name: namespace
+      - name: workspace
         in: path
-        description: namespace array is in (an organization name or user's username)
+        description: the workspace containing the teamspace the array belongs to
         type: string
         required: true
       - name: array
@@ -7296,11 +7967,16 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
-  /notebooks/server/{namespace}/status:
+  /notebooks/server/{workspace}/{teamspace}/status:
     parameters:
-      - name: namespace
+      - name: workspace
         in: path
-        description: namespace notebook is in (an organization name or user's username)
+        description: the workspace containing the teamspace the array belongs to
+        type: string
+        required: true
+      - name: teamspace
+        in: path
+        description: the teamspace the array belongs to
         type: string
         required: true
     get:
@@ -7313,8 +7989,6 @@ paths:
           description: status of running notebook
           schema:
             $ref: "#/definitions/NotebookStatus"
-        202:
-          description: Notebook server is pending
         402:
           description: Payment required
           schema:
@@ -7328,11 +8002,16 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
-  /notebooks/server/{namespace}:
+  /notebooks/server/{workspace}/{teamspace}:
     parameters:
-      - name: namespace
+      - name: workspace
         in: path
-        description: namespace notebook is in (an organization name or user's username)
+        description: the workspace containing the teamspace the array belongs to
+        type: string
+        required: true
+      - name: teamspace
+        in: path
+        description: the teamspace the array belongs to
         type: string
         required: true
     delete:
@@ -7352,11 +8031,16 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
-  /notebooks/{namespace}/{array}/rename:
+  /notebooks/{workspace}/{teamspace}/{array}/rename:
     parameters:
-      - name: namespace
+      - name: workspace
         in: path
-        description: namespace array is in (an organization name or user's username)
+        description: the workspace containing the teamspace the array belongs to
+        type: string
+        required: true
+      - name: teamspace
+        in: path
+        description: the teamspace the array belongs to
         type: string
         required: true
       - name: array
@@ -7386,13 +8070,18 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
-  /notebooks/{namespace}/{array}/copy:
+  /notebooks/{workspace}/{teamspace}/{array}/copy:
     parameters:
-      - type: string
-        name: namespace
+      - name: workspace
         in: path
+        description: the workspace containing the teamspace the array belongs to
+        type: string
         required: true
-        description: The namespace of the notebook
+      - name: teamspace
+        in: path
+        description: the teamspace the array belongs to
+        type: string
+        required: true
       - type: string
         name: array
         in: path
@@ -7432,13 +8121,18 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
-  /notebooks/{namespace}/upload:
+  /notebooks/{workspace}/{teamspace}/upload:
     parameters:
-      - type: string
-        name: namespace
+      - name: workspace
         in: path
+        description: the workspace containing the teamspace the array belongs to
+        type: string
         required: true
-        description: The namespace of the notebook
+      - name: teamspace
+        in: path
+        description: the teamspace the array belongs to
+        type: string
+        required: true
       - name: X-TILEDB-CLOUD-ACCESS-CREDENTIALS-NAME
         in: header
         description: Optional registered access credentials to use for creation
@@ -7477,11 +8171,16 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
-  /notebooks/{namespace}/{array}/end_timestamps:
+  /notebooks/{workspace}/{teamspace}/{array}/end_timestamps:
     parameters:
-      - name: namespace
+      - name: workspace
         in: path
-        description: namespace array is in (an organization name or user's username)
+        description: the workspace containing the teamspace the array belongs to
+        type: string
+        required: true
+      - name: teamspace
+        in: path
+        description: the teamspace the array belongs to
         type: string
         required: true
       - name: array
@@ -7517,11 +8216,16 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
-  /notebooks/{namespace}/{array}/prune:
+  /notebooks/{workspace}/{teamspace}/{array}/prune:
     parameters:
-      - name: namespace
+      - name: workspace
         in: path
-        description: namespace array is in (an organization name or user's username)
+        description: the workspace containing the teamspace the array belongs to
+        type: string
+        required: true
+      - name: teamspace
+        in: path
+        description: the teamspace the array belongs to
         type: string
         required: true
       - name: array
@@ -7644,11 +8348,16 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
-  /invitations/{invitation}/{namespace}/{array}/share:
+  /invitations/{invitation}/{workspace}/{teamspace}/{array}/share:
     parameters:
-      - name: namespace
+      - name: workspace
         in: path
-        description: namespace array is in (an organization name or user's username)
+        description: the workspace containing the teamspace the array belongs to
+        type: string
+        required: true
+      - name: teamspace
+        in: path
+        description: the teamspace the array belongs to
         type: string
         required: true
       - name: invitation
@@ -7678,11 +8387,16 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
-  /invitations/group/{invitation}/{namespace}/{group_name}/share:
+  /invitations/group/{invitation}/{workspace}/{teamspace}/{group_name}/share:
     parameters:
-      - name: namespace
+      - name: workspace
         in: path
-        description: namespace group is in (an organization name or user's username)
+        description: the workspace containing the teamspace the array belongs to
+        type: string
+        required: true
+      - name: teamspace
+        in: path
+        description: the teamspace the array belongs to
         type: string
         required: true
       - name: invitation
@@ -7741,11 +8455,16 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
-  /invitations/{namespace}/{array}/share:
+  /invitations/{workspace}/{teamspace}/{array}/share:
     parameters:
-      - name: namespace
+      - name: workspace
         in: path
-        description: namespace array is in (an organization name or user's username)
+        description: the workspace containing the teamspace the array belongs to
+        type: string
+        required: true
+      - name: teamspace
+        in: path
+        description: the teamspace the array belongs to
         type: string
         required: true
       - name: array
@@ -7783,11 +8502,16 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
-  /invitations/group/{namespace}/{group}/share:
+  /invitations/group/{workspace}/{teamspace}/{group}/share:
     parameters:
-      - name: namespace
+      - name: workspace
         in: path
-        description: namespace group is in (an organization name or user's username)
+        description: the workspace containing the teamspace the array belongs to
+        type: string
+        required: true
+      - name: teamspace
+        in: path
+        description: the teamspace the array belongs to
         type: string
         required: true
       - name: group
@@ -7862,6 +8586,88 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
+  /invitations/share_payment/{workspace}/{teamspace}:
+    parameters:
+      - name: workspace
+        in: path
+        description: the workspace containing the teamspace the array belongs to
+        type: string
+        required: true
+      - name: teamspace
+        in: path
+        description: the teamspace the array belongs to
+        type: string
+        required: true
+    post:
+      tags:
+        - invitation
+      description: |
+        Sends email to multiple recipients allowing them to use the payment
+        instrument provided by the source namespace.
+      operationId: sharePayment
+      parameters:
+        - name: email_invite
+          in: body
+          description: |
+            Recipients of the invitation. These may only be namespaces,
+            not email addresses.
+          schema:
+            type: object
+            properties:
+              namespaces:
+                type: array
+                items:
+                  type: string
+      responses:
+        204:
+          description: Email sent successfully to user for email confirmation link
+        207:
+          description: Only a portion of the invitations succeeded, some failed
+          schema:
+            $ref: "#/definitions/InvitationFailedRecipients"
+        500:
+          description: Could not reach any recipients
+          schema:
+            $ref: "#/definitions/InvitationFailedRecipients"
+        502:
+          description: Bad Gateway
+        default:
+          description: error response
+          schema:
+            $ref: "#/definitions/Error"
+
+  /invitations/share_payment/{workspace}/{teamspace}/{target}:
+    parameters:
+      - name: workspace
+        in: path
+        description: the workspace containing the teamspace the array belongs to
+        type: string
+        required: true
+      - name: teamspace
+        in: path
+        description: the teamspace the array belongs to
+        type: string
+        required: true
+      - name: target
+        in: path
+        description: name or UUID of recipient namespace
+        type: string
+        required: true
+    delete:
+      tags:
+        - invitation
+      description: Revokes invitation from the source namespace to the target.
+      operationId: cancelSharePayment
+      responses:
+        204:
+          description: Invitation cancelled successfully
+        404:
+          description: No invitation was found to cancel
+        default:
+          description: error response
+          schema:
+            $ref: "#/definitions/Error"
+
   /arrays/browser/shared:
     parameters:
       - name: page
@@ -7886,7 +8692,7 @@ paths:
         type: string
       - name: orderby
         in: query
-        description: sort by which field valid values include last_accessed, size, name
+        description: sort by which field valid values include size, name
         required: false
         type: string
       - name: permissions
@@ -7942,6 +8748,11 @@ paths:
         collectionFormat: multi
         items:
           type: string
+      - name: with_metadata
+        in: query
+        description: include the metadata of the array
+        type: boolean
+        required: false
     get:
       tags:
         - array
@@ -8032,7 +8843,7 @@ paths:
         type: string
       - name: orderby
         in: query
-        description: sort by which field valid values include last_accessed, size, name
+        description: sort by which field valid values include size, name
         required: false
         type: string
       - name: permissions
@@ -8080,6 +8891,11 @@ paths:
         collectionFormat: multi
         items:
           type: string
+      - name: with_metadata
+        in: query
+        description: include the metadata of the array
+        type: boolean
+        required: false
     get:
       tags:
         - array
@@ -8162,7 +8978,7 @@ paths:
         type: string
       - name: orderby
         in: query
-        description: sort by which field valid values include last_accessed, size, name
+        description: sort by which field valid values include size, name
         required: false
         type: string
       - name: permissions
@@ -8210,6 +9026,11 @@ paths:
         collectionFormat: multi
         items:
           type: string
+      - name: with_metadata
+        in: query
+        description: include the metadata of the array
+        type: boolean
+        required: false
     get:
       tags:
         - array
@@ -8318,13 +9139,18 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
-  /arrays/favorites/{namespace}/{name}:
+  /arrays/favorites/{workspace}/{teamspace}/{name}:
     parameters:
-      - type: string
-        name: namespace
+      - name: workspace
         in: path
+        description: the workspace containing the teamspace the array belongs to
+        type: string
         required: true
-        description: The namespace of the array
+      - name: teamspace
+        in: path
+        description: the teamspace the array belongs to
+        type: string
+        required: true
       - type: string
         name: name
         in: path
@@ -8430,13 +9256,18 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
-  /notebooks/favorites/{namespace}/{name}:
+  /notebooks/favorites/{workspace}/{teamspace}/{name}:
     parameters:
-      - type: string
-        name: namespace
+      - name: workspace
         in: path
+        description: the workspace containing the teamspace the array belongs to
+        type: string
         required: true
-        description: The namespace of the notebook
+      - name: teamspace
+        in: path
+        description: the teamspace the array belongs to
+        type: string
+        required: true
       - type: string
         name: name
         in: path
@@ -8537,13 +9368,18 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
-  /ml_models/favorites/{namespace}/{name}:
+  /ml_models/favorites/{workspace}/{teamspace}/{name}:
     parameters:
-      - type: string
-        name: namespace
+      - name: workspace
         in: path
+        description: the workspace containing the teamspace the array belongs to
+        type: string
         required: true
-        description: The namespace of the ML model
+      - name: teamspace
+        in: path
+        description: the teamspace the array belongs to
+        type: string
+        required: true
       - type: string
         name: name
         in: path
@@ -8644,13 +9480,13 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
-  /udfs/favorites/{namespace}/{name}:
+  /udfs/favorites/{workspace}/{name}:
     parameters:
-      - type: string
-        name: namespace
+      - name: workspace
         in: path
+        description: the workspace containing the teamspace the array belongs to
+        type: string
         required: true
-        description: The namespace of the UDF
       - type: string
         name: name
         in: path
@@ -8701,13 +9537,18 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
-  /files/{namespace}:
+  /files/{workspace}/{teamspace}:
     parameters:
-      - type: string
-        name: namespace
+      - name: workspace
         in: path
+        description: the workspace containing the teamspace the array belongs to
+        type: string
         required: true
-        description: The namespace of the file
+      - name: teamspace
+        in: path
+        description: the teamspace the array belongs to
+        type: string
+        required: true
       - name: FileCreate
         in: body
         description: Input/Output information to create a new TileDB file
@@ -8736,13 +9577,18 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
-  /files/{namespace}/upload:
+  /files/{workspace}/{teamspace}/upload:
     parameters:
-      - type: string
-        name: namespace
+      - name: workspace
         in: path
+        description: the workspace containing the teamspace the array belongs to
+        type: string
         required: true
-        description: The namespace of the file
+      - name: teamspace
+        in: path
+        description: the teamspace the array belongs to
+        type: string
+        required: true
       - name: X-TILEDB-CLOUD-ACCESS-CREDENTIALS-NAME
         in: header
         description: Optional registered access credentials to use for creation
@@ -8781,13 +9627,18 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
-  /files/{namespace}/{file}/export:
+  /files/{workspace}/{teamspace}/{file}/export:
     parameters:
-      - type: string
-        name: namespace
+      - name: workspace
         in: path
+        description: the workspace containing the teamspace the array belongs to
+        type: string
         required: true
-        description: The namespace of the file
+      - name: teamspace
+        in: path
+        description: the teamspace the array belongs to
+        type: string
+        required: true
       - type: string
         name: file
         in: path
@@ -8906,6 +9757,11 @@ paths:
           description: search only the children of the groups with this uuid
           type: string
           required: false
+        - name: with_metadata
+          in: query
+          description: include the metadata of the groups
+          type: boolean
+          required: false
       responses:
         200:
           description: the group contents
@@ -9016,6 +9872,11 @@ paths:
           collectionFormat: multi
           items:
             type: string
+        - name: with_metadata
+          in: query
+          description: include the metadata of the groups
+          type: boolean
+          required: false
       responses:
         200:
           description: the group contents
@@ -9112,6 +9973,11 @@ paths:
           description: search only the children of the groups with this uuid
           type: string
           required: false
+        - name: with_metadata
+          in: query
+          description: include the metadata of the groups
+          type: boolean
+          required: false
       responses:
         200:
           description: the group contents
@@ -9124,13 +9990,18 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
-  /groups/{group_namespace}/{group_name}/contents/filters:
+  /groups/{workspace}/{teamspace}/{group_name}/contents/filters:
     parameters:
-      - name: group_namespace
-        type: string
+      - name: workspace
         in: path
+        description: the workspace containing the teamspace the array belongs to
+        type: string
         required: true
-        description: The namespace of the group
+      - name: teamspace
+        in: path
+        description: the teamspace the array belongs to
+        type: string
+        required: true
       - name: group_name
         type: string
         in: path
@@ -9152,13 +10023,18 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
-  /groups/{group_namespace}/{group_name}/contents:
+  /groups/{workspace}/{teamspace}/{group_name}/contents:
     parameters:
-      - name: group_namespace
-        type: string
+      - name: workspace
         in: path
+        description: the workspace containing the teamspace the array belongs to
+        type: string
         required: true
-        description: The namespace of the group
+      - name: teamspace
+        in: path
+        description: the teamspace the array belongs to
+        type: string
+        required: true
       - name: group_name
         type: string
         in: path
@@ -9258,13 +10134,18 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
-  /groups/{namespace}/{array}/register:
+  /groups/{workspace}/{teamspace}/{array}/register:
     parameters:
-      - name: namespace
-        type: string
+      - name: workspace
         in: path
+        description: the workspace containing the teamspace the array belongs to
+        type: string
         required: true
-        description: The namespace of the group
+      - name: teamspace
+        in: path
+        description: the teamspace the array belongs to
+        type: string
+        required: true
       - name: array
         type: string
         in: path
@@ -9290,13 +10171,18 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
-  /groups/{namespace}/create:
+  /groups/{workspace}/{teamspace}/create:
     parameters:
-      - name: namespace
-        type: string
+      - name: workspace
         in: path
+        description: the workspace containing the teamspace the array belongs to
+        type: string
         required: true
-        description: The namespace of the group
+      - name: teamspace
+        in: path
+        description: the teamspace the array belongs to
+        type: string
+        required: true
     post:
       description: Creates a new group in the namespace.
       operationId: createGroup
@@ -9317,13 +10203,18 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
-  /groups/{group_namespace}/{group_name}/share:
+  /groups/{workspace}/{teamspace}/{group_name}/share:
     parameters:
-      - name: group_namespace
-        type: string
+      - name: workspace
         in: path
+        description: the workspace containing the teamspace the array belongs to
+        type: string
         required: true
-        description: The namespace of the group
+      - name: teamspace
+        in: path
+        description: the teamspace the array belongs to
+        type: string
+        required: true
       - name: group_name
         type: string
         in: path
@@ -9374,13 +10265,18 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
-  /groups/{group_namespace}/{group_name}:
+  /groups/{workspace}/{teamspace}/{group_name}:
     parameters:
-      - name: group_namespace
-        type: string
+      - name: workspace
         in: path
+        description: the workspace containing the teamspace the array belongs to
+        type: string
         required: true
-        description: The namespace of the group
+      - name: teamspace
+        in: path
+        description: the teamspace the array belongs to
+        type: string
+        required: true
       - name: group_name
         type: string
         in: path
@@ -9436,13 +10332,18 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
-  /groups/{group_namespace}/{group_name}/content_activity:
+  /groups/{workspace}/{teamspace}/{group_name}/content_activity:
     parameters:
-      - name: group_namespace
-        type: string
+      - name: workspace
         in: path
+        description: the workspace containing the teamspace the array belongs to
+        type: string
         required: true
-        description: The namespace of the group
+      - name: teamspace
+        in: path
+        description: the teamspace the array belongs to
+        type: string
+        required: true
       - name: group_name
         type: string
         in: path
@@ -9467,7 +10368,7 @@ paths:
         200:
           description: Activity logs of group contents along with the pagination metadata
           schema:
-            $ref: "#/definitions/GroupActivityResponse"
+            $ref: "#/definitions/GroupContentActivityResponse"
         502:
           description: Bad Gateway
         default:
@@ -9475,18 +10376,19 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
-  /taskgraphs/{namespace}/log:
+  /taskgraphs/{workspace}/log:
+    parameters:
+      - name: workspace
+        in: path
+        description: the workspace containing the teamspace the array belongs to
+        type: string
+        required: true
     post:
       description: Create a task graph log.
       operationId: createTaskGraphLog
       tags:
         - task_graph_logs
       parameters:
-        - name: namespace
-          in: path
-          description: The namespace that will own this task graph log.
-          type: string
-          required: true
         - name: log
           in: body
           required: true
@@ -9518,6 +10420,11 @@ paths:
       - name: created_by
         in: query
         description: Include logs from only this user.
+        type: string
+        required: false
+      - name: status
+        in: query
+        description: Filter to only return these statuses
         type: string
         required: false
       - name: search
@@ -9572,11 +10479,11 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
-  /taskgraphs/{namespace}/logs/{id}:
+  /taskgraphs/{workspace}/logs/{id}:
     parameters:
-      - name: namespace
+      - name: workspace
         in: path
-        description: The namespace that owns this task graph log.
+        description: the workspace containing the teamspace the array belongs to
         type: string
         required: true
       - name: id
@@ -9627,11 +10534,11 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
-  /taskgraphs/{namespace}/logs/{id}/report_client_node:
+  /taskgraphs/{workspace}/logs/{id}/report_client_node:
     parameters:
-      - name: namespace
+      - name: workspace
         in: path
-        description: The namespace that owns this task graph log.
+        description: the workspace containing the teamspace the array belongs to
         type: string
         required: true
       - name: id
@@ -9660,11 +10567,11 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
-  /taskgraphs/{namespace}/executions/{id}/resubmit:
+  /taskgraphs/{workspace}/executions/{id}/resubmit:
     parameters:
-      - name: namespace
+      - name: workspace
         in: path
-        description: The namespace that owns this task graph execution.
+        description: the workspace containing the teamspace the array belongs to
         type: string
         required: true
       - name: id
@@ -9689,11 +10596,11 @@ paths:
           schema:
             $ref: '#/definitions/Error'
 
-  /taskgraphs/{namespace}/executions/{id}/retry:
+  /taskgraphs/{workspace}/executions/{id}/retry:
     parameters:
-      - name: namespace
+      - name: workspace
         in: path
-        description: The namespace that owns this task graph execution.
+        description: the workspace containing the teamspace the array belongs to
         type: string
         required: true
       - name: id
@@ -9718,11 +10625,11 @@ paths:
           schema:
             $ref: '#/definitions/Error'
 
-  /taskgraphs/{namespace}/executions/{id}/stop:
+  /taskgraphs/{workspace}/executions/{id}/stop:
     parameters:
-      - name: namespace
+      - name: workspace
         in: path
-        description: The namespace that owns this task graph execution.
+        description: the workspace containing the teamspace the array belongs to
         type: string
         required: true
       - name: id
@@ -9736,10 +10643,8 @@ paths:
       tags:
         - task_graph_logs
       responses:
-        202:
-          description: Information about the task graph execution.
-          schema:
-            $ref: "#/definitions/TaskGraphLog"
+        204:
+          description: Graph stopped successfully
         502:
           description: Bad Gateway
         default:
@@ -9748,7 +10653,13 @@ paths:
             $ref: '#/definitions/Error'
 
   # Task graphs
-  /taskgraphs/{namespace}/graphs:
+  /taskgraphs/{workspace}/graphs:
+    parameters:
+      - name: workspace
+        in: path
+        description: the workspace containing the teamspace the array belongs to
+        type: string
+        required: true
     get:
       description: >
         Fetch the task graphs of a namespace the user has access to. The
@@ -9759,12 +10670,6 @@ paths:
         Entries in the response are ordered from newest to oldest. Pagination
         parameters work as in other API methods; see PaginationMetadata.
       operationId: listTaskGraphs
-      parameters:
-        - name: namespace
-          in: path
-          description: Namespace for graphs
-          type: string
-          required: true
       tags:
         - task_graphs
       responses:
@@ -9785,11 +10690,6 @@ paths:
       tags:
         - task_graphs
       parameters:
-        - name: namespace
-          in: path
-          description: Include graphs for this namespace.
-          type: string
-          required: true
         - name: graph
           in: body
           description: Create the task graph.
@@ -9808,11 +10708,11 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
-  /taskgraphs/{namespace}/graphs/{id}:
+  /taskgraphs/{workspace}/graphs/{id}:
     parameters:
-      - name: namespace
+      - name: workspace
         in: path
-        description: The namespace that owns this task graph.
+        description: the workspace containing the teamspace the array belongs to
         type: string
         required: true
       - name: id
@@ -9860,11 +10760,11 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
-  /taskgraphs/{namespace}/graphs/{id}/submit:
+  /taskgraphs/{workspace}/graphs/{id}/submit:
     parameters:
-      - name: namespace
+      - name: workspace
         in: path
-        description: The namespace that owns this task graph.
+        description: the workspace containing the teamspace the array belongs to
         type: string
         required: true
       - name: id
@@ -9872,6 +10772,11 @@ paths:
         description: The UUID of the task graph entry.
         type: string
         required: true
+      - name: root_task_graph_uuid
+        in: query
+        description: UUID of the root taskgraph that this graph is assosiated with
+        type: string
+        required: false
     post:
       description: >
        Submit a single task graph for execution.
@@ -9893,11 +10798,11 @@ paths:
 
   # Task graphs: Registration
 
-  /taskgraphs/{namespace}/registered/{name}:
+  /taskgraphs/{workspace}/registered/{name}:
     parameters:
-      - name: namespace
+      - name: workspace
         in: path
-        description: The namespace that owns this registered UDF.
+        description: the workspace containing the teamspace the array belongs to
         type: string
         required: true
       - name: name
@@ -9980,11 +10885,11 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
-  /taskgraphs/{namespace}/registered/{name}/share:
+  /taskgraphs/{workspace}/registered/{name}/share:
     parameters:
-      - name: namespace
+      - name: workspace
         in: path
-        description: The namespace that owns the registered task graph.
+        description: The workspace that owns the registered task graph.
         type: string
         required: true
       - name: name
@@ -10042,6 +10947,166 @@ paths:
           description: UDF does not exist or user does not have permissions to share UDF
           schema:
             $ref: '#/definitions/Error'
+        502:
+          description: Bad Gateway
+        default:
+          description: error response
+          schema:
+            $ref: "#/definitions/Error"
+
+  /assets/{workspace}/{teamspace}:
+    parameters:
+      - name: workspace
+        in: path
+        description: the workspace containing the teamspace the array belongs to
+        type: string
+        required: true
+      - name: teamspace
+        in: path
+        description: the teamspace the array belongs to
+        type: string
+        required: true
+      - name: asset_type
+        in: query
+        description: asset_type to filter to
+        type: string
+        required: false
+      - name: ownership_level
+        in: query
+        description: ownership_level to filter to (owned, shared)
+        type: string
+        required: false
+      - name: depth
+        in: query
+        description: depth of assets to be returned
+        type: string
+        required: false
+      - name: search
+        in: query
+        description: search string
+        type: string
+        required: false
+      - name: page
+        in: query
+        description: pagination offset
+        type: integer
+        required: false
+      - name: per_page
+        in: query
+        description: pagination limit
+        type: integer
+        required: false
+      - name: order_by
+        in: query
+        description: |
+          order by a specific property, defaults to `created_at desc`
+          supported values are created_at, name, asset_type
+          can also include the order type (asc or desc) separated by space
+          i.e. `name asc` `name desc` etc.
+        type: string
+        required: false
+      - name: expand
+        in: query
+        description: expansion option for the AssetInfo object to be added to the response
+        type: string
+        required: false
+    get:
+      tags:
+        - assets
+      description: List assets in a namespace
+      operationId: listAssets
+      responses:
+        200:
+          description: Successful list of assets
+          schema:
+            $ref: "#/definitions/AssetListResponse"
+        502:
+          description: Bad Gateway
+        default:
+          description: error response
+          schema:
+            $ref: "#/definitions/Error"
+
+  /public_assets:
+    parameters:
+      - name: asset_type
+        in: query
+        description: asset_type to filter to
+        type: string
+        required: false
+      - name: depth
+        in: query
+        description: depth of assets to be returned
+        type: string
+        required: false
+      - name: search
+        in: query
+        description: search string
+        type: string
+        required: false
+      - name: page
+        in: query
+        description: pagination offset
+        type: integer
+        required: false
+      - name: per_page
+        in: query
+        description: pagination limit
+        type: integer
+        required: false
+      - name: order_by
+        in: query
+        description: |
+          order by a specific property, defaults to `created_at desc`
+          supported values are created_at, name, asset_type
+          can also include the order type (asc or desc) separated by space
+          i.e. `name asc` `name desc` etc.
+        type: string
+        required: false
+    get:
+      tags:
+        - assets
+      description: List public assets
+      operationId: listPublicAssets
+      responses:
+        200:
+          description: Successful list of assets
+          schema:
+            $ref: "#/definitions/AssetListResponse"
+        502:
+          description: Bad Gateway
+        default:
+          description: error response
+          schema:
+            $ref: "#/definitions/Error"
+
+  /assets/{workspace}/{teamspace}/change_credentials:
+    parameters:
+      - name: workspace
+        in: path
+        description: the workspace containing the teamspace the array belongs to
+        type: string
+        required: true
+      - name: teamspace
+        in: path
+        description: the teamspace the array belongs to
+        type: string
+        required: true
+    post:
+      tags:
+        - assets
+      description: Changes the access credentials to the given assets
+      operationId: changeAssetCredentials
+      parameters:
+        - name: changeCredentialsRequest
+          in: body
+          description: aws access credentials to store for a namespace
+          schema:
+            $ref: "#/definitions/ChangeAssetCredentialsRequest"
+          required: true
+      responses:
+        204:
+          description: Credentials changed successfully
         502:
           description: Bad Gateway
         default:

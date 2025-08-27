@@ -75,7 +75,8 @@ public class SqlApi {
 
     /**
      * Build call for runSQL
-     * @param namespace namespace to run task under is in (an organization name or user&#39;s username) (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the sql query belongs to (required)
      * @param sql sql being submitted (required)
      * @param acceptEncoding Encoding to use (optional)
      * @param _callback Callback for upload/download progress
@@ -90,7 +91,7 @@ public class SqlApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call runSQLCall(String namespace, SQLParameters sql, String acceptEncoding, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call runSQLCall(String workspace, String teamspace, SQLParameters sql, String acceptEncoding, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -107,8 +108,9 @@ public class SqlApi {
         Object localVarPostBody = sql;
 
         // create path and map variables
-        String localVarPath = "/sql/{namespace}"
-            .replace("{" + "namespace" + "}", localVarApiClient.escapeString(namespace.toString()));
+        String localVarPath = "/sql/{workspace}/{teamspace}"
+            .replace("{" + "workspace" + "}", localVarApiClient.escapeString(workspace.toString()))
+            .replace("{" + "teamspace" + "}", localVarApiClient.escapeString(teamspace.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -141,10 +143,15 @@ public class SqlApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call runSQLValidateBeforeCall(String namespace, SQLParameters sql, String acceptEncoding, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'namespace' is set
-        if (namespace == null) {
-            throw new ApiException("Missing the required parameter 'namespace' when calling runSQL(Async)");
+    private okhttp3.Call runSQLValidateBeforeCall(String workspace, String teamspace, SQLParameters sql, String acceptEncoding, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'workspace' is set
+        if (workspace == null) {
+            throw new ApiException("Missing the required parameter 'workspace' when calling runSQL(Async)");
+        }
+
+        // verify the required parameter 'teamspace' is set
+        if (teamspace == null) {
+            throw new ApiException("Missing the required parameter 'teamspace' when calling runSQL(Async)");
         }
 
         // verify the required parameter 'sql' is set
@@ -152,14 +159,15 @@ public class SqlApi {
             throw new ApiException("Missing the required parameter 'sql' when calling runSQL(Async)");
         }
 
-        return runSQLCall(namespace, sql, acceptEncoding, _callback);
+        return runSQLCall(workspace, teamspace, sql, acceptEncoding, _callback);
 
     }
 
     /**
      * 
      * Run a sql query
-     * @param namespace namespace to run task under is in (an organization name or user&#39;s username) (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the sql query belongs to (required)
      * @param sql sql being submitted (required)
      * @param acceptEncoding Encoding to use (optional)
      * @return List&lt;Map&lt;String, Object&gt;&gt;
@@ -173,15 +181,16 @@ public class SqlApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public List<Map<String, Object>> runSQL(String namespace, SQLParameters sql, String acceptEncoding) throws ApiException {
-        ApiResponse<List<Map<String, Object>>> localVarResp = runSQLWithHttpInfo(namespace, sql, acceptEncoding);
+    public List<Map<String, Object>> runSQL(String workspace, String teamspace, SQLParameters sql, String acceptEncoding) throws ApiException {
+        ApiResponse<List<Map<String, Object>>> localVarResp = runSQLWithHttpInfo(workspace, teamspace, sql, acceptEncoding);
         return localVarResp.getData();
     }
 
     /**
      * 
      * Run a sql query
-     * @param namespace namespace to run task under is in (an organization name or user&#39;s username) (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the sql query belongs to (required)
      * @param sql sql being submitted (required)
      * @param acceptEncoding Encoding to use (optional)
      * @return ApiResponse&lt;List&lt;Map&lt;String, Object&gt;&gt;&gt;
@@ -195,8 +204,8 @@ public class SqlApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<List<Map<String, Object>>> runSQLWithHttpInfo(String namespace, SQLParameters sql, String acceptEncoding) throws ApiException {
-        okhttp3.Call localVarCall = runSQLValidateBeforeCall(namespace, sql, acceptEncoding, null);
+    public ApiResponse<List<Map<String, Object>>> runSQLWithHttpInfo(String workspace, String teamspace, SQLParameters sql, String acceptEncoding) throws ApiException {
+        okhttp3.Call localVarCall = runSQLValidateBeforeCall(workspace, teamspace, sql, acceptEncoding, null);
         Type localVarReturnType = new TypeToken<List<Map<String, Object>>>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
@@ -204,7 +213,8 @@ public class SqlApi {
     /**
      *  (asynchronously)
      * Run a sql query
-     * @param namespace namespace to run task under is in (an organization name or user&#39;s username) (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the sql query belongs to (required)
      * @param sql sql being submitted (required)
      * @param acceptEncoding Encoding to use (optional)
      * @param _callback The callback to be executed when the API call finishes
@@ -219,9 +229,9 @@ public class SqlApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call runSQLAsync(String namespace, SQLParameters sql, String acceptEncoding, final ApiCallback<List<Map<String, Object>>> _callback) throws ApiException {
+    public okhttp3.Call runSQLAsync(String workspace, String teamspace, SQLParameters sql, String acceptEncoding, final ApiCallback<List<Map<String, Object>>> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = runSQLValidateBeforeCall(namespace, sql, acceptEncoding, _callback);
+        okhttp3.Call localVarCall = runSQLValidateBeforeCall(workspace, teamspace, sql, acceptEncoding, _callback);
         Type localVarReturnType = new TypeToken<List<Map<String, Object>>>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -243,8 +253,8 @@ public class SqlApi {
     <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
     </table>
      */
-    public ApiResponse<byte[]> runSQLWithHttpInfoBytes(String namespace, SQLParameters sql, String acceptEncoding) throws ApiException {
-        okhttp3.Call localVarCall = runSQLValidateBeforeCall(namespace, sql, acceptEncoding, null);
+    public ApiResponse<byte[]> runSQLWithHttpInfoBytes(String workspace, String namespace, SQLParameters sql, String acceptEncoding) throws ApiException {
+        okhttp3.Call localVarCall = runSQLValidateBeforeCall(workspace, namespace, sql, acceptEncoding, null);
         Type localVarReturnType = new TypeToken<byte[]>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
@@ -265,8 +275,8 @@ public class SqlApi {
     <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
     </table>
      */
-    public byte[] runSQLBytes(String namespace, SQLParameters sql, String acceptEncoding) throws ApiException {
-        ApiResponse<byte[]> localVarResp = runSQLWithHttpInfoBytes(namespace, sql, acceptEncoding);
+    public byte[] runSQLBytes(String workspace, String namespace, SQLParameters sql, String acceptEncoding) throws ApiException {
+        ApiResponse<byte[]> localVarResp = runSQLWithHttpInfoBytes(workspace, namespace, sql, acceptEncoding);
         return localVarResp.getData();
     }
 }

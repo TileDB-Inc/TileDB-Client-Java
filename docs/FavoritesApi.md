@@ -4,18 +4,18 @@ All URIs are relative to */v1*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**addArrayFavorite**](FavoritesApi.md#addArrayFavorite) | **POST** /arrays/favorites/{namespace}/{name} |  |
-| [**addMLModelFavorite**](FavoritesApi.md#addMLModelFavorite) | **POST** /ml_models/favorites/{namespace}/{name} |  |
-| [**addNotebookFavorite**](FavoritesApi.md#addNotebookFavorite) | **POST** /notebooks/favorites/{namespace}/{name} |  |
-| [**addUDFFavorite**](FavoritesApi.md#addUDFFavorite) | **POST** /udfs/favorites/{namespace}/{name} |  |
-| [**deleteArrayFavorite**](FavoritesApi.md#deleteArrayFavorite) | **DELETE** /arrays/favorites/{namespace}/{name} |  |
-| [**deleteMLModelFavorite**](FavoritesApi.md#deleteMLModelFavorite) | **DELETE** /ml_models/favorites/{namespace}/{name} |  |
-| [**deleteNotebookFavorite**](FavoritesApi.md#deleteNotebookFavorite) | **DELETE** /notebooks/favorites/{namespace}/{name} |  |
-| [**deleteUDFFavorite**](FavoritesApi.md#deleteUDFFavorite) | **DELETE** /udfs/favorites/{namespace}/{name} |  |
-| [**getArrayFavorite**](FavoritesApi.md#getArrayFavorite) | **GET** /arrays/favorites/{namespace}/{name} |  |
-| [**getMLModelFavorite**](FavoritesApi.md#getMLModelFavorite) | **GET** /ml_models/favorites/{namespace}/{name} |  |
-| [**getNotebookFavorite**](FavoritesApi.md#getNotebookFavorite) | **GET** /notebooks/favorites/{namespace}/{name} |  |
-| [**getUDFFavorite**](FavoritesApi.md#getUDFFavorite) | **GET** /udfs/favorites/{namespace}/{name} |  |
+| [**addArrayFavorite**](FavoritesApi.md#addArrayFavorite) | **POST** /arrays/favorites/{workspace}/{teamspace}/{name} |  |
+| [**addMLModelFavorite**](FavoritesApi.md#addMLModelFavorite) | **POST** /ml_models/favorites/{workspace}/{teamspace}/{name} |  |
+| [**addNotebookFavorite**](FavoritesApi.md#addNotebookFavorite) | **POST** /notebooks/favorites/{workspace}/{teamspace}/{name} |  |
+| [**addUDFFavorite**](FavoritesApi.md#addUDFFavorite) | **POST** /udfs/favorites/{workspace}/{name} |  |
+| [**deleteArrayFavorite**](FavoritesApi.md#deleteArrayFavorite) | **DELETE** /arrays/favorites/{workspace}/{teamspace}/{name} |  |
+| [**deleteMLModelFavorite**](FavoritesApi.md#deleteMLModelFavorite) | **DELETE** /ml_models/favorites/{workspace}/{teamspace}/{name} |  |
+| [**deleteNotebookFavorite**](FavoritesApi.md#deleteNotebookFavorite) | **DELETE** /notebooks/favorites/{workspace}/{teamspace}/{name} |  |
+| [**deleteUDFFavorite**](FavoritesApi.md#deleteUDFFavorite) | **DELETE** /udfs/favorites/{workspace}/{name} |  |
+| [**getArrayFavorite**](FavoritesApi.md#getArrayFavorite) | **GET** /arrays/favorites/{workspace}/{teamspace}/{name} |  |
+| [**getMLModelFavorite**](FavoritesApi.md#getMLModelFavorite) | **GET** /ml_models/favorites/{workspace}/{teamspace}/{name} |  |
+| [**getNotebookFavorite**](FavoritesApi.md#getNotebookFavorite) | **GET** /notebooks/favorites/{workspace}/{teamspace}/{name} |  |
+| [**getUDFFavorite**](FavoritesApi.md#getUDFFavorite) | **GET** /udfs/favorites/{workspace}/{name} |  |
 | [**listArrayFavorites**](FavoritesApi.md#listArrayFavorites) | **GET** /arrays/favorites |  |
 | [**listArrayFavoritesUUIDs**](FavoritesApi.md#listArrayFavoritesUUIDs) | **GET** /arrays/favorites/uuids |  |
 | [**listMLModelFavorites**](FavoritesApi.md#listMLModelFavorites) | **GET** /ml_models/favorites |  |
@@ -28,7 +28,7 @@ All URIs are relative to */v1*
 
 <a id="addArrayFavorite"></a>
 # **addArrayFavorite**
-> addArrayFavorite(namespace, name)
+> addArrayFavorite(workspace, teamspace, name)
 
 
 
@@ -61,10 +61,11 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     FavoritesApi apiInstance = new FavoritesApi(defaultClient);
-    String namespace = "namespace_example"; // String | The namespace of the array
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
     String name = "name_example"; // String | The name of the array
     try {
-      apiInstance.addArrayFavorite(namespace, name);
+      apiInstance.addArrayFavorite(workspace, teamspace, name);
     } catch (ApiException e) {
       System.err.println("Exception when calling FavoritesApi#addArrayFavorite");
       System.err.println("Status code: " + e.getCode());
@@ -80,7 +81,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| The namespace of the array | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
 | **name** | **String**| The name of the array | |
 
 ### Return type
@@ -105,7 +107,7 @@ null (empty response body)
 
 <a id="addMLModelFavorite"></a>
 # **addMLModelFavorite**
-> addMLModelFavorite(namespace, name)
+> addMLModelFavorite(workspace, teamspace, name)
 
 
 
@@ -138,10 +140,11 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     FavoritesApi apiInstance = new FavoritesApi(defaultClient);
-    String namespace = "namespace_example"; // String | The namespace of the ML model
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
     String name = "name_example"; // String | The name of the ML model
     try {
-      apiInstance.addMLModelFavorite(namespace, name);
+      apiInstance.addMLModelFavorite(workspace, teamspace, name);
     } catch (ApiException e) {
       System.err.println("Exception when calling FavoritesApi#addMLModelFavorite");
       System.err.println("Status code: " + e.getCode());
@@ -157,7 +160,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| The namespace of the ML model | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
 | **name** | **String**| The name of the ML model | |
 
 ### Return type
@@ -182,7 +186,7 @@ null (empty response body)
 
 <a id="addNotebookFavorite"></a>
 # **addNotebookFavorite**
-> addNotebookFavorite(namespace, name)
+> addNotebookFavorite(workspace, teamspace, name)
 
 
 
@@ -215,10 +219,11 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     FavoritesApi apiInstance = new FavoritesApi(defaultClient);
-    String namespace = "namespace_example"; // String | The namespace of the notebook
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
     String name = "name_example"; // String | The name of the notebook
     try {
-      apiInstance.addNotebookFavorite(namespace, name);
+      apiInstance.addNotebookFavorite(workspace, teamspace, name);
     } catch (ApiException e) {
       System.err.println("Exception when calling FavoritesApi#addNotebookFavorite");
       System.err.println("Status code: " + e.getCode());
@@ -234,7 +239,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| The namespace of the notebook | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
 | **name** | **String**| The name of the notebook | |
 
 ### Return type
@@ -259,7 +265,7 @@ null (empty response body)
 
 <a id="addUDFFavorite"></a>
 # **addUDFFavorite**
-> addUDFFavorite(namespace, name)
+> addUDFFavorite(workspace, name)
 
 
 
@@ -292,10 +298,10 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     FavoritesApi apiInstance = new FavoritesApi(defaultClient);
-    String namespace = "namespace_example"; // String | The namespace of the UDF
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
     String name = "name_example"; // String | The name of the UDF
     try {
-      apiInstance.addUDFFavorite(namespace, name);
+      apiInstance.addUDFFavorite(workspace, name);
     } catch (ApiException e) {
       System.err.println("Exception when calling FavoritesApi#addUDFFavorite");
       System.err.println("Status code: " + e.getCode());
@@ -311,7 +317,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| The namespace of the UDF | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
 | **name** | **String**| The name of the UDF | |
 
 ### Return type
@@ -336,7 +342,7 @@ null (empty response body)
 
 <a id="deleteArrayFavorite"></a>
 # **deleteArrayFavorite**
-> deleteArrayFavorite(namespace, name)
+> deleteArrayFavorite(workspace, teamspace, name)
 
 
 
@@ -369,10 +375,11 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     FavoritesApi apiInstance = new FavoritesApi(defaultClient);
-    String namespace = "namespace_example"; // String | The namespace of the array
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
     String name = "name_example"; // String | The name of the array
     try {
-      apiInstance.deleteArrayFavorite(namespace, name);
+      apiInstance.deleteArrayFavorite(workspace, teamspace, name);
     } catch (ApiException e) {
       System.err.println("Exception when calling FavoritesApi#deleteArrayFavorite");
       System.err.println("Status code: " + e.getCode());
@@ -388,7 +395,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| The namespace of the array | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
 | **name** | **String**| The name of the array | |
 
 ### Return type
@@ -413,7 +421,7 @@ null (empty response body)
 
 <a id="deleteMLModelFavorite"></a>
 # **deleteMLModelFavorite**
-> deleteMLModelFavorite(namespace, name)
+> deleteMLModelFavorite(workspace, teamspace, name)
 
 
 
@@ -446,10 +454,11 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     FavoritesApi apiInstance = new FavoritesApi(defaultClient);
-    String namespace = "namespace_example"; // String | The namespace of the ML model
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
     String name = "name_example"; // String | The name of the ML model
     try {
-      apiInstance.deleteMLModelFavorite(namespace, name);
+      apiInstance.deleteMLModelFavorite(workspace, teamspace, name);
     } catch (ApiException e) {
       System.err.println("Exception when calling FavoritesApi#deleteMLModelFavorite");
       System.err.println("Status code: " + e.getCode());
@@ -465,7 +474,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| The namespace of the ML model | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
 | **name** | **String**| The name of the ML model | |
 
 ### Return type
@@ -490,7 +500,7 @@ null (empty response body)
 
 <a id="deleteNotebookFavorite"></a>
 # **deleteNotebookFavorite**
-> deleteNotebookFavorite(namespace, name)
+> deleteNotebookFavorite(workspace, teamspace, name)
 
 
 
@@ -523,10 +533,11 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     FavoritesApi apiInstance = new FavoritesApi(defaultClient);
-    String namespace = "namespace_example"; // String | The namespace of the notebook
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
     String name = "name_example"; // String | The name of the notebook
     try {
-      apiInstance.deleteNotebookFavorite(namespace, name);
+      apiInstance.deleteNotebookFavorite(workspace, teamspace, name);
     } catch (ApiException e) {
       System.err.println("Exception when calling FavoritesApi#deleteNotebookFavorite");
       System.err.println("Status code: " + e.getCode());
@@ -542,7 +553,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| The namespace of the notebook | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
 | **name** | **String**| The name of the notebook | |
 
 ### Return type
@@ -567,7 +579,7 @@ null (empty response body)
 
 <a id="deleteUDFFavorite"></a>
 # **deleteUDFFavorite**
-> deleteUDFFavorite(namespace, name)
+> deleteUDFFavorite(workspace, name)
 
 
 
@@ -600,10 +612,10 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     FavoritesApi apiInstance = new FavoritesApi(defaultClient);
-    String namespace = "namespace_example"; // String | The namespace of the UDF
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
     String name = "name_example"; // String | The name of the UDF
     try {
-      apiInstance.deleteUDFFavorite(namespace, name);
+      apiInstance.deleteUDFFavorite(workspace, name);
     } catch (ApiException e) {
       System.err.println("Exception when calling FavoritesApi#deleteUDFFavorite");
       System.err.println("Status code: " + e.getCode());
@@ -619,7 +631,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| The namespace of the UDF | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
 | **name** | **String**| The name of the UDF | |
 
 ### Return type
@@ -644,7 +656,7 @@ null (empty response body)
 
 <a id="getArrayFavorite"></a>
 # **getArrayFavorite**
-> ArrayFavorite getArrayFavorite(namespace, name)
+> ArrayFavorite getArrayFavorite(workspace, teamspace, name)
 
 
 
@@ -677,10 +689,11 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     FavoritesApi apiInstance = new FavoritesApi(defaultClient);
-    String namespace = "namespace_example"; // String | The namespace of the array
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
     String name = "name_example"; // String | The name of the array
     try {
-      ArrayFavorite result = apiInstance.getArrayFavorite(namespace, name);
+      ArrayFavorite result = apiInstance.getArrayFavorite(workspace, teamspace, name);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling FavoritesApi#getArrayFavorite");
@@ -697,7 +710,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| The namespace of the array | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
 | **name** | **String**| The name of the array | |
 
 ### Return type
@@ -722,7 +736,7 @@ public class Example {
 
 <a id="getMLModelFavorite"></a>
 # **getMLModelFavorite**
-> MLModelFavorite getMLModelFavorite(namespace, name)
+> MLModelFavorite getMLModelFavorite(workspace, teamspace, name)
 
 
 
@@ -755,10 +769,11 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     FavoritesApi apiInstance = new FavoritesApi(defaultClient);
-    String namespace = "namespace_example"; // String | The namespace of the ML model
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
     String name = "name_example"; // String | The name of the ML model
     try {
-      MLModelFavorite result = apiInstance.getMLModelFavorite(namespace, name);
+      MLModelFavorite result = apiInstance.getMLModelFavorite(workspace, teamspace, name);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling FavoritesApi#getMLModelFavorite");
@@ -775,7 +790,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| The namespace of the ML model | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
 | **name** | **String**| The name of the ML model | |
 
 ### Return type
@@ -800,7 +816,7 @@ public class Example {
 
 <a id="getNotebookFavorite"></a>
 # **getNotebookFavorite**
-> NotebookFavorite getNotebookFavorite(namespace, name)
+> NotebookFavorite getNotebookFavorite(workspace, teamspace, name)
 
 
 
@@ -833,10 +849,11 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     FavoritesApi apiInstance = new FavoritesApi(defaultClient);
-    String namespace = "namespace_example"; // String | The namespace of the notebook
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
     String name = "name_example"; // String | The name of the notebook
     try {
-      NotebookFavorite result = apiInstance.getNotebookFavorite(namespace, name);
+      NotebookFavorite result = apiInstance.getNotebookFavorite(workspace, teamspace, name);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling FavoritesApi#getNotebookFavorite");
@@ -853,7 +870,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| The namespace of the notebook | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
 | **name** | **String**| The name of the notebook | |
 
 ### Return type
@@ -878,7 +896,7 @@ public class Example {
 
 <a id="getUDFFavorite"></a>
 # **getUDFFavorite**
-> UDFFavorite getUDFFavorite(namespace, name)
+> UDFFavorite getUDFFavorite(workspace, name)
 
 
 
@@ -911,10 +929,10 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     FavoritesApi apiInstance = new FavoritesApi(defaultClient);
-    String namespace = "namespace_example"; // String | The namespace of the UDF
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
     String name = "name_example"; // String | The name of the UDF
     try {
-      UDFFavorite result = apiInstance.getUDFFavorite(namespace, name);
+      UDFFavorite result = apiInstance.getUDFFavorite(workspace, name);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling FavoritesApi#getUDFFavorite");
@@ -931,7 +949,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| The namespace of the UDF | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
 | **name** | **String**| The name of the UDF | |
 
 ### Return type

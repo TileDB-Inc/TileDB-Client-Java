@@ -4,16 +4,16 @@ All URIs are relative to */v1*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**finalizeQuery**](QueryApi.md#finalizeQuery) | **POST** /arrays/{namespace}/{array}/query/finalize |  |
-| [**getEstResultSizes**](QueryApi.md#getEstResultSizes) | **POST** /arrays/{namespace}/{array}/query/est_result_sizes |  |
-| [**getFile**](QueryApi.md#getFile) | **GET** /arrays/{namespace}/{array}/query/get_file |  |
-| [**submitQuery**](QueryApi.md#submitQuery) | **POST** /arrays/{namespace}/{array}/query/submit |  |
-| [**submitQueryJson**](QueryApi.md#submitQueryJson) | **POST** /arrays/{namespace}/{array}/query/submit_query_json |  |
+| [**finalizeQuery**](QueryApi.md#finalizeQuery) | **POST** /arrays/{workspace}/{teamspace}/{array}/query/finalize |  |
+| [**getEstResultSizes**](QueryApi.md#getEstResultSizes) | **POST** /arrays/{workspace}/{teamspace}/{array}/query/est_result_sizes |  |
+| [**getFile**](QueryApi.md#getFile) | **GET** /arrays/{workspace}/{teamspace}/{array}/query/get_file |  |
+| [**submitQuery**](QueryApi.md#submitQuery) | **POST** /arrays/{workspace}/{teamspace}/{array}/query/submit |  |
+| [**submitQueryJson**](QueryApi.md#submitQueryJson) | **POST** /arrays/{workspace}/{teamspace}/{array}/query/submit_query_json |  |
 
 
 <a id="finalizeQuery"></a>
 # **finalizeQuery**
-> Query finalizeQuery(namespace, array, type, contentType, query, xPayer, openAt)
+> Query finalizeQuery(workspace, teamspace, array, type, contentType, query, xPayer, openAt)
 
 
 
@@ -46,7 +46,8 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     QueryApi apiInstance = new QueryApi(defaultClient);
-    String namespace = "namespace_example"; // String | namespace array is in (an organization name or user's username)
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
     String array = "array_example"; // String | name/uri of array that is url-encoded
     String type = "type_example"; // String | type of query
     String contentType = "application/json"; // String | Content Type of input and return mime
@@ -54,7 +55,7 @@ public class Example {
     String xPayer = "xPayer_example"; // String | Name of organization or user who should be charged for this request
     Integer openAt = 56; // Integer | open_at for array in unix epoch
     try {
-      Query result = apiInstance.finalizeQuery(namespace, array, type, contentType, query, xPayer, openAt);
+      Query result = apiInstance.finalizeQuery(workspace, teamspace, array, type, contentType, query, xPayer, openAt);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling QueryApi#finalizeQuery");
@@ -71,7 +72,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| namespace array is in (an organization name or user&#39;s username) | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
 | **array** | **String**| name/uri of array that is url-encoded | |
 | **type** | **String**| type of query | |
 | **contentType** | **String**| Content Type of input and return mime | [default to application/json] |
@@ -102,7 +104,7 @@ public class Example {
 
 <a id="getEstResultSizes"></a>
 # **getEstResultSizes**
-> Query getEstResultSizes(namespace, array, type, contentType, query, xPayer, openAt)
+> Query getEstResultSizes(workspace, teamspace, array, type, contentType, query, xPayer, openAt)
 
 
 
@@ -135,7 +137,8 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     QueryApi apiInstance = new QueryApi(defaultClient);
-    String namespace = "namespace_example"; // String | namespace array is in (an organization name or user's username)
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
     String array = "array_example"; // String | name/uri of array that is url-encoded
     String type = "type_example"; // String | type of query
     String contentType = "application/json"; // String | Content Type of input and return mime
@@ -143,7 +146,7 @@ public class Example {
     String xPayer = "xPayer_example"; // String | Name of organization or user who should be charged for this request
     Integer openAt = 56; // Integer | open_at for array in unix epoch
     try {
-      Query result = apiInstance.getEstResultSizes(namespace, array, type, contentType, query, xPayer, openAt);
+      Query result = apiInstance.getEstResultSizes(workspace, teamspace, array, type, contentType, query, xPayer, openAt);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling QueryApi#getEstResultSizes");
@@ -160,7 +163,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| namespace array is in (an organization name or user&#39;s username) | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
 | **array** | **String**| name/uri of array that is url-encoded | |
 | **type** | **String**| type of query | |
 | **contentType** | **String**| Content Type of input and return mime | [default to application/json] |
@@ -191,7 +195,7 @@ public class Example {
 
 <a id="getFile"></a>
 # **getFile**
-> File getFile(namespace, array, contentType, xPayer)
+> File getFile(workspace, teamspace, array, contentType, xPayer)
 
 
 
@@ -224,12 +228,13 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     QueryApi apiInstance = new QueryApi(defaultClient);
-    String namespace = "namespace_example"; // String | namespace array is in (an organization name or user's username)
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
     String array = "array_example"; // String | name/uri of array that is url-encoded
     String contentType = "application/json"; // String | Content Type of input and return mime
     String xPayer = "xPayer_example"; // String | Name of organization or user who should be charged for this request
     try {
-      File result = apiInstance.getFile(namespace, array, contentType, xPayer);
+      File result = apiInstance.getFile(workspace, teamspace, array, contentType, xPayer);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling QueryApi#getFile");
@@ -246,7 +251,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| namespace array is in (an organization name or user&#39;s username) | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
 | **array** | **String**| name/uri of array that is url-encoded | |
 | **contentType** | **String**| Content Type of input and return mime | [default to application/json] |
 | **xPayer** | **String**| Name of organization or user who should be charged for this request | [optional] |
@@ -273,7 +279,7 @@ public class Example {
 
 <a id="submitQuery"></a>
 # **submitQuery**
-> Query submitQuery(namespace, array, type, contentType, query, xPayer, openAt)
+> Query submitQuery(workspace, teamspace, array, type, contentType, query, xPayer, openAt)
 
 
 
@@ -306,7 +312,8 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     QueryApi apiInstance = new QueryApi(defaultClient);
-    String namespace = "namespace_example"; // String | namespace array is in (an organization name or user's username)
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
     String array = "array_example"; // String | name/uri of array that is url-encoded
     String type = "type_example"; // String | type of query
     String contentType = "application/json"; // String | Content Type of input and return mime
@@ -314,7 +321,7 @@ public class Example {
     String xPayer = "xPayer_example"; // String | Name of organization or user who should be charged for this request
     Integer openAt = 56; // Integer | open_at for array in unix epoch
     try {
-      Query result = apiInstance.submitQuery(namespace, array, type, contentType, query, xPayer, openAt);
+      Query result = apiInstance.submitQuery(workspace, teamspace, array, type, contentType, query, xPayer, openAt);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling QueryApi#submitQuery");
@@ -331,7 +338,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| namespace array is in (an organization name or user&#39;s username) | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
 | **array** | **String**| name/uri of array that is url-encoded | |
 | **type** | **String**| type of query | |
 | **contentType** | **String**| Content Type of input and return mime | [default to application/json] |
@@ -362,7 +370,7 @@ public class Example {
 
 <a id="submitQueryJson"></a>
 # **submitQueryJson**
-> Object submitQueryJson(namespace, array, contentType, queryJson, xPayer)
+> Object submitQueryJson(workspace, teamspace, array, contentType, queryJson, xPayer)
 
 
 
@@ -395,13 +403,14 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     QueryApi apiInstance = new QueryApi(defaultClient);
-    String namespace = "namespace_example"; // String | namespace array is in (an organization name or user's username)
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
     String array = "array_example"; // String | name/uri of array that is url-encoded
     String contentType = "application/json"; // String | Content Type of input and return mime
     QueryJson queryJson = new QueryJson(); // QueryJson | query to run
     String xPayer = "xPayer_example"; // String | Name of organization or user who should be charged for this request
     try {
-      Object result = apiInstance.submitQueryJson(namespace, array, contentType, queryJson, xPayer);
+      Object result = apiInstance.submitQueryJson(workspace, teamspace, array, contentType, queryJson, xPayer);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling QueryApi#submitQueryJson");
@@ -418,7 +427,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| namespace array is in (an organization name or user&#39;s username) | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
 | **array** | **String**| name/uri of array that is url-encoded | |
 | **contentType** | **String**| Content Type of input and return mime | [default to application/json] |
 | **queryJson** | [**QueryJson**](QueryJson.md)| query to run | |

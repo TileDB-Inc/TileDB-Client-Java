@@ -19,6 +19,7 @@ import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.tiledb.cloud.rest_api.model.TGUDFEnvironmentResources;
+import io.tiledb.cloud.rest_api.model.TGUDFStorage;
 import io.tiledb.cloud.rest_api.model.UDFLanguage;
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -116,11 +117,11 @@ public class TGUDFEnvironmentTest {
     }
 
     /**
-     * Test the property 'paths'
+     * Test the property 'storage'
      */
     @Test
-    public void pathsTest() {
-        // TODO: test paths
+    public void storageTest() {
+        // TODO: test storage
     }
 
 }

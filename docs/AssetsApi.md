@@ -4,13 +4,93 @@ All URIs are relative to */v1*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**listAssets**](AssetsApi.md#listAssets) | **GET** /assets/{namespace} |  |
+| [**changeAssetCredentials**](AssetsApi.md#changeAssetCredentials) | **POST** /assets/{workspace}/{teamspace}/change_credentials |  |
+| [**listAssets**](AssetsApi.md#listAssets) | **GET** /assets/{workspace}/{teamspace} |  |
 | [**listPublicAssets**](AssetsApi.md#listPublicAssets) | **GET** /public_assets |  |
 
 
+<a id="changeAssetCredentials"></a>
+# **changeAssetCredentials**
+> changeAssetCredentials(workspace, teamspace, changeCredentialsRequest)
+
+
+
+Changes the access credentials to the given assets
+
+### Example
+```java
+// Import classes:
+import io.tiledb.cloud.rest_api.ApiClient;
+import io.tiledb.cloud.rest_api.ApiException;
+import io.tiledb.cloud.rest_api.Configuration;
+import io.tiledb.cloud.rest_api.auth.*;
+import io.tiledb.cloud.rest_api.models.*;
+import io.tiledb.cloud.rest_api.api.AssetsApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("/v1");
+    
+    // Configure HTTP basic authorization: BasicAuth
+    HttpBasicAuth BasicAuth = (HttpBasicAuth) defaultClient.getAuthentication("BasicAuth");
+    BasicAuth.setUsername("YOUR USERNAME");
+    BasicAuth.setPassword("YOUR PASSWORD");
+
+    // Configure API key authorization: ApiKeyAuth
+    ApiKeyAuth ApiKeyAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyAuth");
+    ApiKeyAuth.setApiKey("YOUR API KEY");
+    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+    //ApiKeyAuth.setApiKeyPrefix("Token");
+
+    AssetsApi apiInstance = new AssetsApi(defaultClient);
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
+    ChangeAssetCredentialsRequest changeCredentialsRequest = new ChangeAssetCredentialsRequest(); // ChangeAssetCredentialsRequest | aws access credentials to store for a namespace
+    try {
+      apiInstance.changeAssetCredentials(workspace, teamspace, changeCredentialsRequest);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling AssetsApi#changeAssetCredentials");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
+| **changeCredentialsRequest** | [**ChangeAssetCredentialsRequest**](ChangeAssetCredentialsRequest.md)| aws access credentials to store for a namespace | |
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+[BasicAuth](../README.md#BasicAuth), [ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **204** | Credentials changed successfully |  -  |
+| **502** | Bad Gateway |  -  |
+| **0** | error response |  -  |
+
 <a id="listAssets"></a>
 # **listAssets**
-> AssetListResponse listAssets(namespace, assetType, ownershipLevel, depth, search, page, perPage, orderBy, expand)
+> AssetListResponse listAssets(workspace, teamspace, assetType, ownershipLevel, depth, search, page, perPage, orderBy, expand)
 
 
 
@@ -43,7 +123,8 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     AssetsApi apiInstance = new AssetsApi(defaultClient);
-    String namespace = "namespace_example"; // String | namespace
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
     String assetType = "assetType_example"; // String | asset_type to filter to
     String ownershipLevel = "ownershipLevel_example"; // String | ownership_level to filter to (owned, shared)
     String depth = "depth_example"; // String | depth of assets to be returned
@@ -53,7 +134,7 @@ public class Example {
     String orderBy = "orderBy_example"; // String | order by a specific property, defaults to `created_at desc` supported values are created_at, name, asset_type can also include the order type (asc or desc) separated by space i.e. `name asc` `name desc` etc. 
     String expand = "expand_example"; // String | expansion option for the AssetInfo object to be added to the response
     try {
-      AssetListResponse result = apiInstance.listAssets(namespace, assetType, ownershipLevel, depth, search, page, perPage, orderBy, expand);
+      AssetListResponse result = apiInstance.listAssets(workspace, teamspace, assetType, ownershipLevel, depth, search, page, perPage, orderBy, expand);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling AssetsApi#listAssets");
@@ -70,7 +151,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| namespace | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
 | **assetType** | **String**| asset_type to filter to | [optional] |
 | **ownershipLevel** | **String**| ownership_level to filter to (owned, shared) | [optional] |
 | **depth** | **String**| depth of assets to be returned | [optional] |

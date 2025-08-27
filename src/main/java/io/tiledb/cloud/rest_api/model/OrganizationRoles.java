@@ -33,6 +33,8 @@ public enum OrganizationRoles {
   
   ADMIN("admin"),
   
+  READ_WRITE_DELETE("read_write_delete"),
+  
   READ_WRITE("read_write"),
   
   READ_ONLY("read_only");

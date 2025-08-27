@@ -4,12 +4,12 @@ All URIs are relative to */v1*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**runSQL**](SqlApi.md#runSQL) | **POST** /sql/{namespace} |  |
+| [**runSQL**](SqlApi.md#runSQL) | **POST** /sql/{workspace}/{teamspace} |  |
 
 
 <a id="runSQL"></a>
 # **runSQL**
-> List&lt;Map&lt;String, Object&gt;&gt; runSQL(namespace, sql, acceptEncoding)
+> List&lt;Map&lt;String, Object&gt;&gt; runSQL(workspace, teamspace, sql, acceptEncoding)
 
 
 
@@ -42,11 +42,12 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     SqlApi apiInstance = new SqlApi(defaultClient);
-    String namespace = "namespace_example"; // String | namespace to run task under is in (an organization name or user's username)
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the sql query belongs to
     SQLParameters sql = new SQLParameters(); // SQLParameters | sql being submitted
     String acceptEncoding = "acceptEncoding_example"; // String | Encoding to use
     try {
-      List<Map<String, Object>> result = apiInstance.runSQL(namespace, sql, acceptEncoding);
+      List<Map<String, Object>> result = apiInstance.runSQL(workspace, teamspace, sql, acceptEncoding);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling SqlApi#runSQL");
@@ -63,7 +64,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| namespace to run task under is in (an organization name or user&#39;s username) | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the sql query belongs to | |
 | **sql** | [**SQLParameters**](SQLParameters.md)| sql being submitted | |
 | **acceptEncoding** | **String**| Encoding to use | [optional] |
 

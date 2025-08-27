@@ -49,7 +49,7 @@ import io.tiledb.cloud.rest_api.JSON;
 /**
  * A single, typed coordinate for a dimension
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-09-13T19:24:49.771847040-04:00[America/New_York]", comments = "Generator version: 7.7.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.7.0")
 public class DimensionCoordinate {
   public static final String SERIALIZED_NAME_INT8 = "int8";
   @SerializedName(SERIALIZED_NAME_INT8)
@@ -283,50 +283,6 @@ public class DimensionCoordinate {
     this.float64 = float64;
   }
 
-  /**
-   * A container for additional, undeclared properties.
-   * This is a holder for any undeclared properties as specified with
-   * the 'additionalProperties' keyword in the OAS document.
-   */
-  private Map<String, Object> additionalProperties;
-
-  /**
-   * Set the additional (undeclared) property with the specified name and value.
-   * If the property does not already exist, create it otherwise replace it.
-   *
-   * @param key name of the property
-   * @param value value of the property
-   * @return the DimensionCoordinate instance itself
-   */
-  public DimensionCoordinate putAdditionalProperty(String key, Object value) {
-    if (this.additionalProperties == null) {
-        this.additionalProperties = new HashMap<String, Object>();
-    }
-    this.additionalProperties.put(key, value);
-    return this;
-  }
-
-  /**
-   * Return the additional (undeclared) property.
-   *
-   * @return a map of objects
-   */
-  public Map<String, Object> getAdditionalProperties() {
-    return additionalProperties;
-  }
-
-  /**
-   * Return the additional (undeclared) property with the specified name.
-   *
-   * @param key name of the property
-   * @return an object
-   */
-  public Object getAdditionalProperty(String key) {
-    if (this.additionalProperties == null) {
-        return null;
-    }
-    return this.additionalProperties.get(key);
-  }
 
 
   @Override
@@ -347,13 +303,12 @@ public class DimensionCoordinate {
         Objects.equals(this.int64, dimensionCoordinate.int64) &&
         Objects.equals(this.uint64, dimensionCoordinate.uint64) &&
         Objects.equals(this.float32, dimensionCoordinate.float32) &&
-        Objects.equals(this.float64, dimensionCoordinate.float64)&&
-        Objects.equals(this.additionalProperties, dimensionCoordinate.additionalProperties);
+        Objects.equals(this.float64, dimensionCoordinate.float64);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(int8, uint8, int16, uint16, int32, uint32, int64, uint64, float32, float64, additionalProperties);
+    return Objects.hash(int8, uint8, int16, uint16, int32, uint32, int64, uint64, float32, float64);
   }
 
   @Override
@@ -370,7 +325,6 @@ public class DimensionCoordinate {
     sb.append("    uint64: ").append(toIndentedString(uint64)).append("\n");
     sb.append("    float32: ").append(toIndentedString(float32)).append("\n");
     sb.append("    float64: ").append(toIndentedString(float64)).append("\n");
-    sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -420,7 +374,6 @@ public class DimensionCoordinate {
           throw new IllegalArgumentException(String.format("The required field(s) %s in DimensionCoordinate is not found in the empty JSON string", DimensionCoordinate.openapiRequiredFields.toString()));
         }
       }
-        JsonObject jsonObj = jsonElement.getAsJsonObject();
   }
 
   public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
@@ -438,28 +391,6 @@ public class DimensionCoordinate {
            @Override
            public void write(JsonWriter out, DimensionCoordinate value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
-             obj.remove("additionalProperties");
-             // serialize additional properties
-             if (value.getAdditionalProperties() != null) {
-               for (Map.Entry<String, Object> entry : value.getAdditionalProperties().entrySet()) {
-                 if (entry.getValue() instanceof String)
-                   obj.addProperty(entry.getKey(), (String) entry.getValue());
-                 else if (entry.getValue() instanceof Number)
-                   obj.addProperty(entry.getKey(), (Number) entry.getValue());
-                 else if (entry.getValue() instanceof Boolean)
-                   obj.addProperty(entry.getKey(), (Boolean) entry.getValue());
-                 else if (entry.getValue() instanceof Character)
-                   obj.addProperty(entry.getKey(), (Character) entry.getValue());
-                 else {
-                   JsonElement jsonElement = gson.toJsonTree(entry.getValue());
-                   if (jsonElement.isJsonArray()) {
-                     obj.add(entry.getKey(), jsonElement.getAsJsonArray());
-                   } else {
-                     obj.add(entry.getKey(), jsonElement.getAsJsonObject());
-                   }
-                 }
-               }
-             }
              elementAdapter.write(out, obj);
            }
 
@@ -467,28 +398,7 @@ public class DimensionCoordinate {
            public DimensionCoordinate read(JsonReader in) throws IOException {
              JsonElement jsonElement = elementAdapter.read(in);
              validateJsonElement(jsonElement);
-             JsonObject jsonObj = jsonElement.getAsJsonObject();
-             // store additional fields in the deserialized instance
-             DimensionCoordinate instance = thisAdapter.fromJsonTree(jsonObj);
-             for (Map.Entry<String, JsonElement> entry : jsonObj.entrySet()) {
-               if (!openapiFields.contains(entry.getKey())) {
-                 if (entry.getValue().isJsonPrimitive()) { // primitive type
-                   if (entry.getValue().getAsJsonPrimitive().isString())
-                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsString());
-                   else if (entry.getValue().getAsJsonPrimitive().isNumber())
-                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsNumber());
-                   else if (entry.getValue().getAsJsonPrimitive().isBoolean())
-                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsBoolean());
-                   else
-                     throw new IllegalArgumentException(String.format("The field `%s` has unknown primitive type. Value: %s", entry.getKey(), entry.getValue().toString()));
-                 } else if (entry.getValue().isJsonArray()) {
-                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), List.class));
-                 } else { // JSON object
-                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
-                 }
-               }
-             }
-             return instance;
+             return thisAdapter.fromJsonTree(jsonElement);
            }
 
        }.nullSafe();

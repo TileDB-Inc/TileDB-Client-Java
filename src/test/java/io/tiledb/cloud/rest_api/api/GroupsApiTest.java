@@ -50,10 +50,11 @@ public class GroupsApiTest {
      */
     @Test
     public void changeGroupContentsTest() throws ApiException {
-        String groupNamespace = null;
+        String workspace = null;
+        String teamspace = null;
         String groupName = null;
         GroupChanges groupChanges = null;
-        api.changeGroupContents(groupNamespace, groupName, groupChanges);
+        api.changeGroupContents(workspace, teamspace, groupName, groupChanges);
         // TODO: test validations
     }
 
@@ -64,9 +65,10 @@ public class GroupsApiTest {
      */
     @Test
     public void createGroupTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
+        String teamspace = null;
         GroupCreate groupCreate = null;
-        api.createGroup(namespace, groupCreate);
+        api.createGroup(workspace, teamspace, groupCreate);
         // TODO: test validations
     }
 
@@ -77,9 +79,10 @@ public class GroupsApiTest {
      */
     @Test
     public void deleteGroupTest() throws ApiException {
-        String groupNamespace = null;
+        String workspace = null;
+        String teamspace = null;
         String groupName = null;
-        api.deleteGroup(groupNamespace, groupName);
+        api.deleteGroup(workspace, teamspace, groupName);
         // TODO: test validations
     }
 
@@ -90,9 +93,10 @@ public class GroupsApiTest {
      */
     @Test
     public void getGroupTest() throws ApiException {
-        String groupNamespace = null;
+        String workspace = null;
+        String teamspace = null;
         String groupName = null;
-        GroupInfo response = api.getGroup(groupNamespace, groupName);
+        GroupInfo response = api.getGroup(workspace, teamspace, groupName);
         // TODO: test validations
     }
 
@@ -103,11 +107,12 @@ public class GroupsApiTest {
      */
     @Test
     public void getGroupActivityTest() throws ApiException {
-        String groupNamespace = null;
+        String workspace = null;
+        String teamspace = null;
         String groupName = null;
         Integer page = null;
         Integer perPage = null;
-        GroupContentActivityResponse response = api.getGroupActivity(groupNamespace, groupName, page, perPage);
+        GroupContentActivityResponse response = api.getGroupActivity(workspace, teamspace, groupName, page, perPage);
         // TODO: test validations
     }
 
@@ -118,7 +123,8 @@ public class GroupsApiTest {
      */
     @Test
     public void getGroupContentsTest() throws ApiException {
-        String groupNamespace = null;
+        String workspace = null;
+        String teamspace = null;
         String groupName = null;
         Integer page = null;
         Integer perPage = null;
@@ -129,7 +135,7 @@ public class GroupsApiTest {
         List<String> excludeTag = null;
         List<String> memberType = null;
         List<String> excludeMemberType = null;
-        GroupContents response = api.getGroupContents(groupNamespace, groupName, page, perPage, namespace, search, orderby, tag, excludeTag, memberType, excludeMemberType);
+        GroupContents response = api.getGroupContents(workspace, teamspace, groupName, page, perPage, namespace, search, orderby, tag, excludeTag, memberType, excludeMemberType);
         // TODO: test validations
     }
 
@@ -140,9 +146,10 @@ public class GroupsApiTest {
      */
     @Test
     public void getGroupSharingPoliciesTest() throws ApiException {
-        String groupNamespace = null;
+        String workspace = null;
+        String teamspace = null;
         String groupName = null;
-        List<GroupSharing> response = api.getGroupSharingPolicies(groupNamespace, groupName);
+        List<GroupSharing> response = api.getGroupSharingPolicies(workspace, teamspace, groupName);
         // TODO: test validations
     }
 
@@ -187,10 +194,11 @@ public class GroupsApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void groupsGroupNamespaceGroupNameContentsFiltersGetTest() throws ApiException {
-        String groupNamespace = null;
+    public void groupsWorkspaceTeamspaceGroupNameContentsFiltersGetTest() throws ApiException {
+        String workspace = null;
+        String teamspace = null;
         String groupName = null;
-        GroupContentsFilterData response = api.groupsGroupNamespaceGroupNameContentsFiltersGet(groupNamespace, groupName);
+        GroupContentsFilterData response = api.groupsWorkspaceTeamspaceGroupNameContentsFiltersGet(workspace, teamspace, groupName);
         // TODO: test validations
     }
 
@@ -271,10 +279,11 @@ public class GroupsApiTest {
      */
     @Test
     public void registerGroupTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
+        String teamspace = null;
         String array = null;
         GroupRegister groupRegister = null;
-        api.registerGroup(namespace, array, groupRegister);
+        api.registerGroup(workspace, teamspace, array, groupRegister);
         // TODO: test validations
     }
 
@@ -285,10 +294,11 @@ public class GroupsApiTest {
      */
     @Test
     public void shareGroupTest() throws ApiException {
-        String groupNamespace = null;
+        String workspace = null;
+        String teamspace = null;
         String groupName = null;
         GroupSharingRequest groupSharingRequest = null;
-        api.shareGroup(groupNamespace, groupName, groupSharingRequest);
+        api.shareGroup(workspace, teamspace, groupName, groupSharingRequest);
         // TODO: test validations
     }
 
@@ -299,10 +309,11 @@ public class GroupsApiTest {
      */
     @Test
     public void updateGroupTest() throws ApiException {
-        String groupNamespace = null;
+        String workspace = null;
+        String teamspace = null;
         String groupName = null;
         GroupUpdate groupUpdate = null;
-        api.updateGroup(groupNamespace, groupName, groupUpdate);
+        api.updateGroup(workspace, teamspace, groupName, groupUpdate);
         // TODO: test validations
     }
 

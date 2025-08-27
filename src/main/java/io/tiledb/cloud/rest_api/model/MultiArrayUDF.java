@@ -58,7 +58,7 @@ import io.tiledb.cloud.rest_api.JSON;
 /**
  * User-defined function
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-09-13T19:24:49.771847040-04:00[America/New_York]", comments = "Generator version: 7.7.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.7.0")
 public class MultiArrayUDF {
   public static final String SERIALIZED_NAME_UDF_INFO_NAME = "udf_info_name";
   @SerializedName(SERIALIZED_NAME_UDF_INFO_NAME)
@@ -600,50 +600,6 @@ public class MultiArrayUDF {
     this.clientNodeUuid = clientNodeUuid;
   }
 
-  /**
-   * A container for additional, undeclared properties.
-   * This is a holder for any undeclared properties as specified with
-   * the 'additionalProperties' keyword in the OAS document.
-   */
-  private Map<String, Object> additionalProperties;
-
-  /**
-   * Set the additional (undeclared) property with the specified name and value.
-   * If the property does not already exist, create it otherwise replace it.
-   *
-   * @param key name of the property
-   * @param value value of the property
-   * @return the MultiArrayUDF instance itself
-   */
-  public MultiArrayUDF putAdditionalProperty(String key, Object value) {
-    if (this.additionalProperties == null) {
-        this.additionalProperties = new HashMap<String, Object>();
-    }
-    this.additionalProperties.put(key, value);
-    return this;
-  }
-
-  /**
-   * Return the additional (undeclared) property.
-   *
-   * @return a map of objects
-   */
-  public Map<String, Object> getAdditionalProperties() {
-    return additionalProperties;
-  }
-
-  /**
-   * Return the additional (undeclared) property with the specified name.
-   *
-   * @param key name of the property
-   * @return an object
-   */
-  public Object getAdditionalProperty(String key) {
-    if (this.additionalProperties == null) {
-        return null;
-    }
-    return this.additionalProperties.get(key);
-  }
 
 
   @Override
@@ -676,8 +632,7 @@ public class MultiArrayUDF {
         Objects.equals(this.arrays, multiArrayUDF.arrays) &&
         Objects.equals(this.timeout, multiArrayUDF.timeout) &&
         Objects.equals(this.taskGraphUuid, multiArrayUDF.taskGraphUuid) &&
-        Objects.equals(this.clientNodeUuid, multiArrayUDF.clientNodeUuid)&&
-        Objects.equals(this.additionalProperties, multiArrayUDF.additionalProperties);
+        Objects.equals(this.clientNodeUuid, multiArrayUDF.clientNodeUuid);
   }
 
   private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
@@ -686,7 +641,7 @@ public class MultiArrayUDF {
 
   @Override
   public int hashCode() {
-    return Objects.hash(udfInfoName, language, version, imageName, accessCredentialsName, resourceClass, exec, execRaw, resultFormat, taskName, argument, argumentsJson, storedParamUuids, storeResults, dontDownloadResults, ranges, subarray, buffers, arrays, timeout, taskGraphUuid, clientNodeUuid, additionalProperties);
+    return Objects.hash(udfInfoName, language, version, imageName, accessCredentialsName, resourceClass, exec, execRaw, resultFormat, taskName, argument, argumentsJson, storedParamUuids, storeResults, dontDownloadResults, ranges, subarray, buffers, arrays, timeout, taskGraphUuid, clientNodeUuid);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -722,7 +677,6 @@ public class MultiArrayUDF {
     sb.append("    timeout: ").append(toIndentedString(timeout)).append("\n");
     sb.append("    taskGraphUuid: ").append(toIndentedString(taskGraphUuid)).append("\n");
     sb.append("    clientNodeUuid: ").append(toIndentedString(clientNodeUuid)).append("\n");
-    sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -784,92 +738,6 @@ public class MultiArrayUDF {
           throw new IllegalArgumentException(String.format("The required field(s) %s in MultiArrayUDF is not found in the empty JSON string", MultiArrayUDF.openapiRequiredFields.toString()));
         }
       }
-        JsonObject jsonObj = jsonElement.getAsJsonObject();
-      if ((jsonObj.get("udf_info_name") != null && !jsonObj.get("udf_info_name").isJsonNull()) && !jsonObj.get("udf_info_name").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `udf_info_name` to be a primitive type in the JSON string but got `%s`", jsonObj.get("udf_info_name").toString()));
-      }
-      // validate the optional field `language`
-      if (jsonObj.get("language") != null && !jsonObj.get("language").isJsonNull()) {
-        UDFLanguage.validateJsonElement(jsonObj.get("language"));
-      }
-      if ((jsonObj.get("version") != null && !jsonObj.get("version").isJsonNull()) && !jsonObj.get("version").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `version` to be a primitive type in the JSON string but got `%s`", jsonObj.get("version").toString()));
-      }
-      if ((jsonObj.get("image_name") != null && !jsonObj.get("image_name").isJsonNull()) && !jsonObj.get("image_name").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `image_name` to be a primitive type in the JSON string but got `%s`", jsonObj.get("image_name").toString()));
-      }
-      if ((jsonObj.get("access_credentials_name") != null && !jsonObj.get("access_credentials_name").isJsonNull()) && !jsonObj.get("access_credentials_name").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `access_credentials_name` to be a primitive type in the JSON string but got `%s`", jsonObj.get("access_credentials_name").toString()));
-      }
-      if ((jsonObj.get("resource_class") != null && !jsonObj.get("resource_class").isJsonNull()) && !jsonObj.get("resource_class").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `resource_class` to be a primitive type in the JSON string but got `%s`", jsonObj.get("resource_class").toString()));
-      }
-      if ((jsonObj.get("exec") != null && !jsonObj.get("exec").isJsonNull()) && !jsonObj.get("exec").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `exec` to be a primitive type in the JSON string but got `%s`", jsonObj.get("exec").toString()));
-      }
-      if ((jsonObj.get("exec_raw") != null && !jsonObj.get("exec_raw").isJsonNull()) && !jsonObj.get("exec_raw").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `exec_raw` to be a primitive type in the JSON string but got `%s`", jsonObj.get("exec_raw").toString()));
-      }
-      // validate the optional field `result_format`
-      if (jsonObj.get("result_format") != null && !jsonObj.get("result_format").isJsonNull()) {
-        ResultFormat.validateJsonElement(jsonObj.get("result_format"));
-      }
-      if ((jsonObj.get("task_name") != null && !jsonObj.get("task_name").isJsonNull()) && !jsonObj.get("task_name").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `task_name` to be a primitive type in the JSON string but got `%s`", jsonObj.get("task_name").toString()));
-      }
-      if ((jsonObj.get("argument") != null && !jsonObj.get("argument").isJsonNull()) && !jsonObj.get("argument").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `argument` to be a primitive type in the JSON string but got `%s`", jsonObj.get("argument").toString()));
-      }
-      if (jsonObj.get("arguments_json") != null && !jsonObj.get("arguments_json").isJsonNull()) {
-        JsonArray jsonArrayargumentsJson = jsonObj.getAsJsonArray("arguments_json");
-        if (jsonArrayargumentsJson != null) {
-          // ensure the json data is an array
-          if (!jsonObj.get("arguments_json").isJsonArray()) {
-            throw new IllegalArgumentException(String.format("Expected the field `arguments_json` to be an array in the JSON string but got `%s`", jsonObj.get("arguments_json").toString()));
-          }
-
-          // validate the optional field `arguments_json` (array)
-          for (int i = 0; i < jsonArrayargumentsJson.size(); i++) {
-            TGUDFArgument.validateJsonElement(jsonArrayargumentsJson.get(i));
-          };
-        }
-      }
-      // ensure the optional json data is an array if present
-      if (jsonObj.get("stored_param_uuids") != null && !jsonObj.get("stored_param_uuids").isJsonNull() && !jsonObj.get("stored_param_uuids").isJsonArray()) {
-        throw new IllegalArgumentException(String.format("Expected the field `stored_param_uuids` to be an array in the JSON string but got `%s`", jsonObj.get("stored_param_uuids").toString()));
-      }
-      // validate the optional field `ranges`
-      if (jsonObj.get("ranges") != null && !jsonObj.get("ranges").isJsonNull()) {
-        QueryRanges.validateJsonElement(jsonObj.get("ranges"));
-      }
-      // validate the optional field `subarray`
-      if (jsonObj.get("subarray") != null && !jsonObj.get("subarray").isJsonNull()) {
-        UDFSubarray.validateJsonElement(jsonObj.get("subarray"));
-      }
-      // ensure the optional json data is an array if present
-      if (jsonObj.get("buffers") != null && !jsonObj.get("buffers").isJsonNull() && !jsonObj.get("buffers").isJsonArray()) {
-        throw new IllegalArgumentException(String.format("Expected the field `buffers` to be an array in the JSON string but got `%s`", jsonObj.get("buffers").toString()));
-      }
-      if (jsonObj.get("arrays") != null && !jsonObj.get("arrays").isJsonNull()) {
-        JsonArray jsonArrayarrays = jsonObj.getAsJsonArray("arrays");
-        if (jsonArrayarrays != null) {
-          // ensure the json data is an array
-          if (!jsonObj.get("arrays").isJsonArray()) {
-            throw new IllegalArgumentException(String.format("Expected the field `arrays` to be an array in the JSON string but got `%s`", jsonObj.get("arrays").toString()));
-          }
-
-          // validate the optional field `arrays` (array)
-          for (int i = 0; i < jsonArrayarrays.size(); i++) {
-            UDFArrayDetails.validateJsonElement(jsonArrayarrays.get(i));
-          };
-        }
-      }
-      if ((jsonObj.get("task_graph_uuid") != null && !jsonObj.get("task_graph_uuid").isJsonNull()) && !jsonObj.get("task_graph_uuid").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `task_graph_uuid` to be a primitive type in the JSON string but got `%s`", jsonObj.get("task_graph_uuid").toString()));
-      }
-      if ((jsonObj.get("client_node_uuid") != null && !jsonObj.get("client_node_uuid").isJsonNull()) && !jsonObj.get("client_node_uuid").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `client_node_uuid` to be a primitive type in the JSON string but got `%s`", jsonObj.get("client_node_uuid").toString()));
-      }
   }
 
   public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
@@ -887,28 +755,6 @@ public class MultiArrayUDF {
            @Override
            public void write(JsonWriter out, MultiArrayUDF value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
-             obj.remove("additionalProperties");
-             // serialize additional properties
-             if (value.getAdditionalProperties() != null) {
-               for (Map.Entry<String, Object> entry : value.getAdditionalProperties().entrySet()) {
-                 if (entry.getValue() instanceof String)
-                   obj.addProperty(entry.getKey(), (String) entry.getValue());
-                 else if (entry.getValue() instanceof Number)
-                   obj.addProperty(entry.getKey(), (Number) entry.getValue());
-                 else if (entry.getValue() instanceof Boolean)
-                   obj.addProperty(entry.getKey(), (Boolean) entry.getValue());
-                 else if (entry.getValue() instanceof Character)
-                   obj.addProperty(entry.getKey(), (Character) entry.getValue());
-                 else {
-                   JsonElement jsonElement = gson.toJsonTree(entry.getValue());
-                   if (jsonElement.isJsonArray()) {
-                     obj.add(entry.getKey(), jsonElement.getAsJsonArray());
-                   } else {
-                     obj.add(entry.getKey(), jsonElement.getAsJsonObject());
-                   }
-                 }
-               }
-             }
              elementAdapter.write(out, obj);
            }
 
@@ -916,28 +762,7 @@ public class MultiArrayUDF {
            public MultiArrayUDF read(JsonReader in) throws IOException {
              JsonElement jsonElement = elementAdapter.read(in);
              validateJsonElement(jsonElement);
-             JsonObject jsonObj = jsonElement.getAsJsonObject();
-             // store additional fields in the deserialized instance
-             MultiArrayUDF instance = thisAdapter.fromJsonTree(jsonObj);
-             for (Map.Entry<String, JsonElement> entry : jsonObj.entrySet()) {
-               if (!openapiFields.contains(entry.getKey())) {
-                 if (entry.getValue().isJsonPrimitive()) { // primitive type
-                   if (entry.getValue().getAsJsonPrimitive().isString())
-                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsString());
-                   else if (entry.getValue().getAsJsonPrimitive().isNumber())
-                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsNumber());
-                   else if (entry.getValue().getAsJsonPrimitive().isBoolean())
-                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsBoolean());
-                   else
-                     throw new IllegalArgumentException(String.format("The field `%s` has unknown primitive type. Value: %s", entry.getKey(), entry.getValue().toString()));
-                 } else if (entry.getValue().isJsonArray()) {
-                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), List.class));
-                 } else { // JSON object
-                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
-                 }
-               }
-             }
-             return instance;
+             return thisAdapter.fromJsonTree(jsonElement);
            }
 
        }.nullSafe();

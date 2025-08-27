@@ -37,5 +37,7 @@
 
 * `READ_ENUMERATIONS` (value: `"read_enumerations"`)
 
+* `NEXTFLOW` (value: `"nextflow"`)
+
 
 

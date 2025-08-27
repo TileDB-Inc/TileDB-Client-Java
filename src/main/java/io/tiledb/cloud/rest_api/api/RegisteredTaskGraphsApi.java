@@ -76,7 +76,7 @@ public class RegisteredTaskGraphsApi {
 
     /**
      * Build call for deleteRegisteredTaskGraph
-     * @param namespace The namespace that owns this registered UDF. (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
      * @param name The name of the registered task graph. (required)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
@@ -89,7 +89,7 @@ public class RegisteredTaskGraphsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call deleteRegisteredTaskGraphCall(String namespace, String name, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call deleteRegisteredTaskGraphCall(String workspace, String name, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -106,8 +106,8 @@ public class RegisteredTaskGraphsApi {
         Object localVarPostBody = null;
 
         // create path and map variables
-        String localVarPath = "/taskgraphs/{namespace}/registered/{name}"
-            .replace("{" + "namespace" + "}", localVarApiClient.escapeString(namespace.toString()))
+        String localVarPath = "/taskgraphs/{workspace}/registered/{name}"
+            .replace("{" + "workspace" + "}", localVarApiClient.escapeString(workspace.toString()))
             .replace("{" + "name" + "}", localVarApiClient.escapeString(name.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -136,10 +136,10 @@ public class RegisteredTaskGraphsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call deleteRegisteredTaskGraphValidateBeforeCall(String namespace, String name, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'namespace' is set
-        if (namespace == null) {
-            throw new ApiException("Missing the required parameter 'namespace' when calling deleteRegisteredTaskGraph(Async)");
+    private okhttp3.Call deleteRegisteredTaskGraphValidateBeforeCall(String workspace, String name, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'workspace' is set
+        if (workspace == null) {
+            throw new ApiException("Missing the required parameter 'workspace' when calling deleteRegisteredTaskGraph(Async)");
         }
 
         // verify the required parameter 'name' is set
@@ -147,14 +147,14 @@ public class RegisteredTaskGraphsApi {
             throw new ApiException("Missing the required parameter 'name' when calling deleteRegisteredTaskGraph(Async)");
         }
 
-        return deleteRegisteredTaskGraphCall(namespace, name, _callback);
+        return deleteRegisteredTaskGraphCall(workspace, name, _callback);
 
     }
 
     /**
      * 
      * Delete the given registered task graph. 
-     * @param namespace The namespace that owns this registered UDF. (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
      * @param name The name of the registered task graph. (required)
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -165,14 +165,14 @@ public class RegisteredTaskGraphsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public void deleteRegisteredTaskGraph(String namespace, String name) throws ApiException {
-        deleteRegisteredTaskGraphWithHttpInfo(namespace, name);
+    public void deleteRegisteredTaskGraph(String workspace, String name) throws ApiException {
+        deleteRegisteredTaskGraphWithHttpInfo(workspace, name);
     }
 
     /**
      * 
      * Delete the given registered task graph. 
-     * @param namespace The namespace that owns this registered UDF. (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
      * @param name The name of the registered task graph. (required)
      * @return ApiResponse&lt;Void&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -184,15 +184,15 @@ public class RegisteredTaskGraphsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<Void> deleteRegisteredTaskGraphWithHttpInfo(String namespace, String name) throws ApiException {
-        okhttp3.Call localVarCall = deleteRegisteredTaskGraphValidateBeforeCall(namespace, name, null);
+    public ApiResponse<Void> deleteRegisteredTaskGraphWithHttpInfo(String workspace, String name) throws ApiException {
+        okhttp3.Call localVarCall = deleteRegisteredTaskGraphValidateBeforeCall(workspace, name, null);
         return localVarApiClient.execute(localVarCall);
     }
 
     /**
      *  (asynchronously)
      * Delete the given registered task graph. 
-     * @param namespace The namespace that owns this registered UDF. (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
      * @param name The name of the registered task graph. (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
@@ -205,15 +205,15 @@ public class RegisteredTaskGraphsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call deleteRegisteredTaskGraphAsync(String namespace, String name, final ApiCallback<Void> _callback) throws ApiException {
+    public okhttp3.Call deleteRegisteredTaskGraphAsync(String workspace, String name, final ApiCallback<Void> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = deleteRegisteredTaskGraphValidateBeforeCall(namespace, name, _callback);
+        okhttp3.Call localVarCall = deleteRegisteredTaskGraphValidateBeforeCall(workspace, name, _callback);
         localVarApiClient.executeAsync(localVarCall, _callback);
         return localVarCall;
     }
     /**
      * Build call for getRegisteredTaskGraph
-     * @param namespace The namespace that owns this registered UDF. (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
      * @param name The name of the registered task graph. (required)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
@@ -226,7 +226,7 @@ public class RegisteredTaskGraphsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getRegisteredTaskGraphCall(String namespace, String name, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call getRegisteredTaskGraphCall(String workspace, String name, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -243,8 +243,8 @@ public class RegisteredTaskGraphsApi {
         Object localVarPostBody = null;
 
         // create path and map variables
-        String localVarPath = "/taskgraphs/{namespace}/registered/{name}"
-            .replace("{" + "namespace" + "}", localVarApiClient.escapeString(namespace.toString()))
+        String localVarPath = "/taskgraphs/{workspace}/registered/{name}"
+            .replace("{" + "workspace" + "}", localVarApiClient.escapeString(workspace.toString()))
             .replace("{" + "name" + "}", localVarApiClient.escapeString(name.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -273,10 +273,10 @@ public class RegisteredTaskGraphsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getRegisteredTaskGraphValidateBeforeCall(String namespace, String name, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'namespace' is set
-        if (namespace == null) {
-            throw new ApiException("Missing the required parameter 'namespace' when calling getRegisteredTaskGraph(Async)");
+    private okhttp3.Call getRegisteredTaskGraphValidateBeforeCall(String workspace, String name, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'workspace' is set
+        if (workspace == null) {
+            throw new ApiException("Missing the required parameter 'workspace' when calling getRegisteredTaskGraph(Async)");
         }
 
         // verify the required parameter 'name' is set
@@ -284,14 +284,14 @@ public class RegisteredTaskGraphsApi {
             throw new ApiException("Missing the required parameter 'name' when calling getRegisteredTaskGraph(Async)");
         }
 
-        return getRegisteredTaskGraphCall(namespace, name, _callback);
+        return getRegisteredTaskGraphCall(workspace, name, _callback);
 
     }
 
     /**
      * 
      * Fetch the contents of this registered task graph. 
-     * @param namespace The namespace that owns this registered UDF. (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
      * @param name The name of the registered task graph. (required)
      * @return RegisteredTaskGraph
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -303,15 +303,15 @@ public class RegisteredTaskGraphsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public RegisteredTaskGraph getRegisteredTaskGraph(String namespace, String name) throws ApiException {
-        ApiResponse<RegisteredTaskGraph> localVarResp = getRegisteredTaskGraphWithHttpInfo(namespace, name);
+    public RegisteredTaskGraph getRegisteredTaskGraph(String workspace, String name) throws ApiException {
+        ApiResponse<RegisteredTaskGraph> localVarResp = getRegisteredTaskGraphWithHttpInfo(workspace, name);
         return localVarResp.getData();
     }
 
     /**
      * 
      * Fetch the contents of this registered task graph. 
-     * @param namespace The namespace that owns this registered UDF. (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
      * @param name The name of the registered task graph. (required)
      * @return ApiResponse&lt;RegisteredTaskGraph&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -323,8 +323,8 @@ public class RegisteredTaskGraphsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<RegisteredTaskGraph> getRegisteredTaskGraphWithHttpInfo(String namespace, String name) throws ApiException {
-        okhttp3.Call localVarCall = getRegisteredTaskGraphValidateBeforeCall(namespace, name, null);
+    public ApiResponse<RegisteredTaskGraph> getRegisteredTaskGraphWithHttpInfo(String workspace, String name) throws ApiException {
+        okhttp3.Call localVarCall = getRegisteredTaskGraphValidateBeforeCall(workspace, name, null);
         Type localVarReturnType = new TypeToken<RegisteredTaskGraph>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
@@ -332,7 +332,7 @@ public class RegisteredTaskGraphsApi {
     /**
      *  (asynchronously)
      * Fetch the contents of this registered task graph. 
-     * @param namespace The namespace that owns this registered UDF. (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
      * @param name The name of the registered task graph. (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
@@ -345,16 +345,16 @@ public class RegisteredTaskGraphsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getRegisteredTaskGraphAsync(String namespace, String name, final ApiCallback<RegisteredTaskGraph> _callback) throws ApiException {
+    public okhttp3.Call getRegisteredTaskGraphAsync(String workspace, String name, final ApiCallback<RegisteredTaskGraph> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = getRegisteredTaskGraphValidateBeforeCall(namespace, name, _callback);
+        okhttp3.Call localVarCall = getRegisteredTaskGraphValidateBeforeCall(workspace, name, _callback);
         Type localVarReturnType = new TypeToken<RegisteredTaskGraph>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
     /**
      * Build call for getRegisteredTaskGraphSharingPolicies
-     * @param namespace The namespace that owns the registered task graph. (required)
+     * @param workspace The workspace that owns the registered task graph. (required)
      * @param name The name of the task graph. (required)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
@@ -368,7 +368,7 @@ public class RegisteredTaskGraphsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getRegisteredTaskGraphSharingPoliciesCall(String namespace, String name, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call getRegisteredTaskGraphSharingPoliciesCall(String workspace, String name, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -385,8 +385,8 @@ public class RegisteredTaskGraphsApi {
         Object localVarPostBody = null;
 
         // create path and map variables
-        String localVarPath = "/taskgraphs/{namespace}/registered/{name}/share"
-            .replace("{" + "namespace" + "}", localVarApiClient.escapeString(namespace.toString()))
+        String localVarPath = "/taskgraphs/{workspace}/registered/{name}/share"
+            .replace("{" + "workspace" + "}", localVarApiClient.escapeString(workspace.toString()))
             .replace("{" + "name" + "}", localVarApiClient.escapeString(name.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -415,10 +415,10 @@ public class RegisteredTaskGraphsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getRegisteredTaskGraphSharingPoliciesValidateBeforeCall(String namespace, String name, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'namespace' is set
-        if (namespace == null) {
-            throw new ApiException("Missing the required parameter 'namespace' when calling getRegisteredTaskGraphSharingPolicies(Async)");
+    private okhttp3.Call getRegisteredTaskGraphSharingPoliciesValidateBeforeCall(String workspace, String name, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'workspace' is set
+        if (workspace == null) {
+            throw new ApiException("Missing the required parameter 'workspace' when calling getRegisteredTaskGraphSharingPolicies(Async)");
         }
 
         // verify the required parameter 'name' is set
@@ -426,14 +426,14 @@ public class RegisteredTaskGraphsApi {
             throw new ApiException("Missing the required parameter 'name' when calling getRegisteredTaskGraphSharingPolicies(Async)");
         }
 
-        return getRegisteredTaskGraphSharingPoliciesCall(namespace, name, _callback);
+        return getRegisteredTaskGraphSharingPoliciesCall(workspace, name, _callback);
 
     }
 
     /**
      * 
      * Get sharing policies for the task graph.
-     * @param namespace The namespace that owns the registered task graph. (required)
+     * @param workspace The workspace that owns the registered task graph. (required)
      * @param name The name of the task graph. (required)
      * @return List&lt;TaskGraphSharing&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -446,15 +446,15 @@ public class RegisteredTaskGraphsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public List<TaskGraphSharing> getRegisteredTaskGraphSharingPolicies(String namespace, String name) throws ApiException {
-        ApiResponse<List<TaskGraphSharing>> localVarResp = getRegisteredTaskGraphSharingPoliciesWithHttpInfo(namespace, name);
+    public List<TaskGraphSharing> getRegisteredTaskGraphSharingPolicies(String workspace, String name) throws ApiException {
+        ApiResponse<List<TaskGraphSharing>> localVarResp = getRegisteredTaskGraphSharingPoliciesWithHttpInfo(workspace, name);
         return localVarResp.getData();
     }
 
     /**
      * 
      * Get sharing policies for the task graph.
-     * @param namespace The namespace that owns the registered task graph. (required)
+     * @param workspace The workspace that owns the registered task graph. (required)
      * @param name The name of the task graph. (required)
      * @return ApiResponse&lt;List&lt;TaskGraphSharing&gt;&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -467,8 +467,8 @@ public class RegisteredTaskGraphsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<List<TaskGraphSharing>> getRegisteredTaskGraphSharingPoliciesWithHttpInfo(String namespace, String name) throws ApiException {
-        okhttp3.Call localVarCall = getRegisteredTaskGraphSharingPoliciesValidateBeforeCall(namespace, name, null);
+    public ApiResponse<List<TaskGraphSharing>> getRegisteredTaskGraphSharingPoliciesWithHttpInfo(String workspace, String name) throws ApiException {
+        okhttp3.Call localVarCall = getRegisteredTaskGraphSharingPoliciesValidateBeforeCall(workspace, name, null);
         Type localVarReturnType = new TypeToken<List<TaskGraphSharing>>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
@@ -476,7 +476,7 @@ public class RegisteredTaskGraphsApi {
     /**
      *  (asynchronously)
      * Get sharing policies for the task graph.
-     * @param namespace The namespace that owns the registered task graph. (required)
+     * @param workspace The workspace that owns the registered task graph. (required)
      * @param name The name of the task graph. (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
@@ -490,16 +490,16 @@ public class RegisteredTaskGraphsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getRegisteredTaskGraphSharingPoliciesAsync(String namespace, String name, final ApiCallback<List<TaskGraphSharing>> _callback) throws ApiException {
+    public okhttp3.Call getRegisteredTaskGraphSharingPoliciesAsync(String workspace, String name, final ApiCallback<List<TaskGraphSharing>> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = getRegisteredTaskGraphSharingPoliciesValidateBeforeCall(namespace, name, _callback);
+        okhttp3.Call localVarCall = getRegisteredTaskGraphSharingPoliciesValidateBeforeCall(workspace, name, _callback);
         Type localVarReturnType = new TypeToken<List<TaskGraphSharing>>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
     /**
      * Build call for registerRegisteredTaskGraph
-     * @param namespace The namespace that owns this registered UDF. (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
      * @param name The name of the registered task graph. (required)
      * @param graph Task graph to register. (optional)
      * @param _callback Callback for upload/download progress
@@ -513,7 +513,7 @@ public class RegisteredTaskGraphsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call registerRegisteredTaskGraphCall(String namespace, String name, RegisteredTaskGraph graph, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call registerRegisteredTaskGraphCall(String workspace, String name, RegisteredTaskGraph graph, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -530,8 +530,8 @@ public class RegisteredTaskGraphsApi {
         Object localVarPostBody = graph;
 
         // create path and map variables
-        String localVarPath = "/taskgraphs/{namespace}/registered/{name}"
-            .replace("{" + "namespace" + "}", localVarApiClient.escapeString(namespace.toString()))
+        String localVarPath = "/taskgraphs/{workspace}/registered/{name}"
+            .replace("{" + "workspace" + "}", localVarApiClient.escapeString(workspace.toString()))
             .replace("{" + "name" + "}", localVarApiClient.escapeString(name.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -561,10 +561,10 @@ public class RegisteredTaskGraphsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call registerRegisteredTaskGraphValidateBeforeCall(String namespace, String name, RegisteredTaskGraph graph, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'namespace' is set
-        if (namespace == null) {
-            throw new ApiException("Missing the required parameter 'namespace' when calling registerRegisteredTaskGraph(Async)");
+    private okhttp3.Call registerRegisteredTaskGraphValidateBeforeCall(String workspace, String name, RegisteredTaskGraph graph, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'workspace' is set
+        if (workspace == null) {
+            throw new ApiException("Missing the required parameter 'workspace' when calling registerRegisteredTaskGraph(Async)");
         }
 
         // verify the required parameter 'name' is set
@@ -572,14 +572,14 @@ public class RegisteredTaskGraphsApi {
             throw new ApiException("Missing the required parameter 'name' when calling registerRegisteredTaskGraph(Async)");
         }
 
-        return registerRegisteredTaskGraphCall(namespace, name, graph, _callback);
+        return registerRegisteredTaskGraphCall(workspace, name, graph, _callback);
 
     }
 
     /**
      * 
      * Register a task graph in the given namespace, with the given name. 
-     * @param namespace The namespace that owns this registered UDF. (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
      * @param name The name of the registered task graph. (required)
      * @param graph Task graph to register. (optional)
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -591,14 +591,14 @@ public class RegisteredTaskGraphsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public void registerRegisteredTaskGraph(String namespace, String name, RegisteredTaskGraph graph) throws ApiException {
-        registerRegisteredTaskGraphWithHttpInfo(namespace, name, graph);
+    public void registerRegisteredTaskGraph(String workspace, String name, RegisteredTaskGraph graph) throws ApiException {
+        registerRegisteredTaskGraphWithHttpInfo(workspace, name, graph);
     }
 
     /**
      * 
      * Register a task graph in the given namespace, with the given name. 
-     * @param namespace The namespace that owns this registered UDF. (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
      * @param name The name of the registered task graph. (required)
      * @param graph Task graph to register. (optional)
      * @return ApiResponse&lt;Void&gt;
@@ -611,15 +611,15 @@ public class RegisteredTaskGraphsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<Void> registerRegisteredTaskGraphWithHttpInfo(String namespace, String name, RegisteredTaskGraph graph) throws ApiException {
-        okhttp3.Call localVarCall = registerRegisteredTaskGraphValidateBeforeCall(namespace, name, graph, null);
+    public ApiResponse<Void> registerRegisteredTaskGraphWithHttpInfo(String workspace, String name, RegisteredTaskGraph graph) throws ApiException {
+        okhttp3.Call localVarCall = registerRegisteredTaskGraphValidateBeforeCall(workspace, name, graph, null);
         return localVarApiClient.execute(localVarCall);
     }
 
     /**
      *  (asynchronously)
      * Register a task graph in the given namespace, with the given name. 
-     * @param namespace The namespace that owns this registered UDF. (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
      * @param name The name of the registered task graph. (required)
      * @param graph Task graph to register. (optional)
      * @param _callback The callback to be executed when the API call finishes
@@ -633,15 +633,15 @@ public class RegisteredTaskGraphsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call registerRegisteredTaskGraphAsync(String namespace, String name, RegisteredTaskGraph graph, final ApiCallback<Void> _callback) throws ApiException {
+    public okhttp3.Call registerRegisteredTaskGraphAsync(String workspace, String name, RegisteredTaskGraph graph, final ApiCallback<Void> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = registerRegisteredTaskGraphValidateBeforeCall(namespace, name, graph, _callback);
+        okhttp3.Call localVarCall = registerRegisteredTaskGraphValidateBeforeCall(workspace, name, graph, _callback);
         localVarApiClient.executeAsync(localVarCall, _callback);
         return localVarCall;
     }
     /**
      * Build call for shareRegisteredTaskGraph
-     * @param namespace The namespace that owns the registered task graph. (required)
+     * @param workspace The workspace that owns the registered task graph. (required)
      * @param name The name of the task graph. (required)
      * @param taskGraphSharing Namespace and list of permissions to share with. An empty list of permissions will remove the namespace; if permissions already exist they will be deleted then new ones added. In the event of a failure, the new policies will be rolled back to prevent partial policies, and it&#39;s likely the UDF will not be shared with the namespace at all.  (required)
      * @param _callback Callback for upload/download progress
@@ -656,7 +656,7 @@ public class RegisteredTaskGraphsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call shareRegisteredTaskGraphCall(String namespace, String name, TaskGraphSharing taskGraphSharing, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call shareRegisteredTaskGraphCall(String workspace, String name, TaskGraphSharing taskGraphSharing, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -673,8 +673,8 @@ public class RegisteredTaskGraphsApi {
         Object localVarPostBody = taskGraphSharing;
 
         // create path and map variables
-        String localVarPath = "/taskgraphs/{namespace}/registered/{name}/share"
-            .replace("{" + "namespace" + "}", localVarApiClient.escapeString(namespace.toString()))
+        String localVarPath = "/taskgraphs/{workspace}/registered/{name}/share"
+            .replace("{" + "workspace" + "}", localVarApiClient.escapeString(workspace.toString()))
             .replace("{" + "name" + "}", localVarApiClient.escapeString(name.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -704,10 +704,10 @@ public class RegisteredTaskGraphsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call shareRegisteredTaskGraphValidateBeforeCall(String namespace, String name, TaskGraphSharing taskGraphSharing, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'namespace' is set
-        if (namespace == null) {
-            throw new ApiException("Missing the required parameter 'namespace' when calling shareRegisteredTaskGraph(Async)");
+    private okhttp3.Call shareRegisteredTaskGraphValidateBeforeCall(String workspace, String name, TaskGraphSharing taskGraphSharing, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'workspace' is set
+        if (workspace == null) {
+            throw new ApiException("Missing the required parameter 'workspace' when calling shareRegisteredTaskGraph(Async)");
         }
 
         // verify the required parameter 'name' is set
@@ -720,14 +720,14 @@ public class RegisteredTaskGraphsApi {
             throw new ApiException("Missing the required parameter 'taskGraphSharing' when calling shareRegisteredTaskGraph(Async)");
         }
 
-        return shareRegisteredTaskGraphCall(namespace, name, taskGraphSharing, _callback);
+        return shareRegisteredTaskGraphCall(workspace, name, taskGraphSharing, _callback);
 
     }
 
     /**
      * 
      * Share a task graph.
-     * @param namespace The namespace that owns the registered task graph. (required)
+     * @param workspace The workspace that owns the registered task graph. (required)
      * @param name The name of the task graph. (required)
      * @param taskGraphSharing Namespace and list of permissions to share with. An empty list of permissions will remove the namespace; if permissions already exist they will be deleted then new ones added. In the event of a failure, the new policies will be rolled back to prevent partial policies, and it&#39;s likely the UDF will not be shared with the namespace at all.  (required)
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -740,14 +740,14 @@ public class RegisteredTaskGraphsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public void shareRegisteredTaskGraph(String namespace, String name, TaskGraphSharing taskGraphSharing) throws ApiException {
-        shareRegisteredTaskGraphWithHttpInfo(namespace, name, taskGraphSharing);
+    public void shareRegisteredTaskGraph(String workspace, String name, TaskGraphSharing taskGraphSharing) throws ApiException {
+        shareRegisteredTaskGraphWithHttpInfo(workspace, name, taskGraphSharing);
     }
 
     /**
      * 
      * Share a task graph.
-     * @param namespace The namespace that owns the registered task graph. (required)
+     * @param workspace The workspace that owns the registered task graph. (required)
      * @param name The name of the task graph. (required)
      * @param taskGraphSharing Namespace and list of permissions to share with. An empty list of permissions will remove the namespace; if permissions already exist they will be deleted then new ones added. In the event of a failure, the new policies will be rolled back to prevent partial policies, and it&#39;s likely the UDF will not be shared with the namespace at all.  (required)
      * @return ApiResponse&lt;Void&gt;
@@ -761,15 +761,15 @@ public class RegisteredTaskGraphsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<Void> shareRegisteredTaskGraphWithHttpInfo(String namespace, String name, TaskGraphSharing taskGraphSharing) throws ApiException {
-        okhttp3.Call localVarCall = shareRegisteredTaskGraphValidateBeforeCall(namespace, name, taskGraphSharing, null);
+    public ApiResponse<Void> shareRegisteredTaskGraphWithHttpInfo(String workspace, String name, TaskGraphSharing taskGraphSharing) throws ApiException {
+        okhttp3.Call localVarCall = shareRegisteredTaskGraphValidateBeforeCall(workspace, name, taskGraphSharing, null);
         return localVarApiClient.execute(localVarCall);
     }
 
     /**
      *  (asynchronously)
      * Share a task graph.
-     * @param namespace The namespace that owns the registered task graph. (required)
+     * @param workspace The workspace that owns the registered task graph. (required)
      * @param name The name of the task graph. (required)
      * @param taskGraphSharing Namespace and list of permissions to share with. An empty list of permissions will remove the namespace; if permissions already exist they will be deleted then new ones added. In the event of a failure, the new policies will be rolled back to prevent partial policies, and it&#39;s likely the UDF will not be shared with the namespace at all.  (required)
      * @param _callback The callback to be executed when the API call finishes
@@ -784,15 +784,15 @@ public class RegisteredTaskGraphsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call shareRegisteredTaskGraphAsync(String namespace, String name, TaskGraphSharing taskGraphSharing, final ApiCallback<Void> _callback) throws ApiException {
+    public okhttp3.Call shareRegisteredTaskGraphAsync(String workspace, String name, TaskGraphSharing taskGraphSharing, final ApiCallback<Void> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = shareRegisteredTaskGraphValidateBeforeCall(namespace, name, taskGraphSharing, _callback);
+        okhttp3.Call localVarCall = shareRegisteredTaskGraphValidateBeforeCall(workspace, name, taskGraphSharing, _callback);
         localVarApiClient.executeAsync(localVarCall, _callback);
         return localVarCall;
     }
     /**
      * Build call for updateRegisteredTaskGraph
-     * @param namespace The namespace that owns this registered UDF. (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
      * @param name The name of the registered task graph. (required)
      * @param graph The new contents of the task graph. (optional)
      * @param _callback Callback for upload/download progress
@@ -806,7 +806,7 @@ public class RegisteredTaskGraphsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call updateRegisteredTaskGraphCall(String namespace, String name, RegisteredTaskGraph graph, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call updateRegisteredTaskGraphCall(String workspace, String name, RegisteredTaskGraph graph, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -823,8 +823,8 @@ public class RegisteredTaskGraphsApi {
         Object localVarPostBody = graph;
 
         // create path and map variables
-        String localVarPath = "/taskgraphs/{namespace}/registered/{name}"
-            .replace("{" + "namespace" + "}", localVarApiClient.escapeString(namespace.toString()))
+        String localVarPath = "/taskgraphs/{workspace}/registered/{name}"
+            .replace("{" + "workspace" + "}", localVarApiClient.escapeString(workspace.toString()))
             .replace("{" + "name" + "}", localVarApiClient.escapeString(name.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -854,10 +854,10 @@ public class RegisteredTaskGraphsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call updateRegisteredTaskGraphValidateBeforeCall(String namespace, String name, RegisteredTaskGraph graph, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'namespace' is set
-        if (namespace == null) {
-            throw new ApiException("Missing the required parameter 'namespace' when calling updateRegisteredTaskGraph(Async)");
+    private okhttp3.Call updateRegisteredTaskGraphValidateBeforeCall(String workspace, String name, RegisteredTaskGraph graph, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'workspace' is set
+        if (workspace == null) {
+            throw new ApiException("Missing the required parameter 'workspace' when calling updateRegisteredTaskGraph(Async)");
         }
 
         // verify the required parameter 'name' is set
@@ -865,14 +865,14 @@ public class RegisteredTaskGraphsApi {
             throw new ApiException("Missing the required parameter 'name' when calling updateRegisteredTaskGraph(Async)");
         }
 
-        return updateRegisteredTaskGraphCall(namespace, name, graph, _callback);
+        return updateRegisteredTaskGraphCall(workspace, name, graph, _callback);
 
     }
 
     /**
      * 
      * Update the contents of an existing registered task graph. 
-     * @param namespace The namespace that owns this registered UDF. (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
      * @param name The name of the registered task graph. (required)
      * @param graph The new contents of the task graph. (optional)
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -884,14 +884,14 @@ public class RegisteredTaskGraphsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public void updateRegisteredTaskGraph(String namespace, String name, RegisteredTaskGraph graph) throws ApiException {
-        updateRegisteredTaskGraphWithHttpInfo(namespace, name, graph);
+    public void updateRegisteredTaskGraph(String workspace, String name, RegisteredTaskGraph graph) throws ApiException {
+        updateRegisteredTaskGraphWithHttpInfo(workspace, name, graph);
     }
 
     /**
      * 
      * Update the contents of an existing registered task graph. 
-     * @param namespace The namespace that owns this registered UDF. (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
      * @param name The name of the registered task graph. (required)
      * @param graph The new contents of the task graph. (optional)
      * @return ApiResponse&lt;Void&gt;
@@ -904,15 +904,15 @@ public class RegisteredTaskGraphsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<Void> updateRegisteredTaskGraphWithHttpInfo(String namespace, String name, RegisteredTaskGraph graph) throws ApiException {
-        okhttp3.Call localVarCall = updateRegisteredTaskGraphValidateBeforeCall(namespace, name, graph, null);
+    public ApiResponse<Void> updateRegisteredTaskGraphWithHttpInfo(String workspace, String name, RegisteredTaskGraph graph) throws ApiException {
+        okhttp3.Call localVarCall = updateRegisteredTaskGraphValidateBeforeCall(workspace, name, graph, null);
         return localVarApiClient.execute(localVarCall);
     }
 
     /**
      *  (asynchronously)
      * Update the contents of an existing registered task graph. 
-     * @param namespace The namespace that owns this registered UDF. (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
      * @param name The name of the registered task graph. (required)
      * @param graph The new contents of the task graph. (optional)
      * @param _callback The callback to be executed when the API call finishes
@@ -926,9 +926,9 @@ public class RegisteredTaskGraphsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call updateRegisteredTaskGraphAsync(String namespace, String name, RegisteredTaskGraph graph, final ApiCallback<Void> _callback) throws ApiException {
+    public okhttp3.Call updateRegisteredTaskGraphAsync(String workspace, String name, RegisteredTaskGraph graph, final ApiCallback<Void> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = updateRegisteredTaskGraphValidateBeforeCall(namespace, name, graph, _callback);
+        okhttp3.Call localVarCall = updateRegisteredTaskGraphValidateBeforeCall(workspace, name, graph, _callback);
         localVarApiClient.executeAsync(localVarCall, _callback);
         return localVarCall;
     }

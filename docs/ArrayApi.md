@@ -4,45 +4,45 @@ All URIs are relative to */v1*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**arrayActivityLog**](ArrayApi.md#arrayActivityLog) | **GET** /arrays/{namespace}/{array}/activity |  |
+| [**arrayActivityLog**](ArrayApi.md#arrayActivityLog) | **GET** /arrays/{workspace}/{teamspace}/{array}/activity |  |
 | [**arraysBrowserOwnedGet**](ArrayApi.md#arraysBrowserOwnedGet) | **GET** /arrays/browser/owned |  |
 | [**arraysBrowserOwnedSidebarGet**](ArrayApi.md#arraysBrowserOwnedSidebarGet) | **GET** /arrays/browser/owned/sidebar |  |
 | [**arraysBrowserPublicGet**](ArrayApi.md#arraysBrowserPublicGet) | **GET** /arrays/browser/public |  |
 | [**arraysBrowserPublicSidebarGet**](ArrayApi.md#arraysBrowserPublicSidebarGet) | **GET** /arrays/browser/public/sidebar |  |
 | [**arraysBrowserSharedGet**](ArrayApi.md#arraysBrowserSharedGet) | **GET** /arrays/browser/shared |  |
 | [**arraysBrowserSharedSidebarGet**](ArrayApi.md#arraysBrowserSharedSidebarGet) | **GET** /arrays/browser/shared/sidebar |  |
-| [**arraysNamespaceArrayEndTimestampsGet**](ArrayApi.md#arraysNamespaceArrayEndTimestampsGet) | **GET** /arrays/{namespace}/{array}/end_timestamps |  |
-| [**consolidateArray**](ArrayApi.md#consolidateArray) | **POST** /arrays/{namespace}/{array}/consolidate |  |
-| [**createArray**](ArrayApi.md#createArray) | **POST** /arrays/{namespace}/{array} |  |
-| [**deleteArray**](ArrayApi.md#deleteArray) | **DELETE** /arrays/{namespace}/{array} |  |
-| [**deregisterArray**](ArrayApi.md#deregisterArray) | **DELETE** /arrays/{namespace}/{array}/deregister |  |
-| [**fragmentInfo**](ArrayApi.md#fragmentInfo) | **POST** /arrays/{namespace}/{array}/fragment_info |  |
-| [**getActivityLogById**](ArrayApi.md#getActivityLogById) | **GET** /arrays/{namespace}/{array}/activity/{id} |  |
+| [**arraysWorkspaceTeamspaceArrayEndTimestampsGet**](ArrayApi.md#arraysWorkspaceTeamspaceArrayEndTimestampsGet) | **GET** /arrays/{workspace}/{teamspace}/{array}/end_timestamps |  |
+| [**consolidateArray**](ArrayApi.md#consolidateArray) | **POST** /arrays/{workspace}/{teamspace}/{array}/consolidate |  |
+| [**createArray**](ArrayApi.md#createArray) | **POST** /arrays/{workspace}/{teamspace}/{array} |  |
+| [**deleteArray**](ArrayApi.md#deleteArray) | **DELETE** /arrays/{workspace}/{teamspace}/{array} |  |
+| [**deregisterArray**](ArrayApi.md#deregisterArray) | **DELETE** /arrays/{workspace}/{teamspace}/{array}/deregister |  |
+| [**fragmentInfo**](ArrayApi.md#fragmentInfo) | **POST** /arrays/{workspace}/{teamspace}/{array}/fragment_info |  |
+| [**getActivityLogById**](ArrayApi.md#getActivityLogById) | **GET** /arrays/{workspace}/{teamspace}/{array}/activity/{id} |  |
 | [**getAllArrayMetadata**](ArrayApi.md#getAllArrayMetadata) | **GET** /arrays |  |
-| [**getArray**](ArrayApi.md#getArray) | **GET** /arrays/{namespace}/{array} |  |
-| [**getArrayMaxBufferSizes**](ArrayApi.md#getArrayMaxBufferSizes) | **GET** /arrays/{namespace}/{array}/max_buffer_sizes |  |
-| [**getArrayMetaDataJson**](ArrayApi.md#getArrayMetaDataJson) | **GET** /arrays/{namespace}/{array}/metadata_json |  |
-| [**getArrayMetadata**](ArrayApi.md#getArrayMetadata) | **GET** /arrays/{namespace}/{array}/metadata |  |
-| [**getArrayMetadataCapnp**](ArrayApi.md#getArrayMetadataCapnp) | **GET** /arrays/{namespace}/{array}/array_metadata |  |
-| [**getArrayNonEmptyDomain**](ArrayApi.md#getArrayNonEmptyDomain) | **GET** /arrays/{namespace}/{array}/non_empty_domain |  |
-| [**getArrayNonEmptyDomainJson**](ArrayApi.md#getArrayNonEmptyDomainJson) | **GET** /arrays/{namespace}/{array}/non_empty_domain_json |  |
-| [**getArraySampleData**](ArrayApi.md#getArraySampleData) | **GET** /arrays/{namespace}/{array}/sample |  |
-| [**getArraySharingPolicies**](ArrayApi.md#getArraySharingPolicies) | **GET** /arrays/{namespace}/{array}/share |  |
-| [**getArraysInNamespace**](ArrayApi.md#getArraysInNamespace) | **GET** /arrays/{namespace} |  |
-| [**getFragmentEndTimestamp**](ArrayApi.md#getFragmentEndTimestamp) | **GET** /arrays/{namespace}/{array}/fragment_end_timestamp |  |
+| [**getArray**](ArrayApi.md#getArray) | **GET** /arrays/{workspace}/{teamspace}/{array} |  |
+| [**getArrayMaxBufferSizes**](ArrayApi.md#getArrayMaxBufferSizes) | **GET** /arrays/{workspace}/{teamspace}/{array}/max_buffer_sizes |  |
+| [**getArrayMetaDataJson**](ArrayApi.md#getArrayMetaDataJson) | **GET** /arrays/{workspace}/{teamspace}/{array}/metadata_json |  |
+| [**getArrayMetadata**](ArrayApi.md#getArrayMetadata) | **GET** /arrays/{workspace}/{teamspace}/{array}/metadata |  |
+| [**getArrayMetadataCapnp**](ArrayApi.md#getArrayMetadataCapnp) | **GET** /arrays/{workspace}/{teamspace}/{array}/array_metadata |  |
+| [**getArrayNonEmptyDomain**](ArrayApi.md#getArrayNonEmptyDomain) | **GET** /arrays/{workspace}/{teamspace}/{array}/non_empty_domain |  |
+| [**getArrayNonEmptyDomainJson**](ArrayApi.md#getArrayNonEmptyDomainJson) | **GET** /arrays/{workspace}/{teamspace}/{array}/non_empty_domain_json |  |
+| [**getArraySampleData**](ArrayApi.md#getArraySampleData) | **GET** /arrays/{workspace}/{teamspace}/{array}/sample |  |
+| [**getArraySharingPolicies**](ArrayApi.md#getArraySharingPolicies) | **GET** /arrays/{workspace}/{teamspace}/{array}/share |  |
+| [**getArraysInNamespace**](ArrayApi.md#getArraysInNamespace) | **GET** /arrays/{workspace}/{teamspace} |  |
+| [**getFragmentEndTimestamp**](ArrayApi.md#getFragmentEndTimestamp) | **GET** /arrays/{workspace}/{teamspace}/{array}/fragment_end_timestamp |  |
 | [**getLastAccessedArrays**](ArrayApi.md#getLastAccessedArrays) | **GET** /arrays/last_accessed |  |
-| [**loadArraySchema**](ArrayApi.md#loadArraySchema) | **POST** /arrays/{namespace}/{array}/schema |  |
-| [**loadEnumerations**](ArrayApi.md#loadEnumerations) | **POST** /arrays/{namespace}/{array}/enumerations |  |
-| [**registerArray**](ArrayApi.md#registerArray) | **POST** /arrays/{namespace}/{array}/register |  |
-| [**shareArray**](ArrayApi.md#shareArray) | **PATCH** /arrays/{namespace}/{array}/share |  |
-| [**updateArrayMetadata**](ArrayApi.md#updateArrayMetadata) | **PATCH** /arrays/{namespace}/{array}/metadata |  |
-| [**updateArrayMetadataCapnp**](ArrayApi.md#updateArrayMetadataCapnp) | **POST** /arrays/{namespace}/{array}/array_metadata |  |
-| [**vacuumArray**](ArrayApi.md#vacuumArray) | **POST** /arrays/{namespace}/{array}/vacuum |  |
+| [**loadArraySchema**](ArrayApi.md#loadArraySchema) | **POST** /arrays/{workspace}/{teamspace}/{array}/schema |  |
+| [**loadEnumerations**](ArrayApi.md#loadEnumerations) | **POST** /arrays/{workspace}/{teamspace}/{array}/enumerations |  |
+| [**registerArray**](ArrayApi.md#registerArray) | **POST** /arrays/{workspace}/{teamspace}/{array}/register |  |
+| [**shareArray**](ArrayApi.md#shareArray) | **PATCH** /arrays/{workspace}/{teamspace}/{array}/share |  |
+| [**updateArrayMetadata**](ArrayApi.md#updateArrayMetadata) | **PATCH** /arrays/{workspace}/{teamspace}/{array}/metadata |  |
+| [**updateArrayMetadataCapnp**](ArrayApi.md#updateArrayMetadataCapnp) | **POST** /arrays/{workspace}/{teamspace}/{array}/array_metadata |  |
+| [**vacuumArray**](ArrayApi.md#vacuumArray) | **POST** /arrays/{workspace}/{teamspace}/{array}/vacuum |  |
 
 
 <a id="arrayActivityLog"></a>
 # **arrayActivityLog**
-> List&lt;ArrayActivityLog&gt; arrayActivityLog(namespace, array, start, end, eventTypes, taskId, hasTaskId)
+> List&lt;ArrayActivityLog&gt; arrayActivityLog(workspace, teamspace, array, start, end, eventTypes, taskId, hasTaskId)
 
 
 
@@ -75,7 +75,8 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     ArrayApi apiInstance = new ArrayApi(defaultClient);
-    String namespace = "namespace_example"; // String | namespace array is in (an organization name or user's username)
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
     String array = "array_example"; // String | name/uri of array that is url-encoded
     Integer start = 56; // Integer | Start time of window of fetch logs, unix epoch in seconds (default: seven days ago)
     Integer end = 56; // Integer | End time of window of fetch logs, unix epoch in seconds (default: current utc timestamp)
@@ -83,7 +84,7 @@ public class Example {
     String taskId = "taskId_example"; // String | Array task ID To filter activity to
     Boolean hasTaskId = true; // Boolean | Excludes activity log results that do not contain an array task UUID
     try {
-      List<ArrayActivityLog> result = apiInstance.arrayActivityLog(namespace, array, start, end, eventTypes, taskId, hasTaskId);
+      List<ArrayActivityLog> result = apiInstance.arrayActivityLog(workspace, teamspace, array, start, end, eventTypes, taskId, hasTaskId);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ArrayApi#arrayActivityLog");
@@ -100,7 +101,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| namespace array is in (an organization name or user&#39;s username) | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
 | **array** | **String**| name/uri of array that is url-encoded | |
 | **start** | **Integer**| Start time of window of fetch logs, unix epoch in seconds (default: seven days ago) | [optional] |
 | **end** | **Integer**| End time of window of fetch logs, unix epoch in seconds (default: current utc timestamp) | [optional] |
@@ -666,9 +668,9 @@ public class Example {
 | **502** | Bad Gateway |  -  |
 | **0** | error response |  -  |
 
-<a id="arraysNamespaceArrayEndTimestampsGet"></a>
-# **arraysNamespaceArrayEndTimestampsGet**
-> ArrayEndTimestampData arraysNamespaceArrayEndTimestampsGet(namespace, array, page, perPage)
+<a id="arraysWorkspaceTeamspaceArrayEndTimestampsGet"></a>
+# **arraysWorkspaceTeamspaceArrayEndTimestampsGet**
+> ArrayEndTimestampData arraysWorkspaceTeamspaceArrayEndTimestampsGet(workspace, teamspace, array, page, perPage)
 
 
 
@@ -701,15 +703,16 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     ArrayApi apiInstance = new ArrayApi(defaultClient);
-    String namespace = "namespace_example"; // String | namespace array is in (an organization name or user's username)
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
     String array = "array_example"; // String | name/uri of array that is url-encoded
     Integer page = 56; // Integer | pagination offset
     Integer perPage = 56; // Integer | pagination limit
     try {
-      ArrayEndTimestampData result = apiInstance.arraysNamespaceArrayEndTimestampsGet(namespace, array, page, perPage);
+      ArrayEndTimestampData result = apiInstance.arraysWorkspaceTeamspaceArrayEndTimestampsGet(workspace, teamspace, array, page, perPage);
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling ArrayApi#arraysNamespaceArrayEndTimestampsGet");
+      System.err.println("Exception when calling ArrayApi#arraysWorkspaceTeamspaceArrayEndTimestampsGet");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -723,7 +726,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| namespace array is in (an organization name or user&#39;s username) | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
 | **array** | **String**| name/uri of array that is url-encoded | |
 | **page** | **Integer**| pagination offset | [optional] |
 | **perPage** | **Integer**| pagination limit | [optional] |
@@ -750,7 +754,7 @@ public class Example {
 
 <a id="consolidateArray"></a>
 # **consolidateArray**
-> consolidateArray(namespace, array, consolidateRequest)
+> consolidateArray(workspace, teamspace, array, consolidateRequest)
 
 
 
@@ -783,11 +787,12 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     ArrayApi apiInstance = new ArrayApi(defaultClient);
-    String namespace = "namespace_example"; // String | namespace array is in (an organization name or user's username)
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
     String array = "array_example"; // String | name/uri of array that is url-encoded
     ArrayConsolidationRequest consolidateRequest = new ArrayConsolidationRequest(); // ArrayConsolidationRequest | Consolidate Request
     try {
-      apiInstance.consolidateArray(namespace, array, consolidateRequest);
+      apiInstance.consolidateArray(workspace, teamspace, array, consolidateRequest);
     } catch (ApiException e) {
       System.err.println("Exception when calling ArrayApi#consolidateArray");
       System.err.println("Status code: " + e.getCode());
@@ -803,7 +808,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| namespace array is in (an organization name or user&#39;s username) | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
 | **array** | **String**| name/uri of array that is url-encoded | |
 | **consolidateRequest** | [**ArrayConsolidationRequest**](ArrayConsolidationRequest.md)| Consolidate Request | |
 
@@ -829,7 +835,7 @@ null (empty response body)
 
 <a id="createArray"></a>
 # **createArray**
-> createArray(namespace, array, contentType, arraySchema, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME)
+> createArray(workspace, teamspace, array, contentType, arraySchema, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME)
 
 
 
@@ -862,13 +868,14 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     ArrayApi apiInstance = new ArrayApi(defaultClient);
-    String namespace = "namespace_example"; // String | namespace array is in (an organization name or user's username)
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
     String array = "array_example"; // String | name/uri of array that is url-encoded
     String contentType = "application/json"; // String | Content Type of input and return mime
     ArraySchema arraySchema = new ArraySchema(); // ArraySchema | ArraySchema being created
     String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME = "X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME_example"; // String | Optional registered access credentials to use for creation
     try {
-      apiInstance.createArray(namespace, array, contentType, arraySchema, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME);
+      apiInstance.createArray(workspace, teamspace, array, contentType, arraySchema, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME);
     } catch (ApiException e) {
       System.err.println("Exception when calling ArrayApi#createArray");
       System.err.println("Status code: " + e.getCode());
@@ -884,7 +891,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| namespace array is in (an organization name or user&#39;s username) | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
 | **array** | **String**| name/uri of array that is url-encoded | |
 | **contentType** | **String**| Content Type of input and return mime | [default to application/json] |
 | **arraySchema** | [**ArraySchema**](ArraySchema.md)| ArraySchema being created | |
@@ -912,7 +920,7 @@ null (empty response body)
 
 <a id="deleteArray"></a>
 # **deleteArray**
-> deleteArray(namespace, array, contentType)
+> deleteArray(workspace, teamspace, array, contentType)
 
 
 
@@ -945,11 +953,12 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     ArrayApi apiInstance = new ArrayApi(defaultClient);
-    String namespace = "namespace_example"; // String | namespace array is in (an organization name or user's username)
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
     String array = "array_example"; // String | name/uri of array that is url-encoded
     String contentType = "application/json"; // String | Content Type of input and return mime
     try {
-      apiInstance.deleteArray(namespace, array, contentType);
+      apiInstance.deleteArray(workspace, teamspace, array, contentType);
     } catch (ApiException e) {
       System.err.println("Exception when calling ArrayApi#deleteArray");
       System.err.println("Status code: " + e.getCode());
@@ -965,7 +974,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| namespace array is in (an organization name or user&#39;s username) | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
 | **array** | **String**| name/uri of array that is url-encoded | |
 | **contentType** | **String**| Content Type of input and return mime | [default to application/json] |
 
@@ -991,7 +1001,7 @@ null (empty response body)
 
 <a id="deregisterArray"></a>
 # **deregisterArray**
-> deregisterArray(namespace, array)
+> deregisterArray(workspace, teamspace, array)
 
 
 
@@ -1024,10 +1034,11 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     ArrayApi apiInstance = new ArrayApi(defaultClient);
-    String namespace = "namespace_example"; // String | namespace array is in (an organization name or user's username)
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
     String array = "array_example"; // String | name/uri of array that is url-encoded
     try {
-      apiInstance.deregisterArray(namespace, array);
+      apiInstance.deregisterArray(workspace, teamspace, array);
     } catch (ApiException e) {
       System.err.println("Exception when calling ArrayApi#deregisterArray");
       System.err.println("Status code: " + e.getCode());
@@ -1043,7 +1054,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| namespace array is in (an organization name or user&#39;s username) | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
 | **array** | **String**| name/uri of array that is url-encoded | |
 
 ### Return type
@@ -1068,7 +1080,7 @@ null (empty response body)
 
 <a id="fragmentInfo"></a>
 # **fragmentInfo**
-> FragmentInfo fragmentInfo(namespace, array, contentType, fragmentInfoRequest)
+> FragmentInfo fragmentInfo(workspace, teamspace, array, contentType, fragmentInfoRequest)
 
 
 
@@ -1101,12 +1113,13 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     ArrayApi apiInstance = new ArrayApi(defaultClient);
-    String namespace = "namespace_example"; // String | namespace array is in (an organization name or user's username)
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
     String array = "array_example"; // String | name/uri of array that is url-encoded
     String contentType = "application/json"; // String | Content Type of input and return mime
     FragmentInfoRequest fragmentInfoRequest = new FragmentInfoRequest(); // FragmentInfoRequest | ArraySchema being created
     try {
-      FragmentInfo result = apiInstance.fragmentInfo(namespace, array, contentType, fragmentInfoRequest);
+      FragmentInfo result = apiInstance.fragmentInfo(workspace, teamspace, array, contentType, fragmentInfoRequest);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ArrayApi#fragmentInfo");
@@ -1123,7 +1136,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| namespace array is in (an organization name or user&#39;s username) | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
 | **array** | **String**| name/uri of array that is url-encoded | |
 | **contentType** | **String**| Content Type of input and return mime | [default to application/json] |
 | **fragmentInfoRequest** | [**FragmentInfoRequest**](FragmentInfoRequest.md)| ArraySchema being created | |
@@ -1149,7 +1163,7 @@ public class Example {
 
 <a id="getActivityLogById"></a>
 # **getActivityLogById**
-> ArrayActivityLog getActivityLogById(namespace, array, id)
+> ArrayActivityLog getActivityLogById(workspace, teamspace, array, id)
 
 
 
@@ -1182,11 +1196,12 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     ArrayApi apiInstance = new ArrayApi(defaultClient);
-    String namespace = "namespace_example"; // String | namespace array is in (an organization name or user's username)
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
     String array = "array_example"; // String | name/uri of array that is url-encoded
     String id = "id_example"; // String | ID of the activity
     try {
-      ArrayActivityLog result = apiInstance.getActivityLogById(namespace, array, id);
+      ArrayActivityLog result = apiInstance.getActivityLogById(workspace, teamspace, array, id);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ArrayApi#getActivityLogById");
@@ -1203,7 +1218,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| namespace array is in (an organization name or user&#39;s username) | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
 | **array** | **String**| name/uri of array that is url-encoded | |
 | **id** | **String**| ID of the activity | |
 
@@ -1305,7 +1321,7 @@ public class Example {
 
 <a id="getArray"></a>
 # **getArray**
-> ArraySchema getArray(namespace, array, contentType)
+> ArraySchema getArray(workspace, teamspace, array, contentType)
 
 
 
@@ -1338,11 +1354,12 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     ArrayApi apiInstance = new ArrayApi(defaultClient);
-    String namespace = "namespace_example"; // String | namespace array is in (an organization name or user's username)
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
     String array = "array_example"; // String | name/uri of array that is url-encoded
     String contentType = "application/json"; // String | Content Type of input and return mime
     try {
-      ArraySchema result = apiInstance.getArray(namespace, array, contentType);
+      ArraySchema result = apiInstance.getArray(workspace, teamspace, array, contentType);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ArrayApi#getArray");
@@ -1359,7 +1376,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| namespace array is in (an organization name or user&#39;s username) | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
 | **array** | **String**| name/uri of array that is url-encoded | |
 | **contentType** | **String**| Content Type of input and return mime | [default to application/json] |
 
@@ -1385,7 +1403,7 @@ public class Example {
 
 <a id="getArrayMaxBufferSizes"></a>
 # **getArrayMaxBufferSizes**
-> MaxBufferSizes getArrayMaxBufferSizes(namespace, array, subarray, contentType, xPayer)
+> MaxBufferSizes getArrayMaxBufferSizes(workspace, teamspace, array, subarray, contentType, xPayer)
 
 
 
@@ -1418,13 +1436,14 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     ArrayApi apiInstance = new ArrayApi(defaultClient);
-    String namespace = "namespace_example"; // String | namespace array is in (an organization name or user's username)
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
     String array = "array_example"; // String | name/uri of array that is url-encoded
     String subarray = "subarray_example"; // String | CSV string of subarray to get max buffer sizes for
     String contentType = "application/json"; // String | Content Type of input and return mime
     String xPayer = "xPayer_example"; // String | Name of organization or user who should be charged for this request
     try {
-      MaxBufferSizes result = apiInstance.getArrayMaxBufferSizes(namespace, array, subarray, contentType, xPayer);
+      MaxBufferSizes result = apiInstance.getArrayMaxBufferSizes(workspace, teamspace, array, subarray, contentType, xPayer);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ArrayApi#getArrayMaxBufferSizes");
@@ -1441,7 +1460,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| namespace array is in (an organization name or user&#39;s username) | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
 | **array** | **String**| name/uri of array that is url-encoded | |
 | **subarray** | **String**| CSV string of subarray to get max buffer sizes for | |
 | **contentType** | **String**| Content Type of input and return mime | [default to application/json] |
@@ -1469,7 +1489,7 @@ public class Example {
 
 <a id="getArrayMetaDataJson"></a>
 # **getArrayMetaDataJson**
-> Map&lt;String, Object&gt; getArrayMetaDataJson(namespace, array, length, endTimestamp)
+> Map&lt;String, Object&gt; getArrayMetaDataJson(workspace, teamspace, array, length, endTimestamp)
 
 
 
@@ -1502,12 +1522,13 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     ArrayApi apiInstance = new ArrayApi(defaultClient);
-    String namespace = "namespace_example"; // String | namespace array is in (an organization name or user's username)
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
     String array = "array_example"; // String | name/uri of array that is url-encoded
     Integer length = 56; // Integer | (optional) limit character length of returned values
     Integer endTimestamp = 56; // Integer | Milliseconds since Unix epoch, metadata will use open_at functionality to open array at the specific timestamp
     try {
-      Map<String, Object> result = apiInstance.getArrayMetaDataJson(namespace, array, length, endTimestamp);
+      Map<String, Object> result = apiInstance.getArrayMetaDataJson(workspace, teamspace, array, length, endTimestamp);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ArrayApi#getArrayMetaDataJson");
@@ -1524,7 +1545,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| namespace array is in (an organization name or user&#39;s username) | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
 | **array** | **String**| name/uri of array that is url-encoded | |
 | **length** | **Integer**| (optional) limit character length of returned values | [optional] |
 | **endTimestamp** | **Integer**| Milliseconds since Unix epoch, metadata will use open_at functionality to open array at the specific timestamp | [optional] |
@@ -1551,7 +1573,7 @@ public class Example {
 
 <a id="getArrayMetadata"></a>
 # **getArrayMetadata**
-> ArrayInfo getArrayMetadata(namespace, array)
+> ArrayInfo getArrayMetadata(workspace, teamspace, array)
 
 
 
@@ -1584,10 +1606,11 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     ArrayApi apiInstance = new ArrayApi(defaultClient);
-    String namespace = "namespace_example"; // String | namespace array is in (an organization name or user's username)
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
     String array = "array_example"; // String | name/uri of array that is url-encoded
     try {
-      ArrayInfo result = apiInstance.getArrayMetadata(namespace, array);
+      ArrayInfo result = apiInstance.getArrayMetadata(workspace, teamspace, array);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ArrayApi#getArrayMetadata");
@@ -1604,7 +1627,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| namespace array is in (an organization name or user&#39;s username) | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
 | **array** | **String**| name/uri of array that is url-encoded | |
 
 ### Return type
@@ -1629,7 +1653,7 @@ public class Example {
 
 <a id="getArrayMetadataCapnp"></a>
 # **getArrayMetadataCapnp**
-> ArrayMetadata getArrayMetadataCapnp(namespace, array)
+> ArrayMetadata getArrayMetadataCapnp(workspace, teamspace, array)
 
 
 
@@ -1662,10 +1686,11 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     ArrayApi apiInstance = new ArrayApi(defaultClient);
-    String namespace = "namespace_example"; // String | namespace array is in (an organization name or user's username)
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
     String array = "array_example"; // String | name/uri of array that is url-encoded
     try {
-      ArrayMetadata result = apiInstance.getArrayMetadataCapnp(namespace, array);
+      ArrayMetadata result = apiInstance.getArrayMetadataCapnp(workspace, teamspace, array);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ArrayApi#getArrayMetadataCapnp");
@@ -1682,7 +1707,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| namespace array is in (an organization name or user&#39;s username) | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
 | **array** | **String**| name/uri of array that is url-encoded | |
 
 ### Return type
@@ -1707,7 +1733,7 @@ public class Example {
 
 <a id="getArrayNonEmptyDomain"></a>
 # **getArrayNonEmptyDomain**
-> NonEmptyDomain getArrayNonEmptyDomain(namespace, array, contentType, xPayer)
+> NonEmptyDomain getArrayNonEmptyDomain(workspace, teamspace, array, contentType, xPayer)
 
 
 
@@ -1740,12 +1766,13 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     ArrayApi apiInstance = new ArrayApi(defaultClient);
-    String namespace = "namespace_example"; // String | namespace array is in (an organization name or user's username)
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
     String array = "array_example"; // String | name/uri of array that is url-encoded
     String contentType = "application/json"; // String | Content Type of input and return mime
     String xPayer = "xPayer_example"; // String | Name of organization or user who should be charged for this request
     try {
-      NonEmptyDomain result = apiInstance.getArrayNonEmptyDomain(namespace, array, contentType, xPayer);
+      NonEmptyDomain result = apiInstance.getArrayNonEmptyDomain(workspace, teamspace, array, contentType, xPayer);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ArrayApi#getArrayNonEmptyDomain");
@@ -1762,7 +1789,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| namespace array is in (an organization name or user&#39;s username) | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
 | **array** | **String**| name/uri of array that is url-encoded | |
 | **contentType** | **String**| Content Type of input and return mime | [default to application/json] |
 | **xPayer** | **String**| Name of organization or user who should be charged for this request | [optional] |
@@ -1789,7 +1817,7 @@ public class Example {
 
 <a id="getArrayNonEmptyDomainJson"></a>
 # **getArrayNonEmptyDomainJson**
-> Map&lt;String, Object&gt; getArrayNonEmptyDomainJson(namespace, array)
+> Map&lt;String, Object&gt; getArrayNonEmptyDomainJson(workspace, teamspace, array)
 
 
 
@@ -1822,10 +1850,11 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     ArrayApi apiInstance = new ArrayApi(defaultClient);
-    String namespace = "namespace_example"; // String | namespace array is in (an organization name or user's username)
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
     String array = "array_example"; // String | name/uri of array that is url-encoded
     try {
-      Map<String, Object> result = apiInstance.getArrayNonEmptyDomainJson(namespace, array);
+      Map<String, Object> result = apiInstance.getArrayNonEmptyDomainJson(workspace, teamspace, array);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ArrayApi#getArrayNonEmptyDomainJson");
@@ -1842,7 +1871,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| namespace array is in (an organization name or user&#39;s username) | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
 | **array** | **String**| name/uri of array that is url-encoded | |
 
 ### Return type
@@ -1867,7 +1897,7 @@ public class Example {
 
 <a id="getArraySampleData"></a>
 # **getArraySampleData**
-> ArraySample getArraySampleData(namespace, array, samples)
+> ArraySample getArraySampleData(workspace, teamspace, array, samples)
 
 
 
@@ -1900,11 +1930,12 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     ArrayApi apiInstance = new ArrayApi(defaultClient);
-    String namespace = "namespace_example"; // String | namespace array is in (an organization name or user's username)
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
     String array = "array_example"; // String | name/uri of array that is url-encoded
     BigDecimal samples = new BigDecimal("5.0"); // BigDecimal | Number of sample results to return
     try {
-      ArraySample result = apiInstance.getArraySampleData(namespace, array, samples);
+      ArraySample result = apiInstance.getArraySampleData(workspace, teamspace, array, samples);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ArrayApi#getArraySampleData");
@@ -1921,7 +1952,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| namespace array is in (an organization name or user&#39;s username) | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
 | **array** | **String**| name/uri of array that is url-encoded | |
 | **samples** | **BigDecimal**| Number of sample results to return | [optional] [default to 5.0] |
 
@@ -1947,7 +1979,7 @@ public class Example {
 
 <a id="getArraySharingPolicies"></a>
 # **getArraySharingPolicies**
-> List&lt;ArraySharing&gt; getArraySharingPolicies(namespace, array)
+> List&lt;ArraySharing&gt; getArraySharingPolicies(workspace, teamspace, array)
 
 
 
@@ -1980,10 +2012,11 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     ArrayApi apiInstance = new ArrayApi(defaultClient);
-    String namespace = "namespace_example"; // String | namespace array is in (an organization name or user's username)
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
     String array = "array_example"; // String | name/uri of array that is url-encoded
     try {
-      List<ArraySharing> result = apiInstance.getArraySharingPolicies(namespace, array);
+      List<ArraySharing> result = apiInstance.getArraySharingPolicies(workspace, teamspace, array);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ArrayApi#getArraySharingPolicies");
@@ -2000,7 +2033,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| namespace array is in (an organization name or user&#39;s username) | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
 | **array** | **String**| name/uri of array that is url-encoded | |
 
 ### Return type
@@ -2026,7 +2060,7 @@ public class Example {
 
 <a id="getArraysInNamespace"></a>
 # **getArraysInNamespace**
-> List&lt;ArrayInfo&gt; getArraysInNamespace(namespace, withMetadata)
+> List&lt;ArrayInfo&gt; getArraysInNamespace(workspace, teamspace, withMetadata)
 
 
 
@@ -2059,10 +2093,11 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     ArrayApi apiInstance = new ArrayApi(defaultClient);
-    String namespace = "namespace_example"; // String | namespace array is in (an organization name or user's username)
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
     Boolean withMetadata = true; // Boolean | include the metadata of the arrays
     try {
-      List<ArrayInfo> result = apiInstance.getArraysInNamespace(namespace, withMetadata);
+      List<ArrayInfo> result = apiInstance.getArraysInNamespace(workspace, teamspace, withMetadata);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ArrayApi#getArraysInNamespace");
@@ -2079,7 +2114,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| namespace array is in (an organization name or user&#39;s username) | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
 | **withMetadata** | **Boolean**| include the metadata of the arrays | [optional] |
 
 ### Return type
@@ -2104,7 +2140,7 @@ public class Example {
 
 <a id="getFragmentEndTimestamp"></a>
 # **getFragmentEndTimestamp**
-> Integer getFragmentEndTimestamp(namespace, array, endTimestamp)
+> Integer getFragmentEndTimestamp(workspace, teamspace, array, endTimestamp)
 
 
 
@@ -2137,11 +2173,12 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     ArrayApi apiInstance = new ArrayApi(defaultClient);
-    String namespace = "namespace_example"; // String | namespace array is in (an organization name or user's username)
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
     String array = "array_example"; // String | name/uri of array that is url-encoded
     Integer endTimestamp = 56; // Integer | Milliseconds since Unix epoch
     try {
-      Integer result = apiInstance.getFragmentEndTimestamp(namespace, array, endTimestamp);
+      Integer result = apiInstance.getFragmentEndTimestamp(workspace, teamspace, array, endTimestamp);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ArrayApi#getFragmentEndTimestamp");
@@ -2158,7 +2195,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| namespace array is in (an organization name or user&#39;s username) | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
 | **array** | **String**| name/uri of array that is url-encoded | |
 | **endTimestamp** | **Integer**| Milliseconds since Unix epoch | [optional] |
 
@@ -2254,7 +2292,7 @@ This endpoint does not need any parameter.
 
 <a id="loadArraySchema"></a>
 # **loadArraySchema**
-> LoadArraySchemaResponse loadArraySchema(namespace, array, loadArraySchemaRequest)
+> LoadArraySchemaResponse loadArraySchema(workspace, teamspace, array, loadArraySchemaRequest)
 
 
 
@@ -2287,11 +2325,12 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     ArrayApi apiInstance = new ArrayApi(defaultClient);
-    String namespace = "namespace_example"; // String | namespace array is in (an organization name or user's username)
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
     String array = "array_example"; // String | name/uri of array that is url-encoded
     LoadArraySchemaRequest loadArraySchemaRequest = new LoadArraySchemaRequest(); // LoadArraySchemaRequest | Load Array Schema Request
     try {
-      LoadArraySchemaResponse result = apiInstance.loadArraySchema(namespace, array, loadArraySchemaRequest);
+      LoadArraySchemaResponse result = apiInstance.loadArraySchema(workspace, teamspace, array, loadArraySchemaRequest);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ArrayApi#loadArraySchema");
@@ -2308,7 +2347,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| namespace array is in (an organization name or user&#39;s username) | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
 | **array** | **String**| name/uri of array that is url-encoded | |
 | **loadArraySchemaRequest** | [**LoadArraySchemaRequest**](LoadArraySchemaRequest.md)| Load Array Schema Request | |
 
@@ -2335,7 +2375,7 @@ public class Example {
 
 <a id="loadEnumerations"></a>
 # **loadEnumerations**
-> LoadEnumerationsResponse loadEnumerations(namespace, array, loadEnumerationsRequest)
+> LoadEnumerationsResponse loadEnumerations(workspace, teamspace, array, loadEnumerationsRequest)
 
 
 
@@ -2368,11 +2408,12 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     ArrayApi apiInstance = new ArrayApi(defaultClient);
-    String namespace = "namespace_example"; // String | namespace array is in (an organization name or user's username)
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
     String array = "array_example"; // String | name/uri of array that is url-encoded
     LoadEnumerationsRequest loadEnumerationsRequest = new LoadEnumerationsRequest(); // LoadEnumerationsRequest | Load Enumerations Request
     try {
-      LoadEnumerationsResponse result = apiInstance.loadEnumerations(namespace, array, loadEnumerationsRequest);
+      LoadEnumerationsResponse result = apiInstance.loadEnumerations(workspace, teamspace, array, loadEnumerationsRequest);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ArrayApi#loadEnumerations");
@@ -2389,7 +2430,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| namespace array is in (an organization name or user&#39;s username) | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
 | **array** | **String**| name/uri of array that is url-encoded | |
 | **loadEnumerationsRequest** | [**LoadEnumerationsRequest**](LoadEnumerationsRequest.md)| Load Enumerations Request | |
 
@@ -2416,7 +2458,7 @@ public class Example {
 
 <a id="registerArray"></a>
 # **registerArray**
-> ArrayInfo registerArray(namespace, array, arrayMetadata)
+> ArrayInfo registerArray(workspace, teamspace, array, arrayMetadata)
 
 
 
@@ -2449,11 +2491,12 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     ArrayApi apiInstance = new ArrayApi(defaultClient);
-    String namespace = "namespace_example"; // String | namespace array is in (an organization name or user's username)
-    String array = "array_example"; // String | name/uri of array that is url-encoded
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
+    String array = "array_example"; // String | asset id or path of array that is url-encoded
     ArrayInfoUpdate arrayMetadata = new ArrayInfoUpdate(); // ArrayInfoUpdate | metadata associated with array
     try {
-      ArrayInfo result = apiInstance.registerArray(namespace, array, arrayMetadata);
+      ArrayInfo result = apiInstance.registerArray(workspace, teamspace, array, arrayMetadata);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ArrayApi#registerArray");
@@ -2470,8 +2513,9 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| namespace array is in (an organization name or user&#39;s username) | |
-| **array** | **String**| name/uri of array that is url-encoded | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
+| **array** | **String**| asset id or path of array that is url-encoded | |
 | **arrayMetadata** | [**ArrayInfoUpdate**](ArrayInfoUpdate.md)| metadata associated with array | |
 
 ### Return type
@@ -2496,7 +2540,7 @@ public class Example {
 
 <a id="shareArray"></a>
 # **shareArray**
-> shareArray(namespace, array, arraySharing)
+> shareArray(workspace, teamspace, array, arraySharing)
 
 
 
@@ -2529,11 +2573,12 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     ArrayApi apiInstance = new ArrayApi(defaultClient);
-    String namespace = "namespace_example"; // String | namespace array is in (an organization name or user's username)
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
     String array = "array_example"; // String | name/uri of array that is url-encoded
     ArraySharing arraySharing = new ArraySharing(); // ArraySharing | Namespace and list of permissions to share with. An empty list of permissions will remove the namespace; if permissions already exist they will be deleted then new ones added. In the event of a failure, the new policies will be rolled back to prevent partial policies, and it's likely the array will not be shared with the namespace at all.
     try {
-      apiInstance.shareArray(namespace, array, arraySharing);
+      apiInstance.shareArray(workspace, teamspace, array, arraySharing);
     } catch (ApiException e) {
       System.err.println("Exception when calling ArrayApi#shareArray");
       System.err.println("Status code: " + e.getCode());
@@ -2549,7 +2594,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| namespace array is in (an organization name or user&#39;s username) | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
 | **array** | **String**| name/uri of array that is url-encoded | |
 | **arraySharing** | [**ArraySharing**](ArraySharing.md)| Namespace and list of permissions to share with. An empty list of permissions will remove the namespace; if permissions already exist they will be deleted then new ones added. In the event of a failure, the new policies will be rolled back to prevent partial policies, and it&#39;s likely the array will not be shared with the namespace at all. | |
 
@@ -2576,7 +2622,7 @@ null (empty response body)
 
 <a id="updateArrayMetadata"></a>
 # **updateArrayMetadata**
-> updateArrayMetadata(namespace, array, arrayMetadata)
+> updateArrayMetadata(workspace, teamspace, array, arrayMetadata)
 
 
 
@@ -2609,11 +2655,12 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     ArrayApi apiInstance = new ArrayApi(defaultClient);
-    String namespace = "namespace_example"; // String | namespace array is in (an organization name or user's username)
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
     String array = "array_example"; // String | name/uri of array that is url-encoded
     ArrayInfoUpdate arrayMetadata = new ArrayInfoUpdate(); // ArrayInfoUpdate | array metadata to update
     try {
-      apiInstance.updateArrayMetadata(namespace, array, arrayMetadata);
+      apiInstance.updateArrayMetadata(workspace, teamspace, array, arrayMetadata);
     } catch (ApiException e) {
       System.err.println("Exception when calling ArrayApi#updateArrayMetadata");
       System.err.println("Status code: " + e.getCode());
@@ -2629,7 +2676,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| namespace array is in (an organization name or user&#39;s username) | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
 | **array** | **String**| name/uri of array that is url-encoded | |
 | **arrayMetadata** | [**ArrayInfoUpdate**](ArrayInfoUpdate.md)| array metadata to update | |
 
@@ -2655,7 +2703,7 @@ null (empty response body)
 
 <a id="updateArrayMetadataCapnp"></a>
 # **updateArrayMetadataCapnp**
-> updateArrayMetadataCapnp(namespace, array, arrayMetadataEntries)
+> updateArrayMetadataCapnp(workspace, teamspace, array, arrayMetadataEntries)
 
 
 
@@ -2688,11 +2736,12 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     ArrayApi apiInstance = new ArrayApi(defaultClient);
-    String namespace = "namespace_example"; // String | namespace array is in (an organization name or user's username)
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
     String array = "array_example"; // String | name/uri of array that is url-encoded
     ArrayMetadata arrayMetadataEntries = new ArrayMetadata(); // ArrayMetadata | List of metadata entries
     try {
-      apiInstance.updateArrayMetadataCapnp(namespace, array, arrayMetadataEntries);
+      apiInstance.updateArrayMetadataCapnp(workspace, teamspace, array, arrayMetadataEntries);
     } catch (ApiException e) {
       System.err.println("Exception when calling ArrayApi#updateArrayMetadataCapnp");
       System.err.println("Status code: " + e.getCode());
@@ -2708,7 +2757,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| namespace array is in (an organization name or user&#39;s username) | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
 | **array** | **String**| name/uri of array that is url-encoded | |
 | **arrayMetadataEntries** | [**ArrayMetadata**](ArrayMetadata.md)| List of metadata entries | |
 
@@ -2734,7 +2784,7 @@ null (empty response body)
 
 <a id="vacuumArray"></a>
 # **vacuumArray**
-> vacuumArray(namespace, array, vaccumRequest)
+> vacuumArray(workspace, teamspace, array, vaccumRequest)
 
 
 
@@ -2767,11 +2817,12 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     ArrayApi apiInstance = new ArrayApi(defaultClient);
-    String namespace = "namespace_example"; // String | namespace array is in (an organization name or user's username)
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
     String array = "array_example"; // String | name/uri of array that is url-encoded
     ArrayVacuumRequest vaccumRequest = new ArrayVacuumRequest(); // ArrayVacuumRequest | Vaccum Request
     try {
-      apiInstance.vacuumArray(namespace, array, vaccumRequest);
+      apiInstance.vacuumArray(workspace, teamspace, array, vaccumRequest);
     } catch (ApiException e) {
       System.err.println("Exception when calling ArrayApi#vacuumArray");
       System.err.println("Status code: " + e.getCode());
@@ -2787,7 +2838,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| namespace array is in (an organization name or user&#39;s username) | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
 | **array** | **String**| name/uri of array that is url-encoded | |
 | **vaccumRequest** | [**ArrayVacuumRequest**](ArrayVacuumRequest.md)| Vaccum Request | |
 

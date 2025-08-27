@@ -1,0 +1,4 @@
+additionalProperties:
+  apiPackage: io.tiledb.cloud.rest_api.api
+  modelPackage: io.tiledb.cloud.rest_api.model
+  hideGenerationTimestamp: true

@@ -9,6 +9,7 @@ metadata of an array
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
 |**id** | **String** | unique ID of registered array |  [optional] |
+|**assetId** | **String** | The asset id of the created array |  [optional] |
 |**fileType** | **FileType** |  |  [optional] |
 |**fileProperties** | **Map&lt;String, String&gt;** | map of file properties created for this array |  [optional] |
 |**uri** | **String** | uri of array |  [optional] |

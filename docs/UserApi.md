@@ -4,13 +4,13 @@ All URIs are relative to */v1*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**addAWSAccessCredentials**](UserApi.md#addAWSAccessCredentials) | **POST** /credentials/{namespace}/aws |  |
+| [**addAWSAccessCredentials**](UserApi.md#addAWSAccessCredentials) | **POST** /credentials/{workspace}/{teamspace}/aws |  |
 | [**addUserToOrganization**](UserApi.md#addUserToOrganization) | **POST** /organizations/{organization}/user |  |
-| [**checkAWSAccessCredentials**](UserApi.md#checkAWSAccessCredentials) | **GET** /credentials/{namespace}/aws |  |
-| [**checkAWSAccessCredentialsByName**](UserApi.md#checkAWSAccessCredentialsByName) | **GET** /credentials/{namespace}/aws/{name} |  |
+| [**checkAWSAccessCredentials**](UserApi.md#checkAWSAccessCredentials) | **GET** /credentials/{workspace}/{teamspace}/aws |  |
+| [**checkAWSAccessCredentialsByName**](UserApi.md#checkAWSAccessCredentialsByName) | **GET** /credentials/{workspace}/{teamspace}/aws/{name} |  |
 | [**confirmEmail**](UserApi.md#confirmEmail) | **POST** /user/confirm_email |  |
 | [**createUser**](UserApi.md#createUser) | **POST** /user |  |
-| [**deleteAWSAccessCredentials**](UserApi.md#deleteAWSAccessCredentials) | **DELETE** /credentials/{namespace}/aws/{name} |  |
+| [**deleteAWSAccessCredentials**](UserApi.md#deleteAWSAccessCredentials) | **DELETE** /credentials/{workspace}/{teamspace}/aws/{name} |  |
 | [**deleteUser**](UserApi.md#deleteUser) | **DELETE** /users/{username} |  |
 | [**deleteUserFromOrganization**](UserApi.md#deleteUserFromOrganization) | **DELETE** /organizations/{organization}/{username} |  |
 | [**getOrganizationUser**](UserApi.md#getOrganizationUser) | **GET** /organizations/{organization}/{username} |  |
@@ -23,14 +23,14 @@ All URIs are relative to */v1*
 | [**revokeToken**](UserApi.md#revokeToken) | **DELETE** /tokens/{token} |  |
 | [**tokensGet**](UserApi.md#tokensGet) | **GET** /tokens |  |
 | [**tokensSessionGet**](UserApi.md#tokensSessionGet) | **GET** /tokens/session |  |
-| [**updateAWSAccessCredentials**](UserApi.md#updateAWSAccessCredentials) | **PATCH** /credentials/{namespace}/aws/{name} |  |
+| [**updateAWSAccessCredentials**](UserApi.md#updateAWSAccessCredentials) | **PATCH** /credentials/{workspace}/{teamspace}/aws/{name} |  |
 | [**updateUser**](UserApi.md#updateUser) | **PATCH** /users/{username} |  |
 | [**updateUserInOrganization**](UserApi.md#updateUserInOrganization) | **PATCH** /organizations/{organization}/{username} |  |
 
 
 <a id="addAWSAccessCredentials"></a>
 # **addAWSAccessCredentials**
-> addAWSAccessCredentials(namespace, awsAccessCredentials)
+> addAWSAccessCredentials(workspace, teamspace, awsAccessCredentials)
 
 
 
@@ -63,10 +63,11 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     UserApi apiInstance = new UserApi(defaultClient);
-    String namespace = "namespace_example"; // String | namespace
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the credentials belongs to
     AWSAccessCredentials awsAccessCredentials = new AWSAccessCredentials(); // AWSAccessCredentials | aws access credentials to store for a namespace
     try {
-      apiInstance.addAWSAccessCredentials(namespace, awsAccessCredentials);
+      apiInstance.addAWSAccessCredentials(workspace, teamspace, awsAccessCredentials);
     } catch (ApiException e) {
       System.err.println("Exception when calling UserApi#addAWSAccessCredentials");
       System.err.println("Status code: " + e.getCode());
@@ -82,7 +83,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| namespace | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the credentials belongs to | |
 | **awsAccessCredentials** | [**AWSAccessCredentials**](AWSAccessCredentials.md)| aws access credentials to store for a namespace | |
 
 ### Return type
@@ -184,7 +186,7 @@ null (empty response body)
 
 <a id="checkAWSAccessCredentials"></a>
 # **checkAWSAccessCredentials**
-> List&lt;AWSAccessCredentials&gt; checkAWSAccessCredentials(namespace)
+> List&lt;AWSAccessCredentials&gt; checkAWSAccessCredentials(workspace, teamspace)
 
 
 
@@ -217,9 +219,10 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     UserApi apiInstance = new UserApi(defaultClient);
-    String namespace = "namespace_example"; // String | namespace
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the credentials belongs to
     try {
-      List<AWSAccessCredentials> result = apiInstance.checkAWSAccessCredentials(namespace);
+      List<AWSAccessCredentials> result = apiInstance.checkAWSAccessCredentials(workspace, teamspace);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling UserApi#checkAWSAccessCredentials");
@@ -236,7 +239,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| namespace | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the credentials belongs to | |
 
 ### Return type
 
@@ -260,7 +264,7 @@ public class Example {
 
 <a id="checkAWSAccessCredentialsByName"></a>
 # **checkAWSAccessCredentialsByName**
-> AWSAccessCredentials checkAWSAccessCredentialsByName(namespace, name)
+> AWSAccessCredentials checkAWSAccessCredentialsByName(workspace, teamspace, name)
 
 
 
@@ -293,10 +297,11 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     UserApi apiInstance = new UserApi(defaultClient);
-    String namespace = "namespace_example"; // String | namespace
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the credentials belongs to
     String name = "name_example"; // String | name
     try {
-      AWSAccessCredentials result = apiInstance.checkAWSAccessCredentialsByName(namespace, name);
+      AWSAccessCredentials result = apiInstance.checkAWSAccessCredentialsByName(workspace, teamspace, name);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling UserApi#checkAWSAccessCredentialsByName");
@@ -313,7 +318,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| namespace | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the credentials belongs to | |
 | **name** | **String**| name | |
 
 ### Return type
@@ -472,7 +478,7 @@ No authorization required
 
 <a id="deleteAWSAccessCredentials"></a>
 # **deleteAWSAccessCredentials**
-> deleteAWSAccessCredentials(namespace, name)
+> deleteAWSAccessCredentials(workspace, teamspace, name)
 
 
 
@@ -505,10 +511,11 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     UserApi apiInstance = new UserApi(defaultClient);
-    String namespace = "namespace_example"; // String | namespace
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the credentials belongs to
     String name = "name_example"; // String | name
     try {
-      apiInstance.deleteAWSAccessCredentials(namespace, name);
+      apiInstance.deleteAWSAccessCredentials(workspace, teamspace, name);
     } catch (ApiException e) {
       System.err.println("Exception when calling UserApi#deleteAWSAccessCredentials");
       System.err.println("Status code: " + e.getCode());
@@ -524,7 +531,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| namespace | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the credentials belongs to | |
 | **name** | **String**| name | |
 
 ### Return type
@@ -780,7 +788,7 @@ public class Example {
 
 <a id="getSession"></a>
 # **getSession**
-> Token getSession(rememberMe)
+> Token getSession(rememberMe, expires)
 
 
 
@@ -814,8 +822,9 @@ public class Example {
 
     UserApi apiInstance = new UserApi(defaultClient);
     String rememberMe = "rememberMe_example"; // String | flag to create a token with expiration of 30 days, default is false
+    OffsetDateTime expires = OffsetDateTime.now(); // OffsetDateTime | Expiration date for token, if empty token defaults to 30 minutes
     try {
-      Token result = apiInstance.getSession(rememberMe);
+      Token result = apiInstance.getSession(rememberMe, expires);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling UserApi#getSession");
@@ -833,6 +842,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **rememberMe** | **String**| flag to create a token with expiration of 30 days, default is false | [optional] |
+| **expires** | **OffsetDateTime**| Expiration date for token, if empty token defaults to 30 minutes | [optional] |
 
 ### Return type
 
@@ -1448,7 +1458,7 @@ This endpoint does not need any parameter.
 
 <a id="updateAWSAccessCredentials"></a>
 # **updateAWSAccessCredentials**
-> updateAWSAccessCredentials(namespace, name, awsAccessCredentials)
+> updateAWSAccessCredentials(workspace, teamspace, name, awsAccessCredentials)
 
 
 
@@ -1481,11 +1491,12 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     UserApi apiInstance = new UserApi(defaultClient);
-    String namespace = "namespace_example"; // String | namespace
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the credentials belongs to
     String name = "name_example"; // String | name
     AWSAccessCredentials awsAccessCredentials = new AWSAccessCredentials(); // AWSAccessCredentials | aws credentials to update
     try {
-      apiInstance.updateAWSAccessCredentials(namespace, name, awsAccessCredentials);
+      apiInstance.updateAWSAccessCredentials(workspace, teamspace, name, awsAccessCredentials);
     } catch (ApiException e) {
       System.err.println("Exception when calling UserApi#updateAWSAccessCredentials");
       System.err.println("Status code: " + e.getCode());
@@ -1501,7 +1512,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| namespace | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the credentials belongs to | |
 | **name** | **String**| name | |
 | **awsAccessCredentials** | [**AWSAccessCredentials**](AWSAccessCredentials.md)| aws credentials to update | |
 

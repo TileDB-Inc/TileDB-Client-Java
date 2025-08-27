@@ -77,7 +77,7 @@ public class TaskGraphsApi {
 
     /**
      * Build call for createTaskGraph
-     * @param namespace Include graphs for this namespace. (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
      * @param graph Create the task graph. (required)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
@@ -90,7 +90,7 @@ public class TaskGraphsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call createTaskGraphCall(String namespace, TaskGraph graph, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call createTaskGraphCall(String workspace, TaskGraph graph, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -107,8 +107,8 @@ public class TaskGraphsApi {
         Object localVarPostBody = graph;
 
         // create path and map variables
-        String localVarPath = "/taskgraphs/{namespace}/graphs"
-            .replace("{" + "namespace" + "}", localVarApiClient.escapeString(namespace.toString()));
+        String localVarPath = "/taskgraphs/{workspace}/graphs"
+            .replace("{" + "workspace" + "}", localVarApiClient.escapeString(workspace.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -137,10 +137,10 @@ public class TaskGraphsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call createTaskGraphValidateBeforeCall(String namespace, TaskGraph graph, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'namespace' is set
-        if (namespace == null) {
-            throw new ApiException("Missing the required parameter 'namespace' when calling createTaskGraph(Async)");
+    private okhttp3.Call createTaskGraphValidateBeforeCall(String workspace, TaskGraph graph, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'workspace' is set
+        if (workspace == null) {
+            throw new ApiException("Missing the required parameter 'workspace' when calling createTaskGraph(Async)");
         }
 
         // verify the required parameter 'graph' is set
@@ -148,14 +148,14 @@ public class TaskGraphsApi {
             throw new ApiException("Missing the required parameter 'graph' when calling createTaskGraph(Async)");
         }
 
-        return createTaskGraphCall(namespace, graph, _callback);
+        return createTaskGraphCall(workspace, graph, _callback);
 
     }
 
     /**
      * 
      * Create a single task graph for execution. 
-     * @param namespace Include graphs for this namespace. (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
      * @param graph Create the task graph. (required)
      * @return TaskGraph
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -167,15 +167,15 @@ public class TaskGraphsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public TaskGraph createTaskGraph(String namespace, TaskGraph graph) throws ApiException {
-        ApiResponse<TaskGraph> localVarResp = createTaskGraphWithHttpInfo(namespace, graph);
+    public TaskGraph createTaskGraph(String workspace, TaskGraph graph) throws ApiException {
+        ApiResponse<TaskGraph> localVarResp = createTaskGraphWithHttpInfo(workspace, graph);
         return localVarResp.getData();
     }
 
     /**
      * 
      * Create a single task graph for execution. 
-     * @param namespace Include graphs for this namespace. (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
      * @param graph Create the task graph. (required)
      * @return ApiResponse&lt;TaskGraph&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -187,8 +187,8 @@ public class TaskGraphsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<TaskGraph> createTaskGraphWithHttpInfo(String namespace, TaskGraph graph) throws ApiException {
-        okhttp3.Call localVarCall = createTaskGraphValidateBeforeCall(namespace, graph, null);
+    public ApiResponse<TaskGraph> createTaskGraphWithHttpInfo(String workspace, TaskGraph graph) throws ApiException {
+        okhttp3.Call localVarCall = createTaskGraphValidateBeforeCall(workspace, graph, null);
         Type localVarReturnType = new TypeToken<TaskGraph>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
@@ -196,7 +196,7 @@ public class TaskGraphsApi {
     /**
      *  (asynchronously)
      * Create a single task graph for execution. 
-     * @param namespace Include graphs for this namespace. (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
      * @param graph Create the task graph. (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
@@ -209,16 +209,16 @@ public class TaskGraphsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call createTaskGraphAsync(String namespace, TaskGraph graph, final ApiCallback<TaskGraph> _callback) throws ApiException {
+    public okhttp3.Call createTaskGraphAsync(String workspace, TaskGraph graph, final ApiCallback<TaskGraph> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = createTaskGraphValidateBeforeCall(namespace, graph, _callback);
+        okhttp3.Call localVarCall = createTaskGraphValidateBeforeCall(workspace, graph, _callback);
         Type localVarReturnType = new TypeToken<TaskGraph>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
     /**
      * Build call for getTaskGraph
-     * @param namespace The namespace that owns this task graph. (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
      * @param id The UUID of the task graph entry. (required)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
@@ -231,7 +231,7 @@ public class TaskGraphsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getTaskGraphCall(String namespace, String id, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call getTaskGraphCall(String workspace, String id, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -248,8 +248,8 @@ public class TaskGraphsApi {
         Object localVarPostBody = null;
 
         // create path and map variables
-        String localVarPath = "/taskgraphs/{namespace}/graphs/{id}"
-            .replace("{" + "namespace" + "}", localVarApiClient.escapeString(namespace.toString()))
+        String localVarPath = "/taskgraphs/{workspace}/graphs/{id}"
+            .replace("{" + "workspace" + "}", localVarApiClient.escapeString(workspace.toString()))
             .replace("{" + "id" + "}", localVarApiClient.escapeString(id.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -278,10 +278,10 @@ public class TaskGraphsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getTaskGraphValidateBeforeCall(String namespace, String id, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'namespace' is set
-        if (namespace == null) {
-            throw new ApiException("Missing the required parameter 'namespace' when calling getTaskGraph(Async)");
+    private okhttp3.Call getTaskGraphValidateBeforeCall(String workspace, String id, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'workspace' is set
+        if (workspace == null) {
+            throw new ApiException("Missing the required parameter 'workspace' when calling getTaskGraph(Async)");
         }
 
         // verify the required parameter 'id' is set
@@ -289,14 +289,14 @@ public class TaskGraphsApi {
             throw new ApiException("Missing the required parameter 'id' when calling getTaskGraph(Async)");
         }
 
-        return getTaskGraphCall(namespace, id, _callback);
+        return getTaskGraphCall(workspace, id, _callback);
 
     }
 
     /**
      * 
      * Fetch information about a single task graph. 
-     * @param namespace The namespace that owns this task graph. (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
      * @param id The UUID of the task graph entry. (required)
      * @return TaskGraph
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -308,15 +308,15 @@ public class TaskGraphsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public TaskGraph getTaskGraph(String namespace, String id) throws ApiException {
-        ApiResponse<TaskGraph> localVarResp = getTaskGraphWithHttpInfo(namespace, id);
+    public TaskGraph getTaskGraph(String workspace, String id) throws ApiException {
+        ApiResponse<TaskGraph> localVarResp = getTaskGraphWithHttpInfo(workspace, id);
         return localVarResp.getData();
     }
 
     /**
      * 
      * Fetch information about a single task graph. 
-     * @param namespace The namespace that owns this task graph. (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
      * @param id The UUID of the task graph entry. (required)
      * @return ApiResponse&lt;TaskGraph&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -328,8 +328,8 @@ public class TaskGraphsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<TaskGraph> getTaskGraphWithHttpInfo(String namespace, String id) throws ApiException {
-        okhttp3.Call localVarCall = getTaskGraphValidateBeforeCall(namespace, id, null);
+    public ApiResponse<TaskGraph> getTaskGraphWithHttpInfo(String workspace, String id) throws ApiException {
+        okhttp3.Call localVarCall = getTaskGraphValidateBeforeCall(workspace, id, null);
         Type localVarReturnType = new TypeToken<TaskGraph>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
@@ -337,7 +337,7 @@ public class TaskGraphsApi {
     /**
      *  (asynchronously)
      * Fetch information about a single task graph. 
-     * @param namespace The namespace that owns this task graph. (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
      * @param id The UUID of the task graph entry. (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
@@ -350,16 +350,16 @@ public class TaskGraphsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getTaskGraphAsync(String namespace, String id, final ApiCallback<TaskGraph> _callback) throws ApiException {
+    public okhttp3.Call getTaskGraphAsync(String workspace, String id, final ApiCallback<TaskGraph> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = getTaskGraphValidateBeforeCall(namespace, id, _callback);
+        okhttp3.Call localVarCall = getTaskGraphValidateBeforeCall(workspace, id, _callback);
         Type localVarReturnType = new TypeToken<TaskGraph>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
     /**
      * Build call for listTaskGraphs
-     * @param namespace Namespace for graphs (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
@@ -371,7 +371,7 @@ public class TaskGraphsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call listTaskGraphsCall(String namespace, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call listTaskGraphsCall(String workspace, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -388,8 +388,8 @@ public class TaskGraphsApi {
         Object localVarPostBody = null;
 
         // create path and map variables
-        String localVarPath = "/taskgraphs/{namespace}/graphs"
-            .replace("{" + "namespace" + "}", localVarApiClient.escapeString(namespace.toString()));
+        String localVarPath = "/taskgraphs/{workspace}/graphs"
+            .replace("{" + "workspace" + "}", localVarApiClient.escapeString(workspace.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -417,20 +417,20 @@ public class TaskGraphsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call listTaskGraphsValidateBeforeCall(String namespace, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'namespace' is set
-        if (namespace == null) {
-            throw new ApiException("Missing the required parameter 'namespace' when calling listTaskGraphs(Async)");
+    private okhttp3.Call listTaskGraphsValidateBeforeCall(String workspace, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'workspace' is set
+        if (workspace == null) {
+            throw new ApiException("Missing the required parameter 'workspace' when calling listTaskGraphs(Async)");
         }
 
-        return listTaskGraphsCall(namespace, _callback);
+        return listTaskGraphsCall(workspace, _callback);
 
     }
 
     /**
      * 
      * Fetch the task graphs of a namespace the user has access to. The returned entries will include only summary data, and will not include information about the individual tasks that were executed. (This information is available when requesting an individual task graph log.) Entries in the response are ordered from newest to oldest. Pagination parameters work as in other API methods; see PaginationMetadata. 
-     * @param namespace Namespace for graphs (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
      * @return TaskGraphs
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -441,15 +441,15 @@ public class TaskGraphsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public TaskGraphs listTaskGraphs(String namespace) throws ApiException {
-        ApiResponse<TaskGraphs> localVarResp = listTaskGraphsWithHttpInfo(namespace);
+    public TaskGraphs listTaskGraphs(String workspace) throws ApiException {
+        ApiResponse<TaskGraphs> localVarResp = listTaskGraphsWithHttpInfo(workspace);
         return localVarResp.getData();
     }
 
     /**
      * 
      * Fetch the task graphs of a namespace the user has access to. The returned entries will include only summary data, and will not include information about the individual tasks that were executed. (This information is available when requesting an individual task graph log.) Entries in the response are ordered from newest to oldest. Pagination parameters work as in other API methods; see PaginationMetadata. 
-     * @param namespace Namespace for graphs (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
      * @return ApiResponse&lt;TaskGraphs&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -460,8 +460,8 @@ public class TaskGraphsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<TaskGraphs> listTaskGraphsWithHttpInfo(String namespace) throws ApiException {
-        okhttp3.Call localVarCall = listTaskGraphsValidateBeforeCall(namespace, null);
+    public ApiResponse<TaskGraphs> listTaskGraphsWithHttpInfo(String workspace) throws ApiException {
+        okhttp3.Call localVarCall = listTaskGraphsValidateBeforeCall(workspace, null);
         Type localVarReturnType = new TypeToken<TaskGraphs>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
@@ -469,7 +469,7 @@ public class TaskGraphsApi {
     /**
      *  (asynchronously)
      * Fetch the task graphs of a namespace the user has access to. The returned entries will include only summary data, and will not include information about the individual tasks that were executed. (This information is available when requesting an individual task graph log.) Entries in the response are ordered from newest to oldest. Pagination parameters work as in other API methods; see PaginationMetadata. 
-     * @param namespace Namespace for graphs (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -481,17 +481,18 @@ public class TaskGraphsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call listTaskGraphsAsync(String namespace, final ApiCallback<TaskGraphs> _callback) throws ApiException {
+    public okhttp3.Call listTaskGraphsAsync(String workspace, final ApiCallback<TaskGraphs> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = listTaskGraphsValidateBeforeCall(namespace, _callback);
+        okhttp3.Call localVarCall = listTaskGraphsValidateBeforeCall(workspace, _callback);
         Type localVarReturnType = new TypeToken<TaskGraphs>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
     /**
      * Build call for submitTaskGraph
-     * @param namespace The namespace that owns this task graph. (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
      * @param id The UUID of the task graph entry. (required)
+     * @param rootTaskGraphUuid UUID of the root taskgraph that this graph is assosiated with (optional)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
@@ -503,7 +504,7 @@ public class TaskGraphsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call submitTaskGraphCall(String namespace, String id, String rootId, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call submitTaskGraphCall(String workspace, String id, String rootTaskGraphUuid, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -520,8 +521,8 @@ public class TaskGraphsApi {
         Object localVarPostBody = null;
 
         // create path and map variables
-        String localVarPath = "/taskgraphs/{namespace}/graphs/{id}/submit"
-            .replace("{" + "namespace" + "}", localVarApiClient.escapeString(namespace.toString()))
+        String localVarPath = "/taskgraphs/{workspace}/graphs/{id}/submit"
+            .replace("{" + "workspace" + "}", localVarApiClient.escapeString(workspace.toString()))
             .replace("{" + "id" + "}", localVarApiClient.escapeString(id.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -530,8 +531,8 @@ public class TaskGraphsApi {
         Map<String, String> localVarCookieParams = new HashMap<String, String>();
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-        if (rootId != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("root_task_graph_uuid", rootId));
+        if (rootTaskGraphUuid != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("root_task_graph_uuid", rootTaskGraphUuid));
         }
 
         final String[] localVarAccepts = {
@@ -554,10 +555,10 @@ public class TaskGraphsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call submitTaskGraphValidateBeforeCall(String namespace, String id, String rootId, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'namespace' is set
-        if (namespace == null) {
-            throw new ApiException("Missing the required parameter 'namespace' when calling submitTaskGraph(Async)");
+    private okhttp3.Call submitTaskGraphValidateBeforeCall(String workspace, String id, String rootTaskGraphUuid, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'workspace' is set
+        if (workspace == null) {
+            throw new ApiException("Missing the required parameter 'workspace' when calling submitTaskGraph(Async)");
         }
 
         // verify the required parameter 'id' is set
@@ -565,15 +566,16 @@ public class TaskGraphsApi {
             throw new ApiException("Missing the required parameter 'id' when calling submitTaskGraph(Async)");
         }
 
-        return submitTaskGraphCall(namespace, id, rootId, _callback);
+        return submitTaskGraphCall(workspace, id, rootTaskGraphUuid, _callback);
 
     }
 
     /**
      * 
      * Submit a single task graph for execution. 
-     * @param namespace The namespace that owns this task graph. (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
      * @param id The UUID of the task graph entry. (required)
+     * @param rootTaskGraphUuid UUID of the root taskgraph that this graph is assosiated with (optional)
      * @return TaskGraphLog
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -584,16 +586,17 @@ public class TaskGraphsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public TaskGraphLog submitTaskGraph(String namespace, String id, String rootId) throws ApiException {
-        ApiResponse<TaskGraphLog> localVarResp = submitTaskGraphWithHttpInfo(namespace, id, rootId);
+    public TaskGraphLog submitTaskGraph(String workspace, String id, String rootTaskGraphUuid) throws ApiException {
+        ApiResponse<TaskGraphLog> localVarResp = submitTaskGraphWithHttpInfo(workspace, id, rootTaskGraphUuid);
         return localVarResp.getData();
     }
 
     /**
      * 
      * Submit a single task graph for execution. 
-     * @param namespace The namespace that owns this task graph. (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
      * @param id The UUID of the task graph entry. (required)
+     * @param rootTaskGraphUuid UUID of the root taskgraph that this graph is assosiated with (optional)
      * @return ApiResponse&lt;TaskGraphLog&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -604,8 +607,8 @@ public class TaskGraphsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<TaskGraphLog> submitTaskGraphWithHttpInfo(String namespace, String id, String rootId) throws ApiException {
-        okhttp3.Call localVarCall = submitTaskGraphValidateBeforeCall(namespace, id, rootId, null);
+    public ApiResponse<TaskGraphLog> submitTaskGraphWithHttpInfo(String workspace, String id, String rootTaskGraphUuid) throws ApiException {
+        okhttp3.Call localVarCall = submitTaskGraphValidateBeforeCall(workspace, id, rootTaskGraphUuid, null);
         Type localVarReturnType = new TypeToken<TaskGraphLog>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
@@ -613,8 +616,9 @@ public class TaskGraphsApi {
     /**
      *  (asynchronously)
      * Submit a single task graph for execution. 
-     * @param namespace The namespace that owns this task graph. (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
      * @param id The UUID of the task graph entry. (required)
+     * @param rootTaskGraphUuid UUID of the root taskgraph that this graph is assosiated with (optional)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -626,16 +630,16 @@ public class TaskGraphsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call submitTaskGraphAsync(String namespace, String id, String rootId, final ApiCallback<TaskGraphLog> _callback) throws ApiException {
+    public okhttp3.Call submitTaskGraphAsync(String workspace, String id, String rootTaskGraphUuid, final ApiCallback<TaskGraphLog> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = submitTaskGraphValidateBeforeCall(namespace, id, rootId, _callback);
+        okhttp3.Call localVarCall = submitTaskGraphValidateBeforeCall(workspace, id, rootTaskGraphUuid, _callback);
         Type localVarReturnType = new TypeToken<TaskGraphLog>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
     /**
      * Build call for updateTaskGraph
-     * @param namespace The namespace that owns this task graph. (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
      * @param id The UUID of the task graph entry. (required)
      * @param graph Updates to make to the task graph. (required)
      * @param _callback Callback for upload/download progress
@@ -649,7 +653,7 @@ public class TaskGraphsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call updateTaskGraphCall(String namespace, String id, TaskGraph graph, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call updateTaskGraphCall(String workspace, String id, TaskGraph graph, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -666,8 +670,8 @@ public class TaskGraphsApi {
         Object localVarPostBody = graph;
 
         // create path and map variables
-        String localVarPath = "/taskgraphs/{namespace}/graphs/{id}"
-            .replace("{" + "namespace" + "}", localVarApiClient.escapeString(namespace.toString()))
+        String localVarPath = "/taskgraphs/{workspace}/graphs/{id}"
+            .replace("{" + "workspace" + "}", localVarApiClient.escapeString(workspace.toString()))
             .replace("{" + "id" + "}", localVarApiClient.escapeString(id.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -697,10 +701,10 @@ public class TaskGraphsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call updateTaskGraphValidateBeforeCall(String namespace, String id, TaskGraph graph, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'namespace' is set
-        if (namespace == null) {
-            throw new ApiException("Missing the required parameter 'namespace' when calling updateTaskGraph(Async)");
+    private okhttp3.Call updateTaskGraphValidateBeforeCall(String workspace, String id, TaskGraph graph, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'workspace' is set
+        if (workspace == null) {
+            throw new ApiException("Missing the required parameter 'workspace' when calling updateTaskGraph(Async)");
         }
 
         // verify the required parameter 'id' is set
@@ -713,14 +717,14 @@ public class TaskGraphsApi {
             throw new ApiException("Missing the required parameter 'graph' when calling updateTaskGraph(Async)");
         }
 
-        return updateTaskGraphCall(namespace, id, graph, _callback);
+        return updateTaskGraphCall(workspace, id, graph, _callback);
 
     }
 
     /**
      * 
      * Update information about a single task graph execution. 
-     * @param namespace The namespace that owns this task graph. (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
      * @param id The UUID of the task graph entry. (required)
      * @param graph Updates to make to the task graph. (required)
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -732,14 +736,14 @@ public class TaskGraphsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public void updateTaskGraph(String namespace, String id, TaskGraph graph) throws ApiException {
-        updateTaskGraphWithHttpInfo(namespace, id, graph);
+    public void updateTaskGraph(String workspace, String id, TaskGraph graph) throws ApiException {
+        updateTaskGraphWithHttpInfo(workspace, id, graph);
     }
 
     /**
      * 
      * Update information about a single task graph execution. 
-     * @param namespace The namespace that owns this task graph. (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
      * @param id The UUID of the task graph entry. (required)
      * @param graph Updates to make to the task graph. (required)
      * @return ApiResponse&lt;Void&gt;
@@ -752,15 +756,15 @@ public class TaskGraphsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<Void> updateTaskGraphWithHttpInfo(String namespace, String id, TaskGraph graph) throws ApiException {
-        okhttp3.Call localVarCall = updateTaskGraphValidateBeforeCall(namespace, id, graph, null);
+    public ApiResponse<Void> updateTaskGraphWithHttpInfo(String workspace, String id, TaskGraph graph) throws ApiException {
+        okhttp3.Call localVarCall = updateTaskGraphValidateBeforeCall(workspace, id, graph, null);
         return localVarApiClient.execute(localVarCall);
     }
 
     /**
      *  (asynchronously)
      * Update information about a single task graph execution. 
-     * @param namespace The namespace that owns this task graph. (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
      * @param id The UUID of the task graph entry. (required)
      * @param graph Updates to make to the task graph. (required)
      * @param _callback The callback to be executed when the API call finishes
@@ -774,9 +778,9 @@ public class TaskGraphsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call updateTaskGraphAsync(String namespace, String id, TaskGraph graph, final ApiCallback<Void> _callback) throws ApiException {
+    public okhttp3.Call updateTaskGraphAsync(String workspace, String id, TaskGraph graph, final ApiCallback<Void> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = updateTaskGraphValidateBeforeCall(namespace, id, graph, _callback);
+        okhttp3.Call localVarCall = updateTaskGraphValidateBeforeCall(workspace, id, graph, _callback);
         localVarApiClient.executeAsync(localVarCall, _callback);
         return localVarCall;
     }

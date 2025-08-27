@@ -51,7 +51,7 @@ import io.tiledb.cloud.rest_api.JSON;
 /**
  * Actvity of an Array
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-09-13T19:24:49.771847040-04:00[America/New_York]", comments = "Generator version: 7.7.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.7.0")
 public class ArrayActivityLog {
   public static final String SERIALIZED_NAME_EVENT_AT = "event_at";
   @SerializedName(SERIALIZED_NAME_EVENT_AT)
@@ -262,50 +262,6 @@ public class ArrayActivityLog {
     this.queryStats = queryStats;
   }
 
-  /**
-   * A container for additional, undeclared properties.
-   * This is a holder for any undeclared properties as specified with
-   * the 'additionalProperties' keyword in the OAS document.
-   */
-  private Map<String, Object> additionalProperties;
-
-  /**
-   * Set the additional (undeclared) property with the specified name and value.
-   * If the property does not already exist, create it otherwise replace it.
-   *
-   * @param key name of the property
-   * @param value value of the property
-   * @return the ArrayActivityLog instance itself
-   */
-  public ArrayActivityLog putAdditionalProperty(String key, Object value) {
-    if (this.additionalProperties == null) {
-        this.additionalProperties = new HashMap<String, Object>();
-    }
-    this.additionalProperties.put(key, value);
-    return this;
-  }
-
-  /**
-   * Return the additional (undeclared) property.
-   *
-   * @return a map of objects
-   */
-  public Map<String, Object> getAdditionalProperties() {
-    return additionalProperties;
-  }
-
-  /**
-   * Return the additional (undeclared) property with the specified name.
-   *
-   * @param key name of the property
-   * @return an object
-   */
-  public Object getAdditionalProperty(String key) {
-    if (this.additionalProperties == null) {
-        return null;
-    }
-    return this.additionalProperties.get(key);
-  }
 
 
   @Override
@@ -325,13 +281,12 @@ public class ArrayActivityLog {
         Objects.equals(this.arrayTaskId, arrayActivityLog.arrayTaskId) &&
         Objects.equals(this.id, arrayActivityLog.id) &&
         Objects.equals(this.queryRanges, arrayActivityLog.queryRanges) &&
-        Objects.equals(this.queryStats, arrayActivityLog.queryStats)&&
-        Objects.equals(this.additionalProperties, arrayActivityLog.additionalProperties);
+        Objects.equals(this.queryStats, arrayActivityLog.queryStats);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(eventAt, action, username, bytesSent, bytesReceived, arrayTaskId, id, queryRanges, queryStats, additionalProperties);
+    return Objects.hash(eventAt, action, username, bytesSent, bytesReceived, arrayTaskId, id, queryRanges, queryStats);
   }
 
   @Override
@@ -347,7 +302,6 @@ public class ArrayActivityLog {
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    queryRanges: ").append(toIndentedString(queryRanges)).append("\n");
     sb.append("    queryStats: ").append(toIndentedString(queryStats)).append("\n");
-    sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -385,37 +339,6 @@ public class ArrayActivityLog {
   }
 
   /**
-   * Validates the JSON Object and throws an exception if issues found
-   *
-   * @param jsonObj JSON Object
-   * @throws IOException if the JSON Object is invalid with respect to ArrayActivityLog
-   */
-  public static void validateJsonObject(JsonObject jsonObj) throws IOException {
-    if (jsonObj == null) {
-      if (ArrayActivityLog.openapiRequiredFields.isEmpty()) {
-        return;
-      } else { // has required fields
-        throw new IllegalArgumentException(String.format("The required field(s) %s in ArrayActivityLog is not found in the empty JSON string", ArrayActivityLog.openapiRequiredFields.toString()));
-      }
-    }
-    if (jsonObj.get("username") != null && !jsonObj.get("username").isJsonPrimitive()) {
-      throw new IllegalArgumentException(String.format("Expected the field `username` to be a primitive type in the JSON string but got `%s`", jsonObj.get("username").toString()));
-    }
-    if (jsonObj.get("array_task_id") != null && !jsonObj.get("array_task_id").isJsonPrimitive()) {
-      throw new IllegalArgumentException(String.format("Expected the field `array_task_id` to be a primitive type in the JSON string but got `%s`", jsonObj.get("array_task_id").toString()));
-    }
-    if (jsonObj.get("id") != null && !jsonObj.get("id").isJsonPrimitive()) {
-      throw new IllegalArgumentException(String.format("Expected the field `id` to be a primitive type in the JSON string but got `%s`", jsonObj.get("id").toString()));
-    }
-    if (jsonObj.get("query_ranges") != null && !jsonObj.get("query_ranges").isJsonPrimitive()) {
-      throw new IllegalArgumentException(String.format("Expected the field `query_ranges` to be a primitive type in the JSON string but got `%s`", jsonObj.get("query_ranges").toString()));
-    }
-    if (jsonObj.get("query_stats") != null && !jsonObj.get("query_stats").isJsonPrimitive()) {
-      throw new IllegalArgumentException(String.format("Expected the field `query_stats` to be a primitive type in the JSON string but got `%s`", jsonObj.get("query_stats").toString()));
-    }
-  }
-
-  /**
    * Validates the JSON Element and throws an exception if issues found
    *
    * @param jsonElement JSON Element
@@ -426,26 +349,6 @@ public class ArrayActivityLog {
         if (!ArrayActivityLog.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
           throw new IllegalArgumentException(String.format("The required field(s) %s in ArrayActivityLog is not found in the empty JSON string", ArrayActivityLog.openapiRequiredFields.toString()));
         }
-      }
-        JsonObject jsonObj = jsonElement.getAsJsonObject();
-      // validate the optional field `action`
-      if (jsonObj.get("action") != null && !jsonObj.get("action").isJsonNull()) {
-        ActivityEventType.validateJsonElement(jsonObj.get("action"));
-      }
-      if ((jsonObj.get("username") != null && !jsonObj.get("username").isJsonNull()) && !jsonObj.get("username").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `username` to be a primitive type in the JSON string but got `%s`", jsonObj.get("username").toString()));
-      }
-      if ((jsonObj.get("array_task_id") != null && !jsonObj.get("array_task_id").isJsonNull()) && !jsonObj.get("array_task_id").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `array_task_id` to be a primitive type in the JSON string but got `%s`", jsonObj.get("array_task_id").toString()));
-      }
-      if ((jsonObj.get("id") != null && !jsonObj.get("id").isJsonNull()) && !jsonObj.get("id").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `id` to be a primitive type in the JSON string but got `%s`", jsonObj.get("id").toString()));
-      }
-      if ((jsonObj.get("query_ranges") != null && !jsonObj.get("query_ranges").isJsonNull()) && !jsonObj.get("query_ranges").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `query_ranges` to be a primitive type in the JSON string but got `%s`", jsonObj.get("query_ranges").toString()));
-      }
-      if ((jsonObj.get("query_stats") != null && !jsonObj.get("query_stats").isJsonNull()) && !jsonObj.get("query_stats").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `query_stats` to be a primitive type in the JSON string but got `%s`", jsonObj.get("query_stats").toString()));
       }
   }
 
@@ -464,28 +367,6 @@ public class ArrayActivityLog {
            @Override
            public void write(JsonWriter out, ArrayActivityLog value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
-             obj.remove("additionalProperties");
-             // serialize additional properties
-             if (value.getAdditionalProperties() != null) {
-               for (Map.Entry<String, Object> entry : value.getAdditionalProperties().entrySet()) {
-                 if (entry.getValue() instanceof String)
-                   obj.addProperty(entry.getKey(), (String) entry.getValue());
-                 else if (entry.getValue() instanceof Number)
-                   obj.addProperty(entry.getKey(), (Number) entry.getValue());
-                 else if (entry.getValue() instanceof Boolean)
-                   obj.addProperty(entry.getKey(), (Boolean) entry.getValue());
-                 else if (entry.getValue() instanceof Character)
-                   obj.addProperty(entry.getKey(), (Character) entry.getValue());
-                 else {
-                   JsonElement jsonElement = gson.toJsonTree(entry.getValue());
-                   if (jsonElement.isJsonArray()) {
-                     obj.add(entry.getKey(), jsonElement.getAsJsonArray());
-                   } else {
-                     obj.add(entry.getKey(), jsonElement.getAsJsonObject());
-                   }
-                 }
-               }
-             }
              elementAdapter.write(out, obj);
            }
 
@@ -493,28 +374,7 @@ public class ArrayActivityLog {
            public ArrayActivityLog read(JsonReader in) throws IOException {
              JsonElement jsonElement = elementAdapter.read(in);
              validateJsonElement(jsonElement);
-             JsonObject jsonObj = jsonElement.getAsJsonObject();
-             // store additional fields in the deserialized instance
-             ArrayActivityLog instance = thisAdapter.fromJsonTree(jsonObj);
-             for (Map.Entry<String, JsonElement> entry : jsonObj.entrySet()) {
-               if (!openapiFields.contains(entry.getKey())) {
-                 if (entry.getValue().isJsonPrimitive()) { // primitive type
-                   if (entry.getValue().getAsJsonPrimitive().isString())
-                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsString());
-                   else if (entry.getValue().getAsJsonPrimitive().isNumber())
-                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsNumber());
-                   else if (entry.getValue().getAsJsonPrimitive().isBoolean())
-                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsBoolean());
-                   else
-                     throw new IllegalArgumentException(String.format("The field `%s` has unknown primitive type. Value: %s", entry.getKey(), entry.getValue().toString()));
-                 } else if (entry.getValue().isJsonArray()) {
-                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), List.class));
-                 } else { // JSON object
-                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
-                 }
-               }
-             }
-             return instance;
+             return thisAdapter.fromJsonTree(jsonElement);
            }
 
        }.nullSafe();

@@ -191,4 +191,20 @@ public class TaskGraphLogTest {
         // TODO: test cloudRegion
     }
 
+    /**
+     * Test the property 'rootTaskGraphUuid'
+     */
+    @Test
+    public void rootTaskGraphUuidTest() {
+        // TODO: test rootTaskGraphUuid
+    }
+
+    /**
+     * Test the property 'childrenTaskGraphUuids'
+     */
+    @Test
+    public void childrenTaskGraphUuidsTest() {
+        // TODO: test childrenTaskGraphUuids
+    }
+
 }
