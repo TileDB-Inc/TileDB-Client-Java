@@ -27,6 +27,7 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 
 
+import io.tiledb.cloud.rest_api.v2.model.Array;
 import io.tiledb.cloud.rest_api.v2.model.ArrayActivityLogData;
 import io.tiledb.cloud.rest_api.v2.model.ArrayFetch;
 import io.tiledb.cloud.rest_api.v2.model.Error;
