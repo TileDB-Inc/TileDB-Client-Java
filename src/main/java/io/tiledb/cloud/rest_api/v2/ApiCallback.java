@@ -13,6 +13,8 @@
 
 package io.tiledb.cloud.rest_api.v2;
 
+import java.io.IOException;
+
 import java.util.Map;
 import java.util.List;
 

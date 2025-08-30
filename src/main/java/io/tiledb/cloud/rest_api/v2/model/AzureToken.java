@@ -14,32 +14,42 @@
 package io.tiledb.cloud.rest_api.v2.model;
 
 import java.util.Objects;
-
 import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
+import java.util.Arrays;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import com.google.gson.TypeAdapterFactory;
 import com.google.gson.reflect.TypeToken;
+import com.google.gson.TypeAdapter;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+import java.io.IOException;
 
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import io.tiledb.cloud.rest_api.v2.JSON;
 
 /**
  * Token information to access Azure services
  */
-@ApiModel(description = "Token information to access Azure services")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-07-02T18:54:48.746612+03:00[Europe/Athens]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-30T04:47:07.570140+03:00[Europe/Athens]", comments = "Generator version: 7.7.0")
 public class AzureToken {
   public static final String SERIALIZED_NAME_ACCOUNT_NAME = "account_name";
   @SerializedName(SERIALIZED_NAME_ACCOUNT_NAME)
@@ -49,26 +59,22 @@ public class AzureToken {
   @SerializedName(SERIALIZED_NAME_SAS_TOKEN)
   private String sasToken;
 
-  public AzureToken() { 
+  public AzureToken() {
   }
 
   public AzureToken accountName(String accountName) {
-    
     this.accountName = accountName;
     return this;
   }
 
-   /**
+  /**
    * The account name of the configuration
    * @return accountName
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "tiledbpoc", value = "The account name of the configuration")
-
   public String getAccountName() {
     return accountName;
   }
-
 
   public void setAccountName(String accountName) {
     this.accountName = accountName;
@@ -76,22 +82,18 @@ public class AzureToken {
 
 
   public AzureToken sasToken(String sasToken) {
-    
     this.sasToken = sasToken;
     return this;
   }
 
-   /**
+  /**
    * The token to use for this account
    * @return sasToken
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "sv=2022-11-02&ss=bfqt&srt=sco&sp=dsafdssdfafasdfsda&se=2024-03-28T03:02:08Z&st=2024-03-27T19:02:08Z&spr=https&sig=444444555555555555555555555555555555555%3D", value = "The token to use for this account")
-
   public String getSasToken() {
     return sasToken;
   }
-
 
   public void setSasToken(String sasToken) {
     this.sasToken = sasToken;
@@ -107,6 +109,10 @@ public class AzureToken {
   /**
    * Set the additional (undeclared) property with the specified name and value.
    * If the property does not already exist, create it otherwise replace it.
+   *
+   * @param key name of the property
+   * @param value value of the property
+   * @return the AzureToken instance itself
    */
   public AzureToken putAdditionalProperty(String key, Object value) {
     if (this.additionalProperties == null) {
@@ -118,6 +124,8 @@ public class AzureToken {
 
   /**
    * Return the additional (undeclared) property.
+   *
+   * @return a map of objects
    */
   public Map<String, Object> getAdditionalProperties() {
     return additionalProperties;
@@ -125,6 +133,9 @@ public class AzureToken {
 
   /**
    * Return the additional (undeclared) property with the specified name.
+   *
+   * @param key name of the property
+   * @return an object
    */
   public Object getAdditionalProperty(String key) {
     if (this.additionalProperties == null) {
@@ -189,24 +200,23 @@ public class AzureToken {
     openapiRequiredFields = new HashSet<String>();
   }
 
- /**
-  * Validates the JSON Object and throws an exception if issues found
-  *
-  * @param jsonObj JSON Object
-  * @throws IOException if the JSON Object is invalid with respect to AzureToken
-  */
-  public static void validateJsonObject(JsonObject jsonObj) throws IOException {
-      if (jsonObj == null) {
-        if (AzureToken.openapiRequiredFields.isEmpty()) {
-          return;
-        } else { // has required fields
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to AzureToken
+   */
+  public static void validateJsonElement(JsonElement jsonElement) throws IOException {
+      if (jsonElement == null) {
+        if (!AzureToken.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
           throw new IllegalArgumentException(String.format("The required field(s) %s in AzureToken is not found in the empty JSON string", AzureToken.openapiRequiredFields.toString()));
         }
       }
-      if (jsonObj.get("account_name") != null && !jsonObj.get("account_name").isJsonPrimitive()) {
+        JsonObject jsonObj = jsonElement.getAsJsonObject();
+      if ((jsonObj.get("account_name") != null && !jsonObj.get("account_name").isJsonNull()) && !jsonObj.get("account_name").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `account_name` to be a primitive type in the JSON string but got `%s`", jsonObj.get("account_name").toString()));
       }
-      if (jsonObj.get("sas_token") != null && !jsonObj.get("sas_token").isJsonPrimitive()) {
+      if ((jsonObj.get("sas_token") != null && !jsonObj.get("sas_token").isJsonNull()) && !jsonObj.get("sas_token").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `sas_token` to be a primitive type in the JSON string but got `%s`", jsonObj.get("sas_token").toString()));
       }
   }
@@ -227,7 +237,7 @@ public class AzureToken {
            public void write(JsonWriter out, AzureToken value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              obj.remove("additionalProperties");
-             // serialize additonal properties
+             // serialize additional properties
              if (value.getAdditionalProperties() != null) {
                for (Map.Entry<String, Object> entry : value.getAdditionalProperties().entrySet()) {
                  if (entry.getValue() instanceof String)
@@ -239,7 +249,12 @@ public class AzureToken {
                  else if (entry.getValue() instanceof Character)
                    obj.addProperty(entry.getKey(), (Character) entry.getValue());
                  else {
-                   obj.add(entry.getKey(), gson.toJsonTree(entry.getValue()).getAsJsonObject());
+                   JsonElement jsonElement = gson.toJsonTree(entry.getValue());
+                   if (jsonElement.isJsonArray()) {
+                     obj.add(entry.getKey(), jsonElement.getAsJsonArray());
+                   } else {
+                     obj.add(entry.getKey(), jsonElement.getAsJsonObject());
+                   }
                  }
                }
              }
@@ -248,8 +263,9 @@ public class AzureToken {
 
            @Override
            public AzureToken read(JsonReader in) throws IOException {
-             JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
-             validateJsonObject(jsonObj);
+             JsonElement jsonElement = elementAdapter.read(in);
+             validateJsonElement(jsonElement);
+             JsonObject jsonObj = jsonElement.getAsJsonObject();
              // store additional fields in the deserialized instance
              AzureToken instance = thisAdapter.fromJsonTree(jsonObj);
              for (Map.Entry<String, JsonElement> entry : jsonObj.entrySet()) {
@@ -263,8 +279,10 @@ public class AzureToken {
                      instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsBoolean());
                    else
                      throw new IllegalArgumentException(String.format("The field `%s` has unknown primitive type. Value: %s", entry.getKey(), entry.getValue().toString()));
-                 } else { // non-primitive type
-                   instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
+                 } else if (entry.getValue().isJsonArray()) {
+                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), List.class));
+                 } else { // JSON object
+                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
                  }
                }
              }
@@ -275,22 +293,22 @@ public class AzureToken {
     }
   }
 
- /**
-  * Create an instance of AzureToken given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of AzureToken
-  * @throws IOException if the JSON string is invalid with respect to AzureToken
-  */
+  /**
+   * Create an instance of AzureToken given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of AzureToken
+   * @throws IOException if the JSON string is invalid with respect to AzureToken
+   */
   public static AzureToken fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, AzureToken.class);
   }
 
- /**
-  * Convert an instance of AzureToken to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of AzureToken to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

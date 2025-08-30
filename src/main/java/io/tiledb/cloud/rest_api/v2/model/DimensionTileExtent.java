@@ -14,32 +14,42 @@
 package io.tiledb.cloud.rest_api.v2.model;
 
 import java.util.Objects;
-
 import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
+import java.util.Arrays;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import com.google.gson.TypeAdapterFactory;
 import com.google.gson.reflect.TypeToken;
+import com.google.gson.TypeAdapter;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+import java.io.IOException;
 
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import io.tiledb.cloud.rest_api.v2.JSON;
 
 /**
  * Extent of tile
  */
-@ApiModel(description = "Extent of tile")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-07-02T18:54:48.746612+03:00[Europe/Athens]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-30T04:47:07.570140+03:00[Europe/Athens]", comments = "Generator version: 7.7.0")
 public class DimensionTileExtent {
   public static final String SERIALIZED_NAME_INT8 = "int8";
   @SerializedName(SERIALIZED_NAME_INT8)
@@ -81,26 +91,22 @@ public class DimensionTileExtent {
   @SerializedName(SERIALIZED_NAME_FLOAT64)
   private Integer float64;
 
-  public DimensionTileExtent() { 
+  public DimensionTileExtent() {
   }
 
   public DimensionTileExtent int8(Integer int8) {
-    
     this.int8 = int8;
     return this;
   }
 
-   /**
+  /**
    * Get int8
    * @return int8
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
   public Integer getInt8() {
     return int8;
   }
-
 
   public void setInt8(Integer int8) {
     this.int8 = int8;
@@ -108,22 +114,18 @@ public class DimensionTileExtent {
 
 
   public DimensionTileExtent uint8(Integer uint8) {
-    
     this.uint8 = uint8;
     return this;
   }
 
-   /**
+  /**
    * Get uint8
    * @return uint8
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
   public Integer getUint8() {
     return uint8;
   }
-
 
   public void setUint8(Integer uint8) {
     this.uint8 = uint8;
@@ -131,22 +133,18 @@ public class DimensionTileExtent {
 
 
   public DimensionTileExtent int16(Integer int16) {
-    
     this.int16 = int16;
     return this;
   }
 
-   /**
+  /**
    * Get int16
    * @return int16
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
   public Integer getInt16() {
     return int16;
   }
-
 
   public void setInt16(Integer int16) {
     this.int16 = int16;
@@ -154,22 +152,18 @@ public class DimensionTileExtent {
 
 
   public DimensionTileExtent uint16(Integer uint16) {
-    
     this.uint16 = uint16;
     return this;
   }
 
-   /**
+  /**
    * Get uint16
    * @return uint16
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
   public Integer getUint16() {
     return uint16;
   }
-
 
   public void setUint16(Integer uint16) {
     this.uint16 = uint16;
@@ -177,22 +171,18 @@ public class DimensionTileExtent {
 
 
   public DimensionTileExtent int32(Integer int32) {
-    
     this.int32 = int32;
     return this;
   }
 
-   /**
+  /**
    * Get int32
    * @return int32
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
   public Integer getInt32() {
     return int32;
   }
-
 
   public void setInt32(Integer int32) {
     this.int32 = int32;
@@ -200,22 +190,18 @@ public class DimensionTileExtent {
 
 
   public DimensionTileExtent uint32(Integer uint32) {
-    
     this.uint32 = uint32;
     return this;
   }
 
-   /**
+  /**
    * Get uint32
    * @return uint32
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
   public Integer getUint32() {
     return uint32;
   }
-
 
   public void setUint32(Integer uint32) {
     this.uint32 = uint32;
@@ -223,22 +209,18 @@ public class DimensionTileExtent {
 
 
   public DimensionTileExtent int64(Long int64) {
-    
     this.int64 = int64;
     return this;
   }
 
-   /**
+  /**
    * Get int64
    * @return int64
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
   public Long getInt64() {
     return int64;
   }
-
 
   public void setInt64(Long int64) {
     this.int64 = int64;
@@ -246,22 +228,18 @@ public class DimensionTileExtent {
 
 
   public DimensionTileExtent uint64(Integer uint64) {
-    
     this.uint64 = uint64;
     return this;
   }
 
-   /**
+  /**
    * Get uint64
    * @return uint64
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
   public Integer getUint64() {
     return uint64;
   }
-
 
   public void setUint64(Integer uint64) {
     this.uint64 = uint64;
@@ -269,22 +247,18 @@ public class DimensionTileExtent {
 
 
   public DimensionTileExtent float32(Integer float32) {
-    
     this.float32 = float32;
     return this;
   }
 
-   /**
+  /**
    * Get float32
    * @return float32
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
   public Integer getFloat32() {
     return float32;
   }
-
 
   public void setFloat32(Integer float32) {
     this.float32 = float32;
@@ -292,22 +266,18 @@ public class DimensionTileExtent {
 
 
   public DimensionTileExtent float64(Integer float64) {
-    
     this.float64 = float64;
     return this;
   }
 
-   /**
+  /**
    * Get float64
    * @return float64
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
   public Integer getFloat64() {
     return float64;
   }
-
 
   public void setFloat64(Integer float64) {
     this.float64 = float64;
@@ -323,6 +293,10 @@ public class DimensionTileExtent {
   /**
    * Set the additional (undeclared) property with the specified name and value.
    * If the property does not already exist, create it otherwise replace it.
+   *
+   * @param key name of the property
+   * @param value value of the property
+   * @return the DimensionTileExtent instance itself
    */
   public DimensionTileExtent putAdditionalProperty(String key, Object value) {
     if (this.additionalProperties == null) {
@@ -334,6 +308,8 @@ public class DimensionTileExtent {
 
   /**
    * Return the additional (undeclared) property.
+   *
+   * @return a map of objects
    */
   public Map<String, Object> getAdditionalProperties() {
     return additionalProperties;
@@ -341,6 +317,9 @@ public class DimensionTileExtent {
 
   /**
    * Return the additional (undeclared) property with the specified name.
+   *
+   * @param key name of the property
+   * @return an object
    */
   public Object getAdditionalProperty(String key) {
     if (this.additionalProperties == null) {
@@ -429,20 +408,19 @@ public class DimensionTileExtent {
     openapiRequiredFields = new HashSet<String>();
   }
 
- /**
-  * Validates the JSON Object and throws an exception if issues found
-  *
-  * @param jsonObj JSON Object
-  * @throws IOException if the JSON Object is invalid with respect to DimensionTileExtent
-  */
-  public static void validateJsonObject(JsonObject jsonObj) throws IOException {
-      if (jsonObj == null) {
-        if (DimensionTileExtent.openapiRequiredFields.isEmpty()) {
-          return;
-        } else { // has required fields
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to DimensionTileExtent
+   */
+  public static void validateJsonElement(JsonElement jsonElement) throws IOException {
+      if (jsonElement == null) {
+        if (!DimensionTileExtent.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
           throw new IllegalArgumentException(String.format("The required field(s) %s in DimensionTileExtent is not found in the empty JSON string", DimensionTileExtent.openapiRequiredFields.toString()));
         }
       }
+        JsonObject jsonObj = jsonElement.getAsJsonObject();
   }
 
   public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
@@ -461,7 +439,7 @@ public class DimensionTileExtent {
            public void write(JsonWriter out, DimensionTileExtent value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              obj.remove("additionalProperties");
-             // serialize additonal properties
+             // serialize additional properties
              if (value.getAdditionalProperties() != null) {
                for (Map.Entry<String, Object> entry : value.getAdditionalProperties().entrySet()) {
                  if (entry.getValue() instanceof String)
@@ -473,7 +451,12 @@ public class DimensionTileExtent {
                  else if (entry.getValue() instanceof Character)
                    obj.addProperty(entry.getKey(), (Character) entry.getValue());
                  else {
-                   obj.add(entry.getKey(), gson.toJsonTree(entry.getValue()).getAsJsonObject());
+                   JsonElement jsonElement = gson.toJsonTree(entry.getValue());
+                   if (jsonElement.isJsonArray()) {
+                     obj.add(entry.getKey(), jsonElement.getAsJsonArray());
+                   } else {
+                     obj.add(entry.getKey(), jsonElement.getAsJsonObject());
+                   }
                  }
                }
              }
@@ -482,8 +465,9 @@ public class DimensionTileExtent {
 
            @Override
            public DimensionTileExtent read(JsonReader in) throws IOException {
-             JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
-             validateJsonObject(jsonObj);
+             JsonElement jsonElement = elementAdapter.read(in);
+             validateJsonElement(jsonElement);
+             JsonObject jsonObj = jsonElement.getAsJsonObject();
              // store additional fields in the deserialized instance
              DimensionTileExtent instance = thisAdapter.fromJsonTree(jsonObj);
              for (Map.Entry<String, JsonElement> entry : jsonObj.entrySet()) {
@@ -497,8 +481,10 @@ public class DimensionTileExtent {
                      instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsBoolean());
                    else
                      throw new IllegalArgumentException(String.format("The field `%s` has unknown primitive type. Value: %s", entry.getKey(), entry.getValue().toString()));
-                 } else { // non-primitive type
-                   instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
+                 } else if (entry.getValue().isJsonArray()) {
+                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), List.class));
+                 } else { // JSON object
+                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
                  }
                }
              }
@@ -509,22 +495,22 @@ public class DimensionTileExtent {
     }
   }
 
- /**
-  * Create an instance of DimensionTileExtent given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of DimensionTileExtent
-  * @throws IOException if the JSON string is invalid with respect to DimensionTileExtent
-  */
+  /**
+   * Create an instance of DimensionTileExtent given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of DimensionTileExtent
+   * @throws IOException if the JSON string is invalid with respect to DimensionTileExtent
+   */
   public static DimensionTileExtent fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, DimensionTileExtent.class);
   }
 
- /**
-  * Convert an instance of DimensionTileExtent to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of DimensionTileExtent to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

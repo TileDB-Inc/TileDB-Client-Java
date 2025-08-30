@@ -14,48 +14,59 @@
 package io.tiledb.cloud.rest_api.v2.model;
 
 import java.util.Objects;
-
 import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.tiledb.cloud.rest_api.v2.model.DeleteAndUpdateTileLocation;
+import io.tiledb.cloud.rest_api.v2.model.TimestampedURI;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import com.google.gson.TypeAdapterFactory;
 import com.google.gson.reflect.TypeToken;
+import com.google.gson.TypeAdapter;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+import java.io.IOException;
 
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import io.tiledb.cloud.rest_api.v2.JSON;
 
 /**
  * Array directory (for reads)
  */
-@ApiModel(description = "Array directory (for reads)")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-07-02T18:54:48.746612+03:00[Europe/Athens]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-30T04:47:07.570140+03:00[Europe/Athens]", comments = "Generator version: 7.7.0")
 public class ArrayDirectory {
   public static final String SERIALIZED_NAME_UNFILTERED_FRAGMENT_URIS = "unfilteredFragmentUris";
   @SerializedName(SERIALIZED_NAME_UNFILTERED_FRAGMENT_URIS)
-  private List<String> unfilteredFragmentUris = null;
+  private List<String> unfilteredFragmentUris = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_CONSOLIDATED_COMMIT_URIS = "consolidatedCommitUris";
   @SerializedName(SERIALIZED_NAME_CONSOLIDATED_COMMIT_URIS)
-  private List<String> consolidatedCommitUris = null;
+  private List<String> consolidatedCommitUris = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_ARRAY_SCHEMA_URIS = "arraySchemaUris";
   @SerializedName(SERIALIZED_NAME_ARRAY_SCHEMA_URIS)
-  private List<String> arraySchemaUris = null;
+  private List<String> arraySchemaUris = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_LATEST_ARRAY_SCHEMA_URI = "latestArraySchemaUri";
   @SerializedName(SERIALIZED_NAME_LATEST_ARRAY_SCHEMA_URI)
@@ -63,27 +74,27 @@ public class ArrayDirectory {
 
   public static final String SERIALIZED_NAME_ARRAY_META_URIS_TO_VACUUM = "arrayMetaUrisToVacuum";
   @SerializedName(SERIALIZED_NAME_ARRAY_META_URIS_TO_VACUUM)
-  private List<String> arrayMetaUrisToVacuum = null;
+  private List<String> arrayMetaUrisToVacuum = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_ARRAY_META_VAC_URIS_TO_VACUUM = "arrayMetaVacUrisToVacuum";
   @SerializedName(SERIALIZED_NAME_ARRAY_META_VAC_URIS_TO_VACUUM)
-  private List<String> arrayMetaVacUrisToVacuum = null;
+  private List<String> arrayMetaVacUrisToVacuum = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_COMMIT_URIS_TO_CONSOLIDATE = "commitUrisToConsolidate";
   @SerializedName(SERIALIZED_NAME_COMMIT_URIS_TO_CONSOLIDATE)
-  private List<String> commitUrisToConsolidate = null;
+  private List<String> commitUrisToConsolidate = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_COMMIT_URIS_TO_VACUUM = "commitUrisToVacuum";
   @SerializedName(SERIALIZED_NAME_COMMIT_URIS_TO_VACUUM)
-  private List<String> commitUrisToVacuum = null;
+  private List<String> commitUrisToVacuum = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_CONSOLIDATED_COMMIT_URIS_TO_VACUUM = "consolidatedCommitUrisToVacuum";
   @SerializedName(SERIALIZED_NAME_CONSOLIDATED_COMMIT_URIS_TO_VACUUM)
-  private List<String> consolidatedCommitUrisToVacuum = null;
+  private List<String> consolidatedCommitUrisToVacuum = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_FRAGMENT_META_URIS = "fragmentMetaUris";
   @SerializedName(SERIALIZED_NAME_FRAGMENT_META_URIS)
-  private List<String> fragmentMetaUris = null;
+  private List<String> fragmentMetaUris = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_TIMESTAMP_START = "timestampStart";
   @SerializedName(SERIALIZED_NAME_TIMESTAMP_START)
@@ -95,17 +106,16 @@ public class ArrayDirectory {
 
   public static final String SERIALIZED_NAME_ARRAY_META_URIS = "arrayMetaUris";
   @SerializedName(SERIALIZED_NAME_ARRAY_META_URIS)
-  private List<TimestampedURI> arrayMetaUris = null;
+  private List<TimestampedURI> arrayMetaUris = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_DELETE_AND_UPDATE_TILE_LOCATION = "deleteAndUpdateTileLocation";
   @SerializedName(SERIALIZED_NAME_DELETE_AND_UPDATE_TILE_LOCATION)
-  private List<DeleteAndUpdateTileLocation> deleteAndUpdateTileLocation = null;
+  private List<DeleteAndUpdateTileLocation> deleteAndUpdateTileLocation = new ArrayList<>();
 
-  public ArrayDirectory() { 
+  public ArrayDirectory() {
   }
 
   public ArrayDirectory unfilteredFragmentUris(List<String> unfilteredFragmentUris) {
-    
     this.unfilteredFragmentUris = unfilteredFragmentUris;
     return this;
   }
@@ -118,17 +128,14 @@ public class ArrayDirectory {
     return this;
   }
 
-   /**
+  /**
    * fragment URIs
    * @return unfilteredFragmentUris
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "fragment URIs")
-
   public List<String> getUnfilteredFragmentUris() {
     return unfilteredFragmentUris;
   }
-
 
   public void setUnfilteredFragmentUris(List<String> unfilteredFragmentUris) {
     this.unfilteredFragmentUris = unfilteredFragmentUris;
@@ -136,7 +143,6 @@ public class ArrayDirectory {
 
 
   public ArrayDirectory consolidatedCommitUris(List<String> consolidatedCommitUris) {
-    
     this.consolidatedCommitUris = consolidatedCommitUris;
     return this;
   }
@@ -149,17 +155,14 @@ public class ArrayDirectory {
     return this;
   }
 
-   /**
+  /**
    * consolidated commit URI set
    * @return consolidatedCommitUris
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "consolidated commit URI set")
-
   public List<String> getConsolidatedCommitUris() {
     return consolidatedCommitUris;
   }
-
 
   public void setConsolidatedCommitUris(List<String> consolidatedCommitUris) {
     this.consolidatedCommitUris = consolidatedCommitUris;
@@ -167,7 +170,6 @@ public class ArrayDirectory {
 
 
   public ArrayDirectory arraySchemaUris(List<String> arraySchemaUris) {
-    
     this.arraySchemaUris = arraySchemaUris;
     return this;
   }
@@ -180,17 +182,14 @@ public class ArrayDirectory {
     return this;
   }
 
-   /**
+  /**
    * URIs of all the array schema files
    * @return arraySchemaUris
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "URIs of all the array schema files")
-
   public List<String> getArraySchemaUris() {
     return arraySchemaUris;
   }
-
 
   public void setArraySchemaUris(List<String> arraySchemaUris) {
     this.arraySchemaUris = arraySchemaUris;
@@ -198,22 +197,18 @@ public class ArrayDirectory {
 
 
   public ArrayDirectory latestArraySchemaUri(String latestArraySchemaUri) {
-    
     this.latestArraySchemaUri = latestArraySchemaUri;
     return this;
   }
 
-   /**
+  /**
    * latest array schema URI.
    * @return latestArraySchemaUri
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "latest array schema URI.")
-
   public String getLatestArraySchemaUri() {
     return latestArraySchemaUri;
   }
-
 
   public void setLatestArraySchemaUri(String latestArraySchemaUri) {
     this.latestArraySchemaUri = latestArraySchemaUri;
@@ -221,7 +216,6 @@ public class ArrayDirectory {
 
 
   public ArrayDirectory arrayMetaUrisToVacuum(List<String> arrayMetaUrisToVacuum) {
-    
     this.arrayMetaUrisToVacuum = arrayMetaUrisToVacuum;
     return this;
   }
@@ -234,17 +228,14 @@ public class ArrayDirectory {
     return this;
   }
 
-   /**
+  /**
    * the array metadata files to vacuum
    * @return arrayMetaUrisToVacuum
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "the array metadata files to vacuum")
-
   public List<String> getArrayMetaUrisToVacuum() {
     return arrayMetaUrisToVacuum;
   }
-
 
   public void setArrayMetaUrisToVacuum(List<String> arrayMetaUrisToVacuum) {
     this.arrayMetaUrisToVacuum = arrayMetaUrisToVacuum;
@@ -252,7 +243,6 @@ public class ArrayDirectory {
 
 
   public ArrayDirectory arrayMetaVacUrisToVacuum(List<String> arrayMetaVacUrisToVacuum) {
-    
     this.arrayMetaVacUrisToVacuum = arrayMetaVacUrisToVacuum;
     return this;
   }
@@ -265,17 +255,14 @@ public class ArrayDirectory {
     return this;
   }
 
-   /**
+  /**
    * the array metadata vac files to vacuum
    * @return arrayMetaVacUrisToVacuum
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "the array metadata vac files to vacuum")
-
   public List<String> getArrayMetaVacUrisToVacuum() {
     return arrayMetaVacUrisToVacuum;
   }
-
 
   public void setArrayMetaVacUrisToVacuum(List<String> arrayMetaVacUrisToVacuum) {
     this.arrayMetaVacUrisToVacuum = arrayMetaVacUrisToVacuum;
@@ -283,7 +270,6 @@ public class ArrayDirectory {
 
 
   public ArrayDirectory commitUrisToConsolidate(List<String> commitUrisToConsolidate) {
-    
     this.commitUrisToConsolidate = commitUrisToConsolidate;
     return this;
   }
@@ -296,17 +282,14 @@ public class ArrayDirectory {
     return this;
   }
 
-   /**
+  /**
    * the commit files to consolidate
    * @return commitUrisToConsolidate
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "the commit files to consolidate")
-
   public List<String> getCommitUrisToConsolidate() {
     return commitUrisToConsolidate;
   }
-
 
   public void setCommitUrisToConsolidate(List<String> commitUrisToConsolidate) {
     this.commitUrisToConsolidate = commitUrisToConsolidate;
@@ -314,7 +297,6 @@ public class ArrayDirectory {
 
 
   public ArrayDirectory commitUrisToVacuum(List<String> commitUrisToVacuum) {
-    
     this.commitUrisToVacuum = commitUrisToVacuum;
     return this;
   }
@@ -327,17 +309,14 @@ public class ArrayDirectory {
     return this;
   }
 
-   /**
+  /**
    * the commit files to vacuum
    * @return commitUrisToVacuum
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "the commit files to vacuum")
-
   public List<String> getCommitUrisToVacuum() {
     return commitUrisToVacuum;
   }
-
 
   public void setCommitUrisToVacuum(List<String> commitUrisToVacuum) {
     this.commitUrisToVacuum = commitUrisToVacuum;
@@ -345,7 +324,6 @@ public class ArrayDirectory {
 
 
   public ArrayDirectory consolidatedCommitUrisToVacuum(List<String> consolidatedCommitUrisToVacuum) {
-    
     this.consolidatedCommitUrisToVacuum = consolidatedCommitUrisToVacuum;
     return this;
   }
@@ -358,17 +336,14 @@ public class ArrayDirectory {
     return this;
   }
 
-   /**
+  /**
    * the consolidated commit files to vacuum
    * @return consolidatedCommitUrisToVacuum
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "the consolidated commit files to vacuum")
-
   public List<String> getConsolidatedCommitUrisToVacuum() {
     return consolidatedCommitUrisToVacuum;
   }
-
 
   public void setConsolidatedCommitUrisToVacuum(List<String> consolidatedCommitUrisToVacuum) {
     this.consolidatedCommitUrisToVacuum = consolidatedCommitUrisToVacuum;
@@ -376,7 +351,6 @@ public class ArrayDirectory {
 
 
   public ArrayDirectory fragmentMetaUris(List<String> fragmentMetaUris) {
-    
     this.fragmentMetaUris = fragmentMetaUris;
     return this;
   }
@@ -389,17 +363,14 @@ public class ArrayDirectory {
     return this;
   }
 
-   /**
+  /**
    * the URIs of the consolidated fragment metadata files
    * @return fragmentMetaUris
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "the URIs of the consolidated fragment metadata files")
-
   public List<String> getFragmentMetaUris() {
     return fragmentMetaUris;
   }
-
 
   public void setFragmentMetaUris(List<String> fragmentMetaUris) {
     this.fragmentMetaUris = fragmentMetaUris;
@@ -407,22 +378,18 @@ public class ArrayDirectory {
 
 
   public ArrayDirectory timestampStart(BigDecimal timestampStart) {
-    
     this.timestampStart = timestampStart;
     return this;
   }
 
-   /**
+  /**
    * Only the files created after timestamp_start are listed
    * @return timestampStart
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Only the files created after timestamp_start are listed")
-
   public BigDecimal getTimestampStart() {
     return timestampStart;
   }
-
 
   public void setTimestampStart(BigDecimal timestampStart) {
     this.timestampStart = timestampStart;
@@ -430,22 +397,18 @@ public class ArrayDirectory {
 
 
   public ArrayDirectory timestampEnd(BigDecimal timestampEnd) {
-    
     this.timestampEnd = timestampEnd;
     return this;
   }
 
-   /**
+  /**
    * Only the files created before timestamp_end are listed
    * @return timestampEnd
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Only the files created before timestamp_end are listed")
-
   public BigDecimal getTimestampEnd() {
     return timestampEnd;
   }
-
 
   public void setTimestampEnd(BigDecimal timestampEnd) {
     this.timestampEnd = timestampEnd;
@@ -453,7 +416,6 @@ public class ArrayDirectory {
 
 
   public ArrayDirectory arrayMetaUris(List<TimestampedURI> arrayMetaUris) {
-    
     this.arrayMetaUris = arrayMetaUris;
     return this;
   }
@@ -466,17 +428,14 @@ public class ArrayDirectory {
     return this;
   }
 
-   /**
+  /**
    * the timestamped filtered array metadata URIs, after removing the ones that need to be vacuumed and those that do not fall within
    * @return arrayMetaUris
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "the timestamped filtered array metadata URIs, after removing the ones that need to be vacuumed and those that do not fall within")
-
   public List<TimestampedURI> getArrayMetaUris() {
     return arrayMetaUris;
   }
-
 
   public void setArrayMetaUris(List<TimestampedURI> arrayMetaUris) {
     this.arrayMetaUris = arrayMetaUris;
@@ -484,7 +443,6 @@ public class ArrayDirectory {
 
 
   public ArrayDirectory deleteAndUpdateTileLocation(List<DeleteAndUpdateTileLocation> deleteAndUpdateTileLocation) {
-    
     this.deleteAndUpdateTileLocation = deleteAndUpdateTileLocation;
     return this;
   }
@@ -497,17 +455,14 @@ public class ArrayDirectory {
     return this;
   }
 
-   /**
+  /**
    * the location of delete tiles
    * @return deleteAndUpdateTileLocation
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "the location of delete tiles")
-
   public List<DeleteAndUpdateTileLocation> getDeleteAndUpdateTileLocation() {
     return deleteAndUpdateTileLocation;
   }
-
 
   public void setDeleteAndUpdateTileLocation(List<DeleteAndUpdateTileLocation> deleteAndUpdateTileLocation) {
     this.deleteAndUpdateTileLocation = deleteAndUpdateTileLocation;
@@ -523,6 +478,10 @@ public class ArrayDirectory {
   /**
    * Set the additional (undeclared) property with the specified name and value.
    * If the property does not already exist, create it otherwise replace it.
+   *
+   * @param key name of the property
+   * @param value value of the property
+   * @return the ArrayDirectory instance itself
    */
   public ArrayDirectory putAdditionalProperty(String key, Object value) {
     if (this.additionalProperties == null) {
@@ -534,6 +493,8 @@ public class ArrayDirectory {
 
   /**
    * Return the additional (undeclared) property.
+   *
+   * @return a map of objects
    */
   public Map<String, Object> getAdditionalProperties() {
     return additionalProperties;
@@ -541,6 +502,9 @@ public class ArrayDirectory {
 
   /**
    * Return the additional (undeclared) property with the specified name.
+   *
+   * @param key name of the property
+   * @return an object
    */
   public Object getAdditionalProperty(String key) {
     if (this.additionalProperties == null) {
@@ -641,82 +605,85 @@ public class ArrayDirectory {
     openapiRequiredFields = new HashSet<String>();
   }
 
- /**
-  * Validates the JSON Object and throws an exception if issues found
-  *
-  * @param jsonObj JSON Object
-  * @throws IOException if the JSON Object is invalid with respect to ArrayDirectory
-  */
-  public static void validateJsonObject(JsonObject jsonObj) throws IOException {
-      if (jsonObj == null) {
-        if (ArrayDirectory.openapiRequiredFields.isEmpty()) {
-          return;
-        } else { // has required fields
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to ArrayDirectory
+   */
+  public static void validateJsonElement(JsonElement jsonElement) throws IOException {
+      if (jsonElement == null) {
+        if (!ArrayDirectory.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
           throw new IllegalArgumentException(String.format("The required field(s) %s in ArrayDirectory is not found in the empty JSON string", ArrayDirectory.openapiRequiredFields.toString()));
         }
       }
-      // ensure the json data is an array
-      if (jsonObj.get("unfilteredFragmentUris") != null && !jsonObj.get("unfilteredFragmentUris").isJsonArray()) {
+        JsonObject jsonObj = jsonElement.getAsJsonObject();
+      // ensure the optional json data is an array if present
+      if (jsonObj.get("unfilteredFragmentUris") != null && !jsonObj.get("unfilteredFragmentUris").isJsonNull() && !jsonObj.get("unfilteredFragmentUris").isJsonArray()) {
         throw new IllegalArgumentException(String.format("Expected the field `unfilteredFragmentUris` to be an array in the JSON string but got `%s`", jsonObj.get("unfilteredFragmentUris").toString()));
       }
-      // ensure the json data is an array
-      if (jsonObj.get("consolidatedCommitUris") != null && !jsonObj.get("consolidatedCommitUris").isJsonArray()) {
+      // ensure the optional json data is an array if present
+      if (jsonObj.get("consolidatedCommitUris") != null && !jsonObj.get("consolidatedCommitUris").isJsonNull() && !jsonObj.get("consolidatedCommitUris").isJsonArray()) {
         throw new IllegalArgumentException(String.format("Expected the field `consolidatedCommitUris` to be an array in the JSON string but got `%s`", jsonObj.get("consolidatedCommitUris").toString()));
       }
-      // ensure the json data is an array
-      if (jsonObj.get("arraySchemaUris") != null && !jsonObj.get("arraySchemaUris").isJsonArray()) {
+      // ensure the optional json data is an array if present
+      if (jsonObj.get("arraySchemaUris") != null && !jsonObj.get("arraySchemaUris").isJsonNull() && !jsonObj.get("arraySchemaUris").isJsonArray()) {
         throw new IllegalArgumentException(String.format("Expected the field `arraySchemaUris` to be an array in the JSON string but got `%s`", jsonObj.get("arraySchemaUris").toString()));
       }
-      if (jsonObj.get("latestArraySchemaUri") != null && !jsonObj.get("latestArraySchemaUri").isJsonPrimitive()) {
+      if ((jsonObj.get("latestArraySchemaUri") != null && !jsonObj.get("latestArraySchemaUri").isJsonNull()) && !jsonObj.get("latestArraySchemaUri").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `latestArraySchemaUri` to be a primitive type in the JSON string but got `%s`", jsonObj.get("latestArraySchemaUri").toString()));
       }
-      // ensure the json data is an array
-      if (jsonObj.get("arrayMetaUrisToVacuum") != null && !jsonObj.get("arrayMetaUrisToVacuum").isJsonArray()) {
+      // ensure the optional json data is an array if present
+      if (jsonObj.get("arrayMetaUrisToVacuum") != null && !jsonObj.get("arrayMetaUrisToVacuum").isJsonNull() && !jsonObj.get("arrayMetaUrisToVacuum").isJsonArray()) {
         throw new IllegalArgumentException(String.format("Expected the field `arrayMetaUrisToVacuum` to be an array in the JSON string but got `%s`", jsonObj.get("arrayMetaUrisToVacuum").toString()));
       }
-      // ensure the json data is an array
-      if (jsonObj.get("arrayMetaVacUrisToVacuum") != null && !jsonObj.get("arrayMetaVacUrisToVacuum").isJsonArray()) {
+      // ensure the optional json data is an array if present
+      if (jsonObj.get("arrayMetaVacUrisToVacuum") != null && !jsonObj.get("arrayMetaVacUrisToVacuum").isJsonNull() && !jsonObj.get("arrayMetaVacUrisToVacuum").isJsonArray()) {
         throw new IllegalArgumentException(String.format("Expected the field `arrayMetaVacUrisToVacuum` to be an array in the JSON string but got `%s`", jsonObj.get("arrayMetaVacUrisToVacuum").toString()));
       }
-      // ensure the json data is an array
-      if (jsonObj.get("commitUrisToConsolidate") != null && !jsonObj.get("commitUrisToConsolidate").isJsonArray()) {
+      // ensure the optional json data is an array if present
+      if (jsonObj.get("commitUrisToConsolidate") != null && !jsonObj.get("commitUrisToConsolidate").isJsonNull() && !jsonObj.get("commitUrisToConsolidate").isJsonArray()) {
         throw new IllegalArgumentException(String.format("Expected the field `commitUrisToConsolidate` to be an array in the JSON string but got `%s`", jsonObj.get("commitUrisToConsolidate").toString()));
       }
-      // ensure the json data is an array
-      if (jsonObj.get("commitUrisToVacuum") != null && !jsonObj.get("commitUrisToVacuum").isJsonArray()) {
+      // ensure the optional json data is an array if present
+      if (jsonObj.get("commitUrisToVacuum") != null && !jsonObj.get("commitUrisToVacuum").isJsonNull() && !jsonObj.get("commitUrisToVacuum").isJsonArray()) {
         throw new IllegalArgumentException(String.format("Expected the field `commitUrisToVacuum` to be an array in the JSON string but got `%s`", jsonObj.get("commitUrisToVacuum").toString()));
       }
-      // ensure the json data is an array
-      if (jsonObj.get("consolidatedCommitUrisToVacuum") != null && !jsonObj.get("consolidatedCommitUrisToVacuum").isJsonArray()) {
+      // ensure the optional json data is an array if present
+      if (jsonObj.get("consolidatedCommitUrisToVacuum") != null && !jsonObj.get("consolidatedCommitUrisToVacuum").isJsonNull() && !jsonObj.get("consolidatedCommitUrisToVacuum").isJsonArray()) {
         throw new IllegalArgumentException(String.format("Expected the field `consolidatedCommitUrisToVacuum` to be an array in the JSON string but got `%s`", jsonObj.get("consolidatedCommitUrisToVacuum").toString()));
       }
-      // ensure the json data is an array
-      if (jsonObj.get("fragmentMetaUris") != null && !jsonObj.get("fragmentMetaUris").isJsonArray()) {
+      // ensure the optional json data is an array if present
+      if (jsonObj.get("fragmentMetaUris") != null && !jsonObj.get("fragmentMetaUris").isJsonNull() && !jsonObj.get("fragmentMetaUris").isJsonArray()) {
         throw new IllegalArgumentException(String.format("Expected the field `fragmentMetaUris` to be an array in the JSON string but got `%s`", jsonObj.get("fragmentMetaUris").toString()));
       }
-      JsonArray jsonArrayarrayMetaUris = jsonObj.getAsJsonArray("arrayMetaUris");
-      if (jsonArrayarrayMetaUris != null) {
-        // ensure the json data is an array
-        if (!jsonObj.get("arrayMetaUris").isJsonArray()) {
-          throw new IllegalArgumentException(String.format("Expected the field `arrayMetaUris` to be an array in the JSON string but got `%s`", jsonObj.get("arrayMetaUris").toString()));
-        }
+      if (jsonObj.get("arrayMetaUris") != null && !jsonObj.get("arrayMetaUris").isJsonNull()) {
+        JsonArray jsonArrayarrayMetaUris = jsonObj.getAsJsonArray("arrayMetaUris");
+        if (jsonArrayarrayMetaUris != null) {
+          // ensure the json data is an array
+          if (!jsonObj.get("arrayMetaUris").isJsonArray()) {
+            throw new IllegalArgumentException(String.format("Expected the field `arrayMetaUris` to be an array in the JSON string but got `%s`", jsonObj.get("arrayMetaUris").toString()));
+          }
 
-        // validate the optional field `arrayMetaUris` (array)
-        for (int i = 0; i < jsonArrayarrayMetaUris.size(); i++) {
-          TimestampedURI.validateJsonObject(jsonArrayarrayMetaUris.get(i).getAsJsonObject());
-        };
+          // validate the optional field `arrayMetaUris` (array)
+          for (int i = 0; i < jsonArrayarrayMetaUris.size(); i++) {
+            TimestampedURI.validateJsonElement(jsonArrayarrayMetaUris.get(i));
+          };
+        }
       }
-      JsonArray jsonArraydeleteAndUpdateTileLocation = jsonObj.getAsJsonArray("deleteAndUpdateTileLocation");
-      if (jsonArraydeleteAndUpdateTileLocation != null) {
-        // ensure the json data is an array
-        if (!jsonObj.get("deleteAndUpdateTileLocation").isJsonArray()) {
-          throw new IllegalArgumentException(String.format("Expected the field `deleteAndUpdateTileLocation` to be an array in the JSON string but got `%s`", jsonObj.get("deleteAndUpdateTileLocation").toString()));
-        }
+      if (jsonObj.get("deleteAndUpdateTileLocation") != null && !jsonObj.get("deleteAndUpdateTileLocation").isJsonNull()) {
+        JsonArray jsonArraydeleteAndUpdateTileLocation = jsonObj.getAsJsonArray("deleteAndUpdateTileLocation");
+        if (jsonArraydeleteAndUpdateTileLocation != null) {
+          // ensure the json data is an array
+          if (!jsonObj.get("deleteAndUpdateTileLocation").isJsonArray()) {
+            throw new IllegalArgumentException(String.format("Expected the field `deleteAndUpdateTileLocation` to be an array in the JSON string but got `%s`", jsonObj.get("deleteAndUpdateTileLocation").toString()));
+          }
 
-        // validate the optional field `deleteAndUpdateTileLocation` (array)
-        for (int i = 0; i < jsonArraydeleteAndUpdateTileLocation.size(); i++) {
-          DeleteAndUpdateTileLocation.validateJsonObject(jsonArraydeleteAndUpdateTileLocation.get(i).getAsJsonObject());
-        };
+          // validate the optional field `deleteAndUpdateTileLocation` (array)
+          for (int i = 0; i < jsonArraydeleteAndUpdateTileLocation.size(); i++) {
+            DeleteAndUpdateTileLocation.validateJsonElement(jsonArraydeleteAndUpdateTileLocation.get(i));
+          };
+        }
       }
   }
 
@@ -736,7 +703,7 @@ public class ArrayDirectory {
            public void write(JsonWriter out, ArrayDirectory value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              obj.remove("additionalProperties");
-             // serialize additonal properties
+             // serialize additional properties
              if (value.getAdditionalProperties() != null) {
                for (Map.Entry<String, Object> entry : value.getAdditionalProperties().entrySet()) {
                  if (entry.getValue() instanceof String)
@@ -748,7 +715,12 @@ public class ArrayDirectory {
                  else if (entry.getValue() instanceof Character)
                    obj.addProperty(entry.getKey(), (Character) entry.getValue());
                  else {
-                   obj.add(entry.getKey(), gson.toJsonTree(entry.getValue()).getAsJsonObject());
+                   JsonElement jsonElement = gson.toJsonTree(entry.getValue());
+                   if (jsonElement.isJsonArray()) {
+                     obj.add(entry.getKey(), jsonElement.getAsJsonArray());
+                   } else {
+                     obj.add(entry.getKey(), jsonElement.getAsJsonObject());
+                   }
                  }
                }
              }
@@ -757,8 +729,9 @@ public class ArrayDirectory {
 
            @Override
            public ArrayDirectory read(JsonReader in) throws IOException {
-             JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
-             validateJsonObject(jsonObj);
+             JsonElement jsonElement = elementAdapter.read(in);
+             validateJsonElement(jsonElement);
+             JsonObject jsonObj = jsonElement.getAsJsonObject();
              // store additional fields in the deserialized instance
              ArrayDirectory instance = thisAdapter.fromJsonTree(jsonObj);
              for (Map.Entry<String, JsonElement> entry : jsonObj.entrySet()) {
@@ -772,8 +745,10 @@ public class ArrayDirectory {
                      instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsBoolean());
                    else
                      throw new IllegalArgumentException(String.format("The field `%s` has unknown primitive type. Value: %s", entry.getKey(), entry.getValue().toString()));
-                 } else { // non-primitive type
-                   instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
+                 } else if (entry.getValue().isJsonArray()) {
+                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), List.class));
+                 } else { // JSON object
+                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
                  }
                }
              }
@@ -784,22 +759,22 @@ public class ArrayDirectory {
     }
   }
 
- /**
-  * Create an instance of ArrayDirectory given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of ArrayDirectory
-  * @throws IOException if the JSON string is invalid with respect to ArrayDirectory
-  */
+  /**
+   * Create an instance of ArrayDirectory given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of ArrayDirectory
+   * @throws IOException if the JSON string is invalid with respect to ArrayDirectory
+   */
   public static ArrayDirectory fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, ArrayDirectory.class);
   }
 
- /**
-  * Convert an instance of ArrayDirectory to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of ArrayDirectory to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

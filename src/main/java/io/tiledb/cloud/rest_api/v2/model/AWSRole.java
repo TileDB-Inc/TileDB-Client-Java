@@ -14,33 +14,43 @@
 package io.tiledb.cloud.rest_api.v2.model;
 
 import java.util.Objects;
-import java.util.Arrays;
 import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
+import java.util.Arrays;
 import org.openapitools.jackson.nullable.JsonNullable;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import com.google.gson.TypeAdapterFactory;
 import com.google.gson.reflect.TypeToken;
+import com.google.gson.TypeAdapter;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+import java.io.IOException;
 
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import io.tiledb.cloud.rest_api.v2.JSON;
 
 /**
  * Role information to access Amazon Web Services
  */
-@ApiModel(description = "Role information to access Amazon Web Services")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-07-02T18:54:48.746612+03:00[Europe/Athens]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-30T04:47:07.570140+03:00[Europe/Athens]", comments = "Generator version: 7.7.0")
 public class AWSRole {
   public static final String SERIALIZED_NAME_ROLE_ARN = "role_arn";
   @SerializedName(SERIALIZED_NAME_ROLE_ARN)
@@ -54,26 +64,22 @@ public class AWSRole {
   @SerializedName(SERIALIZED_NAME_ENDPOINT)
   private String endpoint;
 
-  public AWSRole() { 
+  public AWSRole() {
   }
 
   public AWSRole roleArn(String roleArn) {
-    
     this.roleArn = roleArn;
     return this;
   }
 
-   /**
+  /**
    * The role arn used to access
    * @return roleArn
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "arn:partition:service:region:account-id:resource-type:resource-id", value = "The role arn used to access")
-
   public String getRoleArn() {
     return roleArn;
   }
-
 
   public void setRoleArn(String roleArn) {
     this.roleArn = roleArn;
@@ -81,22 +87,18 @@ public class AWSRole {
 
 
   public AWSRole externalId(String externalId) {
-    
     this.externalId = externalId;
     return this;
   }
 
-   /**
+  /**
    * The role external id used to access
    * @return externalId
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "MzU0M2UwMTItMWJhYy00NWUwLThmZDItZTgwYmQ1NjE5Yjhm", value = "The role external id used to access")
-
   public String getExternalId() {
     return externalId;
   }
-
 
   public void setExternalId(String externalId) {
     this.externalId = externalId;
@@ -104,22 +106,18 @@ public class AWSRole {
 
 
   public AWSRole endpoint(String endpoint) {
-    
     this.endpoint = endpoint;
     return this;
   }
 
-   /**
+  /**
    * The endpoint used for this role
    * @return endpoint
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "https://example.us-west-2.amazonaws.com", value = "The endpoint used for this role")
-
   public String getEndpoint() {
     return endpoint;
   }
-
 
   public void setEndpoint(String endpoint) {
     this.endpoint = endpoint;
@@ -135,6 +133,10 @@ public class AWSRole {
   /**
    * Set the additional (undeclared) property with the specified name and value.
    * If the property does not already exist, create it otherwise replace it.
+   *
+   * @param key name of the property
+   * @param value value of the property
+   * @return the AWSRole instance itself
    */
   public AWSRole putAdditionalProperty(String key, Object value) {
     if (this.additionalProperties == null) {
@@ -146,6 +148,8 @@ public class AWSRole {
 
   /**
    * Return the additional (undeclared) property.
+   *
+   * @return a map of objects
    */
   public Map<String, Object> getAdditionalProperties() {
     return additionalProperties;
@@ -153,6 +157,9 @@ public class AWSRole {
 
   /**
    * Return the additional (undeclared) property with the specified name.
+   *
+   * @param key name of the property
+   * @return an object
    */
   public Object getAdditionalProperty(String key) {
     if (this.additionalProperties == null) {
@@ -231,27 +238,26 @@ public class AWSRole {
     openapiRequiredFields = new HashSet<String>();
   }
 
- /**
-  * Validates the JSON Object and throws an exception if issues found
-  *
-  * @param jsonObj JSON Object
-  * @throws IOException if the JSON Object is invalid with respect to AWSRole
-  */
-  public static void validateJsonObject(JsonObject jsonObj) throws IOException {
-      if (jsonObj == null) {
-        if (AWSRole.openapiRequiredFields.isEmpty()) {
-          return;
-        } else { // has required fields
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to AWSRole
+   */
+  public static void validateJsonElement(JsonElement jsonElement) throws IOException {
+      if (jsonElement == null) {
+        if (!AWSRole.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
           throw new IllegalArgumentException(String.format("The required field(s) %s in AWSRole is not found in the empty JSON string", AWSRole.openapiRequiredFields.toString()));
         }
       }
-      if (jsonObj.get("role_arn") != null && !jsonObj.get("role_arn").isJsonPrimitive()) {
+        JsonObject jsonObj = jsonElement.getAsJsonObject();
+      if ((jsonObj.get("role_arn") != null && !jsonObj.get("role_arn").isJsonNull()) && !jsonObj.get("role_arn").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `role_arn` to be a primitive type in the JSON string but got `%s`", jsonObj.get("role_arn").toString()));
       }
-      if (jsonObj.get("external_id") != null && !jsonObj.get("external_id").isJsonPrimitive()) {
+      if ((jsonObj.get("external_id") != null && !jsonObj.get("external_id").isJsonNull()) && !jsonObj.get("external_id").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `external_id` to be a primitive type in the JSON string but got `%s`", jsonObj.get("external_id").toString()));
       }
-      if (jsonObj.get("endpoint") != null && !jsonObj.get("endpoint").isJsonPrimitive()) {
+      if ((jsonObj.get("endpoint") != null && !jsonObj.get("endpoint").isJsonNull()) && !jsonObj.get("endpoint").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `endpoint` to be a primitive type in the JSON string but got `%s`", jsonObj.get("endpoint").toString()));
       }
   }
@@ -272,7 +278,7 @@ public class AWSRole {
            public void write(JsonWriter out, AWSRole value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              obj.remove("additionalProperties");
-             // serialize additonal properties
+             // serialize additional properties
              if (value.getAdditionalProperties() != null) {
                for (Map.Entry<String, Object> entry : value.getAdditionalProperties().entrySet()) {
                  if (entry.getValue() instanceof String)
@@ -284,7 +290,12 @@ public class AWSRole {
                  else if (entry.getValue() instanceof Character)
                    obj.addProperty(entry.getKey(), (Character) entry.getValue());
                  else {
-                   obj.add(entry.getKey(), gson.toJsonTree(entry.getValue()).getAsJsonObject());
+                   JsonElement jsonElement = gson.toJsonTree(entry.getValue());
+                   if (jsonElement.isJsonArray()) {
+                     obj.add(entry.getKey(), jsonElement.getAsJsonArray());
+                   } else {
+                     obj.add(entry.getKey(), jsonElement.getAsJsonObject());
+                   }
                  }
                }
              }
@@ -293,8 +304,9 @@ public class AWSRole {
 
            @Override
            public AWSRole read(JsonReader in) throws IOException {
-             JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
-             validateJsonObject(jsonObj);
+             JsonElement jsonElement = elementAdapter.read(in);
+             validateJsonElement(jsonElement);
+             JsonObject jsonObj = jsonElement.getAsJsonObject();
              // store additional fields in the deserialized instance
              AWSRole instance = thisAdapter.fromJsonTree(jsonObj);
              for (Map.Entry<String, JsonElement> entry : jsonObj.entrySet()) {
@@ -308,8 +320,10 @@ public class AWSRole {
                      instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsBoolean());
                    else
                      throw new IllegalArgumentException(String.format("The field `%s` has unknown primitive type. Value: %s", entry.getKey(), entry.getValue().toString()));
-                 } else { // non-primitive type
-                   instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
+                 } else if (entry.getValue().isJsonArray()) {
+                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), List.class));
+                 } else { // JSON object
+                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
                  }
                }
              }
@@ -320,22 +334,22 @@ public class AWSRole {
     }
   }
 
- /**
-  * Create an instance of AWSRole given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of AWSRole
-  * @throws IOException if the JSON string is invalid with respect to AWSRole
-  */
+  /**
+   * Create an instance of AWSRole given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of AWSRole
+   * @throws IOException if the JSON string is invalid with respect to AWSRole
+   */
   public static AWSRole fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, AWSRole.class);
   }
 
- /**
-  * Convert an instance of AWSRole to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of AWSRole to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

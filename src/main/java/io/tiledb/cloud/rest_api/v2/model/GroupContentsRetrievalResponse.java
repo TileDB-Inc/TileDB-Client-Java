@@ -14,49 +14,59 @@
 package io.tiledb.cloud.rest_api.v2.model;
 
 import java.util.Objects;
-
 import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.tiledb.cloud.rest_api.v2.model.GroupMember;
+import io.tiledb.cloud.rest_api.v2.model.Metadata;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import com.google.gson.TypeAdapterFactory;
 import com.google.gson.reflect.TypeToken;
+import com.google.gson.TypeAdapter;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+import java.io.IOException;
 
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import io.tiledb.cloud.rest_api.v2.JSON;
 
 /**
  * Object including a page of members of a group and pagination metadata
  */
-@ApiModel(description = "Object including a page of members of a group and pagination metadata")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-07-02T18:54:48.746612+03:00[Europe/Athens]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-30T04:47:07.570140+03:00[Europe/Athens]", comments = "Generator version: 7.7.0")
 public class GroupContentsRetrievalResponse {
   public static final String SERIALIZED_NAME_MEMBERS = "members";
   @SerializedName(SERIALIZED_NAME_MEMBERS)
-  private List<GroupMember> members = null;
+  private List<GroupMember> members = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_METADATA = "metadata";
   @SerializedName(SERIALIZED_NAME_METADATA)
   private Metadata metadata;
 
-  public GroupContentsRetrievalResponse() { 
+  public GroupContentsRetrievalResponse() {
   }
 
   public GroupContentsRetrievalResponse members(List<GroupMember> members) {
-    
     this.members = members;
     return this;
   }
@@ -69,17 +79,14 @@ public class GroupContentsRetrievalResponse {
     return this;
   }
 
-   /**
+  /**
    * Groups members
    * @return members
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Groups members")
-
   public List<GroupMember> getMembers() {
     return members;
   }
-
 
   public void setMembers(List<GroupMember> members) {
     this.members = members;
@@ -87,22 +94,18 @@ public class GroupContentsRetrievalResponse {
 
 
   public GroupContentsRetrievalResponse metadata(Metadata metadata) {
-    
     this.metadata = metadata;
     return this;
   }
 
-   /**
+  /**
    * Get metadata
    * @return metadata
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
   public Metadata getMetadata() {
     return metadata;
   }
-
 
   public void setMetadata(Metadata metadata) {
     this.metadata = metadata;
@@ -118,6 +121,10 @@ public class GroupContentsRetrievalResponse {
   /**
    * Set the additional (undeclared) property with the specified name and value.
    * If the property does not already exist, create it otherwise replace it.
+   *
+   * @param key name of the property
+   * @param value value of the property
+   * @return the GroupContentsRetrievalResponse instance itself
    */
   public GroupContentsRetrievalResponse putAdditionalProperty(String key, Object value) {
     if (this.additionalProperties == null) {
@@ -129,6 +136,8 @@ public class GroupContentsRetrievalResponse {
 
   /**
    * Return the additional (undeclared) property.
+   *
+   * @return a map of objects
    */
   public Map<String, Object> getAdditionalProperties() {
     return additionalProperties;
@@ -136,6 +145,9 @@ public class GroupContentsRetrievalResponse {
 
   /**
    * Return the additional (undeclared) property with the specified name.
+   *
+   * @param key name of the property
+   * @return an object
    */
   public Object getAdditionalProperty(String key) {
     if (this.additionalProperties == null) {
@@ -200,35 +212,36 @@ public class GroupContentsRetrievalResponse {
     openapiRequiredFields = new HashSet<String>();
   }
 
- /**
-  * Validates the JSON Object and throws an exception if issues found
-  *
-  * @param jsonObj JSON Object
-  * @throws IOException if the JSON Object is invalid with respect to GroupContentsRetrievalResponse
-  */
-  public static void validateJsonObject(JsonObject jsonObj) throws IOException {
-      if (jsonObj == null) {
-        if (GroupContentsRetrievalResponse.openapiRequiredFields.isEmpty()) {
-          return;
-        } else { // has required fields
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to GroupContentsRetrievalResponse
+   */
+  public static void validateJsonElement(JsonElement jsonElement) throws IOException {
+      if (jsonElement == null) {
+        if (!GroupContentsRetrievalResponse.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
           throw new IllegalArgumentException(String.format("The required field(s) %s in GroupContentsRetrievalResponse is not found in the empty JSON string", GroupContentsRetrievalResponse.openapiRequiredFields.toString()));
         }
       }
-      JsonArray jsonArraymembers = jsonObj.getAsJsonArray("members");
-      if (jsonArraymembers != null) {
-        // ensure the json data is an array
-        if (!jsonObj.get("members").isJsonArray()) {
-          throw new IllegalArgumentException(String.format("Expected the field `members` to be an array in the JSON string but got `%s`", jsonObj.get("members").toString()));
-        }
+        JsonObject jsonObj = jsonElement.getAsJsonObject();
+      if (jsonObj.get("members") != null && !jsonObj.get("members").isJsonNull()) {
+        JsonArray jsonArraymembers = jsonObj.getAsJsonArray("members");
+        if (jsonArraymembers != null) {
+          // ensure the json data is an array
+          if (!jsonObj.get("members").isJsonArray()) {
+            throw new IllegalArgumentException(String.format("Expected the field `members` to be an array in the JSON string but got `%s`", jsonObj.get("members").toString()));
+          }
 
-        // validate the optional field `members` (array)
-        for (int i = 0; i < jsonArraymembers.size(); i++) {
-          GroupMember.validateJsonObject(jsonArraymembers.get(i).getAsJsonObject());
-        };
+          // validate the optional field `members` (array)
+          for (int i = 0; i < jsonArraymembers.size(); i++) {
+            GroupMember.validateJsonElement(jsonArraymembers.get(i));
+          };
+        }
       }
       // validate the optional field `metadata`
-      if (jsonObj.getAsJsonObject("metadata") != null) {
-        Metadata.validateJsonObject(jsonObj.getAsJsonObject("metadata"));
+      if (jsonObj.get("metadata") != null && !jsonObj.get("metadata").isJsonNull()) {
+        Metadata.validateJsonElement(jsonObj.get("metadata"));
       }
   }
 
@@ -248,7 +261,7 @@ public class GroupContentsRetrievalResponse {
            public void write(JsonWriter out, GroupContentsRetrievalResponse value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              obj.remove("additionalProperties");
-             // serialize additonal properties
+             // serialize additional properties
              if (value.getAdditionalProperties() != null) {
                for (Map.Entry<String, Object> entry : value.getAdditionalProperties().entrySet()) {
                  if (entry.getValue() instanceof String)
@@ -260,7 +273,12 @@ public class GroupContentsRetrievalResponse {
                  else if (entry.getValue() instanceof Character)
                    obj.addProperty(entry.getKey(), (Character) entry.getValue());
                  else {
-                   obj.add(entry.getKey(), gson.toJsonTree(entry.getValue()).getAsJsonObject());
+                   JsonElement jsonElement = gson.toJsonTree(entry.getValue());
+                   if (jsonElement.isJsonArray()) {
+                     obj.add(entry.getKey(), jsonElement.getAsJsonArray());
+                   } else {
+                     obj.add(entry.getKey(), jsonElement.getAsJsonObject());
+                   }
                  }
                }
              }
@@ -269,8 +287,9 @@ public class GroupContentsRetrievalResponse {
 
            @Override
            public GroupContentsRetrievalResponse read(JsonReader in) throws IOException {
-             JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
-             validateJsonObject(jsonObj);
+             JsonElement jsonElement = elementAdapter.read(in);
+             validateJsonElement(jsonElement);
+             JsonObject jsonObj = jsonElement.getAsJsonObject();
              // store additional fields in the deserialized instance
              GroupContentsRetrievalResponse instance = thisAdapter.fromJsonTree(jsonObj);
              for (Map.Entry<String, JsonElement> entry : jsonObj.entrySet()) {
@@ -284,8 +303,10 @@ public class GroupContentsRetrievalResponse {
                      instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsBoolean());
                    else
                      throw new IllegalArgumentException(String.format("The field `%s` has unknown primitive type. Value: %s", entry.getKey(), entry.getValue().toString()));
-                 } else { // non-primitive type
-                   instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
+                 } else if (entry.getValue().isJsonArray()) {
+                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), List.class));
+                 } else { // JSON object
+                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
                  }
                }
              }
@@ -296,22 +317,22 @@ public class GroupContentsRetrievalResponse {
     }
   }
 
- /**
-  * Create an instance of GroupContentsRetrievalResponse given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of GroupContentsRetrievalResponse
-  * @throws IOException if the JSON string is invalid with respect to GroupContentsRetrievalResponse
-  */
+  /**
+   * Create an instance of GroupContentsRetrievalResponse given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of GroupContentsRetrievalResponse
+   * @throws IOException if the JSON string is invalid with respect to GroupContentsRetrievalResponse
+   */
   public static GroupContentsRetrievalResponse fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, GroupContentsRetrievalResponse.class);
   }
 
- /**
-  * Convert an instance of GroupContentsRetrievalResponse to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of GroupContentsRetrievalResponse to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

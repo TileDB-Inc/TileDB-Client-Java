@@ -14,35 +14,45 @@
 package io.tiledb.cloud.rest_api.v2.model;
 
 import java.util.Objects;
-
 import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import com.google.gson.TypeAdapterFactory;
 import com.google.gson.reflect.TypeToken;
+import com.google.gson.TypeAdapter;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+import java.io.IOException;
 
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import io.tiledb.cloud.rest_api.v2.JSON;
 
 /**
  * Array directory (for reads)
  */
-@ApiModel(description = "Array directory (for reads)")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-07-02T18:54:48.746612+03:00[Europe/Athens]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-30T04:47:07.570140+03:00[Europe/Athens]", comments = "Generator version: 7.7.0")
 public class GenericTileOffsets {
   public static final String SERIALIZED_NAME_RTREE = "rtree";
   @SerializedName(SERIALIZED_NAME_RTREE)
@@ -50,35 +60,35 @@ public class GenericTileOffsets {
 
   public static final String SERIALIZED_NAME_TILE_OFFSETS = "tileOffsets";
   @SerializedName(SERIALIZED_NAME_TILE_OFFSETS)
-  private List<BigDecimal> tileOffsets = null;
+  private List<BigDecimal> tileOffsets = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_TILE_VAR_OFFSETS = "tileVarOffsets";
   @SerializedName(SERIALIZED_NAME_TILE_VAR_OFFSETS)
-  private List<BigDecimal> tileVarOffsets = null;
+  private List<BigDecimal> tileVarOffsets = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_TILE_VAR_SIZES = "tileVarSizes";
   @SerializedName(SERIALIZED_NAME_TILE_VAR_SIZES)
-  private List<BigDecimal> tileVarSizes = null;
+  private List<BigDecimal> tileVarSizes = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_TILE_VALIDITY_OFFSETS = "tileValidityOffsets";
   @SerializedName(SERIALIZED_NAME_TILE_VALIDITY_OFFSETS)
-  private List<BigDecimal> tileValidityOffsets = null;
+  private List<BigDecimal> tileValidityOffsets = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_TILE_MIN_OFFSETS = "tileMinOffsets";
   @SerializedName(SERIALIZED_NAME_TILE_MIN_OFFSETS)
-  private List<BigDecimal> tileMinOffsets = null;
+  private List<BigDecimal> tileMinOffsets = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_TILE_MAX_OFFSETS = "tileMaxOffsets";
   @SerializedName(SERIALIZED_NAME_TILE_MAX_OFFSETS)
-  private List<BigDecimal> tileMaxOffsets = null;
+  private List<BigDecimal> tileMaxOffsets = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_TILE_SUM_OFFSETS = "tileSumOffsets";
   @SerializedName(SERIALIZED_NAME_TILE_SUM_OFFSETS)
-  private List<BigDecimal> tileSumOffsets = null;
+  private List<BigDecimal> tileSumOffsets = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_TILE_NULL_COUNT_OFFSETS = "tileNullCountOffsets";
   @SerializedName(SERIALIZED_NAME_TILE_NULL_COUNT_OFFSETS)
-  private List<BigDecimal> tileNullCountOffsets = null;
+  private List<BigDecimal> tileNullCountOffsets = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_FRAGMENT_MIN_MAX_SUM_NULL_COUNT_OFFSET = "fragmentMinMaxSumNullCountOffset";
   @SerializedName(SERIALIZED_NAME_FRAGMENT_MIN_MAX_SUM_NULL_COUNT_OFFSET)
@@ -88,26 +98,22 @@ public class GenericTileOffsets {
   @SerializedName(SERIALIZED_NAME_PROCESSED_CONDITIONS_OFFSETS)
   private BigDecimal processedConditionsOffsets;
 
-  public GenericTileOffsets() { 
+  public GenericTileOffsets() {
   }
 
   public GenericTileOffsets rtree(BigDecimal rtree) {
-    
     this.rtree = rtree;
     return this;
   }
 
-   /**
+  /**
    * RTree serialized as a blob
    * @return rtree
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "RTree serialized as a blob")
-
   public BigDecimal getRtree() {
     return rtree;
   }
-
 
   public void setRtree(BigDecimal rtree) {
     this.rtree = rtree;
@@ -115,7 +121,6 @@ public class GenericTileOffsets {
 
 
   public GenericTileOffsets tileOffsets(List<BigDecimal> tileOffsets) {
-    
     this.tileOffsets = tileOffsets;
     return this;
   }
@@ -128,17 +133,14 @@ public class GenericTileOffsets {
     return this;
   }
 
-   /**
+  /**
    * tile offsets
    * @return tileOffsets
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "tile offsets")
-
   public List<BigDecimal> getTileOffsets() {
     return tileOffsets;
   }
-
 
   public void setTileOffsets(List<BigDecimal> tileOffsets) {
     this.tileOffsets = tileOffsets;
@@ -146,7 +148,6 @@ public class GenericTileOffsets {
 
 
   public GenericTileOffsets tileVarOffsets(List<BigDecimal> tileVarOffsets) {
-    
     this.tileVarOffsets = tileVarOffsets;
     return this;
   }
@@ -159,17 +160,14 @@ public class GenericTileOffsets {
     return this;
   }
 
-   /**
+  /**
    * variable tile offsets
    * @return tileVarOffsets
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "variable tile offsets")
-
   public List<BigDecimal> getTileVarOffsets() {
     return tileVarOffsets;
   }
-
 
   public void setTileVarOffsets(List<BigDecimal> tileVarOffsets) {
     this.tileVarOffsets = tileVarOffsets;
@@ -177,7 +175,6 @@ public class GenericTileOffsets {
 
 
   public GenericTileOffsets tileVarSizes(List<BigDecimal> tileVarSizes) {
-    
     this.tileVarSizes = tileVarSizes;
     return this;
   }
@@ -190,17 +187,14 @@ public class GenericTileOffsets {
     return this;
   }
 
-   /**
+  /**
    * sizes of the uncompressed variable tiles offsets
    * @return tileVarSizes
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "sizes of the uncompressed variable tiles offsets")
-
   public List<BigDecimal> getTileVarSizes() {
     return tileVarSizes;
   }
-
 
   public void setTileVarSizes(List<BigDecimal> tileVarSizes) {
     this.tileVarSizes = tileVarSizes;
@@ -208,7 +202,6 @@ public class GenericTileOffsets {
 
 
   public GenericTileOffsets tileValidityOffsets(List<BigDecimal> tileValidityOffsets) {
-    
     this.tileValidityOffsets = tileValidityOffsets;
     return this;
   }
@@ -221,17 +214,14 @@ public class GenericTileOffsets {
     return this;
   }
 
-   /**
+  /**
    * tile validity offsets
    * @return tileValidityOffsets
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "tile validity offsets")
-
   public List<BigDecimal> getTileValidityOffsets() {
     return tileValidityOffsets;
   }
-
 
   public void setTileValidityOffsets(List<BigDecimal> tileValidityOffsets) {
     this.tileValidityOffsets = tileValidityOffsets;
@@ -239,7 +229,6 @@ public class GenericTileOffsets {
 
 
   public GenericTileOffsets tileMinOffsets(List<BigDecimal> tileMinOffsets) {
-    
     this.tileMinOffsets = tileMinOffsets;
     return this;
   }
@@ -252,17 +241,14 @@ public class GenericTileOffsets {
     return this;
   }
 
-   /**
+  /**
    * min tile offsets
    * @return tileMinOffsets
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "min tile offsets")
-
   public List<BigDecimal> getTileMinOffsets() {
     return tileMinOffsets;
   }
-
 
   public void setTileMinOffsets(List<BigDecimal> tileMinOffsets) {
     this.tileMinOffsets = tileMinOffsets;
@@ -270,7 +256,6 @@ public class GenericTileOffsets {
 
 
   public GenericTileOffsets tileMaxOffsets(List<BigDecimal> tileMaxOffsets) {
-    
     this.tileMaxOffsets = tileMaxOffsets;
     return this;
   }
@@ -283,17 +268,14 @@ public class GenericTileOffsets {
     return this;
   }
 
-   /**
+  /**
    * max tile offsets
    * @return tileMaxOffsets
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "max tile offsets")
-
   public List<BigDecimal> getTileMaxOffsets() {
     return tileMaxOffsets;
   }
-
 
   public void setTileMaxOffsets(List<BigDecimal> tileMaxOffsets) {
     this.tileMaxOffsets = tileMaxOffsets;
@@ -301,7 +283,6 @@ public class GenericTileOffsets {
 
 
   public GenericTileOffsets tileSumOffsets(List<BigDecimal> tileSumOffsets) {
-    
     this.tileSumOffsets = tileSumOffsets;
     return this;
   }
@@ -314,17 +295,14 @@ public class GenericTileOffsets {
     return this;
   }
 
-   /**
+  /**
    * tile sum offsets
    * @return tileSumOffsets
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "tile sum offsets")
-
   public List<BigDecimal> getTileSumOffsets() {
     return tileSumOffsets;
   }
-
 
   public void setTileSumOffsets(List<BigDecimal> tileSumOffsets) {
     this.tileSumOffsets = tileSumOffsets;
@@ -332,7 +310,6 @@ public class GenericTileOffsets {
 
 
   public GenericTileOffsets tileNullCountOffsets(List<BigDecimal> tileNullCountOffsets) {
-    
     this.tileNullCountOffsets = tileNullCountOffsets;
     return this;
   }
@@ -345,17 +322,14 @@ public class GenericTileOffsets {
     return this;
   }
 
-   /**
+  /**
    * null count offsets
    * @return tileNullCountOffsets
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "null count offsets")
-
   public List<BigDecimal> getTileNullCountOffsets() {
     return tileNullCountOffsets;
   }
-
 
   public void setTileNullCountOffsets(List<BigDecimal> tileNullCountOffsets) {
     this.tileNullCountOffsets = tileNullCountOffsets;
@@ -363,22 +337,18 @@ public class GenericTileOffsets {
 
 
   public GenericTileOffsets fragmentMinMaxSumNullCountOffset(BigDecimal fragmentMinMaxSumNullCountOffset) {
-    
     this.fragmentMinMaxSumNullCountOffset = fragmentMinMaxSumNullCountOffset;
     return this;
   }
 
-   /**
+  /**
    * fragment min/max/sum/nullcount offsets
    * @return fragmentMinMaxSumNullCountOffset
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "fragment min/max/sum/nullcount offsets")
-
   public BigDecimal getFragmentMinMaxSumNullCountOffset() {
     return fragmentMinMaxSumNullCountOffset;
   }
-
 
   public void setFragmentMinMaxSumNullCountOffset(BigDecimal fragmentMinMaxSumNullCountOffset) {
     this.fragmentMinMaxSumNullCountOffset = fragmentMinMaxSumNullCountOffset;
@@ -386,22 +356,18 @@ public class GenericTileOffsets {
 
 
   public GenericTileOffsets processedConditionsOffsets(BigDecimal processedConditionsOffsets) {
-    
     this.processedConditionsOffsets = processedConditionsOffsets;
     return this;
   }
 
-   /**
+  /**
    * processed conditions offsets
    * @return processedConditionsOffsets
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "processed conditions offsets")
-
   public BigDecimal getProcessedConditionsOffsets() {
     return processedConditionsOffsets;
   }
-
 
   public void setProcessedConditionsOffsets(BigDecimal processedConditionsOffsets) {
     this.processedConditionsOffsets = processedConditionsOffsets;
@@ -417,6 +383,10 @@ public class GenericTileOffsets {
   /**
    * Set the additional (undeclared) property with the specified name and value.
    * If the property does not already exist, create it otherwise replace it.
+   *
+   * @param key name of the property
+   * @param value value of the property
+   * @return the GenericTileOffsets instance itself
    */
   public GenericTileOffsets putAdditionalProperty(String key, Object value) {
     if (this.additionalProperties == null) {
@@ -428,6 +398,8 @@ public class GenericTileOffsets {
 
   /**
    * Return the additional (undeclared) property.
+   *
+   * @return a map of objects
    */
   public Map<String, Object> getAdditionalProperties() {
     return additionalProperties;
@@ -435,6 +407,9 @@ public class GenericTileOffsets {
 
   /**
    * Return the additional (undeclared) property with the specified name.
+   *
+   * @param key name of the property
+   * @return an object
    */
   public Object getAdditionalProperty(String key) {
     if (this.additionalProperties == null) {
@@ -526,51 +501,17 @@ public class GenericTileOffsets {
     openapiRequiredFields = new HashSet<String>();
   }
 
- /**
-  * Validates the JSON Object and throws an exception if issues found
-  *
-  * @param jsonObj JSON Object
-  * @throws IOException if the JSON Object is invalid with respect to GenericTileOffsets
-  */
-  public static void validateJsonObject(JsonObject jsonObj) throws IOException {
-      if (jsonObj == null) {
-        if (GenericTileOffsets.openapiRequiredFields.isEmpty()) {
-          return;
-        } else { // has required fields
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to GenericTileOffsets
+   */
+  public static void validateJsonElement(JsonElement jsonElement) throws IOException {
+      if (jsonElement == null) {
+        if (!GenericTileOffsets.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
           throw new IllegalArgumentException(String.format("The required field(s) %s in GenericTileOffsets is not found in the empty JSON string", GenericTileOffsets.openapiRequiredFields.toString()));
         }
-      }
-      // ensure the json data is an array
-      if (jsonObj.get("tileOffsets") != null && !jsonObj.get("tileOffsets").isJsonArray()) {
-        throw new IllegalArgumentException(String.format("Expected the field `tileOffsets` to be an array in the JSON string but got `%s`", jsonObj.get("tileOffsets").toString()));
-      }
-      // ensure the json data is an array
-      if (jsonObj.get("tileVarOffsets") != null && !jsonObj.get("tileVarOffsets").isJsonArray()) {
-        throw new IllegalArgumentException(String.format("Expected the field `tileVarOffsets` to be an array in the JSON string but got `%s`", jsonObj.get("tileVarOffsets").toString()));
-      }
-      // ensure the json data is an array
-      if (jsonObj.get("tileVarSizes") != null && !jsonObj.get("tileVarSizes").isJsonArray()) {
-        throw new IllegalArgumentException(String.format("Expected the field `tileVarSizes` to be an array in the JSON string but got `%s`", jsonObj.get("tileVarSizes").toString()));
-      }
-      // ensure the json data is an array
-      if (jsonObj.get("tileValidityOffsets") != null && !jsonObj.get("tileValidityOffsets").isJsonArray()) {
-        throw new IllegalArgumentException(String.format("Expected the field `tileValidityOffsets` to be an array in the JSON string but got `%s`", jsonObj.get("tileValidityOffsets").toString()));
-      }
-      // ensure the json data is an array
-      if (jsonObj.get("tileMinOffsets") != null && !jsonObj.get("tileMinOffsets").isJsonArray()) {
-        throw new IllegalArgumentException(String.format("Expected the field `tileMinOffsets` to be an array in the JSON string but got `%s`", jsonObj.get("tileMinOffsets").toString()));
-      }
-      // ensure the json data is an array
-      if (jsonObj.get("tileMaxOffsets") != null && !jsonObj.get("tileMaxOffsets").isJsonArray()) {
-        throw new IllegalArgumentException(String.format("Expected the field `tileMaxOffsets` to be an array in the JSON string but got `%s`", jsonObj.get("tileMaxOffsets").toString()));
-      }
-      // ensure the json data is an array
-      if (jsonObj.get("tileSumOffsets") != null && !jsonObj.get("tileSumOffsets").isJsonArray()) {
-        throw new IllegalArgumentException(String.format("Expected the field `tileSumOffsets` to be an array in the JSON string but got `%s`", jsonObj.get("tileSumOffsets").toString()));
-      }
-      // ensure the json data is an array
-      if (jsonObj.get("tileNullCountOffsets") != null && !jsonObj.get("tileNullCountOffsets").isJsonArray()) {
-        throw new IllegalArgumentException(String.format("Expected the field `tileNullCountOffsets` to be an array in the JSON string but got `%s`", jsonObj.get("tileNullCountOffsets").toString()));
       }
   }
 
@@ -590,7 +531,7 @@ public class GenericTileOffsets {
            public void write(JsonWriter out, GenericTileOffsets value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              obj.remove("additionalProperties");
-             // serialize additonal properties
+             // serialize additional properties
              if (value.getAdditionalProperties() != null) {
                for (Map.Entry<String, Object> entry : value.getAdditionalProperties().entrySet()) {
                  if (entry.getValue() instanceof String)
@@ -602,7 +543,12 @@ public class GenericTileOffsets {
                  else if (entry.getValue() instanceof Character)
                    obj.addProperty(entry.getKey(), (Character) entry.getValue());
                  else {
-                   obj.add(entry.getKey(), gson.toJsonTree(entry.getValue()).getAsJsonObject());
+                   JsonElement jsonElement = gson.toJsonTree(entry.getValue());
+                   if (jsonElement.isJsonArray()) {
+                     obj.add(entry.getKey(), jsonElement.getAsJsonArray());
+                   } else {
+                     obj.add(entry.getKey(), jsonElement.getAsJsonObject());
+                   }
                  }
                }
              }
@@ -611,8 +557,9 @@ public class GenericTileOffsets {
 
            @Override
            public GenericTileOffsets read(JsonReader in) throws IOException {
-             JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
-             validateJsonObject(jsonObj);
+             JsonElement jsonElement = elementAdapter.read(in);
+             validateJsonElement(jsonElement);
+             JsonObject jsonObj = jsonElement.getAsJsonObject();
              // store additional fields in the deserialized instance
              GenericTileOffsets instance = thisAdapter.fromJsonTree(jsonObj);
              for (Map.Entry<String, JsonElement> entry : jsonObj.entrySet()) {
@@ -626,8 +573,10 @@ public class GenericTileOffsets {
                      instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsBoolean());
                    else
                      throw new IllegalArgumentException(String.format("The field `%s` has unknown primitive type. Value: %s", entry.getKey(), entry.getValue().toString()));
-                 } else { // non-primitive type
-                   instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
+                 } else if (entry.getValue().isJsonArray()) {
+                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), List.class));
+                 } else { // JSON object
+                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
                  }
                }
              }
@@ -638,22 +587,22 @@ public class GenericTileOffsets {
     }
   }
 
- /**
-  * Create an instance of GenericTileOffsets given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of GenericTileOffsets
-  * @throws IOException if the JSON string is invalid with respect to GenericTileOffsets
-  */
+  /**
+   * Create an instance of GenericTileOffsets given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of GenericTileOffsets
+   * @throws IOException if the JSON string is invalid with respect to GenericTileOffsets
+   */
   public static GenericTileOffsets fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, GenericTileOffsets.class);
   }
 
- /**
-  * Convert an instance of GenericTileOffsets to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of GenericTileOffsets to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

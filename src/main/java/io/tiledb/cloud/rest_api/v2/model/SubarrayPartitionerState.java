@@ -14,35 +14,45 @@
 package io.tiledb.cloud.rest_api.v2.model;
 
 import java.util.Objects;
-
 import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.tiledb.cloud.rest_api.v2.model.Subarray;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import com.google.gson.TypeAdapterFactory;
 import com.google.gson.reflect.TypeToken;
+import com.google.gson.TypeAdapter;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+import java.io.IOException;
 
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import io.tiledb.cloud.rest_api.v2.JSON;
 
 /**
  * The state information for the remaining partitions to be produced
  */
-@ApiModel(description = "The state information for the remaining partitions to be produced")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-07-02T18:54:48.746612+03:00[Europe/Athens]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-30T04:47:07.570140+03:00[Europe/Athens]", comments = "Generator version: 7.7.0")
 public class SubarrayPartitionerState {
   public static final String SERIALIZED_NAME_START = "start";
   @SerializedName(SERIALIZED_NAME_START)
@@ -54,32 +64,28 @@ public class SubarrayPartitionerState {
 
   public static final String SERIALIZED_NAME_SINGLE_RANGE = "singleRange";
   @SerializedName(SERIALIZED_NAME_SINGLE_RANGE)
-  private List<Subarray> singleRange = null;
+  private List<Subarray> singleRange = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_MULTI_RANGE = "multiRange";
   @SerializedName(SERIALIZED_NAME_MULTI_RANGE)
-  private List<Subarray> multiRange = null;
+  private List<Subarray> multiRange = new ArrayList<>();
 
-  public SubarrayPartitionerState() { 
+  public SubarrayPartitionerState() {
   }
 
   public SubarrayPartitionerState start(Integer start) {
-    
     this.start = start;
     return this;
   }
 
-   /**
+  /**
    * State start
    * @return start
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "State start")
-
   public Integer getStart() {
     return start;
   }
-
 
   public void setStart(Integer start) {
     this.start = start;
@@ -87,22 +93,18 @@ public class SubarrayPartitionerState {
 
 
   public SubarrayPartitionerState end(Integer end) {
-    
     this.end = end;
     return this;
   }
 
-   /**
+  /**
    * State end
    * @return end
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "State end")
-
   public Integer getEnd() {
     return end;
   }
-
 
   public void setEnd(Integer end) {
     this.end = end;
@@ -110,7 +112,6 @@ public class SubarrayPartitionerState {
 
 
   public SubarrayPartitionerState singleRange(List<Subarray> singleRange) {
-    
     this.singleRange = singleRange;
     return this;
   }
@@ -123,17 +124,14 @@ public class SubarrayPartitionerState {
     return this;
   }
 
-   /**
+  /**
    * State singleRange
    * @return singleRange
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "State singleRange")
-
   public List<Subarray> getSingleRange() {
     return singleRange;
   }
-
 
   public void setSingleRange(List<Subarray> singleRange) {
     this.singleRange = singleRange;
@@ -141,7 +139,6 @@ public class SubarrayPartitionerState {
 
 
   public SubarrayPartitionerState multiRange(List<Subarray> multiRange) {
-    
     this.multiRange = multiRange;
     return this;
   }
@@ -154,17 +151,14 @@ public class SubarrayPartitionerState {
     return this;
   }
 
-   /**
+  /**
    * State multiRange
    * @return multiRange
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "State multiRange")
-
   public List<Subarray> getMultiRange() {
     return multiRange;
   }
-
 
   public void setMultiRange(List<Subarray> multiRange) {
     this.multiRange = multiRange;
@@ -180,6 +174,10 @@ public class SubarrayPartitionerState {
   /**
    * Set the additional (undeclared) property with the specified name and value.
    * If the property does not already exist, create it otherwise replace it.
+   *
+   * @param key name of the property
+   * @param value value of the property
+   * @return the SubarrayPartitionerState instance itself
    */
   public SubarrayPartitionerState putAdditionalProperty(String key, Object value) {
     if (this.additionalProperties == null) {
@@ -191,6 +189,8 @@ public class SubarrayPartitionerState {
 
   /**
    * Return the additional (undeclared) property.
+   *
+   * @return a map of objects
    */
   public Map<String, Object> getAdditionalProperties() {
     return additionalProperties;
@@ -198,6 +198,9 @@ public class SubarrayPartitionerState {
 
   /**
    * Return the additional (undeclared) property with the specified name.
+   *
+   * @param key name of the property
+   * @return an object
    */
   public Object getAdditionalProperty(String key) {
     if (this.additionalProperties == null) {
@@ -268,44 +271,19 @@ public class SubarrayPartitionerState {
     openapiRequiredFields = new HashSet<String>();
   }
 
- /**
-  * Validates the JSON Object and throws an exception if issues found
-  *
-  * @param jsonObj JSON Object
-  * @throws IOException if the JSON Object is invalid with respect to SubarrayPartitionerState
-  */
-  public static void validateJsonObject(JsonObject jsonObj) throws IOException {
-      if (jsonObj == null) {
-        if (SubarrayPartitionerState.openapiRequiredFields.isEmpty()) {
-          return;
-        } else { // has required fields
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to SubarrayPartitionerState
+   */
+  public static void validateJsonElement(JsonElement jsonElement) throws IOException {
+      if (jsonElement == null) {
+        if (!SubarrayPartitionerState.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
           throw new IllegalArgumentException(String.format("The required field(s) %s in SubarrayPartitionerState is not found in the empty JSON string", SubarrayPartitionerState.openapiRequiredFields.toString()));
         }
       }
-      JsonArray jsonArraysingleRange = jsonObj.getAsJsonArray("singleRange");
-      if (jsonArraysingleRange != null) {
-        // ensure the json data is an array
-        if (!jsonObj.get("singleRange").isJsonArray()) {
-          throw new IllegalArgumentException(String.format("Expected the field `singleRange` to be an array in the JSON string but got `%s`", jsonObj.get("singleRange").toString()));
-        }
-
-        // validate the optional field `singleRange` (array)
-        for (int i = 0; i < jsonArraysingleRange.size(); i++) {
-          Subarray.validateJsonObject(jsonArraysingleRange.get(i).getAsJsonObject());
-        };
-      }
-      JsonArray jsonArraymultiRange = jsonObj.getAsJsonArray("multiRange");
-      if (jsonArraymultiRange != null) {
-        // ensure the json data is an array
-        if (!jsonObj.get("multiRange").isJsonArray()) {
-          throw new IllegalArgumentException(String.format("Expected the field `multiRange` to be an array in the JSON string but got `%s`", jsonObj.get("multiRange").toString()));
-        }
-
-        // validate the optional field `multiRange` (array)
-        for (int i = 0; i < jsonArraymultiRange.size(); i++) {
-          Subarray.validateJsonObject(jsonArraymultiRange.get(i).getAsJsonObject());
-        };
-      }
+        JsonObject jsonObj = jsonElement.getAsJsonObject();
   }
 
   public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
@@ -324,7 +302,7 @@ public class SubarrayPartitionerState {
            public void write(JsonWriter out, SubarrayPartitionerState value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              obj.remove("additionalProperties");
-             // serialize additonal properties
+             // serialize additional properties
              if (value.getAdditionalProperties() != null) {
                for (Map.Entry<String, Object> entry : value.getAdditionalProperties().entrySet()) {
                  if (entry.getValue() instanceof String)
@@ -336,7 +314,12 @@ public class SubarrayPartitionerState {
                  else if (entry.getValue() instanceof Character)
                    obj.addProperty(entry.getKey(), (Character) entry.getValue());
                  else {
-                   obj.add(entry.getKey(), gson.toJsonTree(entry.getValue()).getAsJsonObject());
+                   JsonElement jsonElement = gson.toJsonTree(entry.getValue());
+                   if (jsonElement.isJsonArray()) {
+                     obj.add(entry.getKey(), jsonElement.getAsJsonArray());
+                   } else {
+                     obj.add(entry.getKey(), jsonElement.getAsJsonObject());
+                   }
                  }
                }
              }
@@ -345,8 +328,9 @@ public class SubarrayPartitionerState {
 
            @Override
            public SubarrayPartitionerState read(JsonReader in) throws IOException {
-             JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
-             validateJsonObject(jsonObj);
+             JsonElement jsonElement = elementAdapter.read(in);
+             validateJsonElement(jsonElement);
+             JsonObject jsonObj = jsonElement.getAsJsonObject();
              // store additional fields in the deserialized instance
              SubarrayPartitionerState instance = thisAdapter.fromJsonTree(jsonObj);
              for (Map.Entry<String, JsonElement> entry : jsonObj.entrySet()) {
@@ -360,8 +344,10 @@ public class SubarrayPartitionerState {
                      instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsBoolean());
                    else
                      throw new IllegalArgumentException(String.format("The field `%s` has unknown primitive type. Value: %s", entry.getKey(), entry.getValue().toString()));
-                 } else { // non-primitive type
-                   instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
+                 } else if (entry.getValue().isJsonArray()) {
+                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), List.class));
+                 } else { // JSON object
+                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
                  }
                }
              }
@@ -372,22 +358,22 @@ public class SubarrayPartitionerState {
     }
   }
 
- /**
-  * Create an instance of SubarrayPartitionerState given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of SubarrayPartitionerState
-  * @throws IOException if the JSON string is invalid with respect to SubarrayPartitionerState
-  */
+  /**
+   * Create an instance of SubarrayPartitionerState given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of SubarrayPartitionerState
+   * @throws IOException if the JSON string is invalid with respect to SubarrayPartitionerState
+   */
   public static SubarrayPartitionerState fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, SubarrayPartitionerState.class);
   }
 
- /**
-  * Convert an instance of SubarrayPartitionerState to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of SubarrayPartitionerState to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

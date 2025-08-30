@@ -13,18 +13,23 @@
 
 package io.tiledb.cloud.rest_api.v2.api;
 
-import io.tiledb.cloud.rest_api.v2.model.Array;
-import io.tiledb.cloud.rest_api.v2.model.ArrayActivityLogData;
-import io.tiledb.cloud.rest_api.v2.model.ArrayFetch;
 import io.tiledb.cloud.rest_api.v2.ApiCallback;
 import io.tiledb.cloud.rest_api.v2.ApiClient;
 import io.tiledb.cloud.rest_api.v2.ApiException;
 import io.tiledb.cloud.rest_api.v2.ApiResponse;
 import io.tiledb.cloud.rest_api.v2.Configuration;
 import io.tiledb.cloud.rest_api.v2.Pair;
+import io.tiledb.cloud.rest_api.v2.ProgressRequestBody;
+import io.tiledb.cloud.rest_api.v2.ProgressResponseBody;
 
 import com.google.gson.reflect.TypeToken;
 
+import java.io.IOException;
+
+
+import io.tiledb.cloud.rest_api.v2.model.ArrayActivityLogData;
+import io.tiledb.cloud.rest_api.v2.model.ArrayFetch;
+import io.tiledb.cloud.rest_api.v2.model.Error;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -71,8 +76,9 @@ public class ArrayApi {
 
     /**
      * Build call for arrayActivityLog
-     * @param namespace namespace array is in (an organization name or user&#39;s username) (required)
-     * @param array name/uri of array that is url-encoded (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the array belongs to (required)
+     * @param array asset ID or hierarchical path of array that is url-encoded (required)
      * @param start Start time of window of fetch logs, unix epoch in seconds (default: seven days ago) (optional)
      * @param end End time of window of fetch logs, unix epoch in seconds (default: current utc timestamp) (optional)
      * @param eventTypes Refer to ActivityEventType for possible values (optional)
@@ -91,7 +97,7 @@ public class ArrayApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call arrayActivityLogCall(String namespace, String array, Integer start, Integer end, List<String> eventTypes, String taskId, Boolean hasTaskId, Integer page, Integer perPage, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call arrayActivityLogCall(String workspace, String teamspace, String array, Integer start, Integer end, List<String> eventTypes, String taskId, Boolean hasTaskId, Integer page, Integer perPage, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -108,9 +114,10 @@ public class ArrayApi {
         Object localVarPostBody = null;
 
         // create path and map variables
-        String localVarPath = "/arrays/{namespace}/{array}/activity"
-            .replaceAll("\\{" + "namespace" + "\\}", localVarApiClient.escapeString(namespace.toString()))
-            .replaceAll("\\{" + "array" + "\\}", localVarApiClient.escapeString(array.toString()));
+        String localVarPath = "/arrays/{workspace}/{teamspace}/{array}/activity"
+            .replace("{" + "workspace" + "}", localVarApiClient.escapeString(workspace.toString()))
+            .replace("{" + "teamspace" + "}", localVarApiClient.escapeString(teamspace.toString()))
+            .replace("{" + "array" + "}", localVarApiClient.escapeString(array.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -155,41 +162,43 @@ public class ArrayApi {
         }
 
         final String[] localVarContentTypes = {
-            
         };
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
         if (localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
 
-        String[] localVarAuthNames = new String[] { "ApiKeyAuth", "BasicAuth" };
+        String[] localVarAuthNames = new String[] { "BasicAuth", "ApiKeyAuth" };
         return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call arrayActivityLogValidateBeforeCall(String namespace, String array, Integer start, Integer end, List<String> eventTypes, String taskId, Boolean hasTaskId, Integer page, Integer perPage, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'namespace' is set
-        if (namespace == null) {
-            throw new ApiException("Missing the required parameter 'namespace' when calling arrayActivityLog(Async)");
+    private okhttp3.Call arrayActivityLogValidateBeforeCall(String workspace, String teamspace, String array, Integer start, Integer end, List<String> eventTypes, String taskId, Boolean hasTaskId, Integer page, Integer perPage, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'workspace' is set
+        if (workspace == null) {
+            throw new ApiException("Missing the required parameter 'workspace' when calling arrayActivityLog(Async)");
         }
-        
+
+        // verify the required parameter 'teamspace' is set
+        if (teamspace == null) {
+            throw new ApiException("Missing the required parameter 'teamspace' when calling arrayActivityLog(Async)");
+        }
+
         // verify the required parameter 'array' is set
         if (array == null) {
             throw new ApiException("Missing the required parameter 'array' when calling arrayActivityLog(Async)");
         }
-        
 
-        okhttp3.Call localVarCall = arrayActivityLogCall(namespace, array, start, end, eventTypes, taskId, hasTaskId, page, perPage, _callback);
-        return localVarCall;
+        return arrayActivityLogCall(workspace, teamspace, array, start, end, eventTypes, taskId, hasTaskId, page, perPage, _callback);
 
     }
 
     /**
      * 
      * get array activity logs
-     * @param namespace namespace array is in (an organization name or user&#39;s username) (required)
-     * @param array name/uri of array that is url-encoded (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the array belongs to (required)
+     * @param array asset ID or hierarchical path of array that is url-encoded (required)
      * @param start Start time of window of fetch logs, unix epoch in seconds (default: seven days ago) (optional)
      * @param end End time of window of fetch logs, unix epoch in seconds (default: current utc timestamp) (optional)
      * @param eventTypes Refer to ActivityEventType for possible values (optional)
@@ -207,16 +216,17 @@ public class ArrayApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public ArrayActivityLogData arrayActivityLog(String namespace, String array, Integer start, Integer end, List<String> eventTypes, String taskId, Boolean hasTaskId, Integer page, Integer perPage) throws ApiException {
-        ApiResponse<ArrayActivityLogData> localVarResp = arrayActivityLogWithHttpInfo(namespace, array, start, end, eventTypes, taskId, hasTaskId, page, perPage);
+    public ArrayActivityLogData arrayActivityLog(String workspace, String teamspace, String array, Integer start, Integer end, List<String> eventTypes, String taskId, Boolean hasTaskId, Integer page, Integer perPage) throws ApiException {
+        ApiResponse<ArrayActivityLogData> localVarResp = arrayActivityLogWithHttpInfo(workspace, teamspace, array, start, end, eventTypes, taskId, hasTaskId, page, perPage);
         return localVarResp.getData();
     }
 
     /**
      * 
      * get array activity logs
-     * @param namespace namespace array is in (an organization name or user&#39;s username) (required)
-     * @param array name/uri of array that is url-encoded (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the array belongs to (required)
+     * @param array asset ID or hierarchical path of array that is url-encoded (required)
      * @param start Start time of window of fetch logs, unix epoch in seconds (default: seven days ago) (optional)
      * @param end End time of window of fetch logs, unix epoch in seconds (default: current utc timestamp) (optional)
      * @param eventTypes Refer to ActivityEventType for possible values (optional)
@@ -234,8 +244,8 @@ public class ArrayApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<ArrayActivityLogData> arrayActivityLogWithHttpInfo(String namespace, String array, Integer start, Integer end, List<String> eventTypes, String taskId, Boolean hasTaskId, Integer page, Integer perPage) throws ApiException {
-        okhttp3.Call localVarCall = arrayActivityLogValidateBeforeCall(namespace, array, start, end, eventTypes, taskId, hasTaskId, page, perPage, null);
+    public ApiResponse<ArrayActivityLogData> arrayActivityLogWithHttpInfo(String workspace, String teamspace, String array, Integer start, Integer end, List<String> eventTypes, String taskId, Boolean hasTaskId, Integer page, Integer perPage) throws ApiException {
+        okhttp3.Call localVarCall = arrayActivityLogValidateBeforeCall(workspace, teamspace, array, start, end, eventTypes, taskId, hasTaskId, page, perPage, null);
         Type localVarReturnType = new TypeToken<ArrayActivityLogData>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
@@ -243,8 +253,9 @@ public class ArrayApi {
     /**
      *  (asynchronously)
      * get array activity logs
-     * @param namespace namespace array is in (an organization name or user&#39;s username) (required)
-     * @param array name/uri of array that is url-encoded (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the array belongs to (required)
+     * @param array asset ID or hierarchical path of array that is url-encoded (required)
      * @param start Start time of window of fetch logs, unix epoch in seconds (default: seven days ago) (optional)
      * @param end End time of window of fetch logs, unix epoch in seconds (default: current utc timestamp) (optional)
      * @param eventTypes Refer to ActivityEventType for possible values (optional)
@@ -263,17 +274,18 @@ public class ArrayApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call arrayActivityLogAsync(String namespace, String array, Integer start, Integer end, List<String> eventTypes, String taskId, Boolean hasTaskId, Integer page, Integer perPage, final ApiCallback<ArrayActivityLogData> _callback) throws ApiException {
+    public okhttp3.Call arrayActivityLogAsync(String workspace, String teamspace, String array, Integer start, Integer end, List<String> eventTypes, String taskId, Boolean hasTaskId, Integer page, Integer perPage, final ApiCallback<ArrayActivityLogData> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = arrayActivityLogValidateBeforeCall(namespace, array, start, end, eventTypes, taskId, hasTaskId, page, perPage, _callback);
+        okhttp3.Call localVarCall = arrayActivityLogValidateBeforeCall(workspace, teamspace, array, start, end, eventTypes, taskId, hasTaskId, page, perPage, _callback);
         Type localVarReturnType = new TypeToken<ArrayActivityLogData>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
     /**
      * Build call for getArray
-     * @param namespace namespace array is in (an organization name or user&#39;s username) (required)
-     * @param array name/uri of array that is url-encoded (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the array belongs to (required)
+     * @param array asset ID or hierarchical path of array that is url-encoded (required)
      * @param contentType Content Type of input and return mime (required)
      * @param arrayFetch Details for array being fetched (required)
      * @param _callback Callback for upload/download progress
@@ -287,7 +299,7 @@ public class ArrayApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getArrayCall(String namespace, String array, String contentType, ArrayFetch arrayFetch, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call getArrayCall(String workspace, String teamspace, String array, String contentType, ArrayFetch arrayFetch, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -304,9 +316,10 @@ public class ArrayApi {
         Object localVarPostBody = arrayFetch;
 
         // create path and map variables
-        String localVarPath = "/arrays/{namespace}/{array}"
-            .replaceAll("\\{" + "namespace" + "\\}", localVarApiClient.escapeString(namespace.toString()))
-            .replaceAll("\\{" + "array" + "\\}", localVarApiClient.escapeString(array.toString()));
+        String localVarPath = "/arrays/{workspace}/{teamspace}/{array}"
+            .replace("{" + "workspace" + "}", localVarApiClient.escapeString(workspace.toString()))
+            .replace("{" + "teamspace" + "}", localVarApiClient.escapeString(teamspace.toString()))
+            .replace("{" + "array" + "}", localVarApiClient.escapeString(array.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -334,44 +347,47 @@ public class ArrayApi {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
 
-        String[] localVarAuthNames = new String[] { "ApiKeyAuth", "BasicAuth" };
+        String[] localVarAuthNames = new String[] { "BasicAuth", "ApiKeyAuth" };
         return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getArrayValidateBeforeCall(String namespace, String array, String contentType, ArrayFetch arrayFetch, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'namespace' is set
-        if (namespace == null) {
-            throw new ApiException("Missing the required parameter 'namespace' when calling getArray(Async)");
+    private okhttp3.Call getArrayValidateBeforeCall(String workspace, String teamspace, String array, String contentType, ArrayFetch arrayFetch, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'workspace' is set
+        if (workspace == null) {
+            throw new ApiException("Missing the required parameter 'workspace' when calling getArray(Async)");
         }
-        
+
+        // verify the required parameter 'teamspace' is set
+        if (teamspace == null) {
+            throw new ApiException("Missing the required parameter 'teamspace' when calling getArray(Async)");
+        }
+
         // verify the required parameter 'array' is set
         if (array == null) {
             throw new ApiException("Missing the required parameter 'array' when calling getArray(Async)");
         }
-        
+
         // verify the required parameter 'contentType' is set
         if (contentType == null) {
             throw new ApiException("Missing the required parameter 'contentType' when calling getArray(Async)");
         }
-        
+
         // verify the required parameter 'arrayFetch' is set
         if (arrayFetch == null) {
             throw new ApiException("Missing the required parameter 'arrayFetch' when calling getArray(Async)");
         }
-        
 
-        okhttp3.Call localVarCall = getArrayCall(namespace, array, contentType, arrayFetch, _callback);
-        return localVarCall;
+        return getArrayCall(workspace, teamspace, array, contentType, arrayFetch, _callback);
 
     }
 
     /**
      * 
      * Get a array at a specified URI registered to a group/project
-     * @param namespace namespace array is in (an organization name or user&#39;s username) (required)
-     * @param array name/uri of array that is url-encoded (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the array belongs to (required)
+     * @param array asset ID or hierarchical path of array that is url-encoded (required)
      * @param contentType Content Type of input and return mime (required)
      * @param arrayFetch Details for array being fetched (required)
      * @return Array
@@ -384,16 +400,17 @@ public class ArrayApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public Array getArray(String namespace, String array, String contentType, ArrayFetch arrayFetch) throws ApiException {
-        ApiResponse<Array> localVarResp = getArrayWithHttpInfo(namespace, array, contentType, arrayFetch);
+    public Array getArray(String workspace, String teamspace, String array, String contentType, ArrayFetch arrayFetch) throws ApiException {
+        ApiResponse<Array> localVarResp = getArrayWithHttpInfo(workspace, teamspace, array, contentType, arrayFetch);
         return localVarResp.getData();
     }
 
     /**
      * 
      * Get a array at a specified URI registered to a group/project
-     * @param namespace namespace array is in (an organization name or user&#39;s username) (required)
-     * @param array name/uri of array that is url-encoded (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the array belongs to (required)
+     * @param array asset ID or hierarchical path of array that is url-encoded (required)
      * @param contentType Content Type of input and return mime (required)
      * @param arrayFetch Details for array being fetched (required)
      * @return ApiResponse&lt;Array&gt;
@@ -406,8 +423,8 @@ public class ArrayApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<Array> getArrayWithHttpInfo(String namespace, String array, String contentType, ArrayFetch arrayFetch) throws ApiException {
-        okhttp3.Call localVarCall = getArrayValidateBeforeCall(namespace, array, contentType, arrayFetch, null);
+    public ApiResponse<Array> getArrayWithHttpInfo(String workspace, String teamspace, String array, String contentType, ArrayFetch arrayFetch) throws ApiException {
+        okhttp3.Call localVarCall = getArrayValidateBeforeCall(workspace, teamspace, array, contentType, arrayFetch, null);
         Type localVarReturnType = new TypeToken<Array>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
@@ -415,8 +432,9 @@ public class ArrayApi {
     /**
      *  (asynchronously)
      * Get a array at a specified URI registered to a group/project
-     * @param namespace namespace array is in (an organization name or user&#39;s username) (required)
-     * @param array name/uri of array that is url-encoded (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the array belongs to (required)
+     * @param array asset ID or hierarchical path of array that is url-encoded (required)
      * @param contentType Content Type of input and return mime (required)
      * @param arrayFetch Details for array being fetched (required)
      * @param _callback The callback to be executed when the API call finishes
@@ -430,9 +448,9 @@ public class ArrayApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getArrayAsync(String namespace, String array, String contentType, ArrayFetch arrayFetch, final ApiCallback<Array> _callback) throws ApiException {
+    public okhttp3.Call getArrayAsync(String workspace, String teamspace, String array, String contentType, ArrayFetch arrayFetch, final ApiCallback<Array> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = getArrayValidateBeforeCall(namespace, array, contentType, arrayFetch, _callback);
+        okhttp3.Call localVarCall = getArrayValidateBeforeCall(workspace, teamspace, array, contentType, arrayFetch, _callback);
         Type localVarReturnType = new TypeToken<Array>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;

@@ -14,38 +14,54 @@
 package io.tiledb.cloud.rest_api.v2.model;
 
 import java.util.Objects;
-
 import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.tiledb.cloud.rest_api.v2.model.Datatype;
+import io.tiledb.cloud.rest_api.v2.model.FilterPipeline;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import com.google.gson.TypeAdapterFactory;
 import com.google.gson.reflect.TypeToken;
+import com.google.gson.TypeAdapter;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+import java.io.IOException;
 
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import io.tiledb.cloud.rest_api.v2.JSON;
 
 /**
  * Attribute of array
  */
-@ApiModel(description = "Attribute of array")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-07-02T18:54:48.746612+03:00[Europe/Athens]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-30T04:47:07.570140+03:00[Europe/Athens]", comments = "Generator version: 7.7.0")
 public class Attribute {
   public static final String SERIALIZED_NAME_NAME = "name";
   @SerializedName(SERIALIZED_NAME_NAME)
   private String name;
+
+  public static final String SERIALIZED_NAME_ENUMERATION_NAME = "enumerationName";
+  @SerializedName(SERIALIZED_NAME_ENUMERATION_NAME)
+  private String enumerationName;
 
   public static final String SERIALIZED_NAME_TYPE = "type";
   @SerializedName(SERIALIZED_NAME_TYPE)
@@ -69,51 +85,62 @@ public class Attribute {
 
   public static final String SERIALIZED_NAME_FILL_VALUE = "fillValue";
   @SerializedName(SERIALIZED_NAME_FILL_VALUE)
-  private List<Integer> fillValue = null;
+  private List<Integer> fillValue = new ArrayList<>();
 
-  public Attribute() { 
+  public Attribute() {
   }
 
   public Attribute name(String name) {
-    
     this.name = name;
     return this;
   }
 
-   /**
+  /**
    * Attribute name
    * @return name
-  **/
+   */
   @javax.annotation.Nonnull
-  @ApiModelProperty(example = "attribute1", required = true, value = "Attribute name")
-
   public String getName() {
     return name;
   }
-
 
   public void setName(String name) {
     this.name = name;
   }
 
 
+  public Attribute enumerationName(String enumerationName) {
+    this.enumerationName = enumerationName;
+    return this;
+  }
+
+  /**
+   * Enumeration name
+   * @return enumerationName
+   */
+  @javax.annotation.Nullable
+  public String getEnumerationName() {
+    return enumerationName;
+  }
+
+  public void setEnumerationName(String enumerationName) {
+    this.enumerationName = enumerationName;
+  }
+
+
   public Attribute type(Datatype type) {
-    
     this.type = type;
     return this;
   }
 
-   /**
+  /**
    * Get type
    * @return type
-  **/
+   */
   @javax.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "")
-
   public Datatype getType() {
     return type;
   }
-
 
   public void setType(Datatype type) {
     this.type = type;
@@ -121,22 +148,18 @@ public class Attribute {
 
 
   public Attribute filterPipeline(FilterPipeline filterPipeline) {
-    
     this.filterPipeline = filterPipeline;
     return this;
   }
 
-   /**
+  /**
    * Get filterPipeline
    * @return filterPipeline
-  **/
+   */
   @javax.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "")
-
   public FilterPipeline getFilterPipeline() {
     return filterPipeline;
   }
-
 
   public void setFilterPipeline(FilterPipeline filterPipeline) {
     this.filterPipeline = filterPipeline;
@@ -144,22 +167,18 @@ public class Attribute {
 
 
   public Attribute cellValNum(Integer cellValNum) {
-    
     this.cellValNum = cellValNum;
     return this;
   }
 
-   /**
+  /**
    * Attribute number of values per cell
    * @return cellValNum
-  **/
+   */
   @javax.annotation.Nonnull
-  @ApiModelProperty(example = "1", required = true, value = "Attribute number of values per cell")
-
   public Integer getCellValNum() {
     return cellValNum;
   }
-
 
   public void setCellValNum(Integer cellValNum) {
     this.cellValNum = cellValNum;
@@ -167,22 +186,18 @@ public class Attribute {
 
 
   public Attribute nullable(Boolean nullable) {
-    
     this.nullable = nullable;
     return this;
   }
 
-   /**
+  /**
    * Is attribute nullable
    * @return nullable
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "true", value = "Is attribute nullable")
-
   public Boolean getNullable() {
     return nullable;
   }
-
 
   public void setNullable(Boolean nullable) {
     this.nullable = nullable;
@@ -190,22 +205,18 @@ public class Attribute {
 
 
   public Attribute fillValueValidity(Boolean fillValueValidity) {
-    
     this.fillValueValidity = fillValueValidity;
     return this;
   }
 
-   /**
+  /**
    * Default validity fill value for nullable attributes
    * @return fillValueValidity
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "true", value = "Default validity fill value for nullable attributes")
-
   public Boolean getFillValueValidity() {
     return fillValueValidity;
   }
-
 
   public void setFillValueValidity(Boolean fillValueValidity) {
     this.fillValueValidity = fillValueValidity;
@@ -213,7 +224,6 @@ public class Attribute {
 
 
   public Attribute fillValue(List<Integer> fillValue) {
-    
     this.fillValue = fillValue;
     return this;
   }
@@ -226,17 +236,14 @@ public class Attribute {
     return this;
   }
 
-   /**
+  /**
    * The default fill value
    * @return fillValue
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "The default fill value")
-
   public List<Integer> getFillValue() {
     return fillValue;
   }
-
 
   public void setFillValue(List<Integer> fillValue) {
     this.fillValue = fillValue;
@@ -252,6 +259,10 @@ public class Attribute {
   /**
    * Set the additional (undeclared) property with the specified name and value.
    * If the property does not already exist, create it otherwise replace it.
+   *
+   * @param key name of the property
+   * @param value value of the property
+   * @return the Attribute instance itself
    */
   public Attribute putAdditionalProperty(String key, Object value) {
     if (this.additionalProperties == null) {
@@ -263,6 +274,8 @@ public class Attribute {
 
   /**
    * Return the additional (undeclared) property.
+   *
+   * @return a map of objects
    */
   public Map<String, Object> getAdditionalProperties() {
     return additionalProperties;
@@ -270,6 +283,9 @@ public class Attribute {
 
   /**
    * Return the additional (undeclared) property with the specified name.
+   *
+   * @param key name of the property
+   * @return an object
    */
   public Object getAdditionalProperty(String key) {
     if (this.additionalProperties == null) {
@@ -289,6 +305,7 @@ public class Attribute {
     }
     Attribute attribute = (Attribute) o;
     return Objects.equals(this.name, attribute.name) &&
+        Objects.equals(this.enumerationName, attribute.enumerationName) &&
         Objects.equals(this.type, attribute.type) &&
         Objects.equals(this.filterPipeline, attribute.filterPipeline) &&
         Objects.equals(this.cellValNum, attribute.cellValNum) &&
@@ -300,7 +317,7 @@ public class Attribute {
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, type, filterPipeline, cellValNum, nullable, fillValueValidity, fillValue, additionalProperties);
+    return Objects.hash(name, enumerationName, type, filterPipeline, cellValNum, nullable, fillValueValidity, fillValue, additionalProperties);
   }
 
   @Override
@@ -308,6 +325,7 @@ public class Attribute {
     StringBuilder sb = new StringBuilder();
     sb.append("class Attribute {\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    enumerationName: ").append(toIndentedString(enumerationName)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    filterPipeline: ").append(toIndentedString(filterPipeline)).append("\n");
     sb.append("    cellValNum: ").append(toIndentedString(cellValNum)).append("\n");
@@ -338,6 +356,7 @@ public class Attribute {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
     openapiFields.add("name");
+    openapiFields.add("enumerationName");
     openapiFields.add("type");
     openapiFields.add("filterPipeline");
     openapiFields.add("cellValNum");
@@ -353,36 +372,38 @@ public class Attribute {
     openapiRequiredFields.add("cellValNum");
   }
 
- /**
-  * Validates the JSON Object and throws an exception if issues found
-  *
-  * @param jsonObj JSON Object
-  * @throws IOException if the JSON Object is invalid with respect to Attribute
-  */
-  public static void validateJsonObject(JsonObject jsonObj) throws IOException {
-      if (jsonObj == null) {
-        if (Attribute.openapiRequiredFields.isEmpty()) {
-          return;
-        } else { // has required fields
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to Attribute
+   */
+  public static void validateJsonElement(JsonElement jsonElement) throws IOException {
+      if (jsonElement == null) {
+        if (!Attribute.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
           throw new IllegalArgumentException(String.format("The required field(s) %s in Attribute is not found in the empty JSON string", Attribute.openapiRequiredFields.toString()));
         }
       }
 
       // check to make sure all required properties/fields are present in the JSON string
       for (String requiredField : Attribute.openapiRequiredFields) {
-        if (jsonObj.get(requiredField) == null) {
-          throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonObj.toString()));
+        if (jsonElement.getAsJsonObject().get(requiredField) == null) {
+          throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonElement.toString()));
         }
       }
-      if (jsonObj.get("name") != null && !jsonObj.get("name").isJsonPrimitive()) {
+        JsonObject jsonObj = jsonElement.getAsJsonObject();
+      if (!jsonObj.get("name").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `name` to be a primitive type in the JSON string but got `%s`", jsonObj.get("name").toString()));
       }
-      // validate the optional field `filterPipeline`
-      if (jsonObj.getAsJsonObject("filterPipeline") != null) {
-        FilterPipeline.validateJsonObject(jsonObj.getAsJsonObject("filterPipeline"));
+      if ((jsonObj.get("enumerationName") != null && !jsonObj.get("enumerationName").isJsonNull()) && !jsonObj.get("enumerationName").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `enumerationName` to be a primitive type in the JSON string but got `%s`", jsonObj.get("enumerationName").toString()));
       }
-      // ensure the json data is an array
-      if (jsonObj.get("fillValue") != null && !jsonObj.get("fillValue").isJsonArray()) {
+      // validate the required field `type`
+      Datatype.validateJsonElement(jsonObj.get("type"));
+      // validate the required field `filterPipeline`
+      FilterPipeline.validateJsonElement(jsonObj.get("filterPipeline"));
+      // ensure the optional json data is an array if present
+      if (jsonObj.get("fillValue") != null && !jsonObj.get("fillValue").isJsonNull() && !jsonObj.get("fillValue").isJsonArray()) {
         throw new IllegalArgumentException(String.format("Expected the field `fillValue` to be an array in the JSON string but got `%s`", jsonObj.get("fillValue").toString()));
       }
   }
@@ -403,7 +424,7 @@ public class Attribute {
            public void write(JsonWriter out, Attribute value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              obj.remove("additionalProperties");
-             // serialize additonal properties
+             // serialize additional properties
              if (value.getAdditionalProperties() != null) {
                for (Map.Entry<String, Object> entry : value.getAdditionalProperties().entrySet()) {
                  if (entry.getValue() instanceof String)
@@ -415,7 +436,12 @@ public class Attribute {
                  else if (entry.getValue() instanceof Character)
                    obj.addProperty(entry.getKey(), (Character) entry.getValue());
                  else {
-                   obj.add(entry.getKey(), gson.toJsonTree(entry.getValue()).getAsJsonObject());
+                   JsonElement jsonElement = gson.toJsonTree(entry.getValue());
+                   if (jsonElement.isJsonArray()) {
+                     obj.add(entry.getKey(), jsonElement.getAsJsonArray());
+                   } else {
+                     obj.add(entry.getKey(), jsonElement.getAsJsonObject());
+                   }
                  }
                }
              }
@@ -424,8 +450,9 @@ public class Attribute {
 
            @Override
            public Attribute read(JsonReader in) throws IOException {
-             JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
-             validateJsonObject(jsonObj);
+             JsonElement jsonElement = elementAdapter.read(in);
+             validateJsonElement(jsonElement);
+             JsonObject jsonObj = jsonElement.getAsJsonObject();
              // store additional fields in the deserialized instance
              Attribute instance = thisAdapter.fromJsonTree(jsonObj);
              for (Map.Entry<String, JsonElement> entry : jsonObj.entrySet()) {
@@ -439,8 +466,10 @@ public class Attribute {
                      instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsBoolean());
                    else
                      throw new IllegalArgumentException(String.format("The field `%s` has unknown primitive type. Value: %s", entry.getKey(), entry.getValue().toString()));
-                 } else { // non-primitive type
-                   instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
+                 } else if (entry.getValue().isJsonArray()) {
+                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), List.class));
+                 } else { // JSON object
+                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
                  }
                }
              }
@@ -451,22 +480,22 @@ public class Attribute {
     }
   }
 
- /**
-  * Create an instance of Attribute given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of Attribute
-  * @throws IOException if the JSON string is invalid with respect to Attribute
-  */
+  /**
+   * Create an instance of Attribute given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of Attribute
+   * @throws IOException if the JSON string is invalid with respect to Attribute
+   */
   public static Attribute fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, Attribute.class);
   }
 
- /**
-  * Convert an instance of Attribute to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of Attribute to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }
