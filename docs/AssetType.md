@@ -35,5 +35,7 @@
 
 * `VECTOR_SEARCH` (value: `"vector_search"`)
 
+* `FOLDER` (value: `"folder"`)
+
 
 

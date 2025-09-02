@@ -1,0 +1,5 @@
+additionalProperties:
+  apiPackage: io.tiledb.cloud.rest_api.v4.api
+  modelPackage: io.tiledb.cloud.rest_api.v4.model
+  hideGenerationTimestamp: true
+library: okhttp-gson
