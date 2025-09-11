@@ -38,12 +38,13 @@ public class NotebooksApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void notebooksNamespaceArrayEndTimestampsGetTest() throws ApiException {
-        String namespace = null;
+    public void notebooksWorkspaceTeamspaceArrayEndTimestampsGetTest() throws ApiException {
+        String workspace = null;
+        String teamspace = null;
         String array = null;
         Integer page = null;
         Integer perPage = null;
-        ArrayEndTimestampData response = api.notebooksNamespaceArrayEndTimestampsGet(namespace, array, page, perPage);
+        ArrayEndTimestampData response = api.notebooksWorkspaceTeamspaceArrayEndTimestampsGet(workspace, teamspace, array, page, perPage);
         // TODO: test validations
     }
 
@@ -53,11 +54,12 @@ public class NotebooksApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void notebooksNamespaceArrayPrunePostTest() throws ApiException {
-        String namespace = null;
+    public void notebooksWorkspaceTeamspaceArrayPrunePostTest() throws ApiException {
+        String workspace = null;
+        String teamspace = null;
         String array = null;
         Integer keepVersions = null;
-        api.notebooksNamespaceArrayPrunePost(namespace, array, keepVersions);
+        api.notebooksWorkspaceTeamspaceArrayPrunePost(workspace, teamspace, array, keepVersions);
         // TODO: test validations
     }
 

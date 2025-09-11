@@ -40,9 +40,9 @@ public class RegisteredTaskGraphsApiTest {
      */
     @Test
     public void deleteRegisteredTaskGraphTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
         String name = null;
-        api.deleteRegisteredTaskGraph(namespace, name);
+        api.deleteRegisteredTaskGraph(workspace, name);
         // TODO: test validations
     }
 
@@ -53,9 +53,9 @@ public class RegisteredTaskGraphsApiTest {
      */
     @Test
     public void getRegisteredTaskGraphTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
         String name = null;
-        RegisteredTaskGraph response = api.getRegisteredTaskGraph(namespace, name);
+        RegisteredTaskGraph response = api.getRegisteredTaskGraph(workspace, name);
         // TODO: test validations
     }
 
@@ -66,9 +66,9 @@ public class RegisteredTaskGraphsApiTest {
      */
     @Test
     public void getRegisteredTaskGraphSharingPoliciesTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
         String name = null;
-        List<TaskGraphSharing> response = api.getRegisteredTaskGraphSharingPolicies(namespace, name);
+        List<TaskGraphSharing> response = api.getRegisteredTaskGraphSharingPolicies(workspace, name);
         // TODO: test validations
     }
 
@@ -79,10 +79,10 @@ public class RegisteredTaskGraphsApiTest {
      */
     @Test
     public void registerRegisteredTaskGraphTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
         String name = null;
         RegisteredTaskGraph graph = null;
-        api.registerRegisteredTaskGraph(namespace, name, graph);
+        api.registerRegisteredTaskGraph(workspace, name, graph);
         // TODO: test validations
     }
 
@@ -93,10 +93,10 @@ public class RegisteredTaskGraphsApiTest {
      */
     @Test
     public void shareRegisteredTaskGraphTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
         String name = null;
         TaskGraphSharing taskGraphSharing = null;
-        api.shareRegisteredTaskGraph(namespace, name, taskGraphSharing);
+        api.shareRegisteredTaskGraph(workspace, name, taskGraphSharing);
         // TODO: test validations
     }
 
@@ -107,10 +107,10 @@ public class RegisteredTaskGraphsApiTest {
      */
     @Test
     public void updateRegisteredTaskGraphTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
         String name = null;
         RegisteredTaskGraph graph = null;
-        api.updateRegisteredTaskGraph(namespace, name, graph);
+        api.updateRegisteredTaskGraph(workspace, name, graph);
         // TODO: test validations
     }
 

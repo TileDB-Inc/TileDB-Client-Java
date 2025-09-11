@@ -16,6 +16,7 @@ package io.tiledb.cloud.rest_api.api;
 import io.tiledb.cloud.rest_api.ApiException;
 import io.tiledb.cloud.rest_api.model.AWSAccessCredentials;
 import io.tiledb.cloud.rest_api.model.Error;
+import java.time.OffsetDateTime;
 import io.tiledb.cloud.rest_api.model.OrganizationUser;
 import io.tiledb.cloud.rest_api.model.ResetUserPasswordRequest;
 import io.tiledb.cloud.rest_api.model.Token;
@@ -45,9 +46,10 @@ public class UserApiTest {
      */
     @Test
     public void addAWSAccessCredentialsTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
+        String teamspace = null;
         AWSAccessCredentials awsAccessCredentials = null;
-        api.addAWSAccessCredentials(namespace, awsAccessCredentials);
+        api.addAWSAccessCredentials(workspace, teamspace, awsAccessCredentials);
         // TODO: test validations
     }
 
@@ -71,8 +73,9 @@ public class UserApiTest {
      */
     @Test
     public void checkAWSAccessCredentialsTest() throws ApiException {
-        String namespace = null;
-        List<AWSAccessCredentials> response = api.checkAWSAccessCredentials(namespace);
+        String workspace = null;
+        String teamspace = null;
+        List<AWSAccessCredentials> response = api.checkAWSAccessCredentials(workspace, teamspace);
         // TODO: test validations
     }
 
@@ -83,9 +86,10 @@ public class UserApiTest {
      */
     @Test
     public void checkAWSAccessCredentialsByNameTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
+        String teamspace = null;
         String name = null;
-        AWSAccessCredentials response = api.checkAWSAccessCredentialsByName(namespace, name);
+        AWSAccessCredentials response = api.checkAWSAccessCredentialsByName(workspace, teamspace, name);
         // TODO: test validations
     }
 
@@ -119,9 +123,10 @@ public class UserApiTest {
      */
     @Test
     public void deleteAWSAccessCredentialsTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
+        String teamspace = null;
         String name = null;
-        api.deleteAWSAccessCredentials(namespace, name);
+        api.deleteAWSAccessCredentials(workspace, teamspace, name);
         // TODO: test validations
     }
 
@@ -171,7 +176,8 @@ public class UserApiTest {
     @Test
     public void getSessionTest() throws ApiException {
         String rememberMe = null;
-        Token response = api.getSession(rememberMe);
+        OffsetDateTime expires = null;
+        Token response = api.getSession(rememberMe, expires);
         // TODO: test validations
     }
 
@@ -274,10 +280,11 @@ public class UserApiTest {
      */
     @Test
     public void updateAWSAccessCredentialsTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
+        String teamspace = null;
         String name = null;
         AWSAccessCredentials awsAccessCredentials = null;
-        api.updateAWSAccessCredentials(namespace, name, awsAccessCredentials);
+        api.updateAWSAccessCredentials(workspace, teamspace, name, awsAccessCredentials);
         // TODO: test validations
     }
 

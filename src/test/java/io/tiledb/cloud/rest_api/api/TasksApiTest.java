@@ -41,10 +41,11 @@ public class TasksApiTest {
      */
     @Test
     public void runSQLTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
+        String teamspace = null;
         SQLParameters sql = null;
         String acceptEncoding = null;
-        List<Map<String, Object>> response = api.runSQL(namespace, sql, acceptEncoding);
+        List<Map<String, Object>> response = api.runSQL(workspace, teamspace, sql, acceptEncoding);
         // TODO: test validations
     }
 

@@ -69,10 +69,11 @@ public class InvitationApiTest {
      */
     @Test
     public void cancelShareArrayByInviteTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
+        String teamspace = null;
         String invitation = null;
         String array = null;
-        api.cancelShareArrayByInvite(namespace, invitation, array);
+        api.cancelShareArrayByInvite(workspace, teamspace, invitation, array);
         // TODO: test validations
     }
 
@@ -83,10 +84,11 @@ public class InvitationApiTest {
      */
     @Test
     public void cancelShareGroupByInviteTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
+        String teamspace = null;
         String invitation = null;
         String groupName = null;
-        api.cancelShareGroupByInvite(namespace, invitation, groupName);
+        api.cancelShareGroupByInvite(workspace, teamspace, invitation, groupName);
         // TODO: test validations
     }
 
@@ -97,9 +99,10 @@ public class InvitationApiTest {
      */
     @Test
     public void cancelSharePaymentTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
+        String teamspace = null;
         String target = null;
-        api.cancelSharePayment(namespace, target);
+        api.cancelSharePayment(workspace, teamspace, target);
         // TODO: test validations
     }
 
@@ -144,10 +147,11 @@ public class InvitationApiTest {
      */
     @Test
     public void shareArrayByInviteTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
+        String teamspace = null;
         String array = null;
         InvitationArrayShareEmail emailInvite = null;
-        api.shareArrayByInvite(namespace, array, emailInvite);
+        api.shareArrayByInvite(workspace, teamspace, array, emailInvite);
         // TODO: test validations
     }
 
@@ -158,10 +162,11 @@ public class InvitationApiTest {
      */
     @Test
     public void shareGroupByInviteTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
+        String teamspace = null;
         String group = null;
         InvitationGroupShareEmail emailInvite = null;
-        api.shareGroupByInvite(namespace, group, emailInvite);
+        api.shareGroupByInvite(workspace, teamspace, group, emailInvite);
         // TODO: test validations
     }
 
@@ -172,9 +177,10 @@ public class InvitationApiTest {
      */
     @Test
     public void sharePaymentTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
+        String teamspace = null;
         SharePaymentRequest emailInvite = null;
-        api.sharePayment(namespace, emailInvite);
+        api.sharePayment(workspace, teamspace, emailInvite);
         // TODO: test validations
     }
 

@@ -30,9 +30,9 @@ import com.google.gson.stream.JsonWriter;
 public enum TaskGraphType {
   
   BATCH("batch"),
-
+  
   REALTIME("realtime"),
-
+  
   NEXTFLOW("nextflow");
 
   private String value;

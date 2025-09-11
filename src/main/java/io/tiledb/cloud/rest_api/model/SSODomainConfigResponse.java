@@ -52,7 +52,7 @@ import io.tiledb.cloud.rest_api.JSON;
 /**
  * The response to a request for the list of domain claims associated with a particular organization. 
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-09-13T19:24:49.771847040-04:00[America/New_York]", comments = "Generator version: 7.7.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.7.0")
 public class SSODomainConfigResponse {
   public static final String SERIALIZED_NAME_DOMAIN_CONFIGS = "domain_configs";
   @SerializedName(SERIALIZED_NAME_DOMAIN_CONFIGS)
@@ -87,50 +87,6 @@ public class SSODomainConfigResponse {
     this.domainConfigs = domainConfigs;
   }
 
-  /**
-   * A container for additional, undeclared properties.
-   * This is a holder for any undeclared properties as specified with
-   * the 'additionalProperties' keyword in the OAS document.
-   */
-  private Map<String, Object> additionalProperties;
-
-  /**
-   * Set the additional (undeclared) property with the specified name and value.
-   * If the property does not already exist, create it otherwise replace it.
-   *
-   * @param key name of the property
-   * @param value value of the property
-   * @return the SSODomainConfigResponse instance itself
-   */
-  public SSODomainConfigResponse putAdditionalProperty(String key, Object value) {
-    if (this.additionalProperties == null) {
-        this.additionalProperties = new HashMap<String, Object>();
-    }
-    this.additionalProperties.put(key, value);
-    return this;
-  }
-
-  /**
-   * Return the additional (undeclared) property.
-   *
-   * @return a map of objects
-   */
-  public Map<String, Object> getAdditionalProperties() {
-    return additionalProperties;
-  }
-
-  /**
-   * Return the additional (undeclared) property with the specified name.
-   *
-   * @param key name of the property
-   * @return an object
-   */
-  public Object getAdditionalProperty(String key) {
-    if (this.additionalProperties == null) {
-        return null;
-    }
-    return this.additionalProperties.get(key);
-  }
 
 
   @Override
@@ -142,13 +98,12 @@ public class SSODomainConfigResponse {
       return false;
     }
     SSODomainConfigResponse ssODomainConfigResponse = (SSODomainConfigResponse) o;
-    return Objects.equals(this.domainConfigs, ssODomainConfigResponse.domainConfigs)&&
-        Objects.equals(this.additionalProperties, ssODomainConfigResponse.additionalProperties);
+    return Objects.equals(this.domainConfigs, ssODomainConfigResponse.domainConfigs);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(domainConfigs, additionalProperties);
+    return Objects.hash(domainConfigs);
   }
 
   @Override
@@ -156,7 +111,6 @@ public class SSODomainConfigResponse {
     StringBuilder sb = new StringBuilder();
     sb.append("class SSODomainConfigResponse {\n");
     sb.append("    domainConfigs: ").append(toIndentedString(domainConfigs)).append("\n");
-    sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -197,21 +151,6 @@ public class SSODomainConfigResponse {
           throw new IllegalArgumentException(String.format("The required field(s) %s in SSODomainConfigResponse is not found in the empty JSON string", SSODomainConfigResponse.openapiRequiredFields.toString()));
         }
       }
-        JsonObject jsonObj = jsonElement.getAsJsonObject();
-      if (jsonObj.get("domain_configs") != null && !jsonObj.get("domain_configs").isJsonNull()) {
-        JsonArray jsonArraydomainConfigs = jsonObj.getAsJsonArray("domain_configs");
-        if (jsonArraydomainConfigs != null) {
-          // ensure the json data is an array
-          if (!jsonObj.get("domain_configs").isJsonArray()) {
-            throw new IllegalArgumentException(String.format("Expected the field `domain_configs` to be an array in the JSON string but got `%s`", jsonObj.get("domain_configs").toString()));
-          }
-
-          // validate the optional field `domain_configs` (array)
-          for (int i = 0; i < jsonArraydomainConfigs.size(); i++) {
-            SSODomainConfig.validateJsonElement(jsonArraydomainConfigs.get(i));
-          };
-        }
-      }
   }
 
   public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
@@ -229,28 +168,6 @@ public class SSODomainConfigResponse {
            @Override
            public void write(JsonWriter out, SSODomainConfigResponse value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
-             obj.remove("additionalProperties");
-             // serialize additional properties
-             if (value.getAdditionalProperties() != null) {
-               for (Map.Entry<String, Object> entry : value.getAdditionalProperties().entrySet()) {
-                 if (entry.getValue() instanceof String)
-                   obj.addProperty(entry.getKey(), (String) entry.getValue());
-                 else if (entry.getValue() instanceof Number)
-                   obj.addProperty(entry.getKey(), (Number) entry.getValue());
-                 else if (entry.getValue() instanceof Boolean)
-                   obj.addProperty(entry.getKey(), (Boolean) entry.getValue());
-                 else if (entry.getValue() instanceof Character)
-                   obj.addProperty(entry.getKey(), (Character) entry.getValue());
-                 else {
-                   JsonElement jsonElement = gson.toJsonTree(entry.getValue());
-                   if (jsonElement.isJsonArray()) {
-                     obj.add(entry.getKey(), jsonElement.getAsJsonArray());
-                   } else {
-                     obj.add(entry.getKey(), jsonElement.getAsJsonObject());
-                   }
-                 }
-               }
-             }
              elementAdapter.write(out, obj);
            }
 
@@ -258,28 +175,7 @@ public class SSODomainConfigResponse {
            public SSODomainConfigResponse read(JsonReader in) throws IOException {
              JsonElement jsonElement = elementAdapter.read(in);
              validateJsonElement(jsonElement);
-             JsonObject jsonObj = jsonElement.getAsJsonObject();
-             // store additional fields in the deserialized instance
-             SSODomainConfigResponse instance = thisAdapter.fromJsonTree(jsonObj);
-             for (Map.Entry<String, JsonElement> entry : jsonObj.entrySet()) {
-               if (!openapiFields.contains(entry.getKey())) {
-                 if (entry.getValue().isJsonPrimitive()) { // primitive type
-                   if (entry.getValue().getAsJsonPrimitive().isString())
-                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsString());
-                   else if (entry.getValue().getAsJsonPrimitive().isNumber())
-                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsNumber());
-                   else if (entry.getValue().getAsJsonPrimitive().isBoolean())
-                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsBoolean());
-                   else
-                     throw new IllegalArgumentException(String.format("The field `%s` has unknown primitive type. Value: %s", entry.getKey(), entry.getValue().toString()));
-                 } else if (entry.getValue().isJsonArray()) {
-                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), List.class));
-                 } else { // JSON object
-                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
-                 }
-               }
-             }
-             return instance;
+             return thisAdapter.fromJsonTree(jsonElement);
            }
 
        }.nullSafe();

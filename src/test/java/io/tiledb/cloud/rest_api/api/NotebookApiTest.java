@@ -44,8 +44,9 @@ public class NotebookApiTest {
      */
     @Test
     public void getNotebookServerStatusTest() throws ApiException {
-        String namespace = null;
-        NotebookStatus response = api.getNotebookServerStatus(namespace);
+        String workspace = null;
+        String teamspace = null;
+        NotebookStatus response = api.getNotebookServerStatus(workspace, teamspace);
         // TODO: test validations
     }
 
@@ -56,12 +57,13 @@ public class NotebookApiTest {
      */
     @Test
     public void handleCopyNotebookTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
+        String teamspace = null;
         String array = null;
         NotebookCopy notebookCopy = null;
         String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME = null;
         Integer endTimestamp = null;
-        NotebookCopied response = api.handleCopyNotebook(namespace, array, notebookCopy, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, endTimestamp);
+        NotebookCopied response = api.handleCopyNotebook(workspace, teamspace, array, notebookCopy, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, endTimestamp);
         // TODO: test validations
     }
 
@@ -72,12 +74,13 @@ public class NotebookApiTest {
      */
     @Test
     public void handleUploadNotebookTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
+        String teamspace = null;
         File inputFile = null;
         String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME = null;
         String outputUri = null;
         String name = null;
-        FileUploaded response = api.handleUploadNotebook(namespace, inputFile, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, outputUri, name);
+        FileUploaded response = api.handleUploadNotebook(workspace, teamspace, inputFile, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, outputUri, name);
         // TODO: test validations
     }
 
@@ -88,8 +91,9 @@ public class NotebookApiTest {
      */
     @Test
     public void shutdownNotebookServerTest() throws ApiException {
-        String namespace = null;
-        api.shutdownNotebookServer(namespace);
+        String workspace = null;
+        String teamspace = null;
+        api.shutdownNotebookServer(workspace, teamspace);
         // TODO: test validations
     }
 
@@ -100,10 +104,11 @@ public class NotebookApiTest {
      */
     @Test
     public void updateNotebookNameTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
+        String teamspace = null;
         String array = null;
         ArrayInfoUpdate notebookMetadata = null;
-        api.updateNotebookName(namespace, array, notebookMetadata);
+        api.updateNotebookName(workspace, teamspace, array, notebookMetadata);
         // TODO: test validations
     }
 

@@ -209,7 +209,7 @@ public class GroupActivity {
       }
       // validate the optional field `activity_log`
       if (jsonObj.get("activity_log") != null && !jsonObj.get("activity_log").isJsonNull()) {
-        ArrayActivityLog.validateJsonObject(jsonObj.getAsJsonObject("activity_log"));
+        ArrayActivityLog.validateJsonElement(jsonObj.getAsJsonObject("activity_log"));
       }
   }
 

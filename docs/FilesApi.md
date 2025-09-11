@@ -4,14 +4,14 @@ All URIs are relative to */v1*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**handleCreateFile**](FilesApi.md#handleCreateFile) | **POST** /files/{namespace} |  |
-| [**handleExportFile**](FilesApi.md#handleExportFile) | **POST** /files/{namespace}/{file}/export |  |
-| [**handleUploadFile**](FilesApi.md#handleUploadFile) | **POST** /files/{namespace}/upload |  |
+| [**handleCreateFile**](FilesApi.md#handleCreateFile) | **POST** /files/{workspace}/{teamspace} |  |
+| [**handleExportFile**](FilesApi.md#handleExportFile) | **POST** /files/{workspace}/{teamspace}/{file}/export |  |
+| [**handleUploadFile**](FilesApi.md#handleUploadFile) | **POST** /files/{workspace}/{teamspace}/upload |  |
 
 
 <a id="handleCreateFile"></a>
 # **handleCreateFile**
-> FileCreated handleCreateFile(namespace, fileCreate, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME)
+> FileCreated handleCreateFile(workspace, teamspace, fileCreate, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME)
 
 
 
@@ -44,11 +44,12 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     FilesApi apiInstance = new FilesApi(defaultClient);
-    String namespace = "namespace_example"; // String | The namespace of the file
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
     FileCreate fileCreate = new FileCreate(); // FileCreate | Input/Output information to create a new TileDB file
     String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME = "X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME_example"; // String | Optional registered access credentials to use for creation
     try {
-      FileCreated result = apiInstance.handleCreateFile(namespace, fileCreate, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME);
+      FileCreated result = apiInstance.handleCreateFile(workspace, teamspace, fileCreate, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling FilesApi#handleCreateFile");
@@ -65,7 +66,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| The namespace of the file | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
 | **fileCreate** | [**FileCreate**](FileCreate.md)| Input/Output information to create a new TileDB file | |
 | **X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME** | **String**| Optional registered access credentials to use for creation | [optional] |
 
@@ -91,7 +93,7 @@ public class Example {
 
 <a id="handleExportFile"></a>
 # **handleExportFile**
-> FileExported handleExportFile(namespace, _file, fileExport)
+> FileExported handleExportFile(workspace, teamspace, _file, fileExport)
 
 
 
@@ -124,11 +126,12 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     FilesApi apiInstance = new FilesApi(defaultClient);
-    String namespace = "namespace_example"; // String | The namespace of the file
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
     String _file = "_file_example"; // String | The file identifier
     FileExport fileExport = new FileExport(); // FileExport | Export configuration information
     try {
-      FileExported result = apiInstance.handleExportFile(namespace, _file, fileExport);
+      FileExported result = apiInstance.handleExportFile(workspace, teamspace, _file, fileExport);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling FilesApi#handleExportFile");
@@ -145,7 +148,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| The namespace of the file | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
 | **_file** | **String**| The file identifier | |
 | **fileExport** | [**FileExport**](FileExport.md)| Export configuration information | |
 
@@ -171,7 +175,7 @@ public class Example {
 
 <a id="handleUploadFile"></a>
 # **handleUploadFile**
-> FileUploaded handleUploadFile(namespace, inputFile, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, outputUri, name)
+> FileUploaded handleUploadFile(workspace, teamspace, inputFile, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, outputUri, name)
 
 
 
@@ -204,13 +208,14 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     FilesApi apiInstance = new FilesApi(defaultClient);
-    String namespace = "namespace_example"; // String | The namespace of the file
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
     File inputFile = new File("/path/to/file"); // File | the file to upload
     String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME = "X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME_example"; // String | Optional registered access credentials to use for creation
     String outputUri = "outputUri_example"; // String | output location of the TileDB File
     String name = "name_example"; // String | name to set for registered file
     try {
-      FileUploaded result = apiInstance.handleUploadFile(namespace, inputFile, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, outputUri, name);
+      FileUploaded result = apiInstance.handleUploadFile(workspace, teamspace, inputFile, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, outputUri, name);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling FilesApi#handleUploadFile");
@@ -227,7 +232,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| The namespace of the file | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
 | **inputFile** | **File**| the file to upload | |
 | **X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME** | **String**| Optional registered access credentials to use for creation | [optional] |
 | **outputUri** | **String**| output location of the TileDB File | [optional] |

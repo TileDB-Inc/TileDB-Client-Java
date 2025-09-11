@@ -80,7 +80,8 @@ public class FilesApi {
 
     /**
      * Build call for handleCreateFile
-     * @param namespace The namespace of the file (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the array belongs to (required)
      * @param fileCreate Input/Output information to create a new TileDB file (required)
      * @param X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME Optional registered access credentials to use for creation (optional)
      * @param _callback Callback for upload/download progress
@@ -94,7 +95,7 @@ public class FilesApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call handleCreateFileCall(String namespace, FileCreate fileCreate, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call handleCreateFileCall(String workspace, String teamspace, FileCreate fileCreate, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -111,8 +112,9 @@ public class FilesApi {
         Object localVarPostBody = fileCreate;
 
         // create path and map variables
-        String localVarPath = "/files/{namespace}"
-            .replace("{" + "namespace" + "}", localVarApiClient.escapeString(namespace.toString()));
+        String localVarPath = "/files/{workspace}/{teamspace}"
+            .replace("{" + "workspace" + "}", localVarApiClient.escapeString(workspace.toString()))
+            .replace("{" + "teamspace" + "}", localVarApiClient.escapeString(teamspace.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -145,10 +147,15 @@ public class FilesApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call handleCreateFileValidateBeforeCall(String namespace, FileCreate fileCreate, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'namespace' is set
-        if (namespace == null) {
-            throw new ApiException("Missing the required parameter 'namespace' when calling handleCreateFile(Async)");
+    private okhttp3.Call handleCreateFileValidateBeforeCall(String workspace, String teamspace, FileCreate fileCreate, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'workspace' is set
+        if (workspace == null) {
+            throw new ApiException("Missing the required parameter 'workspace' when calling handleCreateFile(Async)");
+        }
+
+        // verify the required parameter 'teamspace' is set
+        if (teamspace == null) {
+            throw new ApiException("Missing the required parameter 'teamspace' when calling handleCreateFile(Async)");
         }
 
         // verify the required parameter 'fileCreate' is set
@@ -156,14 +163,15 @@ public class FilesApi {
             throw new ApiException("Missing the required parameter 'fileCreate' when calling handleCreateFile(Async)");
         }
 
-        return handleCreateFileCall(namespace, fileCreate, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, _callback);
+        return handleCreateFileCall(workspace, teamspace, fileCreate, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, _callback);
 
     }
 
     /**
      * 
      * Create a tiledb file at the specified location
-     * @param namespace The namespace of the file (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the array belongs to (required)
      * @param fileCreate Input/Output information to create a new TileDB file (required)
      * @param X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME Optional registered access credentials to use for creation (optional)
      * @return FileCreated
@@ -176,15 +184,16 @@ public class FilesApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public FileCreated handleCreateFile(String namespace, FileCreate fileCreate, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME) throws ApiException {
-        ApiResponse<FileCreated> localVarResp = handleCreateFileWithHttpInfo(namespace, fileCreate, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME);
+    public FileCreated handleCreateFile(String workspace, String teamspace, FileCreate fileCreate, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME) throws ApiException {
+        ApiResponse<FileCreated> localVarResp = handleCreateFileWithHttpInfo(workspace, teamspace, fileCreate, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME);
         return localVarResp.getData();
     }
 
     /**
      * 
      * Create a tiledb file at the specified location
-     * @param namespace The namespace of the file (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the array belongs to (required)
      * @param fileCreate Input/Output information to create a new TileDB file (required)
      * @param X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME Optional registered access credentials to use for creation (optional)
      * @return ApiResponse&lt;FileCreated&gt;
@@ -197,8 +206,8 @@ public class FilesApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<FileCreated> handleCreateFileWithHttpInfo(String namespace, FileCreate fileCreate, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME) throws ApiException {
-        okhttp3.Call localVarCall = handleCreateFileValidateBeforeCall(namespace, fileCreate, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, null);
+    public ApiResponse<FileCreated> handleCreateFileWithHttpInfo(String workspace, String teamspace, FileCreate fileCreate, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME) throws ApiException {
+        okhttp3.Call localVarCall = handleCreateFileValidateBeforeCall(workspace, teamspace, fileCreate, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, null);
         Type localVarReturnType = new TypeToken<FileCreated>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
@@ -206,7 +215,8 @@ public class FilesApi {
     /**
      *  (asynchronously)
      * Create a tiledb file at the specified location
-     * @param namespace The namespace of the file (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the array belongs to (required)
      * @param fileCreate Input/Output information to create a new TileDB file (required)
      * @param X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME Optional registered access credentials to use for creation (optional)
      * @param _callback The callback to be executed when the API call finishes
@@ -220,16 +230,17 @@ public class FilesApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call handleCreateFileAsync(String namespace, FileCreate fileCreate, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, final ApiCallback<FileCreated> _callback) throws ApiException {
+    public okhttp3.Call handleCreateFileAsync(String workspace, String teamspace, FileCreate fileCreate, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, final ApiCallback<FileCreated> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = handleCreateFileValidateBeforeCall(namespace, fileCreate, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, _callback);
+        okhttp3.Call localVarCall = handleCreateFileValidateBeforeCall(workspace, teamspace, fileCreate, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, _callback);
         Type localVarReturnType = new TypeToken<FileCreated>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
     /**
      * Build call for handleExportFile
-     * @param namespace The namespace of the file (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the array belongs to (required)
      * @param _file The file identifier (required)
      * @param fileExport Export configuration information (required)
      * @param _callback Callback for upload/download progress
@@ -243,7 +254,7 @@ public class FilesApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call handleExportFileCall(String namespace, String _file, FileExport fileExport, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call handleExportFileCall(String workspace, String teamspace, String _file, FileExport fileExport, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -260,8 +271,9 @@ public class FilesApi {
         Object localVarPostBody = fileExport;
 
         // create path and map variables
-        String localVarPath = "/files/{namespace}/{file}/export"
-            .replace("{" + "namespace" + "}", localVarApiClient.escapeString(namespace.toString()))
+        String localVarPath = "/files/{workspace}/{teamspace}/{file}/export"
+            .replace("{" + "workspace" + "}", localVarApiClient.escapeString(workspace.toString()))
+            .replace("{" + "teamspace" + "}", localVarApiClient.escapeString(teamspace.toString()))
             .replace("{" + "file" + "}", localVarApiClient.escapeString(_file.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -291,10 +303,15 @@ public class FilesApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call handleExportFileValidateBeforeCall(String namespace, String _file, FileExport fileExport, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'namespace' is set
-        if (namespace == null) {
-            throw new ApiException("Missing the required parameter 'namespace' when calling handleExportFile(Async)");
+    private okhttp3.Call handleExportFileValidateBeforeCall(String workspace, String teamspace, String _file, FileExport fileExport, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'workspace' is set
+        if (workspace == null) {
+            throw new ApiException("Missing the required parameter 'workspace' when calling handleExportFile(Async)");
+        }
+
+        // verify the required parameter 'teamspace' is set
+        if (teamspace == null) {
+            throw new ApiException("Missing the required parameter 'teamspace' when calling handleExportFile(Async)");
         }
 
         // verify the required parameter '_file' is set
@@ -307,14 +324,15 @@ public class FilesApi {
             throw new ApiException("Missing the required parameter 'fileExport' when calling handleExportFile(Async)");
         }
 
-        return handleExportFileCall(namespace, _file, fileExport, _callback);
+        return handleExportFileCall(workspace, teamspace, _file, fileExport, _callback);
 
     }
 
     /**
      * 
      * Export a TileDB File back to its original file format
-     * @param namespace The namespace of the file (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the array belongs to (required)
      * @param _file The file identifier (required)
      * @param fileExport Export configuration information (required)
      * @return FileExported
@@ -327,15 +345,16 @@ public class FilesApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public FileExported handleExportFile(String namespace, String _file, FileExport fileExport) throws ApiException {
-        ApiResponse<FileExported> localVarResp = handleExportFileWithHttpInfo(namespace, _file, fileExport);
+    public FileExported handleExportFile(String workspace, String teamspace, String _file, FileExport fileExport) throws ApiException {
+        ApiResponse<FileExported> localVarResp = handleExportFileWithHttpInfo(workspace, teamspace, _file, fileExport);
         return localVarResp.getData();
     }
 
     /**
      * 
      * Export a TileDB File back to its original file format
-     * @param namespace The namespace of the file (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the array belongs to (required)
      * @param _file The file identifier (required)
      * @param fileExport Export configuration information (required)
      * @return ApiResponse&lt;FileExported&gt;
@@ -348,8 +367,8 @@ public class FilesApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<FileExported> handleExportFileWithHttpInfo(String namespace, String _file, FileExport fileExport) throws ApiException {
-        okhttp3.Call localVarCall = handleExportFileValidateBeforeCall(namespace, _file, fileExport, null);
+    public ApiResponse<FileExported> handleExportFileWithHttpInfo(String workspace, String teamspace, String _file, FileExport fileExport) throws ApiException {
+        okhttp3.Call localVarCall = handleExportFileValidateBeforeCall(workspace, teamspace, _file, fileExport, null);
         Type localVarReturnType = new TypeToken<FileExported>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
@@ -357,7 +376,8 @@ public class FilesApi {
     /**
      *  (asynchronously)
      * Export a TileDB File back to its original file format
-     * @param namespace The namespace of the file (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the array belongs to (required)
      * @param _file The file identifier (required)
      * @param fileExport Export configuration information (required)
      * @param _callback The callback to be executed when the API call finishes
@@ -371,16 +391,17 @@ public class FilesApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call handleExportFileAsync(String namespace, String _file, FileExport fileExport, final ApiCallback<FileExported> _callback) throws ApiException {
+    public okhttp3.Call handleExportFileAsync(String workspace, String teamspace, String _file, FileExport fileExport, final ApiCallback<FileExported> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = handleExportFileValidateBeforeCall(namespace, _file, fileExport, _callback);
+        okhttp3.Call localVarCall = handleExportFileValidateBeforeCall(workspace, teamspace, _file, fileExport, _callback);
         Type localVarReturnType = new TypeToken<FileExported>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
     /**
      * Build call for handleUploadFile
-     * @param namespace The namespace of the file (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the array belongs to (required)
      * @param inputFile the file to upload (required)
      * @param X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME Optional registered access credentials to use for creation (optional)
      * @param outputUri output location of the TileDB File (optional)
@@ -396,7 +417,7 @@ public class FilesApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call handleUploadFileCall(String namespace, File inputFile, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, String outputUri, String name, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call handleUploadFileCall(String workspace, String teamspace, File inputFile, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, String outputUri, String name, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -413,8 +434,9 @@ public class FilesApi {
         Object localVarPostBody = null;
 
         // create path and map variables
-        String localVarPath = "/files/{namespace}/upload"
-            .replace("{" + "namespace" + "}", localVarApiClient.escapeString(namespace.toString()));
+        String localVarPath = "/files/{workspace}/{teamspace}/upload"
+            .replace("{" + "workspace" + "}", localVarApiClient.escapeString(workspace.toString()))
+            .replace("{" + "teamspace" + "}", localVarApiClient.escapeString(teamspace.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -459,10 +481,15 @@ public class FilesApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call handleUploadFileValidateBeforeCall(String namespace, File inputFile, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, String outputUri, String name, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'namespace' is set
-        if (namespace == null) {
-            throw new ApiException("Missing the required parameter 'namespace' when calling handleUploadFile(Async)");
+    private okhttp3.Call handleUploadFileValidateBeforeCall(String workspace, String teamspace, File inputFile, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, String outputUri, String name, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'workspace' is set
+        if (workspace == null) {
+            throw new ApiException("Missing the required parameter 'workspace' when calling handleUploadFile(Async)");
+        }
+
+        // verify the required parameter 'teamspace' is set
+        if (teamspace == null) {
+            throw new ApiException("Missing the required parameter 'teamspace' when calling handleUploadFile(Async)");
         }
 
         // verify the required parameter 'inputFile' is set
@@ -470,14 +497,15 @@ public class FilesApi {
             throw new ApiException("Missing the required parameter 'inputFile' when calling handleUploadFile(Async)");
         }
 
-        return handleUploadFileCall(namespace, inputFile, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, outputUri, name, _callback);
+        return handleUploadFileCall(workspace, teamspace, inputFile, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, outputUri, name, _callback);
 
     }
 
     /**
      * 
      * Upload a tiledb file at the specified location
-     * @param namespace The namespace of the file (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the array belongs to (required)
      * @param inputFile the file to upload (required)
      * @param X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME Optional registered access credentials to use for creation (optional)
      * @param outputUri output location of the TileDB File (optional)
@@ -492,15 +520,16 @@ public class FilesApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public FileUploaded handleUploadFile(String namespace, File inputFile, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, String outputUri, String name) throws ApiException {
-        ApiResponse<FileUploaded> localVarResp = handleUploadFileWithHttpInfo(namespace, inputFile, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, outputUri, name);
+    public FileUploaded handleUploadFile(String workspace, String teamspace, File inputFile, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, String outputUri, String name) throws ApiException {
+        ApiResponse<FileUploaded> localVarResp = handleUploadFileWithHttpInfo(workspace, teamspace, inputFile, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, outputUri, name);
         return localVarResp.getData();
     }
 
     /**
      * 
      * Upload a tiledb file at the specified location
-     * @param namespace The namespace of the file (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the array belongs to (required)
      * @param inputFile the file to upload (required)
      * @param X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME Optional registered access credentials to use for creation (optional)
      * @param outputUri output location of the TileDB File (optional)
@@ -515,8 +544,8 @@ public class FilesApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<FileUploaded> handleUploadFileWithHttpInfo(String namespace, File inputFile, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, String outputUri, String name) throws ApiException {
-        okhttp3.Call localVarCall = handleUploadFileValidateBeforeCall(namespace, inputFile, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, outputUri, name, null);
+    public ApiResponse<FileUploaded> handleUploadFileWithHttpInfo(String workspace, String teamspace, File inputFile, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, String outputUri, String name) throws ApiException {
+        okhttp3.Call localVarCall = handleUploadFileValidateBeforeCall(workspace, teamspace, inputFile, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, outputUri, name, null);
         Type localVarReturnType = new TypeToken<FileUploaded>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
@@ -524,7 +553,8 @@ public class FilesApi {
     /**
      *  (asynchronously)
      * Upload a tiledb file at the specified location
-     * @param namespace The namespace of the file (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the array belongs to (required)
      * @param inputFile the file to upload (required)
      * @param X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME Optional registered access credentials to use for creation (optional)
      * @param outputUri output location of the TileDB File (optional)
@@ -540,9 +570,9 @@ public class FilesApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call handleUploadFileAsync(String namespace, File inputFile, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, String outputUri, String name, final ApiCallback<FileUploaded> _callback) throws ApiException {
+    public okhttp3.Call handleUploadFileAsync(String workspace, String teamspace, File inputFile, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, String outputUri, String name, final ApiCallback<FileUploaded> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = handleUploadFileValidateBeforeCall(namespace, inputFile, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, outputUri, name, _callback);
+        okhttp3.Call localVarCall = handleUploadFileValidateBeforeCall(workspace, teamspace, inputFile, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, outputUri, name, _callback);
         Type localVarReturnType = new TypeToken<FileUploaded>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;

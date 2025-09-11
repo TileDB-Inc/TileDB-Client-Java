@@ -15,6 +15,7 @@ package io.tiledb.cloud.rest_api.api;
 
 import io.tiledb.cloud.rest_api.ApiException;
 import io.tiledb.cloud.rest_api.model.AssetListResponse;
+import io.tiledb.cloud.rest_api.model.ChangeAssetCredentialsRequest;
 import io.tiledb.cloud.rest_api.model.Error;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -33,13 +34,28 @@ public class AssetsApiTest {
     private final AssetsApi api = new AssetsApi();
 
     /**
+     * Changes the access credentials to the given assets
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void changeAssetCredentialsTest() throws ApiException {
+        String workspace = null;
+        String teamspace = null;
+        ChangeAssetCredentialsRequest changeCredentialsRequest = null;
+        api.changeAssetCredentials(workspace, teamspace, changeCredentialsRequest);
+        // TODO: test validations
+    }
+
+    /**
      * List assets in a namespace
      *
      * @throws ApiException if the Api call fails
      */
     @Test
     public void listAssetsTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
+        String teamspace = null;
         String assetType = null;
         String ownershipLevel = null;
         String depth = null;
@@ -48,7 +64,7 @@ public class AssetsApiTest {
         Integer perPage = null;
         String orderBy = null;
         String expand = null;
-        AssetListResponse response = api.listAssets(namespace, assetType, ownershipLevel, depth, search, page, perPage, orderBy, expand);
+        AssetListResponse response = api.listAssets(workspace, teamspace, assetType, ownershipLevel, depth, search, page, perPage, orderBy, expand);
         // TODO: test validations
     }
 

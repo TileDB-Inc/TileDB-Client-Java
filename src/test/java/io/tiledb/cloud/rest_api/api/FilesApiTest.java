@@ -44,10 +44,11 @@ public class FilesApiTest {
      */
     @Test
     public void handleCreateFileTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
+        String teamspace = null;
         FileCreate fileCreate = null;
         String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME = null;
-        FileCreated response = api.handleCreateFile(namespace, fileCreate, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME);
+        FileCreated response = api.handleCreateFile(workspace, teamspace, fileCreate, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME);
         // TODO: test validations
     }
 
@@ -58,10 +59,11 @@ public class FilesApiTest {
      */
     @Test
     public void handleExportFileTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
+        String teamspace = null;
         String _file = null;
         FileExport fileExport = null;
-        FileExported response = api.handleExportFile(namespace, _file, fileExport);
+        FileExported response = api.handleExportFile(workspace, teamspace, _file, fileExport);
         // TODO: test validations
     }
 
@@ -72,12 +74,13 @@ public class FilesApiTest {
      */
     @Test
     public void handleUploadFileTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
+        String teamspace = null;
         File inputFile = null;
         String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME = null;
         String outputUri = null;
         String name = null;
-        FileUploaded response = api.handleUploadFile(namespace, inputFile, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, outputUri, name);
+        FileUploaded response = api.handleUploadFile(workspace, teamspace, inputFile, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, outputUri, name);
         // TODO: test validations
     }
 

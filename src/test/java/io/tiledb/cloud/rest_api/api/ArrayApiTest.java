@@ -60,14 +60,15 @@ public class ArrayApiTest {
      */
     @Test
     public void arrayActivityLogTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
+        String teamspace = null;
         String array = null;
         Integer start = null;
         Integer end = null;
         String eventTypes = null;
         String taskId = null;
         Boolean hasTaskId = null;
-        List<ArrayActivityLog> response = api.arrayActivityLog(namespace, array, start, end, eventTypes, taskId, hasTaskId);
+        List<ArrayActivityLog> response = api.arrayActivityLog(workspace, teamspace, array, start, end, eventTypes, taskId, hasTaskId);
         // TODO: test validations
     }
 
@@ -190,12 +191,13 @@ public class ArrayApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void arraysNamespaceArrayEndTimestampsGetTest() throws ApiException {
-        String namespace = null;
+    public void arraysWorkspaceTeamspaceArrayEndTimestampsGetTest() throws ApiException {
+        String workspace = null;
+        String teamspace = null;
         String array = null;
         Integer page = null;
         Integer perPage = null;
-        ArrayEndTimestampData response = api.arraysNamespaceArrayEndTimestampsGet(namespace, array, page, perPage);
+        ArrayEndTimestampData response = api.arraysWorkspaceTeamspaceArrayEndTimestampsGet(workspace, teamspace, array, page, perPage);
         // TODO: test validations
     }
 
@@ -206,10 +208,11 @@ public class ArrayApiTest {
      */
     @Test
     public void consolidateArrayTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
+        String teamspace = null;
         String array = null;
         ArrayConsolidationRequest consolidateRequest = null;
-        api.consolidateArray(namespace, array, consolidateRequest);
+        api.consolidateArray(workspace, teamspace, array, consolidateRequest);
         // TODO: test validations
     }
 
@@ -220,12 +223,13 @@ public class ArrayApiTest {
      */
     @Test
     public void createArrayTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
+        String teamspace = null;
         String array = null;
         String contentType = null;
         ArraySchema arraySchema = null;
         String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME = null;
-        api.createArray(namespace, array, contentType, arraySchema, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME);
+        api.createArray(workspace, teamspace, array, contentType, arraySchema, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME);
         // TODO: test validations
     }
 
@@ -236,10 +240,11 @@ public class ArrayApiTest {
      */
     @Test
     public void deleteArrayTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
+        String teamspace = null;
         String array = null;
         String contentType = null;
-        api.deleteArray(namespace, array, contentType);
+        api.deleteArray(workspace, teamspace, array, contentType);
         // TODO: test validations
     }
 
@@ -250,9 +255,10 @@ public class ArrayApiTest {
      */
     @Test
     public void deregisterArrayTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
+        String teamspace = null;
         String array = null;
-        api.deregisterArray(namespace, array);
+        api.deregisterArray(workspace, teamspace, array);
         // TODO: test validations
     }
 
@@ -263,11 +269,12 @@ public class ArrayApiTest {
      */
     @Test
     public void fragmentInfoTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
+        String teamspace = null;
         String array = null;
         String contentType = null;
         FragmentInfoRequest fragmentInfoRequest = null;
-        FragmentInfo response = api.fragmentInfo(namespace, array, contentType, fragmentInfoRequest);
+        FragmentInfo response = api.fragmentInfo(workspace, teamspace, array, contentType, fragmentInfoRequest);
         // TODO: test validations
     }
 
@@ -278,10 +285,11 @@ public class ArrayApiTest {
      */
     @Test
     public void getActivityLogByIdTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
+        String teamspace = null;
         String array = null;
         String id = null;
-        ArrayActivityLog response = api.getActivityLogById(namespace, array, id);
+        ArrayActivityLog response = api.getActivityLogById(workspace, teamspace, array, id);
         // TODO: test validations
     }
 
@@ -304,10 +312,11 @@ public class ArrayApiTest {
      */
     @Test
     public void getArrayTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
+        String teamspace = null;
         String array = null;
         String contentType = null;
-        ArraySchema response = api.getArray(namespace, array, contentType);
+        ArraySchema response = api.getArray(workspace, teamspace, array, contentType);
         // TODO: test validations
     }
 
@@ -318,12 +327,13 @@ public class ArrayApiTest {
      */
     @Test
     public void getArrayMaxBufferSizesTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
+        String teamspace = null;
         String array = null;
         String subarray = null;
         String contentType = null;
         String xPayer = null;
-        MaxBufferSizes response = api.getArrayMaxBufferSizes(namespace, array, subarray, contentType, xPayer);
+        MaxBufferSizes response = api.getArrayMaxBufferSizes(workspace, teamspace, array, subarray, contentType, xPayer);
         // TODO: test validations
     }
 
@@ -334,11 +344,12 @@ public class ArrayApiTest {
      */
     @Test
     public void getArrayMetaDataJsonTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
+        String teamspace = null;
         String array = null;
         Integer length = null;
         Integer endTimestamp = null;
-        Map<String, Object> response = api.getArrayMetaDataJson(namespace, array, length, endTimestamp);
+        Map<String, Object> response = api.getArrayMetaDataJson(workspace, teamspace, array, length, endTimestamp);
         // TODO: test validations
     }
 
@@ -349,9 +360,10 @@ public class ArrayApiTest {
      */
     @Test
     public void getArrayMetadataTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
+        String teamspace = null;
         String array = null;
-        ArrayInfo response = api.getArrayMetadata(namespace, array);
+        ArrayInfo response = api.getArrayMetadata(workspace, teamspace, array);
         // TODO: test validations
     }
 
@@ -362,9 +374,10 @@ public class ArrayApiTest {
      */
     @Test
     public void getArrayMetadataCapnpTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
+        String teamspace = null;
         String array = null;
-        ArrayMetadata response = api.getArrayMetadataCapnp(namespace, array);
+        ArrayMetadata response = api.getArrayMetadataCapnp(workspace, teamspace, array);
         // TODO: test validations
     }
 
@@ -375,11 +388,12 @@ public class ArrayApiTest {
      */
     @Test
     public void getArrayNonEmptyDomainTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
+        String teamspace = null;
         String array = null;
         String contentType = null;
         String xPayer = null;
-        NonEmptyDomain response = api.getArrayNonEmptyDomain(namespace, array, contentType, xPayer);
+        NonEmptyDomain response = api.getArrayNonEmptyDomain(workspace, teamspace, array, contentType, xPayer);
         // TODO: test validations
     }
 
@@ -390,9 +404,10 @@ public class ArrayApiTest {
      */
     @Test
     public void getArrayNonEmptyDomainJsonTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
+        String teamspace = null;
         String array = null;
-        Map<String, Object> response = api.getArrayNonEmptyDomainJson(namespace, array);
+        Map<String, Object> response = api.getArrayNonEmptyDomainJson(workspace, teamspace, array);
         // TODO: test validations
     }
 
@@ -403,10 +418,11 @@ public class ArrayApiTest {
      */
     @Test
     public void getArraySampleDataTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
+        String teamspace = null;
         String array = null;
         BigDecimal samples = null;
-        ArraySample response = api.getArraySampleData(namespace, array, samples);
+        ArraySample response = api.getArraySampleData(workspace, teamspace, array, samples);
         // TODO: test validations
     }
 
@@ -417,9 +433,10 @@ public class ArrayApiTest {
      */
     @Test
     public void getArraySharingPoliciesTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
+        String teamspace = null;
         String array = null;
-        List<ArraySharing> response = api.getArraySharingPolicies(namespace, array);
+        List<ArraySharing> response = api.getArraySharingPolicies(workspace, teamspace, array);
         // TODO: test validations
     }
 
@@ -430,9 +447,10 @@ public class ArrayApiTest {
      */
     @Test
     public void getArraysInNamespaceTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
+        String teamspace = null;
         Boolean withMetadata = null;
-        List<ArrayInfo> response = api.getArraysInNamespace(namespace, withMetadata);
+        List<ArrayInfo> response = api.getArraysInNamespace(workspace, teamspace, withMetadata);
         // TODO: test validations
     }
 
@@ -443,10 +461,11 @@ public class ArrayApiTest {
      */
     @Test
     public void getFragmentEndTimestampTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
+        String teamspace = null;
         String array = null;
         Integer endTimestamp = null;
-        Integer response = api.getFragmentEndTimestamp(namespace, array, endTimestamp);
+        Integer response = api.getFragmentEndTimestamp(workspace, teamspace, array, endTimestamp);
         // TODO: test validations
     }
 
@@ -466,10 +485,11 @@ public class ArrayApiTest {
      */
     @Test
     public void loadArraySchemaTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
+        String teamspace = null;
         String array = null;
         LoadArraySchemaRequest loadArraySchemaRequest = null;
-        LoadArraySchemaResponse response = api.loadArraySchema(namespace, array, loadArraySchemaRequest);
+        LoadArraySchemaResponse response = api.loadArraySchema(workspace, teamspace, array, loadArraySchemaRequest);
         // TODO: test validations
     }
 
@@ -480,10 +500,11 @@ public class ArrayApiTest {
      */
     @Test
     public void loadEnumerationsTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
+        String teamspace = null;
         String array = null;
         LoadEnumerationsRequest loadEnumerationsRequest = null;
-        LoadEnumerationsResponse response = api.loadEnumerations(namespace, array, loadEnumerationsRequest);
+        LoadEnumerationsResponse response = api.loadEnumerations(workspace, teamspace, array, loadEnumerationsRequest);
         // TODO: test validations
     }
 
@@ -494,10 +515,11 @@ public class ArrayApiTest {
      */
     @Test
     public void registerArrayTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
+        String teamspace = null;
         String array = null;
         ArrayInfoUpdate arrayMetadata = null;
-        ArrayInfo response = api.registerArray(namespace, array, arrayMetadata);
+        ArrayInfo response = api.registerArray(workspace, teamspace, array, arrayMetadata);
         // TODO: test validations
     }
 
@@ -508,10 +530,11 @@ public class ArrayApiTest {
      */
     @Test
     public void shareArrayTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
+        String teamspace = null;
         String array = null;
         ArraySharing arraySharing = null;
-        api.shareArray(namespace, array, arraySharing);
+        api.shareArray(workspace, teamspace, array, arraySharing);
         // TODO: test validations
     }
 
@@ -522,10 +545,11 @@ public class ArrayApiTest {
      */
     @Test
     public void updateArrayMetadataTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
+        String teamspace = null;
         String array = null;
         ArrayInfoUpdate arrayMetadata = null;
-        api.updateArrayMetadata(namespace, array, arrayMetadata);
+        api.updateArrayMetadata(workspace, teamspace, array, arrayMetadata);
         // TODO: test validations
     }
 
@@ -536,10 +560,11 @@ public class ArrayApiTest {
      */
     @Test
     public void updateArrayMetadataCapnpTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
+        String teamspace = null;
         String array = null;
         ArrayMetadata arrayMetadataEntries = null;
-        api.updateArrayMetadataCapnp(namespace, array, arrayMetadataEntries);
+        api.updateArrayMetadataCapnp(workspace, teamspace, array, arrayMetadataEntries);
         // TODO: test validations
     }
 
@@ -550,10 +575,11 @@ public class ArrayApiTest {
      */
     @Test
     public void vacuumArrayTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
+        String teamspace = null;
         String array = null;
         ArrayVacuumRequest vaccumRequest = null;
-        api.vacuumArray(namespace, array, vaccumRequest);
+        api.vacuumArray(workspace, teamspace, array, vaccumRequest);
         // TODO: test validations
     }
 

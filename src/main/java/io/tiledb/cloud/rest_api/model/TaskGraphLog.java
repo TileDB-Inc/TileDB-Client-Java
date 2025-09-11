@@ -59,7 +59,7 @@ import io.tiledb.cloud.rest_api.JSON;
 /**
  * Logging information about the execution of a task graph.
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-09-13T19:24:49.771847040-04:00[America/New_York]", comments = "Generator version: 7.7.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.7.0")
 public class TaskGraphLog {
   public static final String SERIALIZED_NAME_UUID = "uuid";
   @SerializedName(SERIALIZED_NAME_UUID)
@@ -132,6 +132,14 @@ public class TaskGraphLog {
   public static final String SERIALIZED_NAME_CLOUD_REGION = "cloud_region";
   @SerializedName(SERIALIZED_NAME_CLOUD_REGION)
   private String cloudRegion;
+
+  public static final String SERIALIZED_NAME_ROOT_TASK_GRAPH_UUID = "root_task_graph_uuid";
+  @SerializedName(SERIALIZED_NAME_ROOT_TASK_GRAPH_UUID)
+  private String rootTaskGraphUuid;
+
+  public static final String SERIALIZED_NAME_CHILDREN_TASK_GRAPH_UUIDS = "children_task_graph_uuids";
+  @SerializedName(SERIALIZED_NAME_CHILDREN_TASK_GRAPH_UUIDS)
+  private List<String> childrenTaskGraphUuids = new ArrayList<>();
 
   public TaskGraphLog() {
   }
@@ -468,50 +476,52 @@ public class TaskGraphLog {
     this.cloudRegion = cloudRegion;
   }
 
-  /**
-   * A container for additional, undeclared properties.
-   * This is a holder for any undeclared properties as specified with
-   * the 'additionalProperties' keyword in the OAS document.
-   */
-  private Map<String, Object> additionalProperties;
 
-  /**
-   * Set the additional (undeclared) property with the specified name and value.
-   * If the property does not already exist, create it otherwise replace it.
-   *
-   * @param key name of the property
-   * @param value value of the property
-   * @return the TaskGraphLog instance itself
-   */
-  public TaskGraphLog putAdditionalProperty(String key, Object value) {
-    if (this.additionalProperties == null) {
-        this.additionalProperties = new HashMap<String, Object>();
-    }
-    this.additionalProperties.put(key, value);
+  public TaskGraphLog rootTaskGraphUuid(String rootTaskGraphUuid) {
+    this.rootTaskGraphUuid = rootTaskGraphUuid;
     return this;
   }
 
   /**
-   * Return the additional (undeclared) property.
-   *
-   * @return a map of objects
+   * The UUID of the root taskgraph that this taskgraph is related to. This is used to provide consistent tracking and UI view for graphs that are executed by a set of taskgraphs. 
+   * @return rootTaskGraphUuid
    */
-  public Map<String, Object> getAdditionalProperties() {
-    return additionalProperties;
+  @javax.annotation.Nullable
+  public String getRootTaskGraphUuid() {
+    return rootTaskGraphUuid;
+  }
+
+  public void setRootTaskGraphUuid(String rootTaskGraphUuid) {
+    this.rootTaskGraphUuid = rootTaskGraphUuid;
+  }
+
+
+  public TaskGraphLog childrenTaskGraphUuids(List<String> childrenTaskGraphUuids) {
+    this.childrenTaskGraphUuids = childrenTaskGraphUuids;
+    return this;
+  }
+
+  public TaskGraphLog addChildrenTaskGraphUuidsItem(String childrenTaskGraphUuidsItem) {
+    if (this.childrenTaskGraphUuids == null) {
+      this.childrenTaskGraphUuids = new ArrayList<>();
+    }
+    this.childrenTaskGraphUuids.add(childrenTaskGraphUuidsItem);
+    return this;
   }
 
   /**
-   * Return the additional (undeclared) property with the specified name.
-   *
-   * @param key name of the property
-   * @return an object
+   * If this is a root taskgraph, this contains the list of all its children taskgraph UUIDs. 
+   * @return childrenTaskGraphUuids
    */
-  public Object getAdditionalProperty(String key) {
-    if (this.additionalProperties == null) {
-        return null;
-    }
-    return this.additionalProperties.get(key);
+  @javax.annotation.Nullable
+  public List<String> getChildrenTaskGraphUuids() {
+    return childrenTaskGraphUuids;
   }
+
+  public void setChildrenTaskGraphUuids(List<String> childrenTaskGraphUuids) {
+    this.childrenTaskGraphUuids = childrenTaskGraphUuids;
+  }
+
 
 
   @Override
@@ -540,8 +550,9 @@ public class TaskGraphLog {
         Objects.equals(this.taskGraphType, taskGraphLog.taskGraphType) &&
         Objects.equals(this.taskGraphId, taskGraphLog.taskGraphId) &&
         Objects.equals(this.cloudProvider, taskGraphLog.cloudProvider) &&
-        Objects.equals(this.cloudRegion, taskGraphLog.cloudRegion)&&
-        Objects.equals(this.additionalProperties, taskGraphLog.additionalProperties);
+        Objects.equals(this.cloudRegion, taskGraphLog.cloudRegion) &&
+        Objects.equals(this.rootTaskGraphUuid, taskGraphLog.rootTaskGraphUuid) &&
+        Objects.equals(this.childrenTaskGraphUuids, taskGraphLog.childrenTaskGraphUuids);
   }
 
   private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
@@ -550,7 +561,7 @@ public class TaskGraphLog {
 
   @Override
   public int hashCode() {
-    return Objects.hash(uuid, namespace, createdBy, name, createdAt, startTime, endTime, status, totalCost, accessCost, egressCost, executionTime, statusCount, nodes, taskGraphType, taskGraphId, cloudProvider, cloudRegion, additionalProperties);
+    return Objects.hash(uuid, namespace, createdBy, name, createdAt, startTime, endTime, status, totalCost, accessCost, egressCost, executionTime, statusCount, nodes, taskGraphType, taskGraphId, cloudProvider, cloudRegion, rootTaskGraphUuid, childrenTaskGraphUuids);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -582,7 +593,8 @@ public class TaskGraphLog {
     sb.append("    taskGraphId: ").append(toIndentedString(taskGraphId)).append("\n");
     sb.append("    cloudProvider: ").append(toIndentedString(cloudProvider)).append("\n");
     sb.append("    cloudRegion: ").append(toIndentedString(cloudRegion)).append("\n");
-    sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
+    sb.append("    rootTaskGraphUuid: ").append(toIndentedString(rootTaskGraphUuid)).append("\n");
+    sb.append("    childrenTaskGraphUuids: ").append(toIndentedString(childrenTaskGraphUuids)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -623,6 +635,8 @@ public class TaskGraphLog {
     openapiFields.add("task_graph_id");
     openapiFields.add("cloud_provider");
     openapiFields.add("cloud_region");
+    openapiFields.add("root_task_graph_uuid");
+    openapiFields.add("children_task_graph_uuids");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -639,53 +653,6 @@ public class TaskGraphLog {
         if (!TaskGraphLog.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
           throw new IllegalArgumentException(String.format("The required field(s) %s in TaskGraphLog is not found in the empty JSON string", TaskGraphLog.openapiRequiredFields.toString()));
         }
-      }
-        JsonObject jsonObj = jsonElement.getAsJsonObject();
-      if ((jsonObj.get("uuid") != null && !jsonObj.get("uuid").isJsonNull()) && !jsonObj.get("uuid").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `uuid` to be a primitive type in the JSON string but got `%s`", jsonObj.get("uuid").toString()));
-      }
-      if ((jsonObj.get("namespace") != null && !jsonObj.get("namespace").isJsonNull()) && !jsonObj.get("namespace").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `namespace` to be a primitive type in the JSON string but got `%s`", jsonObj.get("namespace").toString()));
-      }
-      if ((jsonObj.get("created_by") != null && !jsonObj.get("created_by").isJsonNull()) && !jsonObj.get("created_by").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `created_by` to be a primitive type in the JSON string but got `%s`", jsonObj.get("created_by").toString()));
-      }
-      if ((jsonObj.get("name") != null && !jsonObj.get("name").isJsonNull()) && !jsonObj.get("name").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `name` to be a primitive type in the JSON string but got `%s`", jsonObj.get("name").toString()));
-      }
-      // validate the optional field `status`
-      if (jsonObj.get("status") != null && !jsonObj.get("status").isJsonNull()) {
-        TaskGraphLogStatus.validateJsonElement(jsonObj.get("status"));
-      }
-      if ((jsonObj.get("execution_time") != null && !jsonObj.get("execution_time").isJsonNull()) && !jsonObj.get("execution_time").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `execution_time` to be a primitive type in the JSON string but got `%s`", jsonObj.get("execution_time").toString()));
-      }
-      if (jsonObj.get("nodes") != null && !jsonObj.get("nodes").isJsonNull()) {
-        JsonArray jsonArraynodes = jsonObj.getAsJsonArray("nodes");
-        if (jsonArraynodes != null) {
-          // ensure the json data is an array
-          if (!jsonObj.get("nodes").isJsonArray()) {
-            throw new IllegalArgumentException(String.format("Expected the field `nodes` to be an array in the JSON string but got `%s`", jsonObj.get("nodes").toString()));
-          }
-
-          // validate the optional field `nodes` (array)
-          for (int i = 0; i < jsonArraynodes.size(); i++) {
-            TaskGraphNodeMetadata.validateJsonElement(jsonArraynodes.get(i));
-          };
-        }
-      }
-      // validate the optional field `task_graph_type`
-      if (jsonObj.get("task_graph_type") != null && !jsonObj.get("task_graph_type").isJsonNull()) {
-        TaskGraphType.validateJsonElement(jsonObj.get("task_graph_type"));
-      }
-      if ((jsonObj.get("task_graph_id") != null && !jsonObj.get("task_graph_id").isJsonNull()) && !jsonObj.get("task_graph_id").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `task_graph_id` to be a primitive type in the JSON string but got `%s`", jsonObj.get("task_graph_id").toString()));
-      }
-      if ((jsonObj.get("cloud_provider") != null && !jsonObj.get("cloud_provider").isJsonNull()) && !jsonObj.get("cloud_provider").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `cloud_provider` to be a primitive type in the JSON string but got `%s`", jsonObj.get("cloud_provider").toString()));
-      }
-      if ((jsonObj.get("cloud_region") != null && !jsonObj.get("cloud_region").isJsonNull()) && !jsonObj.get("cloud_region").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `cloud_region` to be a primitive type in the JSON string but got `%s`", jsonObj.get("cloud_region").toString()));
       }
   }
 
@@ -704,28 +671,6 @@ public class TaskGraphLog {
            @Override
            public void write(JsonWriter out, TaskGraphLog value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
-             obj.remove("additionalProperties");
-             // serialize additional properties
-             if (value.getAdditionalProperties() != null) {
-               for (Map.Entry<String, Object> entry : value.getAdditionalProperties().entrySet()) {
-                 if (entry.getValue() instanceof String)
-                   obj.addProperty(entry.getKey(), (String) entry.getValue());
-                 else if (entry.getValue() instanceof Number)
-                   obj.addProperty(entry.getKey(), (Number) entry.getValue());
-                 else if (entry.getValue() instanceof Boolean)
-                   obj.addProperty(entry.getKey(), (Boolean) entry.getValue());
-                 else if (entry.getValue() instanceof Character)
-                   obj.addProperty(entry.getKey(), (Character) entry.getValue());
-                 else {
-                   JsonElement jsonElement = gson.toJsonTree(entry.getValue());
-                   if (jsonElement.isJsonArray()) {
-                     obj.add(entry.getKey(), jsonElement.getAsJsonArray());
-                   } else {
-                     obj.add(entry.getKey(), jsonElement.getAsJsonObject());
-                   }
-                 }
-               }
-             }
              elementAdapter.write(out, obj);
            }
 
@@ -733,28 +678,7 @@ public class TaskGraphLog {
            public TaskGraphLog read(JsonReader in) throws IOException {
              JsonElement jsonElement = elementAdapter.read(in);
              validateJsonElement(jsonElement);
-             JsonObject jsonObj = jsonElement.getAsJsonObject();
-             // store additional fields in the deserialized instance
-             TaskGraphLog instance = thisAdapter.fromJsonTree(jsonObj);
-             for (Map.Entry<String, JsonElement> entry : jsonObj.entrySet()) {
-               if (!openapiFields.contains(entry.getKey())) {
-                 if (entry.getValue().isJsonPrimitive()) { // primitive type
-                   if (entry.getValue().getAsJsonPrimitive().isString())
-                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsString());
-                   else if (entry.getValue().getAsJsonPrimitive().isNumber())
-                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsNumber());
-                   else if (entry.getValue().getAsJsonPrimitive().isBoolean())
-                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsBoolean());
-                   else
-                     throw new IllegalArgumentException(String.format("The field `%s` has unknown primitive type. Value: %s", entry.getKey(), entry.getValue().toString()));
-                 } else if (entry.getValue().isJsonArray()) {
-                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), List.class));
-                 } else { // JSON object
-                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
-                 }
-               }
-             }
-             return instance;
+             return thisAdapter.fromJsonTree(jsonElement);
            }
 
        }.nullSafe();

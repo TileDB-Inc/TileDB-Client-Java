@@ -54,6 +54,14 @@ public class FileUploadedTest {
     }
 
     /**
+     * Test the property 'assetId'
+     */
+    @Test
+    public void assetIdTest() {
+        // TODO: test assetId
+    }
+
+    /**
      * Test the property 'id'
      */
     @Test

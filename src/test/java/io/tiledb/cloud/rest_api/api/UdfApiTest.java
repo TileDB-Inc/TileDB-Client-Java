@@ -47,9 +47,9 @@ public class UdfApiTest {
      */
     @Test
     public void deleteUDFInfoTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
         String name = null;
-        api.deleteUDFInfo(namespace, name);
+        api.deleteUDFInfo(workspace, name);
         // TODO: test validations
     }
 
@@ -60,9 +60,9 @@ public class UdfApiTest {
      */
     @Test
     public void getUDFInfoTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
         String name = null;
-        UDFInfo response = api.getUDFInfo(namespace, name);
+        UDFInfo response = api.getUDFInfo(workspace, name);
         // TODO: test validations
     }
 
@@ -73,9 +73,9 @@ public class UdfApiTest {
      */
     @Test
     public void getUDFInfoSharingPoliciesTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
         String name = null;
-        List<UDFSharing> response = api.getUDFInfoSharingPolicies(namespace, name);
+        List<UDFSharing> response = api.getUDFInfoSharingPolicies(workspace, name);
         // TODO: test validations
     }
 
@@ -86,12 +86,12 @@ public class UdfApiTest {
      */
     @Test
     public void handleCopyUDFTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
         String name = null;
         UDFCopy udFCopy = null;
         String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME = null;
         Integer endTimestamp = null;
-        UDFCopied response = api.handleCopyUDF(namespace, name, udFCopy, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, endTimestamp);
+        UDFCopied response = api.handleCopyUDF(workspace, name, udFCopy, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, endTimestamp);
         // TODO: test validations
     }
 
@@ -102,10 +102,10 @@ public class UdfApiTest {
      */
     @Test
     public void registerUDFInfoTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
         String name = null;
         UDFInfoUpdate udf = null;
-        api.registerUDFInfo(namespace, name, udf);
+        api.registerUDFInfo(workspace, name, udf);
         // TODO: test validations
     }
 
@@ -116,10 +116,10 @@ public class UdfApiTest {
      */
     @Test
     public void shareUDFInfoTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
         String name = null;
         UDFSharing udfSharing = null;
-        api.shareUDFInfo(namespace, name, udfSharing);
+        api.shareUDFInfo(workspace, name, udfSharing);
         // TODO: test validations
     }
 
@@ -130,10 +130,10 @@ public class UdfApiTest {
      */
     @Test
     public void submitGenericUDFTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
         GenericUDF udf = null;
         String acceptEncoding = null;
-        File response = api.submitGenericUDF(namespace, udf, acceptEncoding);
+        File response = api.submitGenericUDF(workspace, udf, acceptEncoding);
         // TODO: test validations
     }
 
@@ -144,10 +144,10 @@ public class UdfApiTest {
      */
     @Test
     public void submitMultiArrayUDFTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
         MultiArrayUDF udf = null;
         String acceptEncoding = null;
-        File response = api.submitMultiArrayUDF(namespace, udf, acceptEncoding);
+        File response = api.submitMultiArrayUDF(workspace, udf, acceptEncoding);
         // TODO: test validations
     }
 
@@ -158,13 +158,14 @@ public class UdfApiTest {
      */
     @Test
     public void submitUDFTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
+        String teamspace = null;
         String array = null;
         MultiArrayUDF udf = null;
         String xPayer = null;
         String acceptEncoding = null;
         String v2 = null;
-        File response = api.submitUDF(namespace, array, udf, xPayer, acceptEncoding, v2);
+        File response = api.submitUDF(workspace, teamspace, array, udf, xPayer, acceptEncoding, v2);
         // TODO: test validations
     }
 
@@ -174,12 +175,12 @@ public class UdfApiTest {
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void udfNamespaceArrayEndTimestampsGetTest() throws ApiException {
-        String namespace = null;
+    public void udfWorkspaceArrayEndTimestampsGetTest() throws ApiException {
+        String workspace = null;
         String array = null;
         Integer page = null;
         Integer perPage = null;
-        ArrayEndTimestampData response = api.udfNamespaceArrayEndTimestampsGet(namespace, array, page, perPage);
+        ArrayEndTimestampData response = api.udfWorkspaceArrayEndTimestampsGet(workspace, array, page, perPage);
         // TODO: test validations
     }
 
@@ -190,10 +191,10 @@ public class UdfApiTest {
      */
     @Test
     public void updateUDFInfoTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
         String name = null;
         UDFInfoUpdate udf = null;
-        api.updateUDFInfo(namespace, name, udf);
+        api.updateUDFInfo(workspace, name, udf);
         // TODO: test validations
     }
 

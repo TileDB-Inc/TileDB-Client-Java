@@ -45,9 +45,10 @@ public class OrganizationApiTest {
      */
     @Test
     public void addAWSAccessCredentialsTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
+        String teamspace = null;
         AWSAccessCredentials awsAccessCredentials = null;
-        api.addAWSAccessCredentials(namespace, awsAccessCredentials);
+        api.addAWSAccessCredentials(workspace, teamspace, awsAccessCredentials);
         // TODO: test validations
     }
 
@@ -71,8 +72,9 @@ public class OrganizationApiTest {
      */
     @Test
     public void checkAWSAccessCredentialsTest() throws ApiException {
-        String namespace = null;
-        List<AWSAccessCredentials> response = api.checkAWSAccessCredentials(namespace);
+        String workspace = null;
+        String teamspace = null;
+        List<AWSAccessCredentials> response = api.checkAWSAccessCredentials(workspace, teamspace);
         // TODO: test validations
     }
 
@@ -83,9 +85,10 @@ public class OrganizationApiTest {
      */
     @Test
     public void checkAWSAccessCredentialsByNameTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
+        String teamspace = null;
         String name = null;
-        AWSAccessCredentials response = api.checkAWSAccessCredentialsByName(namespace, name);
+        AWSAccessCredentials response = api.checkAWSAccessCredentialsByName(workspace, teamspace, name);
         // TODO: test validations
     }
 
@@ -134,9 +137,10 @@ public class OrganizationApiTest {
      */
     @Test
     public void deleteAWSAccessCredentialsTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
+        String teamspace = null;
         String name = null;
-        api.deleteAWSAccessCredentials(namespace, name);
+        api.deleteAWSAccessCredentials(workspace, teamspace, name);
         // TODO: test validations
     }
 
@@ -246,10 +250,11 @@ public class OrganizationApiTest {
      */
     @Test
     public void updateAWSAccessCredentialsTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
+        String teamspace = null;
         String name = null;
         AWSAccessCredentials awsAccessCredentials = null;
-        api.updateAWSAccessCredentials(namespace, name, awsAccessCredentials);
+        api.updateAWSAccessCredentials(workspace, teamspace, name, awsAccessCredentials);
         // TODO: test validations
     }
 

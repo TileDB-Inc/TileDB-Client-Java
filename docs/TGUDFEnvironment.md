@@ -17,7 +17,7 @@ Metadata about the environment where we want to execute a UDF.
 |**resources** | [**TGUDFEnvironmentResources**](TGUDFEnvironmentResources.md) |  |  [optional] |
 |**runClientSide** | **Boolean** | A hint that, if possible, this function should be executed on the client side rather than on the server. Registered UDFs and functions which take arrays as inputs can never be executed client-side. If the client’s environment is incompatible, or the client does not support client-side execution, the function will be executed on the server.  |  [optional] |
 |**timeout** | **BigDecimal** | The maximum length of time this UDF is allowed to execute for before it is killed and fails. If not present (or zero), the function is allowed to run indefinitely (subject to the server’s global limits).  |  [optional] |
-|**paths** | **List&lt;Object&gt;** | Mapping for storage paths to mount |  [optional] |
+|**storage** | [**List&lt;TGUDFStorage&gt;**](TGUDFStorage.md) | Storage options for mounting persistent volumes.  |  [optional] |
 
 
 

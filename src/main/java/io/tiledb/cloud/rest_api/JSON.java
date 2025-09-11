@@ -121,6 +121,7 @@ public class JSON {
         gsonBuilder.registerTypeAdapterFactory(new io.tiledb.cloud.rest_api.model.AttributeBufferHeader.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new io.tiledb.cloud.rest_api.model.AttributeBufferSize.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new io.tiledb.cloud.rest_api.model.Backoff.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new io.tiledb.cloud.rest_api.model.ChangeAssetCredentialsRequest.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new io.tiledb.cloud.rest_api.model.Dimension.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new io.tiledb.cloud.rest_api.model.DimensionCoordinate.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new io.tiledb.cloud.rest_api.model.DimensionTileExtent.CustomTypeAdapterFactory());

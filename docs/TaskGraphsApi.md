@@ -4,16 +4,16 @@ All URIs are relative to */v1*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**createTaskGraph**](TaskGraphsApi.md#createTaskGraph) | **POST** /taskgraphs/{namespace}/graphs |  |
-| [**getTaskGraph**](TaskGraphsApi.md#getTaskGraph) | **GET** /taskgraphs/{namespace}/graphs/{id} |  |
-| [**listTaskGraphs**](TaskGraphsApi.md#listTaskGraphs) | **GET** /taskgraphs/{namespace}/graphs |  |
-| [**submitTaskGraph**](TaskGraphsApi.md#submitTaskGraph) | **POST** /taskgraphs/{namespace}/graphs/{id}/submit |  |
-| [**updateTaskGraph**](TaskGraphsApi.md#updateTaskGraph) | **PATCH** /taskgraphs/{namespace}/graphs/{id} |  |
+| [**createTaskGraph**](TaskGraphsApi.md#createTaskGraph) | **POST** /taskgraphs/{workspace}/graphs |  |
+| [**getTaskGraph**](TaskGraphsApi.md#getTaskGraph) | **GET** /taskgraphs/{workspace}/graphs/{id} |  |
+| [**listTaskGraphs**](TaskGraphsApi.md#listTaskGraphs) | **GET** /taskgraphs/{workspace}/graphs |  |
+| [**submitTaskGraph**](TaskGraphsApi.md#submitTaskGraph) | **POST** /taskgraphs/{workspace}/graphs/{id}/submit |  |
+| [**updateTaskGraph**](TaskGraphsApi.md#updateTaskGraph) | **PATCH** /taskgraphs/{workspace}/graphs/{id} |  |
 
 
 <a id="createTaskGraph"></a>
 # **createTaskGraph**
-> TaskGraph createTaskGraph(namespace, graph)
+> TaskGraph createTaskGraph(workspace, graph)
 
 
 
@@ -46,10 +46,10 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     TaskGraphsApi apiInstance = new TaskGraphsApi(defaultClient);
-    String namespace = "namespace_example"; // String | Include graphs for this namespace.
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
     TaskGraph graph = new TaskGraph(); // TaskGraph | Create the task graph.
     try {
-      TaskGraph result = apiInstance.createTaskGraph(namespace, graph);
+      TaskGraph result = apiInstance.createTaskGraph(workspace, graph);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling TaskGraphsApi#createTaskGraph");
@@ -66,7 +66,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| Include graphs for this namespace. | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
 | **graph** | [**TaskGraph**](TaskGraph.md)| Create the task graph. | |
 
 ### Return type
@@ -91,7 +91,7 @@ public class Example {
 
 <a id="getTaskGraph"></a>
 # **getTaskGraph**
-> TaskGraph getTaskGraph(namespace, id)
+> TaskGraph getTaskGraph(workspace, id)
 
 
 
@@ -124,10 +124,10 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     TaskGraphsApi apiInstance = new TaskGraphsApi(defaultClient);
-    String namespace = "namespace_example"; // String | The namespace that owns this task graph.
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
     String id = "id_example"; // String | The UUID of the task graph entry.
     try {
-      TaskGraph result = apiInstance.getTaskGraph(namespace, id);
+      TaskGraph result = apiInstance.getTaskGraph(workspace, id);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling TaskGraphsApi#getTaskGraph");
@@ -144,7 +144,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| The namespace that owns this task graph. | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
 | **id** | **String**| The UUID of the task graph entry. | |
 
 ### Return type
@@ -169,7 +169,7 @@ public class Example {
 
 <a id="listTaskGraphs"></a>
 # **listTaskGraphs**
-> TaskGraphs listTaskGraphs(namespace)
+> TaskGraphs listTaskGraphs(workspace)
 
 
 
@@ -202,9 +202,9 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     TaskGraphsApi apiInstance = new TaskGraphsApi(defaultClient);
-    String namespace = "namespace_example"; // String | Namespace for graphs
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
     try {
-      TaskGraphs result = apiInstance.listTaskGraphs(namespace);
+      TaskGraphs result = apiInstance.listTaskGraphs(workspace);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling TaskGraphsApi#listTaskGraphs");
@@ -221,7 +221,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| Namespace for graphs | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
 
 ### Return type
 
@@ -245,7 +245,7 @@ public class Example {
 
 <a id="submitTaskGraph"></a>
 # **submitTaskGraph**
-> TaskGraphLog submitTaskGraph(namespace, id)
+> TaskGraphLog submitTaskGraph(workspace, id, rootTaskGraphUuid)
 
 
 
@@ -278,10 +278,11 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     TaskGraphsApi apiInstance = new TaskGraphsApi(defaultClient);
-    String namespace = "namespace_example"; // String | The namespace that owns this task graph.
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
     String id = "id_example"; // String | The UUID of the task graph entry.
+    String rootTaskGraphUuid = "rootTaskGraphUuid_example"; // String | UUID of the root taskgraph that this graph is assosiated with
     try {
-      TaskGraphLog result = apiInstance.submitTaskGraph(namespace, id);
+      TaskGraphLog result = apiInstance.submitTaskGraph(workspace, id, rootTaskGraphUuid);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling TaskGraphsApi#submitTaskGraph");
@@ -298,8 +299,9 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| The namespace that owns this task graph. | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
 | **id** | **String**| The UUID of the task graph entry. | |
+| **rootTaskGraphUuid** | **String**| UUID of the root taskgraph that this graph is assosiated with | [optional] |
 
 ### Return type
 
@@ -323,7 +325,7 @@ public class Example {
 
 <a id="updateTaskGraph"></a>
 # **updateTaskGraph**
-> updateTaskGraph(namespace, id, graph)
+> updateTaskGraph(workspace, id, graph)
 
 
 
@@ -356,11 +358,11 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     TaskGraphsApi apiInstance = new TaskGraphsApi(defaultClient);
-    String namespace = "namespace_example"; // String | The namespace that owns this task graph.
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
     String id = "id_example"; // String | The UUID of the task graph entry.
     TaskGraph graph = new TaskGraph(); // TaskGraph | Updates to make to the task graph.
     try {
-      apiInstance.updateTaskGraph(namespace, id, graph);
+      apiInstance.updateTaskGraph(workspace, id, graph);
     } catch (ApiException e) {
       System.err.println("Exception when calling TaskGraphsApi#updateTaskGraph");
       System.err.println("Status code: " + e.getCode());
@@ -376,7 +378,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| The namespace that owns this task graph. | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
 | **id** | **String**| The UUID of the task graph entry. | |
 | **graph** | [**TaskGraph**](TaskGraph.md)| Updates to make to the task graph. | |
 

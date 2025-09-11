@@ -4,22 +4,22 @@ All URIs are relative to */v1*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**deleteUDFInfo**](UdfApi.md#deleteUDFInfo) | **DELETE** /udf/{namespace}/{name} |  |
-| [**getUDFInfo**](UdfApi.md#getUDFInfo) | **GET** /udf/{namespace}/{name} |  |
-| [**getUDFInfoSharingPolicies**](UdfApi.md#getUDFInfoSharingPolicies) | **GET** /udf/{namespace}/{name}/share |  |
-| [**handleCopyUDF**](UdfApi.md#handleCopyUDF) | **POST** /udf/{namespace}/{name}/copy |  |
-| [**registerUDFInfo**](UdfApi.md#registerUDFInfo) | **POST** /udf/{namespace}/{name} |  |
-| [**shareUDFInfo**](UdfApi.md#shareUDFInfo) | **PATCH** /udf/{namespace}/{name}/share |  |
-| [**submitGenericUDF**](UdfApi.md#submitGenericUDF) | **POST** /udfs/generic/{namespace} |  |
-| [**submitMultiArrayUDF**](UdfApi.md#submitMultiArrayUDF) | **POST** /udfs/arrays/{namespace} |  |
-| [**submitUDF**](UdfApi.md#submitUDF) | **POST** /arrays/{namespace}/{array}/udf/submit |  |
-| [**udfNamespaceArrayEndTimestampsGet**](UdfApi.md#udfNamespaceArrayEndTimestampsGet) | **GET** /udf/{namespace}/{array}/end_timestamps |  |
-| [**updateUDFInfo**](UdfApi.md#updateUDFInfo) | **PATCH** /udf/{namespace}/{name} |  |
+| [**deleteUDFInfo**](UdfApi.md#deleteUDFInfo) | **DELETE** /udf/{workspace}/{name} |  |
+| [**getUDFInfo**](UdfApi.md#getUDFInfo) | **GET** /udf/{workspace}/{name} |  |
+| [**getUDFInfoSharingPolicies**](UdfApi.md#getUDFInfoSharingPolicies) | **GET** /udf/{workspace}/{name}/share |  |
+| [**handleCopyUDF**](UdfApi.md#handleCopyUDF) | **POST** /udf/{workspace}/{name}/copy |  |
+| [**registerUDFInfo**](UdfApi.md#registerUDFInfo) | **POST** /udf/{workspace}/{name} |  |
+| [**shareUDFInfo**](UdfApi.md#shareUDFInfo) | **PATCH** /udf/{workspace}/{name}/share |  |
+| [**submitGenericUDF**](UdfApi.md#submitGenericUDF) | **POST** /udfs/generic/{workspace} |  |
+| [**submitMultiArrayUDF**](UdfApi.md#submitMultiArrayUDF) | **POST** /udfs/arrays/{workspace} |  |
+| [**submitUDF**](UdfApi.md#submitUDF) | **POST** /arrays/{workspace}/{teamspace}/{array}/udf/submit |  |
+| [**udfWorkspaceArrayEndTimestampsGet**](UdfApi.md#udfWorkspaceArrayEndTimestampsGet) | **GET** /udf/{workspace}/{array}/end_timestamps |  |
+| [**updateUDFInfo**](UdfApi.md#updateUDFInfo) | **PATCH** /udf/{workspace}/{name} |  |
 
 
 <a id="deleteUDFInfo"></a>
 # **deleteUDFInfo**
-> deleteUDFInfo(namespace, name)
+> deleteUDFInfo(workspace, name)
 
 
 
@@ -52,10 +52,10 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     UdfApi apiInstance = new UdfApi(defaultClient);
-    String namespace = "namespace_example"; // String | namespace array is in (an organization name or user's username)
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
     String name = "name_example"; // String | name to register UDF under
     try {
-      apiInstance.deleteUDFInfo(namespace, name);
+      apiInstance.deleteUDFInfo(workspace, name);
     } catch (ApiException e) {
       System.err.println("Exception when calling UdfApi#deleteUDFInfo");
       System.err.println("Status code: " + e.getCode());
@@ -71,7 +71,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| namespace array is in (an organization name or user&#39;s username) | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
 | **name** | **String**| name to register UDF under | |
 
 ### Return type
@@ -96,7 +96,7 @@ null (empty response body)
 
 <a id="getUDFInfo"></a>
 # **getUDFInfo**
-> UDFInfo getUDFInfo(namespace, name)
+> UDFInfo getUDFInfo(workspace, name)
 
 
 
@@ -129,10 +129,10 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     UdfApi apiInstance = new UdfApi(defaultClient);
-    String namespace = "namespace_example"; // String | namespace array is in (an organization name or user's username)
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
     String name = "name_example"; // String | name to register UDF under
     try {
-      UDFInfo result = apiInstance.getUDFInfo(namespace, name);
+      UDFInfo result = apiInstance.getUDFInfo(workspace, name);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling UdfApi#getUDFInfo");
@@ -149,7 +149,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| namespace array is in (an organization name or user&#39;s username) | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
 | **name** | **String**| name to register UDF under | |
 
 ### Return type
@@ -175,7 +175,7 @@ public class Example {
 
 <a id="getUDFInfoSharingPolicies"></a>
 # **getUDFInfoSharingPolicies**
-> List&lt;UDFSharing&gt; getUDFInfoSharingPolicies(namespace, name)
+> List&lt;UDFSharing&gt; getUDFInfoSharingPolicies(workspace, name)
 
 
 
@@ -208,10 +208,10 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     UdfApi apiInstance = new UdfApi(defaultClient);
-    String namespace = "namespace_example"; // String | namespace array is in (an organization name or user's username)
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
     String name = "name_example"; // String | name of UDFInfo
     try {
-      List<UDFSharing> result = apiInstance.getUDFInfoSharingPolicies(namespace, name);
+      List<UDFSharing> result = apiInstance.getUDFInfoSharingPolicies(workspace, name);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling UdfApi#getUDFInfoSharingPolicies");
@@ -228,7 +228,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| namespace array is in (an organization name or user&#39;s username) | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
 | **name** | **String**| name of UDFInfo | |
 
 ### Return type
@@ -254,7 +254,7 @@ public class Example {
 
 <a id="handleCopyUDF"></a>
 # **handleCopyUDF**
-> UDFCopied handleCopyUDF(namespace, name, udFCopy, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, endTimestamp)
+> UDFCopied handleCopyUDF(workspace, name, udFCopy, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, endTimestamp)
 
 
 
@@ -287,13 +287,13 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     UdfApi apiInstance = new UdfApi(defaultClient);
-    String namespace = "namespace_example"; // String | namespace array is in (an organization name or user's username)
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
     String name = "name_example"; // String | name of UDFInfo
     UDFCopy udFCopy = new UDFCopy(); // UDFCopy | Input/Output information to copy a UDF
     String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME = "X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME_example"; // String | Optional registered access credentials to use for creation
     Integer endTimestamp = 56; // Integer | Milliseconds since Unix epoch
     try {
-      UDFCopied result = apiInstance.handleCopyUDF(namespace, name, udFCopy, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, endTimestamp);
+      UDFCopied result = apiInstance.handleCopyUDF(workspace, name, udFCopy, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, endTimestamp);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling UdfApi#handleCopyUDF");
@@ -310,7 +310,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| namespace array is in (an organization name or user&#39;s username) | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
 | **name** | **String**| name of UDFInfo | |
 | **udFCopy** | [**UDFCopy**](UDFCopy.md)| Input/Output information to copy a UDF | |
 | **X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME** | **String**| Optional registered access credentials to use for creation | [optional] |
@@ -338,7 +338,7 @@ public class Example {
 
 <a id="registerUDFInfo"></a>
 # **registerUDFInfo**
-> registerUDFInfo(namespace, name, udf)
+> registerUDFInfo(workspace, name, udf)
 
 
 
@@ -371,11 +371,11 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     UdfApi apiInstance = new UdfApi(defaultClient);
-    String namespace = "namespace_example"; // String | namespace array is in (an organization name or user's username)
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
     String name = "name_example"; // String | name to register UDF under
     UDFInfoUpdate udf = new UDFInfoUpdate(); // UDFInfoUpdate | UDF to register
     try {
-      apiInstance.registerUDFInfo(namespace, name, udf);
+      apiInstance.registerUDFInfo(workspace, name, udf);
     } catch (ApiException e) {
       System.err.println("Exception when calling UdfApi#registerUDFInfo");
       System.err.println("Status code: " + e.getCode());
@@ -391,7 +391,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| namespace array is in (an organization name or user&#39;s username) | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
 | **name** | **String**| name to register UDF under | |
 | **udf** | [**UDFInfoUpdate**](UDFInfoUpdate.md)| UDF to register | |
 
@@ -417,7 +417,7 @@ null (empty response body)
 
 <a id="shareUDFInfo"></a>
 # **shareUDFInfo**
-> shareUDFInfo(namespace, name, udfSharing)
+> shareUDFInfo(workspace, name, udfSharing)
 
 
 
@@ -450,11 +450,11 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     UdfApi apiInstance = new UdfApi(defaultClient);
-    String namespace = "namespace_example"; // String | namespace array is in (an organization name or user's username)
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
     String name = "name_example"; // String | name of UDFInfo
     UDFSharing udfSharing = new UDFSharing(); // UDFSharing | Namespace and list of permissions to share with. An empty list of permissions will remove the namespace; if permissions already exist they will be deleted then new ones added. In the event of a failure, the new policies will be rolled back to prevent partial policies, and it's likely the UDF will not be shared with the namespace at all.
     try {
-      apiInstance.shareUDFInfo(namespace, name, udfSharing);
+      apiInstance.shareUDFInfo(workspace, name, udfSharing);
     } catch (ApiException e) {
       System.err.println("Exception when calling UdfApi#shareUDFInfo");
       System.err.println("Status code: " + e.getCode());
@@ -470,7 +470,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| namespace array is in (an organization name or user&#39;s username) | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
 | **name** | **String**| name of UDFInfo | |
 | **udfSharing** | [**UDFSharing**](UDFSharing.md)| Namespace and list of permissions to share with. An empty list of permissions will remove the namespace; if permissions already exist they will be deleted then new ones added. In the event of a failure, the new policies will be rolled back to prevent partial policies, and it&#39;s likely the UDF will not be shared with the namespace at all. | |
 
@@ -497,7 +497,7 @@ null (empty response body)
 
 <a id="submitGenericUDF"></a>
 # **submitGenericUDF**
-> File submitGenericUDF(namespace, udf, acceptEncoding)
+> File submitGenericUDF(workspace, udf, acceptEncoding)
 
 
 
@@ -530,11 +530,11 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     UdfApi apiInstance = new UdfApi(defaultClient);
-    String namespace = "namespace_example"; // String | namespace array is in (an organization name or user's username)
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
     GenericUDF udf = new GenericUDF(); // GenericUDF | UDF to run
     String acceptEncoding = "acceptEncoding_example"; // String | Encoding to use
     try {
-      File result = apiInstance.submitGenericUDF(namespace, udf, acceptEncoding);
+      File result = apiInstance.submitGenericUDF(workspace, udf, acceptEncoding);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling UdfApi#submitGenericUDF");
@@ -551,7 +551,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| namespace array is in (an organization name or user&#39;s username) | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
 | **udf** | [**GenericUDF**](GenericUDF.md)| UDF to run | |
 | **acceptEncoding** | **String**| Encoding to use | [optional] |
 
@@ -577,7 +577,7 @@ public class Example {
 
 <a id="submitMultiArrayUDF"></a>
 # **submitMultiArrayUDF**
-> File submitMultiArrayUDF(namespace, udf, acceptEncoding)
+> File submitMultiArrayUDF(workspace, udf, acceptEncoding)
 
 
 
@@ -610,11 +610,11 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     UdfApi apiInstance = new UdfApi(defaultClient);
-    String namespace = "namespace_example"; // String | namespace array is in (an organization name or user's username)
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
     MultiArrayUDF udf = new MultiArrayUDF(); // MultiArrayUDF | UDF to run
     String acceptEncoding = "acceptEncoding_example"; // String | Encoding to use
     try {
-      File result = apiInstance.submitMultiArrayUDF(namespace, udf, acceptEncoding);
+      File result = apiInstance.submitMultiArrayUDF(workspace, udf, acceptEncoding);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling UdfApi#submitMultiArrayUDF");
@@ -631,7 +631,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| namespace array is in (an organization name or user&#39;s username) | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
 | **udf** | [**MultiArrayUDF**](MultiArrayUDF.md)| UDF to run | |
 | **acceptEncoding** | **String**| Encoding to use | [optional] |
 
@@ -657,7 +657,7 @@ public class Example {
 
 <a id="submitUDF"></a>
 # **submitUDF**
-> File submitUDF(namespace, array, udf, xPayer, acceptEncoding, v2)
+> File submitUDF(workspace, teamspace, array, udf, xPayer, acceptEncoding, v2)
 
 
 
@@ -690,14 +690,15 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     UdfApi apiInstance = new UdfApi(defaultClient);
-    String namespace = "namespace_example"; // String | namespace array is in (an organization name or user's username)
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
     String array = "array_example"; // String | name/uri of array that is url-encoded
     MultiArrayUDF udf = new MultiArrayUDF(); // MultiArrayUDF | UDF to run
     String xPayer = "xPayer_example"; // String | Name of organization or user who should be charged for this request
     String acceptEncoding = "acceptEncoding_example"; // String | Encoding to use
     String v2 = "v2_example"; // String | flag to indicate if v2 array UDFs should be used, currently in beta testing. Setting any value will enable v2 array UDFs.
     try {
-      File result = apiInstance.submitUDF(namespace, array, udf, xPayer, acceptEncoding, v2);
+      File result = apiInstance.submitUDF(workspace, teamspace, array, udf, xPayer, acceptEncoding, v2);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling UdfApi#submitUDF");
@@ -714,7 +715,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| namespace array is in (an organization name or user&#39;s username) | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
 | **array** | **String**| name/uri of array that is url-encoded | |
 | **udf** | [**MultiArrayUDF**](MultiArrayUDF.md)| UDF to run | |
 | **xPayer** | **String**| Name of organization or user who should be charged for this request | [optional] |
@@ -741,9 +743,9 @@ public class Example {
 | **502** | Bad Gateway |  -  |
 | **0** | error response |  * X-TILEDB-CLOUD-TASK-ID - Task ID for just completed request <br>  |
 
-<a id="udfNamespaceArrayEndTimestampsGet"></a>
-# **udfNamespaceArrayEndTimestampsGet**
-> ArrayEndTimestampData udfNamespaceArrayEndTimestampsGet(namespace, array, page, perPage)
+<a id="udfWorkspaceArrayEndTimestampsGet"></a>
+# **udfWorkspaceArrayEndTimestampsGet**
+> ArrayEndTimestampData udfWorkspaceArrayEndTimestampsGet(workspace, array, page, perPage)
 
 
 
@@ -776,15 +778,15 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     UdfApi apiInstance = new UdfApi(defaultClient);
-    String namespace = "namespace_example"; // String | namespace array is in (an organization name or user's username)
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
     String array = "array_example"; // String | name/uri of array that is url-encoded
     Integer page = 56; // Integer | pagination offset
     Integer perPage = 56; // Integer | pagination limit
     try {
-      ArrayEndTimestampData result = apiInstance.udfNamespaceArrayEndTimestampsGet(namespace, array, page, perPage);
+      ArrayEndTimestampData result = apiInstance.udfWorkspaceArrayEndTimestampsGet(workspace, array, page, perPage);
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling UdfApi#udfNamespaceArrayEndTimestampsGet");
+      System.err.println("Exception when calling UdfApi#udfWorkspaceArrayEndTimestampsGet");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -798,7 +800,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| namespace array is in (an organization name or user&#39;s username) | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
 | **array** | **String**| name/uri of array that is url-encoded | |
 | **page** | **Integer**| pagination offset | [optional] |
 | **perPage** | **Integer**| pagination limit | [optional] |
@@ -825,7 +827,7 @@ public class Example {
 
 <a id="updateUDFInfo"></a>
 # **updateUDFInfo**
-> updateUDFInfo(namespace, name, udf)
+> updateUDFInfo(workspace, name, udf)
 
 
 
@@ -858,11 +860,11 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     UdfApi apiInstance = new UdfApi(defaultClient);
-    String namespace = "namespace_example"; // String | namespace array is in (an organization name or user's username)
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
     String name = "name_example"; // String | name to register UDF under
     UDFInfoUpdate udf = new UDFInfoUpdate(); // UDFInfoUpdate | UDF to update
     try {
-      apiInstance.updateUDFInfo(namespace, name, udf);
+      apiInstance.updateUDFInfo(workspace, name, udf);
     } catch (ApiException e) {
       System.err.println("Exception when calling UdfApi#updateUDFInfo");
       System.err.println("Status code: " + e.getCode());
@@ -878,7 +880,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| namespace array is in (an organization name or user&#39;s username) | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
 | **name** | **String**| name to register UDF under | |
 | **udf** | [**UDFInfoUpdate**](UDFInfoUpdate.md)| UDF to update | |
 

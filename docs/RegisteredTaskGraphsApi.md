@@ -4,17 +4,17 @@ All URIs are relative to */v1*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**deleteRegisteredTaskGraph**](RegisteredTaskGraphsApi.md#deleteRegisteredTaskGraph) | **DELETE** /taskgraphs/{namespace}/registered/{name} |  |
-| [**getRegisteredTaskGraph**](RegisteredTaskGraphsApi.md#getRegisteredTaskGraph) | **GET** /taskgraphs/{namespace}/registered/{name} |  |
-| [**getRegisteredTaskGraphSharingPolicies**](RegisteredTaskGraphsApi.md#getRegisteredTaskGraphSharingPolicies) | **GET** /taskgraphs/{namespace}/registered/{name}/share |  |
-| [**registerRegisteredTaskGraph**](RegisteredTaskGraphsApi.md#registerRegisteredTaskGraph) | **POST** /taskgraphs/{namespace}/registered/{name} |  |
-| [**shareRegisteredTaskGraph**](RegisteredTaskGraphsApi.md#shareRegisteredTaskGraph) | **PATCH** /taskgraphs/{namespace}/registered/{name}/share |  |
-| [**updateRegisteredTaskGraph**](RegisteredTaskGraphsApi.md#updateRegisteredTaskGraph) | **PATCH** /taskgraphs/{namespace}/registered/{name} |  |
+| [**deleteRegisteredTaskGraph**](RegisteredTaskGraphsApi.md#deleteRegisteredTaskGraph) | **DELETE** /taskgraphs/{workspace}/registered/{name} |  |
+| [**getRegisteredTaskGraph**](RegisteredTaskGraphsApi.md#getRegisteredTaskGraph) | **GET** /taskgraphs/{workspace}/registered/{name} |  |
+| [**getRegisteredTaskGraphSharingPolicies**](RegisteredTaskGraphsApi.md#getRegisteredTaskGraphSharingPolicies) | **GET** /taskgraphs/{workspace}/registered/{name}/share |  |
+| [**registerRegisteredTaskGraph**](RegisteredTaskGraphsApi.md#registerRegisteredTaskGraph) | **POST** /taskgraphs/{workspace}/registered/{name} |  |
+| [**shareRegisteredTaskGraph**](RegisteredTaskGraphsApi.md#shareRegisteredTaskGraph) | **PATCH** /taskgraphs/{workspace}/registered/{name}/share |  |
+| [**updateRegisteredTaskGraph**](RegisteredTaskGraphsApi.md#updateRegisteredTaskGraph) | **PATCH** /taskgraphs/{workspace}/registered/{name} |  |
 
 
 <a id="deleteRegisteredTaskGraph"></a>
 # **deleteRegisteredTaskGraph**
-> deleteRegisteredTaskGraph(namespace, name)
+> deleteRegisteredTaskGraph(workspace, name)
 
 
 
@@ -47,10 +47,10 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     RegisteredTaskGraphsApi apiInstance = new RegisteredTaskGraphsApi(defaultClient);
-    String namespace = "namespace_example"; // String | The namespace that owns this registered UDF.
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
     String name = "name_example"; // String | The name of the registered task graph.
     try {
-      apiInstance.deleteRegisteredTaskGraph(namespace, name);
+      apiInstance.deleteRegisteredTaskGraph(workspace, name);
     } catch (ApiException e) {
       System.err.println("Exception when calling RegisteredTaskGraphsApi#deleteRegisteredTaskGraph");
       System.err.println("Status code: " + e.getCode());
@@ -66,7 +66,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| The namespace that owns this registered UDF. | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
 | **name** | **String**| The name of the registered task graph. | |
 
 ### Return type
@@ -91,7 +91,7 @@ null (empty response body)
 
 <a id="getRegisteredTaskGraph"></a>
 # **getRegisteredTaskGraph**
-> RegisteredTaskGraph getRegisteredTaskGraph(namespace, name)
+> RegisteredTaskGraph getRegisteredTaskGraph(workspace, name)
 
 
 
@@ -124,10 +124,10 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     RegisteredTaskGraphsApi apiInstance = new RegisteredTaskGraphsApi(defaultClient);
-    String namespace = "namespace_example"; // String | The namespace that owns this registered UDF.
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
     String name = "name_example"; // String | The name of the registered task graph.
     try {
-      RegisteredTaskGraph result = apiInstance.getRegisteredTaskGraph(namespace, name);
+      RegisteredTaskGraph result = apiInstance.getRegisteredTaskGraph(workspace, name);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling RegisteredTaskGraphsApi#getRegisteredTaskGraph");
@@ -144,7 +144,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| The namespace that owns this registered UDF. | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
 | **name** | **String**| The name of the registered task graph. | |
 
 ### Return type
@@ -169,7 +169,7 @@ public class Example {
 
 <a id="getRegisteredTaskGraphSharingPolicies"></a>
 # **getRegisteredTaskGraphSharingPolicies**
-> List&lt;TaskGraphSharing&gt; getRegisteredTaskGraphSharingPolicies(namespace, name)
+> List&lt;TaskGraphSharing&gt; getRegisteredTaskGraphSharingPolicies(workspace, name)
 
 
 
@@ -202,10 +202,10 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     RegisteredTaskGraphsApi apiInstance = new RegisteredTaskGraphsApi(defaultClient);
-    String namespace = "namespace_example"; // String | The namespace that owns the registered task graph.
+    String workspace = "workspace_example"; // String | The workspace that owns the registered task graph.
     String name = "name_example"; // String | The name of the task graph.
     try {
-      List<TaskGraphSharing> result = apiInstance.getRegisteredTaskGraphSharingPolicies(namespace, name);
+      List<TaskGraphSharing> result = apiInstance.getRegisteredTaskGraphSharingPolicies(workspace, name);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling RegisteredTaskGraphsApi#getRegisteredTaskGraphSharingPolicies");
@@ -222,7 +222,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| The namespace that owns the registered task graph. | |
+| **workspace** | **String**| The workspace that owns the registered task graph. | |
 | **name** | **String**| The name of the task graph. | |
 
 ### Return type
@@ -248,7 +248,7 @@ public class Example {
 
 <a id="registerRegisteredTaskGraph"></a>
 # **registerRegisteredTaskGraph**
-> registerRegisteredTaskGraph(namespace, name, graph)
+> registerRegisteredTaskGraph(workspace, name, graph)
 
 
 
@@ -281,11 +281,11 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     RegisteredTaskGraphsApi apiInstance = new RegisteredTaskGraphsApi(defaultClient);
-    String namespace = "namespace_example"; // String | The namespace that owns this registered UDF.
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
     String name = "name_example"; // String | The name of the registered task graph.
     RegisteredTaskGraph graph = new RegisteredTaskGraph(); // RegisteredTaskGraph | Task graph to register.
     try {
-      apiInstance.registerRegisteredTaskGraph(namespace, name, graph);
+      apiInstance.registerRegisteredTaskGraph(workspace, name, graph);
     } catch (ApiException e) {
       System.err.println("Exception when calling RegisteredTaskGraphsApi#registerRegisteredTaskGraph");
       System.err.println("Status code: " + e.getCode());
@@ -301,7 +301,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| The namespace that owns this registered UDF. | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
 | **name** | **String**| The name of the registered task graph. | |
 | **graph** | [**RegisteredTaskGraph**](RegisteredTaskGraph.md)| Task graph to register. | [optional] |
 
@@ -327,7 +327,7 @@ null (empty response body)
 
 <a id="shareRegisteredTaskGraph"></a>
 # **shareRegisteredTaskGraph**
-> shareRegisteredTaskGraph(namespace, name, taskGraphSharing)
+> shareRegisteredTaskGraph(workspace, name, taskGraphSharing)
 
 
 
@@ -360,11 +360,11 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     RegisteredTaskGraphsApi apiInstance = new RegisteredTaskGraphsApi(defaultClient);
-    String namespace = "namespace_example"; // String | The namespace that owns the registered task graph.
+    String workspace = "workspace_example"; // String | The workspace that owns the registered task graph.
     String name = "name_example"; // String | The name of the task graph.
     TaskGraphSharing taskGraphSharing = new TaskGraphSharing(); // TaskGraphSharing | Namespace and list of permissions to share with. An empty list of permissions will remove the namespace; if permissions already exist they will be deleted then new ones added. In the event of a failure, the new policies will be rolled back to prevent partial policies, and it's likely the UDF will not be shared with the namespace at all. 
     try {
-      apiInstance.shareRegisteredTaskGraph(namespace, name, taskGraphSharing);
+      apiInstance.shareRegisteredTaskGraph(workspace, name, taskGraphSharing);
     } catch (ApiException e) {
       System.err.println("Exception when calling RegisteredTaskGraphsApi#shareRegisteredTaskGraph");
       System.err.println("Status code: " + e.getCode());
@@ -380,7 +380,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| The namespace that owns the registered task graph. | |
+| **workspace** | **String**| The workspace that owns the registered task graph. | |
 | **name** | **String**| The name of the task graph. | |
 | **taskGraphSharing** | [**TaskGraphSharing**](TaskGraphSharing.md)| Namespace and list of permissions to share with. An empty list of permissions will remove the namespace; if permissions already exist they will be deleted then new ones added. In the event of a failure, the new policies will be rolled back to prevent partial policies, and it&#39;s likely the UDF will not be shared with the namespace at all.  | |
 
@@ -407,7 +407,7 @@ null (empty response body)
 
 <a id="updateRegisteredTaskGraph"></a>
 # **updateRegisteredTaskGraph**
-> updateRegisteredTaskGraph(namespace, name, graph)
+> updateRegisteredTaskGraph(workspace, name, graph)
 
 
 
@@ -440,11 +440,11 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     RegisteredTaskGraphsApi apiInstance = new RegisteredTaskGraphsApi(defaultClient);
-    String namespace = "namespace_example"; // String | The namespace that owns this registered UDF.
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
     String name = "name_example"; // String | The name of the registered task graph.
     RegisteredTaskGraph graph = new RegisteredTaskGraph(); // RegisteredTaskGraph | The new contents of the task graph.
     try {
-      apiInstance.updateRegisteredTaskGraph(namespace, name, graph);
+      apiInstance.updateRegisteredTaskGraph(workspace, name, graph);
     } catch (ApiException e) {
       System.err.println("Exception when calling RegisteredTaskGraphsApi#updateRegisteredTaskGraph");
       System.err.println("Status code: " + e.getCode());
@@ -460,7 +460,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| The namespace that owns this registered UDF. | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
 | **name** | **String**| The name of the registered task graph. | |
 | **graph** | [**RegisteredTaskGraph**](RegisteredTaskGraph.md)| The new contents of the task graph. | [optional] |
 

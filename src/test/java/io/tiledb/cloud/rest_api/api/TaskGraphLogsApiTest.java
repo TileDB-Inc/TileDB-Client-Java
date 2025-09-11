@@ -42,9 +42,9 @@ public class TaskGraphLogsApiTest {
      */
     @Test
     public void createTaskGraphLogTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
         TaskGraphLog log = null;
-        TaskGraphLog response = api.createTaskGraphLog(namespace, log);
+        TaskGraphLog response = api.createTaskGraphLog(workspace, log);
         // TODO: test validations
     }
 
@@ -55,9 +55,9 @@ public class TaskGraphLogsApiTest {
      */
     @Test
     public void getTaskGraphLogTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
         String id = null;
-        TaskGraphLog response = api.getTaskGraphLog(namespace, id);
+        TaskGraphLog response = api.getTaskGraphLog(workspace, id);
         // TODO: test validations
     }
 
@@ -85,10 +85,10 @@ public class TaskGraphLogsApiTest {
      */
     @Test
     public void reportClientNodeTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
         String id = null;
         TaskGraphClientNodeStatus report = null;
-        api.reportClientNode(namespace, id, report);
+        api.reportClientNode(workspace, id, report);
         // TODO: test validations
     }
 
@@ -99,9 +99,9 @@ public class TaskGraphLogsApiTest {
      */
     @Test
     public void resubmitTaskGraphExecutionTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
         String id = null;
-        TaskGraphLog response = api.resubmitTaskGraphExecution(namespace, id);
+        TaskGraphLog response = api.resubmitTaskGraphExecution(workspace, id);
         // TODO: test validations
     }
 
@@ -112,9 +112,9 @@ public class TaskGraphLogsApiTest {
      */
     @Test
     public void retryTaskGraphExecutionTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
         String id = null;
-        TaskGraphLog response = api.retryTaskGraphExecution(namespace, id);
+        TaskGraphLog response = api.retryTaskGraphExecution(workspace, id);
         // TODO: test validations
     }
 
@@ -125,9 +125,9 @@ public class TaskGraphLogsApiTest {
      */
     @Test
     public void stopTaskGraphExecutionTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
         String id = null;
-        api.stopTaskGraphExecution(namespace, id);
+        api.stopTaskGraphExecution(workspace, id);
         // TODO: test validations
     }
 
@@ -138,9 +138,10 @@ public class TaskGraphLogsApiTest {
      */
     @Test
     public void submitTaskGraphTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
         String id = null;
-        TaskGraphLog response = api.submitTaskGraph(namespace, id);
+        String rootTaskGraphUuid = null;
+        TaskGraphLog response = api.submitTaskGraph(workspace, id, rootTaskGraphUuid);
         // TODO: test validations
     }
 
@@ -151,10 +152,10 @@ public class TaskGraphLogsApiTest {
      */
     @Test
     public void updateTaskGraphLogTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
         String id = null;
         TaskGraphLog log = null;
-        api.updateTaskGraphLog(namespace, id, log);
+        api.updateTaskGraphLog(workspace, id, log);
         // TODO: test validations
     }
 

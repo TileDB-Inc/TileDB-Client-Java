@@ -33,9 +33,7 @@ public enum UDFType {
   
   SINGLE_ARRAY("single_array"),
   
-  GENERIC("generic"),
-
-  BASH("bash");
+  GENERIC("generic");
 
   private String value;
 

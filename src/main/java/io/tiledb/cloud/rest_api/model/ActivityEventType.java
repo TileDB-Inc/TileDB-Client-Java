@@ -59,7 +59,9 @@ public enum ActivityEventType {
   
   READ_FRAGMENT_INFO("read_fragment_info"),
   
-  READ_ENUMERATIONS("read_enumerations");
+  READ_ENUMERATIONS("read_enumerations"),
+  
+  NEXTFLOW("nextflow");
 
   private String value;
 

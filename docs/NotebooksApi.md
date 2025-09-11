@@ -4,13 +4,13 @@ All URIs are relative to */v1*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**notebooksNamespaceArrayEndTimestampsGet**](NotebooksApi.md#notebooksNamespaceArrayEndTimestampsGet) | **GET** /notebooks/{namespace}/{array}/end_timestamps |  |
-| [**notebooksNamespaceArrayPrunePost**](NotebooksApi.md#notebooksNamespaceArrayPrunePost) | **POST** /notebooks/{namespace}/{array}/prune |  |
+| [**notebooksWorkspaceTeamspaceArrayEndTimestampsGet**](NotebooksApi.md#notebooksWorkspaceTeamspaceArrayEndTimestampsGet) | **GET** /notebooks/{workspace}/{teamspace}/{array}/end_timestamps |  |
+| [**notebooksWorkspaceTeamspaceArrayPrunePost**](NotebooksApi.md#notebooksWorkspaceTeamspaceArrayPrunePost) | **POST** /notebooks/{workspace}/{teamspace}/{array}/prune |  |
 
 
-<a id="notebooksNamespaceArrayEndTimestampsGet"></a>
-# **notebooksNamespaceArrayEndTimestampsGet**
-> ArrayEndTimestampData notebooksNamespaceArrayEndTimestampsGet(namespace, array, page, perPage)
+<a id="notebooksWorkspaceTeamspaceArrayEndTimestampsGet"></a>
+# **notebooksWorkspaceTeamspaceArrayEndTimestampsGet**
+> ArrayEndTimestampData notebooksWorkspaceTeamspaceArrayEndTimestampsGet(workspace, teamspace, array, page, perPage)
 
 
 
@@ -43,15 +43,16 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     NotebooksApi apiInstance = new NotebooksApi(defaultClient);
-    String namespace = "namespace_example"; // String | namespace array is in (an organization name or user's username)
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
     String array = "array_example"; // String | name/uri of array that is url-encoded
     Integer page = 56; // Integer | pagination offset
     Integer perPage = 56; // Integer | pagination limit
     try {
-      ArrayEndTimestampData result = apiInstance.notebooksNamespaceArrayEndTimestampsGet(namespace, array, page, perPage);
+      ArrayEndTimestampData result = apiInstance.notebooksWorkspaceTeamspaceArrayEndTimestampsGet(workspace, teamspace, array, page, perPage);
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling NotebooksApi#notebooksNamespaceArrayEndTimestampsGet");
+      System.err.println("Exception when calling NotebooksApi#notebooksWorkspaceTeamspaceArrayEndTimestampsGet");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -65,7 +66,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| namespace array is in (an organization name or user&#39;s username) | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
 | **array** | **String**| name/uri of array that is url-encoded | |
 | **page** | **Integer**| pagination offset | [optional] |
 | **perPage** | **Integer**| pagination limit | [optional] |
@@ -90,9 +92,9 @@ public class Example {
 | **502** | Bad Gateway |  -  |
 | **0** | error response |  -  |
 
-<a id="notebooksNamespaceArrayPrunePost"></a>
-# **notebooksNamespaceArrayPrunePost**
-> notebooksNamespaceArrayPrunePost(namespace, array, keepVersions)
+<a id="notebooksWorkspaceTeamspaceArrayPrunePost"></a>
+# **notebooksWorkspaceTeamspaceArrayPrunePost**
+> notebooksWorkspaceTeamspaceArrayPrunePost(workspace, teamspace, array, keepVersions)
 
 
 
@@ -125,13 +127,14 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     NotebooksApi apiInstance = new NotebooksApi(defaultClient);
-    String namespace = "namespace_example"; // String | namespace array is in (an organization name or user's username)
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
     String array = "array_example"; // String | name/uri of array that is url-encoded
     Integer keepVersions = 56; // Integer | The number of most recents fragment to preserve
     try {
-      apiInstance.notebooksNamespaceArrayPrunePost(namespace, array, keepVersions);
+      apiInstance.notebooksWorkspaceTeamspaceArrayPrunePost(workspace, teamspace, array, keepVersions);
     } catch (ApiException e) {
-      System.err.println("Exception when calling NotebooksApi#notebooksNamespaceArrayPrunePost");
+      System.err.println("Exception when calling NotebooksApi#notebooksWorkspaceTeamspaceArrayPrunePost");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -145,7 +148,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| namespace array is in (an organization name or user&#39;s username) | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
 | **array** | **String**| name/uri of array that is url-encoded | |
 | **keepVersions** | **Integer**| The number of most recents fragment to preserve | [optional] |
 

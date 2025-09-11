@@ -46,9 +46,10 @@ public class FavoritesApiTest {
      */
     @Test
     public void addArrayFavoriteTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
+        String teamspace = null;
         String name = null;
-        api.addArrayFavorite(namespace, name);
+        api.addArrayFavorite(workspace, teamspace, name);
         // TODO: test validations
     }
 
@@ -59,9 +60,10 @@ public class FavoritesApiTest {
      */
     @Test
     public void addMLModelFavoriteTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
+        String teamspace = null;
         String name = null;
-        api.addMLModelFavorite(namespace, name);
+        api.addMLModelFavorite(workspace, teamspace, name);
         // TODO: test validations
     }
 
@@ -72,9 +74,10 @@ public class FavoritesApiTest {
      */
     @Test
     public void addNotebookFavoriteTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
+        String teamspace = null;
         String name = null;
-        api.addNotebookFavorite(namespace, name);
+        api.addNotebookFavorite(workspace, teamspace, name);
         // TODO: test validations
     }
 
@@ -85,9 +88,9 @@ public class FavoritesApiTest {
      */
     @Test
     public void addUDFFavoriteTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
         String name = null;
-        api.addUDFFavorite(namespace, name);
+        api.addUDFFavorite(workspace, name);
         // TODO: test validations
     }
 
@@ -98,9 +101,10 @@ public class FavoritesApiTest {
      */
     @Test
     public void deleteArrayFavoriteTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
+        String teamspace = null;
         String name = null;
-        api.deleteArrayFavorite(namespace, name);
+        api.deleteArrayFavorite(workspace, teamspace, name);
         // TODO: test validations
     }
 
@@ -111,9 +115,10 @@ public class FavoritesApiTest {
      */
     @Test
     public void deleteMLModelFavoriteTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
+        String teamspace = null;
         String name = null;
-        api.deleteMLModelFavorite(namespace, name);
+        api.deleteMLModelFavorite(workspace, teamspace, name);
         // TODO: test validations
     }
 
@@ -124,9 +129,10 @@ public class FavoritesApiTest {
      */
     @Test
     public void deleteNotebookFavoriteTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
+        String teamspace = null;
         String name = null;
-        api.deleteNotebookFavorite(namespace, name);
+        api.deleteNotebookFavorite(workspace, teamspace, name);
         // TODO: test validations
     }
 
@@ -137,9 +143,9 @@ public class FavoritesApiTest {
      */
     @Test
     public void deleteUDFFavoriteTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
         String name = null;
-        api.deleteUDFFavorite(namespace, name);
+        api.deleteUDFFavorite(workspace, name);
         // TODO: test validations
     }
 
@@ -150,9 +156,10 @@ public class FavoritesApiTest {
      */
     @Test
     public void getArrayFavoriteTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
+        String teamspace = null;
         String name = null;
-        ArrayFavorite response = api.getArrayFavorite(namespace, name);
+        ArrayFavorite response = api.getArrayFavorite(workspace, teamspace, name);
         // TODO: test validations
     }
 
@@ -163,9 +170,10 @@ public class FavoritesApiTest {
      */
     @Test
     public void getMLModelFavoriteTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
+        String teamspace = null;
         String name = null;
-        MLModelFavorite response = api.getMLModelFavorite(namespace, name);
+        MLModelFavorite response = api.getMLModelFavorite(workspace, teamspace, name);
         // TODO: test validations
     }
 
@@ -176,9 +184,10 @@ public class FavoritesApiTest {
      */
     @Test
     public void getNotebookFavoriteTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
+        String teamspace = null;
         String name = null;
-        NotebookFavorite response = api.getNotebookFavorite(namespace, name);
+        NotebookFavorite response = api.getNotebookFavorite(workspace, teamspace, name);
         // TODO: test validations
     }
 
@@ -189,9 +198,9 @@ public class FavoritesApiTest {
      */
     @Test
     public void getUDFFavoriteTest() throws ApiException {
-        String namespace = null;
+        String workspace = null;
         String name = null;
-        UDFFavorite response = api.getUDFFavorite(namespace, name);
+        UDFFavorite response = api.getUDFFavorite(workspace, name);
         // TODO: test validations
     }
 

@@ -28,6 +28,7 @@ import java.io.IOException;
 
 
 import io.tiledb.cloud.rest_api.model.AssetListResponse;
+import io.tiledb.cloud.rest_api.model.ChangeAssetCredentialsRequest;
 import io.tiledb.cloud.rest_api.model.Error;
 
 import java.lang.reflect.Type;
@@ -74,8 +75,156 @@ public class AssetsApi {
     }
 
     /**
+     * Build call for changeAssetCredentials
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the array belongs to (required)
+     * @param changeCredentialsRequest aws access credentials to store for a namespace (required)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 204 </td><td> Credentials changed successfully </td><td>  -  </td></tr>
+        <tr><td> 502 </td><td> Bad Gateway </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call changeAssetCredentialsCall(String workspace, String teamspace, ChangeAssetCredentialsRequest changeCredentialsRequest, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = changeCredentialsRequest;
+
+        // create path and map variables
+        String localVarPath = "/assets/{workspace}/{teamspace}/change_credentials"
+            .replace("{" + "workspace" + "}", localVarApiClient.escapeString(workspace.toString()))
+            .replace("{" + "teamspace" + "}", localVarApiClient.escapeString(teamspace.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "BasicAuth", "ApiKeyAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call changeAssetCredentialsValidateBeforeCall(String workspace, String teamspace, ChangeAssetCredentialsRequest changeCredentialsRequest, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'workspace' is set
+        if (workspace == null) {
+            throw new ApiException("Missing the required parameter 'workspace' when calling changeAssetCredentials(Async)");
+        }
+
+        // verify the required parameter 'teamspace' is set
+        if (teamspace == null) {
+            throw new ApiException("Missing the required parameter 'teamspace' when calling changeAssetCredentials(Async)");
+        }
+
+        // verify the required parameter 'changeCredentialsRequest' is set
+        if (changeCredentialsRequest == null) {
+            throw new ApiException("Missing the required parameter 'changeCredentialsRequest' when calling changeAssetCredentials(Async)");
+        }
+
+        return changeAssetCredentialsCall(workspace, teamspace, changeCredentialsRequest, _callback);
+
+    }
+
+    /**
+     * 
+     * Changes the access credentials to the given assets
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the array belongs to (required)
+     * @param changeCredentialsRequest aws access credentials to store for a namespace (required)
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 204 </td><td> Credentials changed successfully </td><td>  -  </td></tr>
+        <tr><td> 502 </td><td> Bad Gateway </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
+     </table>
+     */
+    public void changeAssetCredentials(String workspace, String teamspace, ChangeAssetCredentialsRequest changeCredentialsRequest) throws ApiException {
+        changeAssetCredentialsWithHttpInfo(workspace, teamspace, changeCredentialsRequest);
+    }
+
+    /**
+     * 
+     * Changes the access credentials to the given assets
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the array belongs to (required)
+     * @param changeCredentialsRequest aws access credentials to store for a namespace (required)
+     * @return ApiResponse&lt;Void&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 204 </td><td> Credentials changed successfully </td><td>  -  </td></tr>
+        <tr><td> 502 </td><td> Bad Gateway </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<Void> changeAssetCredentialsWithHttpInfo(String workspace, String teamspace, ChangeAssetCredentialsRequest changeCredentialsRequest) throws ApiException {
+        okhttp3.Call localVarCall = changeAssetCredentialsValidateBeforeCall(workspace, teamspace, changeCredentialsRequest, null);
+        return localVarApiClient.execute(localVarCall);
+    }
+
+    /**
+     *  (asynchronously)
+     * Changes the access credentials to the given assets
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the array belongs to (required)
+     * @param changeCredentialsRequest aws access credentials to store for a namespace (required)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 204 </td><td> Credentials changed successfully </td><td>  -  </td></tr>
+        <tr><td> 502 </td><td> Bad Gateway </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call changeAssetCredentialsAsync(String workspace, String teamspace, ChangeAssetCredentialsRequest changeCredentialsRequest, final ApiCallback<Void> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = changeAssetCredentialsValidateBeforeCall(workspace, teamspace, changeCredentialsRequest, _callback);
+        localVarApiClient.executeAsync(localVarCall, _callback);
+        return localVarCall;
+    }
+    /**
      * Build call for listAssets
-     * @param namespace namespace (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the array belongs to (required)
      * @param assetType asset_type to filter to (optional)
      * @param ownershipLevel ownership_level to filter to (owned, shared) (optional)
      * @param depth depth of assets to be returned (optional)
@@ -95,7 +244,7 @@ public class AssetsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call listAssetsCall(String namespace, String assetType, String ownershipLevel, String depth, String search, Integer page, Integer perPage, String orderBy, String expand, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call listAssetsCall(String workspace, String teamspace, String assetType, String ownershipLevel, String depth, String search, Integer page, Integer perPage, String orderBy, String expand, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -112,8 +261,9 @@ public class AssetsApi {
         Object localVarPostBody = null;
 
         // create path and map variables
-        String localVarPath = "/assets/{namespace}"
-            .replace("{" + "namespace" + "}", localVarApiClient.escapeString(namespace.toString()));
+        String localVarPath = "/assets/{workspace}/{teamspace}"
+            .replace("{" + "workspace" + "}", localVarApiClient.escapeString(workspace.toString()))
+            .replace("{" + "teamspace" + "}", localVarApiClient.escapeString(teamspace.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -173,20 +323,26 @@ public class AssetsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call listAssetsValidateBeforeCall(String namespace, String assetType, String ownershipLevel, String depth, String search, Integer page, Integer perPage, String orderBy, String expand, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'namespace' is set
-        if (namespace == null) {
-            throw new ApiException("Missing the required parameter 'namespace' when calling listAssets(Async)");
+    private okhttp3.Call listAssetsValidateBeforeCall(String workspace, String teamspace, String assetType, String ownershipLevel, String depth, String search, Integer page, Integer perPage, String orderBy, String expand, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'workspace' is set
+        if (workspace == null) {
+            throw new ApiException("Missing the required parameter 'workspace' when calling listAssets(Async)");
         }
 
-        return listAssetsCall(namespace, assetType, ownershipLevel, depth, search, page, perPage, orderBy, expand, _callback);
+        // verify the required parameter 'teamspace' is set
+        if (teamspace == null) {
+            throw new ApiException("Missing the required parameter 'teamspace' when calling listAssets(Async)");
+        }
+
+        return listAssetsCall(workspace, teamspace, assetType, ownershipLevel, depth, search, page, perPage, orderBy, expand, _callback);
 
     }
 
     /**
      * 
      * List assets in a namespace
-     * @param namespace namespace (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the array belongs to (required)
      * @param assetType asset_type to filter to (optional)
      * @param ownershipLevel ownership_level to filter to (owned, shared) (optional)
      * @param depth depth of assets to be returned (optional)
@@ -205,15 +361,16 @@ public class AssetsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public AssetListResponse listAssets(String namespace, String assetType, String ownershipLevel, String depth, String search, Integer page, Integer perPage, String orderBy, String expand) throws ApiException {
-        ApiResponse<AssetListResponse> localVarResp = listAssetsWithHttpInfo(namespace, assetType, ownershipLevel, depth, search, page, perPage, orderBy, expand);
+    public AssetListResponse listAssets(String workspace, String teamspace, String assetType, String ownershipLevel, String depth, String search, Integer page, Integer perPage, String orderBy, String expand) throws ApiException {
+        ApiResponse<AssetListResponse> localVarResp = listAssetsWithHttpInfo(workspace, teamspace, assetType, ownershipLevel, depth, search, page, perPage, orderBy, expand);
         return localVarResp.getData();
     }
 
     /**
      * 
      * List assets in a namespace
-     * @param namespace namespace (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the array belongs to (required)
      * @param assetType asset_type to filter to (optional)
      * @param ownershipLevel ownership_level to filter to (owned, shared) (optional)
      * @param depth depth of assets to be returned (optional)
@@ -232,8 +389,8 @@ public class AssetsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<AssetListResponse> listAssetsWithHttpInfo(String namespace, String assetType, String ownershipLevel, String depth, String search, Integer page, Integer perPage, String orderBy, String expand) throws ApiException {
-        okhttp3.Call localVarCall = listAssetsValidateBeforeCall(namespace, assetType, ownershipLevel, depth, search, page, perPage, orderBy, expand, null);
+    public ApiResponse<AssetListResponse> listAssetsWithHttpInfo(String workspace, String teamspace, String assetType, String ownershipLevel, String depth, String search, Integer page, Integer perPage, String orderBy, String expand) throws ApiException {
+        okhttp3.Call localVarCall = listAssetsValidateBeforeCall(workspace, teamspace, assetType, ownershipLevel, depth, search, page, perPage, orderBy, expand, null);
         Type localVarReturnType = new TypeToken<AssetListResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
@@ -241,7 +398,8 @@ public class AssetsApi {
     /**
      *  (asynchronously)
      * List assets in a namespace
-     * @param namespace namespace (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the array belongs to (required)
      * @param assetType asset_type to filter to (optional)
      * @param ownershipLevel ownership_level to filter to (owned, shared) (optional)
      * @param depth depth of assets to be returned (optional)
@@ -261,9 +419,9 @@ public class AssetsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call listAssetsAsync(String namespace, String assetType, String ownershipLevel, String depth, String search, Integer page, Integer perPage, String orderBy, String expand, final ApiCallback<AssetListResponse> _callback) throws ApiException {
+    public okhttp3.Call listAssetsAsync(String workspace, String teamspace, String assetType, String ownershipLevel, String depth, String search, Integer page, Integer perPage, String orderBy, String expand, final ApiCallback<AssetListResponse> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = listAssetsValidateBeforeCall(namespace, assetType, ownershipLevel, depth, search, page, perPage, orderBy, expand, _callback);
+        okhttp3.Call localVarCall = listAssetsValidateBeforeCall(workspace, teamspace, assetType, ownershipLevel, depth, search, page, perPage, orderBy, expand, _callback);
         Type localVarReturnType = new TypeToken<AssetListResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;

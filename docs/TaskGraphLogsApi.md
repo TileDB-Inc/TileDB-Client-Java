@@ -4,20 +4,20 @@ All URIs are relative to */v1*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**createTaskGraphLog**](TaskGraphLogsApi.md#createTaskGraphLog) | **POST** /taskgraphs/{namespace}/log |  |
-| [**getTaskGraphLog**](TaskGraphLogsApi.md#getTaskGraphLog) | **GET** /taskgraphs/{namespace}/logs/{id} |  |
+| [**createTaskGraphLog**](TaskGraphLogsApi.md#createTaskGraphLog) | **POST** /taskgraphs/{workspace}/log |  |
+| [**getTaskGraphLog**](TaskGraphLogsApi.md#getTaskGraphLog) | **GET** /taskgraphs/{workspace}/logs/{id} |  |
 | [**listTaskGraphLogs**](TaskGraphLogsApi.md#listTaskGraphLogs) | **GET** /taskgraphs/logs |  |
-| [**reportClientNode**](TaskGraphLogsApi.md#reportClientNode) | **POST** /taskgraphs/{namespace}/logs/{id}/report_client_node |  |
-| [**resubmitTaskGraphExecution**](TaskGraphLogsApi.md#resubmitTaskGraphExecution) | **POST** /taskgraphs/{namespace}/executions/{id}/resubmit |  |
-| [**retryTaskGraphExecution**](TaskGraphLogsApi.md#retryTaskGraphExecution) | **POST** /taskgraphs/{namespace}/executions/{id}/retry |  |
-| [**stopTaskGraphExecution**](TaskGraphLogsApi.md#stopTaskGraphExecution) | **POST** /taskgraphs/{namespace}/executions/{id}/stop |  |
-| [**submitTaskGraph**](TaskGraphLogsApi.md#submitTaskGraph) | **POST** /taskgraphs/{namespace}/graphs/{id}/submit |  |
-| [**updateTaskGraphLog**](TaskGraphLogsApi.md#updateTaskGraphLog) | **PATCH** /taskgraphs/{namespace}/logs/{id} |  |
+| [**reportClientNode**](TaskGraphLogsApi.md#reportClientNode) | **POST** /taskgraphs/{workspace}/logs/{id}/report_client_node |  |
+| [**resubmitTaskGraphExecution**](TaskGraphLogsApi.md#resubmitTaskGraphExecution) | **POST** /taskgraphs/{workspace}/executions/{id}/resubmit |  |
+| [**retryTaskGraphExecution**](TaskGraphLogsApi.md#retryTaskGraphExecution) | **POST** /taskgraphs/{workspace}/executions/{id}/retry |  |
+| [**stopTaskGraphExecution**](TaskGraphLogsApi.md#stopTaskGraphExecution) | **POST** /taskgraphs/{workspace}/executions/{id}/stop |  |
+| [**submitTaskGraph**](TaskGraphLogsApi.md#submitTaskGraph) | **POST** /taskgraphs/{workspace}/graphs/{id}/submit |  |
+| [**updateTaskGraphLog**](TaskGraphLogsApi.md#updateTaskGraphLog) | **PATCH** /taskgraphs/{workspace}/logs/{id} |  |
 
 
 <a id="createTaskGraphLog"></a>
 # **createTaskGraphLog**
-> TaskGraphLog createTaskGraphLog(namespace, log)
+> TaskGraphLog createTaskGraphLog(workspace, log)
 
 
 
@@ -50,10 +50,10 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     TaskGraphLogsApi apiInstance = new TaskGraphLogsApi(defaultClient);
-    String namespace = "namespace_example"; // String | The namespace that will own this task graph log.
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
     TaskGraphLog log = new TaskGraphLog(); // TaskGraphLog | 
     try {
-      TaskGraphLog result = apiInstance.createTaskGraphLog(namespace, log);
+      TaskGraphLog result = apiInstance.createTaskGraphLog(workspace, log);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling TaskGraphLogsApi#createTaskGraphLog");
@@ -70,7 +70,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| The namespace that will own this task graph log. | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
 | **log** | [**TaskGraphLog**](TaskGraphLog.md)|  | |
 
 ### Return type
@@ -95,7 +95,7 @@ public class Example {
 
 <a id="getTaskGraphLog"></a>
 # **getTaskGraphLog**
-> TaskGraphLog getTaskGraphLog(namespace, id)
+> TaskGraphLog getTaskGraphLog(workspace, id)
 
 
 
@@ -128,10 +128,10 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     TaskGraphLogsApi apiInstance = new TaskGraphLogsApi(defaultClient);
-    String namespace = "namespace_example"; // String | The namespace that owns this task graph log.
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
     String id = "id_example"; // String | The UUID of the task graph log entry.
     try {
-      TaskGraphLog result = apiInstance.getTaskGraphLog(namespace, id);
+      TaskGraphLog result = apiInstance.getTaskGraphLog(workspace, id);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling TaskGraphLogsApi#getTaskGraphLog");
@@ -148,7 +148,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| The namespace that owns this task graph log. | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
 | **id** | **String**| The UUID of the task graph log entry. | |
 
 ### Return type
@@ -263,7 +263,7 @@ public class Example {
 
 <a id="reportClientNode"></a>
 # **reportClientNode**
-> reportClientNode(namespace, id, report)
+> reportClientNode(workspace, id, report)
 
 
 
@@ -294,11 +294,11 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     TaskGraphLogsApi apiInstance = new TaskGraphLogsApi(defaultClient);
-    String namespace = "namespace_example"; // String | The namespace that owns this task graph log.
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
     String id = "id_example"; // String | The UUID of the task graph log entry.
     TaskGraphClientNodeStatus report = new TaskGraphClientNodeStatus(); // TaskGraphClientNodeStatus | The node status to report.
     try {
-      apiInstance.reportClientNode(namespace, id, report);
+      apiInstance.reportClientNode(workspace, id, report);
     } catch (ApiException e) {
       System.err.println("Exception when calling TaskGraphLogsApi#reportClientNode");
       System.err.println("Status code: " + e.getCode());
@@ -314,7 +314,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| The namespace that owns this task graph log. | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
 | **id** | **String**| The UUID of the task graph log entry. | |
 | **report** | [**TaskGraphClientNodeStatus**](TaskGraphClientNodeStatus.md)| The node status to report. | |
 
@@ -340,7 +340,7 @@ null (empty response body)
 
 <a id="resubmitTaskGraphExecution"></a>
 # **resubmitTaskGraphExecution**
-> TaskGraphLog resubmitTaskGraphExecution(namespace, id)
+> TaskGraphLog resubmitTaskGraphExecution(workspace, id)
 
 
 
@@ -373,10 +373,10 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     TaskGraphLogsApi apiInstance = new TaskGraphLogsApi(defaultClient);
-    String namespace = "namespace_example"; // String | The namespace that owns this task graph execution.
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
     String id = "id_example"; // String | The UUID of the task graph execution (TaskGraphLog).
     try {
-      TaskGraphLog result = apiInstance.resubmitTaskGraphExecution(namespace, id);
+      TaskGraphLog result = apiInstance.resubmitTaskGraphExecution(workspace, id);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling TaskGraphLogsApi#resubmitTaskGraphExecution");
@@ -393,7 +393,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| The namespace that owns this task graph execution. | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
 | **id** | **String**| The UUID of the task graph execution (TaskGraphLog). | |
 
 ### Return type
@@ -418,7 +418,7 @@ public class Example {
 
 <a id="retryTaskGraphExecution"></a>
 # **retryTaskGraphExecution**
-> TaskGraphLog retryTaskGraphExecution(namespace, id)
+> TaskGraphLog retryTaskGraphExecution(workspace, id)
 
 
 
@@ -451,10 +451,10 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     TaskGraphLogsApi apiInstance = new TaskGraphLogsApi(defaultClient);
-    String namespace = "namespace_example"; // String | The namespace that owns this task graph execution.
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
     String id = "id_example"; // String | The UUID of the task graph execution (TaskGraphLog).
     try {
-      TaskGraphLog result = apiInstance.retryTaskGraphExecution(namespace, id);
+      TaskGraphLog result = apiInstance.retryTaskGraphExecution(workspace, id);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling TaskGraphLogsApi#retryTaskGraphExecution");
@@ -471,7 +471,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| The namespace that owns this task graph execution. | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
 | **id** | **String**| The UUID of the task graph execution (TaskGraphLog). | |
 
 ### Return type
@@ -496,7 +496,7 @@ public class Example {
 
 <a id="stopTaskGraphExecution"></a>
 # **stopTaskGraphExecution**
-> stopTaskGraphExecution(namespace, id)
+> stopTaskGraphExecution(workspace, id)
 
 
 
@@ -529,10 +529,10 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     TaskGraphLogsApi apiInstance = new TaskGraphLogsApi(defaultClient);
-    String namespace = "namespace_example"; // String | The namespace that owns this task graph execution.
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
     String id = "id_example"; // String | The UUID of the task graph execution (TaskGraphLog).
     try {
-      apiInstance.stopTaskGraphExecution(namespace, id);
+      apiInstance.stopTaskGraphExecution(workspace, id);
     } catch (ApiException e) {
       System.err.println("Exception when calling TaskGraphLogsApi#stopTaskGraphExecution");
       System.err.println("Status code: " + e.getCode());
@@ -548,7 +548,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| The namespace that owns this task graph execution. | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
 | **id** | **String**| The UUID of the task graph execution (TaskGraphLog). | |
 
 ### Return type
@@ -573,7 +573,7 @@ null (empty response body)
 
 <a id="submitTaskGraph"></a>
 # **submitTaskGraph**
-> TaskGraphLog submitTaskGraph(namespace, id)
+> TaskGraphLog submitTaskGraph(workspace, id, rootTaskGraphUuid)
 
 
 
@@ -606,10 +606,11 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     TaskGraphLogsApi apiInstance = new TaskGraphLogsApi(defaultClient);
-    String namespace = "namespace_example"; // String | The namespace that owns this task graph.
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
     String id = "id_example"; // String | The UUID of the task graph entry.
+    String rootTaskGraphUuid = "rootTaskGraphUuid_example"; // String | UUID of the root taskgraph that this graph is assosiated with
     try {
-      TaskGraphLog result = apiInstance.submitTaskGraph(namespace, id);
+      TaskGraphLog result = apiInstance.submitTaskGraph(workspace, id, rootTaskGraphUuid);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling TaskGraphLogsApi#submitTaskGraph");
@@ -626,8 +627,9 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| The namespace that owns this task graph. | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
 | **id** | **String**| The UUID of the task graph entry. | |
+| **rootTaskGraphUuid** | **String**| UUID of the root taskgraph that this graph is assosiated with | [optional] |
 
 ### Return type
 
@@ -651,7 +653,7 @@ public class Example {
 
 <a id="updateTaskGraphLog"></a>
 # **updateTaskGraphLog**
-> updateTaskGraphLog(namespace, id, log)
+> updateTaskGraphLog(workspace, id, log)
 
 
 
@@ -684,11 +686,11 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     TaskGraphLogsApi apiInstance = new TaskGraphLogsApi(defaultClient);
-    String namespace = "namespace_example"; // String | The namespace that owns this task graph log.
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
     String id = "id_example"; // String | The UUID of the task graph log entry.
     TaskGraphLog log = new TaskGraphLog(); // TaskGraphLog | Updates to make to the task graph log. The only manual update that a client should need to make to a task graph log is to update its completion status to `succeeded`, `failed`, or `cancelled`. 
     try {
-      apiInstance.updateTaskGraphLog(namespace, id, log);
+      apiInstance.updateTaskGraphLog(workspace, id, log);
     } catch (ApiException e) {
       System.err.println("Exception when calling TaskGraphLogsApi#updateTaskGraphLog");
       System.err.println("Status code: " + e.getCode());
@@ -704,7 +706,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| The namespace that owns this task graph log. | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
 | **id** | **String**| The UUID of the task graph log entry. | |
 | **log** | [**TaskGraphLog**](TaskGraphLog.md)| Updates to make to the task graph log. The only manual update that a client should need to make to a task graph log is to update its completion status to &#x60;succeeded&#x60;, &#x60;failed&#x60;, or &#x60;cancelled&#x60;.  | |
 

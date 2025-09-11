@@ -6,14 +6,14 @@ All URIs are relative to */v1*
 |------------- | ------------- | -------------|
 | [**acceptInvitation**](InvitationApi.md#acceptInvitation) | **POST** /invitations/{invitation} |  |
 | [**cancelJoinOrganization**](InvitationApi.md#cancelJoinOrganization) | **DELETE** /invitations/{invitation}/{organization}/join |  |
-| [**cancelShareArrayByInvite**](InvitationApi.md#cancelShareArrayByInvite) | **DELETE** /invitations/{invitation}/{namespace}/{array}/share |  |
-| [**cancelShareGroupByInvite**](InvitationApi.md#cancelShareGroupByInvite) | **DELETE** /invitations/group/{invitation}/{namespace}/{group_name}/share |  |
-| [**cancelSharePayment**](InvitationApi.md#cancelSharePayment) | **DELETE** /invitations/share_payment/{namespace}/{target} |  |
+| [**cancelShareArrayByInvite**](InvitationApi.md#cancelShareArrayByInvite) | **DELETE** /invitations/{invitation}/{workspace}/{teamspace}/{array}/share |  |
+| [**cancelShareGroupByInvite**](InvitationApi.md#cancelShareGroupByInvite) | **DELETE** /invitations/group/{invitation}/{workspace}/{teamspace}/{group_name}/share |  |
+| [**cancelSharePayment**](InvitationApi.md#cancelSharePayment) | **DELETE** /invitations/share_payment/{workspace}/{teamspace}/{target} |  |
 | [**fetchInvitations**](InvitationApi.md#fetchInvitations) | **GET** /invitations |  |
 | [**joinOrganization**](InvitationApi.md#joinOrganization) | **POST** /invitations/{organization}/join |  |
-| [**shareArrayByInvite**](InvitationApi.md#shareArrayByInvite) | **POST** /invitations/{namespace}/{array}/share |  |
-| [**shareGroupByInvite**](InvitationApi.md#shareGroupByInvite) | **POST** /invitations/group/{namespace}/{group}/share |  |
-| [**sharePayment**](InvitationApi.md#sharePayment) | **POST** /invitations/share_payment/{namespace} |  |
+| [**shareArrayByInvite**](InvitationApi.md#shareArrayByInvite) | **POST** /invitations/{workspace}/{teamspace}/{array}/share |  |
+| [**shareGroupByInvite**](InvitationApi.md#shareGroupByInvite) | **POST** /invitations/group/{workspace}/{teamspace}/{group}/share |  |
+| [**sharePayment**](InvitationApi.md#sharePayment) | **POST** /invitations/share_payment/{workspace}/{teamspace} |  |
 
 
 <a id="acceptInvitation"></a>
@@ -172,7 +172,7 @@ null (empty response body)
 
 <a id="cancelShareArrayByInvite"></a>
 # **cancelShareArrayByInvite**
-> cancelShareArrayByInvite(namespace, invitation, array)
+> cancelShareArrayByInvite(workspace, teamspace, invitation, array)
 
 
 
@@ -205,11 +205,12 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     InvitationApi apiInstance = new InvitationApi(defaultClient);
-    String namespace = "namespace_example"; // String | namespace array is in (an organization name or user's username)
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
     String invitation = "invitation_example"; // String | the ID of invitation about to be cancelled
     String array = "array_example"; // String | name/uri of array that is url-encoded
     try {
-      apiInstance.cancelShareArrayByInvite(namespace, invitation, array);
+      apiInstance.cancelShareArrayByInvite(workspace, teamspace, invitation, array);
     } catch (ApiException e) {
       System.err.println("Exception when calling InvitationApi#cancelShareArrayByInvite");
       System.err.println("Status code: " + e.getCode());
@@ -225,7 +226,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| namespace array is in (an organization name or user&#39;s username) | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
 | **invitation** | **String**| the ID of invitation about to be cancelled | |
 | **array** | **String**| name/uri of array that is url-encoded | |
 
@@ -252,7 +254,7 @@ null (empty response body)
 
 <a id="cancelShareGroupByInvite"></a>
 # **cancelShareGroupByInvite**
-> cancelShareGroupByInvite(namespace, invitation, groupName)
+> cancelShareGroupByInvite(workspace, teamspace, invitation, groupName)
 
 
 
@@ -285,11 +287,12 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     InvitationApi apiInstance = new InvitationApi(defaultClient);
-    String namespace = "namespace_example"; // String | namespace group is in (an organization name or user's username)
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
     String invitation = "invitation_example"; // String | the ID of invitation about to be cancelled
     String groupName = "groupName_example"; // String | name/uuid of group that is url-encoded
     try {
-      apiInstance.cancelShareGroupByInvite(namespace, invitation, groupName);
+      apiInstance.cancelShareGroupByInvite(workspace, teamspace, invitation, groupName);
     } catch (ApiException e) {
       System.err.println("Exception when calling InvitationApi#cancelShareGroupByInvite");
       System.err.println("Status code: " + e.getCode());
@@ -305,7 +308,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| namespace group is in (an organization name or user&#39;s username) | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
 | **invitation** | **String**| the ID of invitation about to be cancelled | |
 | **groupName** | **String**| name/uuid of group that is url-encoded | |
 
@@ -332,7 +336,7 @@ null (empty response body)
 
 <a id="cancelSharePayment"></a>
 # **cancelSharePayment**
-> cancelSharePayment(namespace, target)
+> cancelSharePayment(workspace, teamspace, target)
 
 
 
@@ -365,10 +369,11 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     InvitationApi apiInstance = new InvitationApi(defaultClient);
-    String namespace = "namespace_example"; // String | name or UUID of namespace sharing their payment info
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
     String target = "target_example"; // String | name or UUID of recipient namespace
     try {
-      apiInstance.cancelSharePayment(namespace, target);
+      apiInstance.cancelSharePayment(workspace, teamspace, target);
     } catch (ApiException e) {
       System.err.println("Exception when calling InvitationApi#cancelSharePayment");
       System.err.println("Status code: " + e.getCode());
@@ -384,7 +389,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| name or UUID of namespace sharing their payment info | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
 | **target** | **String**| name or UUID of recipient namespace | |
 
 ### Return type
@@ -582,7 +588,7 @@ null (empty response body)
 
 <a id="shareArrayByInvite"></a>
 # **shareArrayByInvite**
-> shareArrayByInvite(namespace, array, emailInvite)
+> shareArrayByInvite(workspace, teamspace, array, emailInvite)
 
 
 
@@ -615,11 +621,12 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     InvitationApi apiInstance = new InvitationApi(defaultClient);
-    String namespace = "namespace_example"; // String | namespace array is in (an organization name or user's username)
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
     String array = "array_example"; // String | name/uri of array that is url-encoded
     InvitationArrayShareEmail emailInvite = new InvitationArrayShareEmail(); // InvitationArrayShareEmail | list of email recipients
     try {
-      apiInstance.shareArrayByInvite(namespace, array, emailInvite);
+      apiInstance.shareArrayByInvite(workspace, teamspace, array, emailInvite);
     } catch (ApiException e) {
       System.err.println("Exception when calling InvitationApi#shareArrayByInvite");
       System.err.println("Status code: " + e.getCode());
@@ -635,7 +642,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| namespace array is in (an organization name or user&#39;s username) | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
 | **array** | **String**| name/uri of array that is url-encoded | |
 | **emailInvite** | [**InvitationArrayShareEmail**](InvitationArrayShareEmail.md)| list of email recipients | |
 
@@ -663,7 +671,7 @@ null (empty response body)
 
 <a id="shareGroupByInvite"></a>
 # **shareGroupByInvite**
-> shareGroupByInvite(namespace, group, emailInvite)
+> shareGroupByInvite(workspace, teamspace, group, emailInvite)
 
 
 
@@ -696,11 +704,12 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     InvitationApi apiInstance = new InvitationApi(defaultClient);
-    String namespace = "namespace_example"; // String | namespace group is in (an organization name or user's username)
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
     String group = "group_example"; // String | name/uri of group that is url-encoded
     InvitationGroupShareEmail emailInvite = new InvitationGroupShareEmail(); // InvitationGroupShareEmail | list of email/namespace recipients
     try {
-      apiInstance.shareGroupByInvite(namespace, group, emailInvite);
+      apiInstance.shareGroupByInvite(workspace, teamspace, group, emailInvite);
     } catch (ApiException e) {
       System.err.println("Exception when calling InvitationApi#shareGroupByInvite");
       System.err.println("Status code: " + e.getCode());
@@ -716,7 +725,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| namespace group is in (an organization name or user&#39;s username) | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
 | **group** | **String**| name/uri of group that is url-encoded | |
 | **emailInvite** | [**InvitationGroupShareEmail**](InvitationGroupShareEmail.md)| list of email/namespace recipients | |
 
@@ -744,7 +754,7 @@ null (empty response body)
 
 <a id="sharePayment"></a>
 # **sharePayment**
-> sharePayment(namespace, emailInvite)
+> sharePayment(workspace, teamspace, emailInvite)
 
 
 
@@ -777,10 +787,11 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     InvitationApi apiInstance = new InvitationApi(defaultClient);
-    String namespace = "namespace_example"; // String | name or UUID of namespace sharing their payment info
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
     SharePaymentRequest emailInvite = new SharePaymentRequest(); // SharePaymentRequest | Recipients of the invitation. These may only be namespaces, not email addresses. 
     try {
-      apiInstance.sharePayment(namespace, emailInvite);
+      apiInstance.sharePayment(workspace, teamspace, emailInvite);
     } catch (ApiException e) {
       System.err.println("Exception when calling InvitationApi#sharePayment");
       System.err.println("Status code: " + e.getCode());
@@ -796,7 +807,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| name or UUID of namespace sharing their payment info | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
 | **emailInvite** | [**SharePaymentRequest**](SharePaymentRequest.md)| Recipients of the invitation. These may only be namespaces, not email addresses.  | [optional] |
 
 ### Return type

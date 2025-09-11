@@ -10,6 +10,7 @@ Uploaded file name and information
 |------------ | ------------- | ------------- | -------------|
 |**outputUri** | **String** | output location of the TileDB File |  [optional] |
 |**fileName** | **String** | name of the file uploaded |  [optional] |
+|**assetId** | **String** | The asset id of the created Group |  |
 |**id** | **String** | unique ID of the uploaded file |  |
 
 

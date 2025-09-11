@@ -4,16 +4,16 @@ All URIs are relative to */v1*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**getNotebookServerStatus**](NotebookApi.md#getNotebookServerStatus) | **GET** /notebooks/server/{namespace}/status |  |
-| [**handleCopyNotebook**](NotebookApi.md#handleCopyNotebook) | **POST** /notebooks/{namespace}/{array}/copy |  |
-| [**handleUploadNotebook**](NotebookApi.md#handleUploadNotebook) | **POST** /notebooks/{namespace}/upload |  |
-| [**shutdownNotebookServer**](NotebookApi.md#shutdownNotebookServer) | **DELETE** /notebooks/server/{namespace} |  |
-| [**updateNotebookName**](NotebookApi.md#updateNotebookName) | **PATCH** /notebooks/{namespace}/{array}/rename |  |
+| [**getNotebookServerStatus**](NotebookApi.md#getNotebookServerStatus) | **GET** /notebooks/server/{workspace}/{teamspace}/status |  |
+| [**handleCopyNotebook**](NotebookApi.md#handleCopyNotebook) | **POST** /notebooks/{workspace}/{teamspace}/{array}/copy |  |
+| [**handleUploadNotebook**](NotebookApi.md#handleUploadNotebook) | **POST** /notebooks/{workspace}/{teamspace}/upload |  |
+| [**shutdownNotebookServer**](NotebookApi.md#shutdownNotebookServer) | **DELETE** /notebooks/server/{workspace}/{teamspace} |  |
+| [**updateNotebookName**](NotebookApi.md#updateNotebookName) | **PATCH** /notebooks/{workspace}/{teamspace}/{array}/rename |  |
 
 
 <a id="getNotebookServerStatus"></a>
 # **getNotebookServerStatus**
-> NotebookStatus getNotebookServerStatus(namespace)
+> NotebookStatus getNotebookServerStatus(workspace, teamspace)
 
 
 
@@ -46,9 +46,10 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     NotebookApi apiInstance = new NotebookApi(defaultClient);
-    String namespace = "namespace_example"; // String | namespace notebook is in (an organization name or user's username)
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
     try {
-      NotebookStatus result = apiInstance.getNotebookServerStatus(namespace);
+      NotebookStatus result = apiInstance.getNotebookServerStatus(workspace, teamspace);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling NotebookApi#getNotebookServerStatus");
@@ -65,7 +66,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| namespace notebook is in (an organization name or user&#39;s username) | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
 
 ### Return type
 
@@ -91,7 +93,7 @@ public class Example {
 
 <a id="handleCopyNotebook"></a>
 # **handleCopyNotebook**
-> NotebookCopied handleCopyNotebook(namespace, array, notebookCopy, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, endTimestamp)
+> NotebookCopied handleCopyNotebook(workspace, teamspace, array, notebookCopy, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, endTimestamp)
 
 
 
@@ -124,13 +126,14 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     NotebookApi apiInstance = new NotebookApi(defaultClient);
-    String namespace = "namespace_example"; // String | The namespace of the notebook
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
     String array = "array_example"; // String | The name of the notebook
     NotebookCopy notebookCopy = new NotebookCopy(); // NotebookCopy | Input/Output information to create a new TileDB file
     String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME = "X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME_example"; // String | Optional registered access credentials to use for creation
     Integer endTimestamp = 56; // Integer | Milliseconds since Unix epoch, copy will use open_at functionality to copy notebook created at the specific timestamp
     try {
-      NotebookCopied result = apiInstance.handleCopyNotebook(namespace, array, notebookCopy, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, endTimestamp);
+      NotebookCopied result = apiInstance.handleCopyNotebook(workspace, teamspace, array, notebookCopy, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, endTimestamp);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling NotebookApi#handleCopyNotebook");
@@ -147,7 +150,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| The namespace of the notebook | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
 | **array** | **String**| The name of the notebook | |
 | **notebookCopy** | [**NotebookCopy**](NotebookCopy.md)| Input/Output information to create a new TileDB file | |
 | **X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME** | **String**| Optional registered access credentials to use for creation | [optional] |
@@ -175,7 +179,7 @@ public class Example {
 
 <a id="handleUploadNotebook"></a>
 # **handleUploadNotebook**
-> FileUploaded handleUploadNotebook(namespace, inputFile, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, outputUri, name)
+> FileUploaded handleUploadNotebook(workspace, teamspace, inputFile, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, outputUri, name)
 
 
 
@@ -208,13 +212,14 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     NotebookApi apiInstance = new NotebookApi(defaultClient);
-    String namespace = "namespace_example"; // String | The namespace of the notebook
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
     File inputFile = new File("/path/to/file"); // File | the notebook to upload
     String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME = "X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME_example"; // String | Optional registered access credentials to use for creation
     String outputUri = "outputUri_example"; // String | output location of the TileDB File
     String name = "name_example"; // String | name to set for registered file
     try {
-      FileUploaded result = apiInstance.handleUploadNotebook(namespace, inputFile, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, outputUri, name);
+      FileUploaded result = apiInstance.handleUploadNotebook(workspace, teamspace, inputFile, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, outputUri, name);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling NotebookApi#handleUploadNotebook");
@@ -231,7 +236,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| The namespace of the notebook | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
 | **inputFile** | **File**| the notebook to upload | |
 | **X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME** | **String**| Optional registered access credentials to use for creation | [optional] |
 | **outputUri** | **String**| output location of the TileDB File | [optional] |
@@ -259,7 +265,7 @@ public class Example {
 
 <a id="shutdownNotebookServer"></a>
 # **shutdownNotebookServer**
-> shutdownNotebookServer(namespace)
+> shutdownNotebookServer(workspace, teamspace)
 
 
 
@@ -292,9 +298,10 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     NotebookApi apiInstance = new NotebookApi(defaultClient);
-    String namespace = "namespace_example"; // String | namespace notebook is in (an organization name or user's username)
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
     try {
-      apiInstance.shutdownNotebookServer(namespace);
+      apiInstance.shutdownNotebookServer(workspace, teamspace);
     } catch (ApiException e) {
       System.err.println("Exception when calling NotebookApi#shutdownNotebookServer");
       System.err.println("Status code: " + e.getCode());
@@ -310,7 +317,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| namespace notebook is in (an organization name or user&#39;s username) | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
 
 ### Return type
 
@@ -335,7 +343,7 @@ null (empty response body)
 
 <a id="updateNotebookName"></a>
 # **updateNotebookName**
-> updateNotebookName(namespace, array, notebookMetadata)
+> updateNotebookName(workspace, teamspace, array, notebookMetadata)
 
 
 
@@ -368,11 +376,12 @@ public class Example {
     //ApiKeyAuth.setApiKeyPrefix("Token");
 
     NotebookApi apiInstance = new NotebookApi(defaultClient);
-    String namespace = "namespace_example"; // String | namespace array is in (an organization name or user's username)
+    String workspace = "workspace_example"; // String | the workspace containing the teamspace the array belongs to
+    String teamspace = "teamspace_example"; // String | the teamspace the array belongs to
     String array = "array_example"; // String | name/uri of notebook (array) that is url-encoded
     ArrayInfoUpdate notebookMetadata = new ArrayInfoUpdate(); // ArrayInfoUpdate | notebook (array) metadata to update
     try {
-      apiInstance.updateNotebookName(namespace, array, notebookMetadata);
+      apiInstance.updateNotebookName(workspace, teamspace, array, notebookMetadata);
     } catch (ApiException e) {
       System.err.println("Exception when calling NotebookApi#updateNotebookName");
       System.err.println("Status code: " + e.getCode());
@@ -388,7 +397,8 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **namespace** | **String**| namespace array is in (an organization name or user&#39;s username) | |
+| **workspace** | **String**| the workspace containing the teamspace the array belongs to | |
+| **teamspace** | **String**| the teamspace the array belongs to | |
 | **array** | **String**| name/uri of notebook (array) that is url-encoded | |
 | **notebookMetadata** | [**ArrayInfoUpdate**](ArrayInfoUpdate.md)| notebook (array) metadata to update | |
 

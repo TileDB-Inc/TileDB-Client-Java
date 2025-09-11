@@ -46,6 +46,14 @@ public class TGUDFStorageTest {
     }
 
     /**
+     * Test the property 'tiledbUri'
+     */
+    @Test
+    public void tiledbUriTest() {
+        // TODO: test tiledbUri
+    }
+
+    /**
      * Test the property 'size'
      */
     @Test
