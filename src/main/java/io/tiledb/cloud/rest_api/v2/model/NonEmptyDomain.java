@@ -14,34 +14,45 @@
 package io.tiledb.cloud.rest_api.v2.model;
 
 import java.util.Objects;
-
 import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.tiledb.cloud.rest_api.v2.model.DomainArray;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import com.google.gson.TypeAdapterFactory;
 import com.google.gson.reflect.TypeToken;
+import com.google.gson.TypeAdapter;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+import java.io.IOException;
 
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import io.tiledb.cloud.rest_api.v2.JSON;
 
 /**
  * object representing a non-empty domain
  */
-@ApiModel(description = "object representing a non-empty domain")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-07-02T18:54:48.746612+03:00[Europe/Athens]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-30T04:47:07.570140+03:00[Europe/Athens]", comments = "Generator version: 7.7.0")
 public class NonEmptyDomain {
   public static final String SERIALIZED_NAME_NON_EMPTY_DOMAIN = "nonEmptyDomain";
   @SerializedName(SERIALIZED_NAME_NON_EMPTY_DOMAIN)
@@ -53,28 +64,24 @@ public class NonEmptyDomain {
 
   public static final String SERIALIZED_NAME_SIZES = "sizes";
   @SerializedName(SERIALIZED_NAME_SIZES)
-  private List<Integer> sizes = null;
+  private List<Integer> sizes = new ArrayList<>();
 
-  public NonEmptyDomain() { 
+  public NonEmptyDomain() {
   }
 
   public NonEmptyDomain nonEmptyDomain(DomainArray nonEmptyDomain) {
-    
     this.nonEmptyDomain = nonEmptyDomain;
     return this;
   }
 
-   /**
+  /**
    * Get nonEmptyDomain
    * @return nonEmptyDomain
-  **/
+   */
   @javax.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "")
-
   public DomainArray getNonEmptyDomain() {
     return nonEmptyDomain;
   }
-
 
   public void setNonEmptyDomain(DomainArray nonEmptyDomain) {
     this.nonEmptyDomain = nonEmptyDomain;
@@ -82,22 +89,18 @@ public class NonEmptyDomain {
 
 
   public NonEmptyDomain isEmpty(Boolean isEmpty) {
-    
     this.isEmpty = isEmpty;
     return this;
   }
 
-   /**
+  /**
    * Is non-empty domain really empty?
    * @return isEmpty
-  **/
+   */
   @javax.annotation.Nonnull
-  @ApiModelProperty(example = "false", required = true, value = "Is non-empty domain really empty?")
-
   public Boolean getIsEmpty() {
     return isEmpty;
   }
-
 
   public void setIsEmpty(Boolean isEmpty) {
     this.isEmpty = isEmpty;
@@ -105,7 +108,6 @@ public class NonEmptyDomain {
 
 
   public NonEmptyDomain sizes(List<Integer> sizes) {
-    
     this.sizes = sizes;
     return this;
   }
@@ -118,17 +120,14 @@ public class NonEmptyDomain {
     return this;
   }
 
-   /**
+  /**
    * Number of elements in DomainArray for var length
    * @return sizes
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Number of elements in DomainArray for var length")
-
   public List<Integer> getSizes() {
     return sizes;
   }
-
 
   public void setSizes(List<Integer> sizes) {
     this.sizes = sizes;
@@ -144,6 +143,10 @@ public class NonEmptyDomain {
   /**
    * Set the additional (undeclared) property with the specified name and value.
    * If the property does not already exist, create it otherwise replace it.
+   *
+   * @param key name of the property
+   * @param value value of the property
+   * @return the NonEmptyDomain instance itself
    */
   public NonEmptyDomain putAdditionalProperty(String key, Object value) {
     if (this.additionalProperties == null) {
@@ -155,6 +158,8 @@ public class NonEmptyDomain {
 
   /**
    * Return the additional (undeclared) property.
+   *
+   * @return a map of objects
    */
   public Map<String, Object> getAdditionalProperties() {
     return additionalProperties;
@@ -162,6 +167,9 @@ public class NonEmptyDomain {
 
   /**
    * Return the additional (undeclared) property with the specified name.
+   *
+   * @param key name of the property
+   * @return an object
    */
   public Object getAdditionalProperty(String key) {
     if (this.additionalProperties == null) {
@@ -231,33 +239,30 @@ public class NonEmptyDomain {
     openapiRequiredFields.add("isEmpty");
   }
 
- /**
-  * Validates the JSON Object and throws an exception if issues found
-  *
-  * @param jsonObj JSON Object
-  * @throws IOException if the JSON Object is invalid with respect to NonEmptyDomain
-  */
-  public static void validateJsonObject(JsonObject jsonObj) throws IOException {
-      if (jsonObj == null) {
-        if (NonEmptyDomain.openapiRequiredFields.isEmpty()) {
-          return;
-        } else { // has required fields
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to NonEmptyDomain
+   */
+  public static void validateJsonElement(JsonElement jsonElement) throws IOException {
+      if (jsonElement == null) {
+        if (!NonEmptyDomain.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
           throw new IllegalArgumentException(String.format("The required field(s) %s in NonEmptyDomain is not found in the empty JSON string", NonEmptyDomain.openapiRequiredFields.toString()));
         }
       }
 
       // check to make sure all required properties/fields are present in the JSON string
       for (String requiredField : NonEmptyDomain.openapiRequiredFields) {
-        if (jsonObj.get(requiredField) == null) {
-          throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonObj.toString()));
+        if (jsonElement.getAsJsonObject().get(requiredField) == null) {
+          throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonElement.toString()));
         }
       }
-      // validate the optional field `nonEmptyDomain`
-      if (jsonObj.getAsJsonObject("nonEmptyDomain") != null) {
-        DomainArray.validateJsonObject(jsonObj.getAsJsonObject("nonEmptyDomain"));
-      }
-      // ensure the json data is an array
-      if (jsonObj.get("sizes") != null && !jsonObj.get("sizes").isJsonArray()) {
+        JsonObject jsonObj = jsonElement.getAsJsonObject();
+      // validate the required field `nonEmptyDomain`
+      DomainArray.validateJsonElement(jsonObj.get("nonEmptyDomain"));
+      // ensure the optional json data is an array if present
+      if (jsonObj.get("sizes") != null && !jsonObj.get("sizes").isJsonNull() && !jsonObj.get("sizes").isJsonArray()) {
         throw new IllegalArgumentException(String.format("Expected the field `sizes` to be an array in the JSON string but got `%s`", jsonObj.get("sizes").toString()));
       }
   }
@@ -278,7 +283,7 @@ public class NonEmptyDomain {
            public void write(JsonWriter out, NonEmptyDomain value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              obj.remove("additionalProperties");
-             // serialize additonal properties
+             // serialize additional properties
              if (value.getAdditionalProperties() != null) {
                for (Map.Entry<String, Object> entry : value.getAdditionalProperties().entrySet()) {
                  if (entry.getValue() instanceof String)
@@ -290,7 +295,12 @@ public class NonEmptyDomain {
                  else if (entry.getValue() instanceof Character)
                    obj.addProperty(entry.getKey(), (Character) entry.getValue());
                  else {
-                   obj.add(entry.getKey(), gson.toJsonTree(entry.getValue()).getAsJsonObject());
+                   JsonElement jsonElement = gson.toJsonTree(entry.getValue());
+                   if (jsonElement.isJsonArray()) {
+                     obj.add(entry.getKey(), jsonElement.getAsJsonArray());
+                   } else {
+                     obj.add(entry.getKey(), jsonElement.getAsJsonObject());
+                   }
                  }
                }
              }
@@ -299,8 +309,9 @@ public class NonEmptyDomain {
 
            @Override
            public NonEmptyDomain read(JsonReader in) throws IOException {
-             JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
-             validateJsonObject(jsonObj);
+             JsonElement jsonElement = elementAdapter.read(in);
+             validateJsonElement(jsonElement);
+             JsonObject jsonObj = jsonElement.getAsJsonObject();
              // store additional fields in the deserialized instance
              NonEmptyDomain instance = thisAdapter.fromJsonTree(jsonObj);
              for (Map.Entry<String, JsonElement> entry : jsonObj.entrySet()) {
@@ -314,8 +325,10 @@ public class NonEmptyDomain {
                      instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsBoolean());
                    else
                      throw new IllegalArgumentException(String.format("The field `%s` has unknown primitive type. Value: %s", entry.getKey(), entry.getValue().toString()));
-                 } else { // non-primitive type
-                   instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
+                 } else if (entry.getValue().isJsonArray()) {
+                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), List.class));
+                 } else { // JSON object
+                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
                  }
                }
              }
@@ -326,22 +339,22 @@ public class NonEmptyDomain {
     }
   }
 
- /**
-  * Create an instance of NonEmptyDomain given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of NonEmptyDomain
-  * @throws IOException if the JSON string is invalid with respect to NonEmptyDomain
-  */
+  /**
+   * Create an instance of NonEmptyDomain given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of NonEmptyDomain
+   * @throws IOException if the JSON string is invalid with respect to NonEmptyDomain
+   */
   public static NonEmptyDomain fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, NonEmptyDomain.class);
   }
 
- /**
-  * Convert an instance of NonEmptyDomain to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of NonEmptyDomain to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

@@ -14,48 +14,60 @@
 package io.tiledb.cloud.rest_api.v2.model;
 
 import java.util.Objects;
-
 import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.tiledb.cloud.rest_api.v2.model.GenericTileOffsets;
+import io.tiledb.cloud.rest_api.v2.model.NonEmptyDomainList;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import com.google.gson.TypeAdapterFactory;
 import com.google.gson.reflect.TypeToken;
+import com.google.gson.TypeAdapter;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+import java.io.IOException;
 
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import io.tiledb.cloud.rest_api.v2.JSON;
 
 /**
  * Metadata of a fragment
  */
-@ApiModel(description = "Metadata of a fragment")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-07-02T18:54:48.746612+03:00[Europe/Athens]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-30T04:47:07.570140+03:00[Europe/Athens]", comments = "Generator version: 7.7.0")
 public class FragmentMetadata {
   public static final String SERIALIZED_NAME_FILE_SIZES = "fileSizes";
   @SerializedName(SERIALIZED_NAME_FILE_SIZES)
-  private List<BigDecimal> fileSizes = null;
+  private List<BigDecimal> fileSizes = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_FILE_VAR_SIZES = "fileVarSizes";
   @SerializedName(SERIALIZED_NAME_FILE_VAR_SIZES)
-  private List<BigDecimal> fileVarSizes = null;
+  private List<BigDecimal> fileVarSizes = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_FILE_VALIDITY_SIZES = "fileValiditySizes";
   @SerializedName(SERIALIZED_NAME_FILE_VALIDITY_SIZES)
-  private List<BigDecimal> fileValiditySizes = null;
+  private List<BigDecimal> fileValiditySizes = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_FRAGMENT_URI = "fragmentUri";
   @SerializedName(SERIALIZED_NAME_FRAGMENT_URI)
@@ -79,59 +91,59 @@ public class FragmentMetadata {
 
   public static final String SERIALIZED_NAME_TILE_OFFSETS = "tileOffsets";
   @SerializedName(SERIALIZED_NAME_TILE_OFFSETS)
-  private List<List<BigDecimal>> tileOffsets = null;
+  private List<List<BigDecimal>> tileOffsets = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_TILE_VAR_OFFSETS = "tileVarOffsets";
   @SerializedName(SERIALIZED_NAME_TILE_VAR_OFFSETS)
-  private List<List<BigDecimal>> tileVarOffsets = null;
+  private List<List<BigDecimal>> tileVarOffsets = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_TILE_VAR_SIZES = "tileVarSizes";
   @SerializedName(SERIALIZED_NAME_TILE_VAR_SIZES)
-  private List<List<BigDecimal>> tileVarSizes = null;
+  private List<List<BigDecimal>> tileVarSizes = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_TILE_VALIDITY_OFFSETS = "tileValidityOffsets";
   @SerializedName(SERIALIZED_NAME_TILE_VALIDITY_OFFSETS)
-  private List<List<BigDecimal>> tileValidityOffsets = null;
+  private List<List<BigDecimal>> tileValidityOffsets = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_TILE_MIN_BUFFER = "tileMinBuffer";
   @SerializedName(SERIALIZED_NAME_TILE_MIN_BUFFER)
-  private List<List<BigDecimal>> tileMinBuffer = null;
+  private List<List<BigDecimal>> tileMinBuffer = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_TILE_MIN_VAR_BUFFER = "tileMinVarBuffer";
   @SerializedName(SERIALIZED_NAME_TILE_MIN_VAR_BUFFER)
-  private List<List<BigDecimal>> tileMinVarBuffer = null;
+  private List<List<BigDecimal>> tileMinVarBuffer = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_TILE_MAX_BUFFER = "tileMaxBuffer";
   @SerializedName(SERIALIZED_NAME_TILE_MAX_BUFFER)
-  private List<List<BigDecimal>> tileMaxBuffer = null;
+  private List<List<BigDecimal>> tileMaxBuffer = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_TILE_MAX_VAR_BUFFER = "tileMaxVarBuffer";
   @SerializedName(SERIALIZED_NAME_TILE_MAX_VAR_BUFFER)
-  private List<List<BigDecimal>> tileMaxVarBuffer = null;
+  private List<List<BigDecimal>> tileMaxVarBuffer = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_TILE_SUMS = "tileSums";
   @SerializedName(SERIALIZED_NAME_TILE_SUMS)
-  private List<List<BigDecimal>> tileSums = null;
+  private List<List<BigDecimal>> tileSums = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_TILE_NULL_COUNTS = "tileNullCounts";
   @SerializedName(SERIALIZED_NAME_TILE_NULL_COUNTS)
-  private List<List<BigDecimal>> tileNullCounts = null;
+  private List<List<BigDecimal>> tileNullCounts = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_FRAGMENT_MINS = "fragmentMins";
   @SerializedName(SERIALIZED_NAME_FRAGMENT_MINS)
-  private List<List<BigDecimal>> fragmentMins = null;
+  private List<List<BigDecimal>> fragmentMins = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_FRAGMENT_MAXS = "fragmentMaxs";
   @SerializedName(SERIALIZED_NAME_FRAGMENT_MAXS)
-  private List<List<BigDecimal>> fragmentMaxs = null;
+  private List<List<BigDecimal>> fragmentMaxs = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_FRAGMENT_SUMS = "fragmentSums";
   @SerializedName(SERIALIZED_NAME_FRAGMENT_SUMS)
-  private List<BigDecimal> fragmentSums = null;
+  private List<BigDecimal> fragmentSums = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_FRAGMENT_NULL_COUNTS = "fragmentNullCounts";
   @SerializedName(SERIALIZED_NAME_FRAGMENT_NULL_COUNTS)
-  private List<BigDecimal> fragmentNullCounts = null;
+  private List<BigDecimal> fragmentNullCounts = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_VERSION = "version";
   @SerializedName(SERIALIZED_NAME_VERSION)
@@ -139,7 +151,7 @@ public class FragmentMetadata {
 
   public static final String SERIALIZED_NAME_TIMESTAMP_RANGE = "timestampRange";
   @SerializedName(SERIALIZED_NAME_TIMESTAMP_RANGE)
-  private List<BigDecimal> timestampRange = null;
+  private List<BigDecimal> timestampRange = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_LAST_TILE_CELL_NUM = "lastTileCellNum";
   @SerializedName(SERIALIZED_NAME_LAST_TILE_CELL_NUM)
@@ -161,11 +173,10 @@ public class FragmentMetadata {
   @SerializedName(SERIALIZED_NAME_GT_OFFSETS)
   private GenericTileOffsets gtOffsets;
 
-  public FragmentMetadata() { 
+  public FragmentMetadata() {
   }
 
   public FragmentMetadata fileSizes(List<BigDecimal> fileSizes) {
-    
     this.fileSizes = fileSizes;
     return this;
   }
@@ -178,17 +189,14 @@ public class FragmentMetadata {
     return this;
   }
 
-   /**
+  /**
    * The size of each attribute file
    * @return fileSizes
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "The size of each attribute file")
-
   public List<BigDecimal> getFileSizes() {
     return fileSizes;
   }
-
 
   public void setFileSizes(List<BigDecimal> fileSizes) {
     this.fileSizes = fileSizes;
@@ -196,7 +204,6 @@ public class FragmentMetadata {
 
 
   public FragmentMetadata fileVarSizes(List<BigDecimal> fileVarSizes) {
-    
     this.fileVarSizes = fileVarSizes;
     return this;
   }
@@ -209,17 +216,14 @@ public class FragmentMetadata {
     return this;
   }
 
-   /**
+  /**
    * The size of each var attribute file
    * @return fileVarSizes
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "The size of each var attribute file")
-
   public List<BigDecimal> getFileVarSizes() {
     return fileVarSizes;
   }
-
 
   public void setFileVarSizes(List<BigDecimal> fileVarSizes) {
     this.fileVarSizes = fileVarSizes;
@@ -227,7 +231,6 @@ public class FragmentMetadata {
 
 
   public FragmentMetadata fileValiditySizes(List<BigDecimal> fileValiditySizes) {
-    
     this.fileValiditySizes = fileValiditySizes;
     return this;
   }
@@ -240,17 +243,14 @@ public class FragmentMetadata {
     return this;
   }
 
-   /**
+  /**
    * The size of each validity attribute file
    * @return fileValiditySizes
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "The size of each validity attribute file")
-
   public List<BigDecimal> getFileValiditySizes() {
     return fileValiditySizes;
   }
-
 
   public void setFileValiditySizes(List<BigDecimal> fileValiditySizes) {
     this.fileValiditySizes = fileValiditySizes;
@@ -258,22 +258,18 @@ public class FragmentMetadata {
 
 
   public FragmentMetadata fragmentUri(String fragmentUri) {
-    
     this.fragmentUri = fragmentUri;
     return this;
   }
 
-   /**
+  /**
    * The uri of the fragment this metadata belongs to
    * @return fragmentUri
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "The uri of the fragment this metadata belongs to")
-
   public String getFragmentUri() {
     return fragmentUri;
   }
-
 
   public void setFragmentUri(String fragmentUri) {
     this.fragmentUri = fragmentUri;
@@ -281,22 +277,18 @@ public class FragmentMetadata {
 
 
   public FragmentMetadata hasTimestamps(Boolean hasTimestamps) {
-    
     this.hasTimestamps = hasTimestamps;
     return this;
   }
 
-   /**
+  /**
    * True if the fragment has timestamps
    * @return hasTimestamps
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "True if the fragment has timestamps")
-
   public Boolean getHasTimestamps() {
     return hasTimestamps;
   }
-
 
   public void setHasTimestamps(Boolean hasTimestamps) {
     this.hasTimestamps = hasTimestamps;
@@ -304,22 +296,18 @@ public class FragmentMetadata {
 
 
   public FragmentMetadata hasDeleteMeta(Boolean hasDeleteMeta) {
-    
     this.hasDeleteMeta = hasDeleteMeta;
     return this;
   }
 
-   /**
+  /**
    * True if the fragment has delete metadata
    * @return hasDeleteMeta
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "True if the fragment has delete metadata")
-
   public Boolean getHasDeleteMeta() {
     return hasDeleteMeta;
   }
-
 
   public void setHasDeleteMeta(Boolean hasDeleteMeta) {
     this.hasDeleteMeta = hasDeleteMeta;
@@ -327,22 +315,18 @@ public class FragmentMetadata {
 
 
   public FragmentMetadata sparseTileNum(BigDecimal sparseTileNum) {
-    
     this.sparseTileNum = sparseTileNum;
     return this;
   }
 
-   /**
+  /**
    * The number of sparse tiles
    * @return sparseTileNum
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "The number of sparse tiles")
-
   public BigDecimal getSparseTileNum() {
     return sparseTileNum;
   }
-
 
   public void setSparseTileNum(BigDecimal sparseTileNum) {
     this.sparseTileNum = sparseTileNum;
@@ -350,22 +334,18 @@ public class FragmentMetadata {
 
 
   public FragmentMetadata tileIndexBase(BigDecimal tileIndexBase) {
-    
     this.tileIndexBase = tileIndexBase;
     return this;
   }
 
-   /**
+  /**
    * Used to track the tile index base between global order writes
    * @return tileIndexBase
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Used to track the tile index base between global order writes")
-
   public BigDecimal getTileIndexBase() {
     return tileIndexBase;
   }
-
 
   public void setTileIndexBase(BigDecimal tileIndexBase) {
     this.tileIndexBase = tileIndexBase;
@@ -373,7 +353,6 @@ public class FragmentMetadata {
 
 
   public FragmentMetadata tileOffsets(List<List<BigDecimal>> tileOffsets) {
-    
     this.tileOffsets = tileOffsets;
     return this;
   }
@@ -386,17 +365,14 @@ public class FragmentMetadata {
     return this;
   }
 
-   /**
+  /**
    * Tile offsets in their attribute files
    * @return tileOffsets
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Tile offsets in their attribute files")
-
   public List<List<BigDecimal>> getTileOffsets() {
     return tileOffsets;
   }
-
 
   public void setTileOffsets(List<List<BigDecimal>> tileOffsets) {
     this.tileOffsets = tileOffsets;
@@ -404,7 +380,6 @@ public class FragmentMetadata {
 
 
   public FragmentMetadata tileVarOffsets(List<List<BigDecimal>> tileVarOffsets) {
-    
     this.tileVarOffsets = tileVarOffsets;
     return this;
   }
@@ -417,17 +392,14 @@ public class FragmentMetadata {
     return this;
   }
 
-   /**
+  /**
    * Variable tile offsets in their attribute files
    * @return tileVarOffsets
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Variable tile offsets in their attribute files")
-
   public List<List<BigDecimal>> getTileVarOffsets() {
     return tileVarOffsets;
   }
-
 
   public void setTileVarOffsets(List<List<BigDecimal>> tileVarOffsets) {
     this.tileVarOffsets = tileVarOffsets;
@@ -435,7 +407,6 @@ public class FragmentMetadata {
 
 
   public FragmentMetadata tileVarSizes(List<List<BigDecimal>> tileVarSizes) {
-    
     this.tileVarSizes = tileVarSizes;
     return this;
   }
@@ -448,17 +419,14 @@ public class FragmentMetadata {
     return this;
   }
 
-   /**
+  /**
    * The sizes of the uncompressed variable tiles
    * @return tileVarSizes
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "The sizes of the uncompressed variable tiles")
-
   public List<List<BigDecimal>> getTileVarSizes() {
     return tileVarSizes;
   }
-
 
   public void setTileVarSizes(List<List<BigDecimal>> tileVarSizes) {
     this.tileVarSizes = tileVarSizes;
@@ -466,7 +434,6 @@ public class FragmentMetadata {
 
 
   public FragmentMetadata tileValidityOffsets(List<List<BigDecimal>> tileValidityOffsets) {
-    
     this.tileValidityOffsets = tileValidityOffsets;
     return this;
   }
@@ -479,17 +446,14 @@ public class FragmentMetadata {
     return this;
   }
 
-   /**
+  /**
    * Validity tile offests in their attribute files
    * @return tileValidityOffsets
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Validity tile offests in their attribute files")
-
   public List<List<BigDecimal>> getTileValidityOffsets() {
     return tileValidityOffsets;
   }
-
 
   public void setTileValidityOffsets(List<List<BigDecimal>> tileValidityOffsets) {
     this.tileValidityOffsets = tileValidityOffsets;
@@ -497,7 +461,6 @@ public class FragmentMetadata {
 
 
   public FragmentMetadata tileMinBuffer(List<List<BigDecimal>> tileMinBuffer) {
-    
     this.tileMinBuffer = tileMinBuffer;
     return this;
   }
@@ -510,17 +473,14 @@ public class FragmentMetadata {
     return this;
   }
 
-   /**
+  /**
    * tile min buffers
    * @return tileMinBuffer
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "tile min buffers")
-
   public List<List<BigDecimal>> getTileMinBuffer() {
     return tileMinBuffer;
   }
-
 
   public void setTileMinBuffer(List<List<BigDecimal>> tileMinBuffer) {
     this.tileMinBuffer = tileMinBuffer;
@@ -528,7 +488,6 @@ public class FragmentMetadata {
 
 
   public FragmentMetadata tileMinVarBuffer(List<List<BigDecimal>> tileMinVarBuffer) {
-    
     this.tileMinVarBuffer = tileMinVarBuffer;
     return this;
   }
@@ -541,17 +500,14 @@ public class FragmentMetadata {
     return this;
   }
 
-   /**
+  /**
    * tile min buffers for var length data
    * @return tileMinVarBuffer
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "tile min buffers for var length data")
-
   public List<List<BigDecimal>> getTileMinVarBuffer() {
     return tileMinVarBuffer;
   }
-
 
   public void setTileMinVarBuffer(List<List<BigDecimal>> tileMinVarBuffer) {
     this.tileMinVarBuffer = tileMinVarBuffer;
@@ -559,7 +515,6 @@ public class FragmentMetadata {
 
 
   public FragmentMetadata tileMaxBuffer(List<List<BigDecimal>> tileMaxBuffer) {
-    
     this.tileMaxBuffer = tileMaxBuffer;
     return this;
   }
@@ -572,17 +527,14 @@ public class FragmentMetadata {
     return this;
   }
 
-   /**
+  /**
    * tile max buffers
    * @return tileMaxBuffer
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "tile max buffers")
-
   public List<List<BigDecimal>> getTileMaxBuffer() {
     return tileMaxBuffer;
   }
-
 
   public void setTileMaxBuffer(List<List<BigDecimal>> tileMaxBuffer) {
     this.tileMaxBuffer = tileMaxBuffer;
@@ -590,7 +542,6 @@ public class FragmentMetadata {
 
 
   public FragmentMetadata tileMaxVarBuffer(List<List<BigDecimal>> tileMaxVarBuffer) {
-    
     this.tileMaxVarBuffer = tileMaxVarBuffer;
     return this;
   }
@@ -603,17 +554,14 @@ public class FragmentMetadata {
     return this;
   }
 
-   /**
+  /**
    * tile max buffers for var length data
    * @return tileMaxVarBuffer
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "tile max buffers for var length data")
-
   public List<List<BigDecimal>> getTileMaxVarBuffer() {
     return tileMaxVarBuffer;
   }
-
 
   public void setTileMaxVarBuffer(List<List<BigDecimal>> tileMaxVarBuffer) {
     this.tileMaxVarBuffer = tileMaxVarBuffer;
@@ -621,7 +569,6 @@ public class FragmentMetadata {
 
 
   public FragmentMetadata tileSums(List<List<BigDecimal>> tileSums) {
-    
     this.tileSums = tileSums;
     return this;
   }
@@ -634,17 +581,14 @@ public class FragmentMetadata {
     return this;
   }
 
-   /**
+  /**
    * tile sum values
    * @return tileSums
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "tile sum values")
-
   public List<List<BigDecimal>> getTileSums() {
     return tileSums;
   }
-
 
   public void setTileSums(List<List<BigDecimal>> tileSums) {
     this.tileSums = tileSums;
@@ -652,7 +596,6 @@ public class FragmentMetadata {
 
 
   public FragmentMetadata tileNullCounts(List<List<BigDecimal>> tileNullCounts) {
-    
     this.tileNullCounts = tileNullCounts;
     return this;
   }
@@ -665,17 +608,14 @@ public class FragmentMetadata {
     return this;
   }
 
-   /**
+  /**
    * tile null count values
    * @return tileNullCounts
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "tile null count values")
-
   public List<List<BigDecimal>> getTileNullCounts() {
     return tileNullCounts;
   }
-
 
   public void setTileNullCounts(List<List<BigDecimal>> tileNullCounts) {
     this.tileNullCounts = tileNullCounts;
@@ -683,7 +623,6 @@ public class FragmentMetadata {
 
 
   public FragmentMetadata fragmentMins(List<List<BigDecimal>> fragmentMins) {
-    
     this.fragmentMins = fragmentMins;
     return this;
   }
@@ -696,17 +635,14 @@ public class FragmentMetadata {
     return this;
   }
 
-   /**
+  /**
    * fragment min values
    * @return fragmentMins
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "fragment min values")
-
   public List<List<BigDecimal>> getFragmentMins() {
     return fragmentMins;
   }
-
 
   public void setFragmentMins(List<List<BigDecimal>> fragmentMins) {
     this.fragmentMins = fragmentMins;
@@ -714,7 +650,6 @@ public class FragmentMetadata {
 
 
   public FragmentMetadata fragmentMaxs(List<List<BigDecimal>> fragmentMaxs) {
-    
     this.fragmentMaxs = fragmentMaxs;
     return this;
   }
@@ -727,17 +662,14 @@ public class FragmentMetadata {
     return this;
   }
 
-   /**
+  /**
    * fragment max values
    * @return fragmentMaxs
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "fragment max values")
-
   public List<List<BigDecimal>> getFragmentMaxs() {
     return fragmentMaxs;
   }
-
 
   public void setFragmentMaxs(List<List<BigDecimal>> fragmentMaxs) {
     this.fragmentMaxs = fragmentMaxs;
@@ -745,7 +677,6 @@ public class FragmentMetadata {
 
 
   public FragmentMetadata fragmentSums(List<BigDecimal> fragmentSums) {
-    
     this.fragmentSums = fragmentSums;
     return this;
   }
@@ -758,17 +689,14 @@ public class FragmentMetadata {
     return this;
   }
 
-   /**
+  /**
    * fragment sum values
    * @return fragmentSums
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "fragment sum values")
-
   public List<BigDecimal> getFragmentSums() {
     return fragmentSums;
   }
-
 
   public void setFragmentSums(List<BigDecimal> fragmentSums) {
     this.fragmentSums = fragmentSums;
@@ -776,7 +704,6 @@ public class FragmentMetadata {
 
 
   public FragmentMetadata fragmentNullCounts(List<BigDecimal> fragmentNullCounts) {
-    
     this.fragmentNullCounts = fragmentNullCounts;
     return this;
   }
@@ -789,17 +716,14 @@ public class FragmentMetadata {
     return this;
   }
 
-   /**
+  /**
    * fragment null count values
    * @return fragmentNullCounts
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "fragment null count values")
-
   public List<BigDecimal> getFragmentNullCounts() {
     return fragmentNullCounts;
   }
-
 
   public void setFragmentNullCounts(List<BigDecimal> fragmentNullCounts) {
     this.fragmentNullCounts = fragmentNullCounts;
@@ -807,22 +731,18 @@ public class FragmentMetadata {
 
 
   public FragmentMetadata version(Integer version) {
-    
     this.version = version;
     return this;
   }
 
-   /**
+  /**
    * the format version of this metadata
    * @return version
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "the format version of this metadata")
-
   public Integer getVersion() {
     return version;
   }
-
 
   public void setVersion(Integer version) {
     this.version = version;
@@ -830,7 +750,6 @@ public class FragmentMetadata {
 
 
   public FragmentMetadata timestampRange(List<BigDecimal> timestampRange) {
-    
     this.timestampRange = timestampRange;
     return this;
   }
@@ -843,17 +762,14 @@ public class FragmentMetadata {
     return this;
   }
 
-   /**
+  /**
    * A pair of timestamps for fragment
    * @return timestampRange
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "A pair of timestamps for fragment")
-
   public List<BigDecimal> getTimestampRange() {
     return timestampRange;
   }
-
 
   public void setTimestampRange(List<BigDecimal> timestampRange) {
     this.timestampRange = timestampRange;
@@ -861,22 +777,18 @@ public class FragmentMetadata {
 
 
   public FragmentMetadata lastTileCellNum(Integer lastTileCellNum) {
-    
     this.lastTileCellNum = lastTileCellNum;
     return this;
   }
 
-   /**
+  /**
    * The number of cells in the last tile
    * @return lastTileCellNum
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "The number of cells in the last tile")
-
   public Integer getLastTileCellNum() {
     return lastTileCellNum;
   }
-
 
   public void setLastTileCellNum(Integer lastTileCellNum) {
     this.lastTileCellNum = lastTileCellNum;
@@ -884,22 +796,18 @@ public class FragmentMetadata {
 
 
   public FragmentMetadata nonEmptyDomain(NonEmptyDomainList nonEmptyDomain) {
-    
     this.nonEmptyDomain = nonEmptyDomain;
     return this;
   }
 
-   /**
+  /**
    * Get nonEmptyDomain
    * @return nonEmptyDomain
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
   public NonEmptyDomainList getNonEmptyDomain() {
     return nonEmptyDomain;
   }
-
 
   public void setNonEmptyDomain(NonEmptyDomainList nonEmptyDomain) {
     this.nonEmptyDomain = nonEmptyDomain;
@@ -907,22 +815,18 @@ public class FragmentMetadata {
 
 
   public FragmentMetadata rtree(File rtree) {
-    
     this.rtree = rtree;
     return this;
   }
 
-   /**
+  /**
    * The RTree for the MBRs serialized as a blob
    * @return rtree
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "The RTree for the MBRs serialized as a blob")
-
   public File getRtree() {
     return rtree;
   }
-
 
   public void setRtree(File rtree) {
     this.rtree = rtree;
@@ -930,22 +834,18 @@ public class FragmentMetadata {
 
 
   public FragmentMetadata hasConsolidatedFooter(Boolean hasConsolidatedFooter) {
-    
     this.hasConsolidatedFooter = hasConsolidatedFooter;
     return this;
   }
 
-   /**
+  /**
    * if the fragment metadata footer appears in a consolidated file
    * @return hasConsolidatedFooter
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "if the fragment metadata footer appears in a consolidated file")
-
   public Boolean getHasConsolidatedFooter() {
     return hasConsolidatedFooter;
   }
-
 
   public void setHasConsolidatedFooter(Boolean hasConsolidatedFooter) {
     this.hasConsolidatedFooter = hasConsolidatedFooter;
@@ -953,22 +853,18 @@ public class FragmentMetadata {
 
 
   public FragmentMetadata gtOffsets(GenericTileOffsets gtOffsets) {
-    
     this.gtOffsets = gtOffsets;
     return this;
   }
 
-   /**
+  /**
    * Get gtOffsets
    * @return gtOffsets
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
   public GenericTileOffsets getGtOffsets() {
     return gtOffsets;
   }
-
 
   public void setGtOffsets(GenericTileOffsets gtOffsets) {
     this.gtOffsets = gtOffsets;
@@ -984,6 +880,10 @@ public class FragmentMetadata {
   /**
    * Set the additional (undeclared) property with the specified name and value.
    * If the property does not already exist, create it otherwise replace it.
+   *
+   * @param key name of the property
+   * @param value value of the property
+   * @return the FragmentMetadata instance itself
    */
   public FragmentMetadata putAdditionalProperty(String key, Object value) {
     if (this.additionalProperties == null) {
@@ -995,6 +895,8 @@ public class FragmentMetadata {
 
   /**
    * Return the additional (undeclared) property.
+   *
+   * @return a map of objects
    */
   public Map<String, Object> getAdditionalProperties() {
     return additionalProperties;
@@ -1002,6 +904,9 @@ public class FragmentMetadata {
 
   /**
    * Return the additional (undeclared) property with the specified name.
+   *
+   * @param key name of the property
+   * @return an object
    */
   public Object getAdditionalProperty(String key) {
     if (this.additionalProperties == null) {
@@ -1147,102 +1052,101 @@ public class FragmentMetadata {
     openapiRequiredFields = new HashSet<String>();
   }
 
- /**
-  * Validates the JSON Object and throws an exception if issues found
-  *
-  * @param jsonObj JSON Object
-  * @throws IOException if the JSON Object is invalid with respect to FragmentMetadata
-  */
-  public static void validateJsonObject(JsonObject jsonObj) throws IOException {
-      if (jsonObj == null) {
-        if (FragmentMetadata.openapiRequiredFields.isEmpty()) {
-          return;
-        } else { // has required fields
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to FragmentMetadata
+   */
+  public static void validateJsonElement(JsonElement jsonElement) throws IOException {
+      if (jsonElement == null) {
+        if (!FragmentMetadata.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
           throw new IllegalArgumentException(String.format("The required field(s) %s in FragmentMetadata is not found in the empty JSON string", FragmentMetadata.openapiRequiredFields.toString()));
         }
       }
-      // ensure the json data is an array
-      if (jsonObj.get("fileSizes") != null && !jsonObj.get("fileSizes").isJsonArray()) {
+        JsonObject jsonObj = jsonElement.getAsJsonObject();
+      // ensure the optional json data is an array if present
+      if (jsonObj.get("fileSizes") != null && !jsonObj.get("fileSizes").isJsonNull() && !jsonObj.get("fileSizes").isJsonArray()) {
         throw new IllegalArgumentException(String.format("Expected the field `fileSizes` to be an array in the JSON string but got `%s`", jsonObj.get("fileSizes").toString()));
       }
-      // ensure the json data is an array
-      if (jsonObj.get("fileVarSizes") != null && !jsonObj.get("fileVarSizes").isJsonArray()) {
+      // ensure the optional json data is an array if present
+      if (jsonObj.get("fileVarSizes") != null && !jsonObj.get("fileVarSizes").isJsonNull() && !jsonObj.get("fileVarSizes").isJsonArray()) {
         throw new IllegalArgumentException(String.format("Expected the field `fileVarSizes` to be an array in the JSON string but got `%s`", jsonObj.get("fileVarSizes").toString()));
       }
-      // ensure the json data is an array
-      if (jsonObj.get("fileValiditySizes") != null && !jsonObj.get("fileValiditySizes").isJsonArray()) {
+      // ensure the optional json data is an array if present
+      if (jsonObj.get("fileValiditySizes") != null && !jsonObj.get("fileValiditySizes").isJsonNull() && !jsonObj.get("fileValiditySizes").isJsonArray()) {
         throw new IllegalArgumentException(String.format("Expected the field `fileValiditySizes` to be an array in the JSON string but got `%s`", jsonObj.get("fileValiditySizes").toString()));
       }
-      if (jsonObj.get("fragmentUri") != null && !jsonObj.get("fragmentUri").isJsonPrimitive()) {
+      if ((jsonObj.get("fragmentUri") != null && !jsonObj.get("fragmentUri").isJsonNull()) && !jsonObj.get("fragmentUri").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `fragmentUri` to be a primitive type in the JSON string but got `%s`", jsonObj.get("fragmentUri").toString()));
       }
-      // ensure the json data is an array
-      if (jsonObj.get("tileOffsets") != null && !jsonObj.get("tileOffsets").isJsonArray()) {
+      // ensure the optional json data is an array if present
+      if (jsonObj.get("tileOffsets") != null && !jsonObj.get("tileOffsets").isJsonNull() && !jsonObj.get("tileOffsets").isJsonArray()) {
         throw new IllegalArgumentException(String.format("Expected the field `tileOffsets` to be an array in the JSON string but got `%s`", jsonObj.get("tileOffsets").toString()));
       }
-      // ensure the json data is an array
-      if (jsonObj.get("tileVarOffsets") != null && !jsonObj.get("tileVarOffsets").isJsonArray()) {
+      // ensure the optional json data is an array if present
+      if (jsonObj.get("tileVarOffsets") != null && !jsonObj.get("tileVarOffsets").isJsonNull() && !jsonObj.get("tileVarOffsets").isJsonArray()) {
         throw new IllegalArgumentException(String.format("Expected the field `tileVarOffsets` to be an array in the JSON string but got `%s`", jsonObj.get("tileVarOffsets").toString()));
       }
-      // ensure the json data is an array
-      if (jsonObj.get("tileVarSizes") != null && !jsonObj.get("tileVarSizes").isJsonArray()) {
+      // ensure the optional json data is an array if present
+      if (jsonObj.get("tileVarSizes") != null && !jsonObj.get("tileVarSizes").isJsonNull() && !jsonObj.get("tileVarSizes").isJsonArray()) {
         throw new IllegalArgumentException(String.format("Expected the field `tileVarSizes` to be an array in the JSON string but got `%s`", jsonObj.get("tileVarSizes").toString()));
       }
-      // ensure the json data is an array
-      if (jsonObj.get("tileValidityOffsets") != null && !jsonObj.get("tileValidityOffsets").isJsonArray()) {
+      // ensure the optional json data is an array if present
+      if (jsonObj.get("tileValidityOffsets") != null && !jsonObj.get("tileValidityOffsets").isJsonNull() && !jsonObj.get("tileValidityOffsets").isJsonArray()) {
         throw new IllegalArgumentException(String.format("Expected the field `tileValidityOffsets` to be an array in the JSON string but got `%s`", jsonObj.get("tileValidityOffsets").toString()));
       }
-      // ensure the json data is an array
-      if (jsonObj.get("tileMinBuffer") != null && !jsonObj.get("tileMinBuffer").isJsonArray()) {
+      // ensure the optional json data is an array if present
+      if (jsonObj.get("tileMinBuffer") != null && !jsonObj.get("tileMinBuffer").isJsonNull() && !jsonObj.get("tileMinBuffer").isJsonArray()) {
         throw new IllegalArgumentException(String.format("Expected the field `tileMinBuffer` to be an array in the JSON string but got `%s`", jsonObj.get("tileMinBuffer").toString()));
       }
-      // ensure the json data is an array
-      if (jsonObj.get("tileMinVarBuffer") != null && !jsonObj.get("tileMinVarBuffer").isJsonArray()) {
+      // ensure the optional json data is an array if present
+      if (jsonObj.get("tileMinVarBuffer") != null && !jsonObj.get("tileMinVarBuffer").isJsonNull() && !jsonObj.get("tileMinVarBuffer").isJsonArray()) {
         throw new IllegalArgumentException(String.format("Expected the field `tileMinVarBuffer` to be an array in the JSON string but got `%s`", jsonObj.get("tileMinVarBuffer").toString()));
       }
-      // ensure the json data is an array
-      if (jsonObj.get("tileMaxBuffer") != null && !jsonObj.get("tileMaxBuffer").isJsonArray()) {
+      // ensure the optional json data is an array if present
+      if (jsonObj.get("tileMaxBuffer") != null && !jsonObj.get("tileMaxBuffer").isJsonNull() && !jsonObj.get("tileMaxBuffer").isJsonArray()) {
         throw new IllegalArgumentException(String.format("Expected the field `tileMaxBuffer` to be an array in the JSON string but got `%s`", jsonObj.get("tileMaxBuffer").toString()));
       }
-      // ensure the json data is an array
-      if (jsonObj.get("tileMaxVarBuffer") != null && !jsonObj.get("tileMaxVarBuffer").isJsonArray()) {
+      // ensure the optional json data is an array if present
+      if (jsonObj.get("tileMaxVarBuffer") != null && !jsonObj.get("tileMaxVarBuffer").isJsonNull() && !jsonObj.get("tileMaxVarBuffer").isJsonArray()) {
         throw new IllegalArgumentException(String.format("Expected the field `tileMaxVarBuffer` to be an array in the JSON string but got `%s`", jsonObj.get("tileMaxVarBuffer").toString()));
       }
-      // ensure the json data is an array
-      if (jsonObj.get("tileSums") != null && !jsonObj.get("tileSums").isJsonArray()) {
+      // ensure the optional json data is an array if present
+      if (jsonObj.get("tileSums") != null && !jsonObj.get("tileSums").isJsonNull() && !jsonObj.get("tileSums").isJsonArray()) {
         throw new IllegalArgumentException(String.format("Expected the field `tileSums` to be an array in the JSON string but got `%s`", jsonObj.get("tileSums").toString()));
       }
-      // ensure the json data is an array
-      if (jsonObj.get("tileNullCounts") != null && !jsonObj.get("tileNullCounts").isJsonArray()) {
+      // ensure the optional json data is an array if present
+      if (jsonObj.get("tileNullCounts") != null && !jsonObj.get("tileNullCounts").isJsonNull() && !jsonObj.get("tileNullCounts").isJsonArray()) {
         throw new IllegalArgumentException(String.format("Expected the field `tileNullCounts` to be an array in the JSON string but got `%s`", jsonObj.get("tileNullCounts").toString()));
       }
-      // ensure the json data is an array
-      if (jsonObj.get("fragmentMins") != null && !jsonObj.get("fragmentMins").isJsonArray()) {
+      // ensure the optional json data is an array if present
+      if (jsonObj.get("fragmentMins") != null && !jsonObj.get("fragmentMins").isJsonNull() && !jsonObj.get("fragmentMins").isJsonArray()) {
         throw new IllegalArgumentException(String.format("Expected the field `fragmentMins` to be an array in the JSON string but got `%s`", jsonObj.get("fragmentMins").toString()));
       }
-      // ensure the json data is an array
-      if (jsonObj.get("fragmentMaxs") != null && !jsonObj.get("fragmentMaxs").isJsonArray()) {
+      // ensure the optional json data is an array if present
+      if (jsonObj.get("fragmentMaxs") != null && !jsonObj.get("fragmentMaxs").isJsonNull() && !jsonObj.get("fragmentMaxs").isJsonArray()) {
         throw new IllegalArgumentException(String.format("Expected the field `fragmentMaxs` to be an array in the JSON string but got `%s`", jsonObj.get("fragmentMaxs").toString()));
       }
-      // ensure the json data is an array
-      if (jsonObj.get("fragmentSums") != null && !jsonObj.get("fragmentSums").isJsonArray()) {
+      // ensure the optional json data is an array if present
+      if (jsonObj.get("fragmentSums") != null && !jsonObj.get("fragmentSums").isJsonNull() && !jsonObj.get("fragmentSums").isJsonArray()) {
         throw new IllegalArgumentException(String.format("Expected the field `fragmentSums` to be an array in the JSON string but got `%s`", jsonObj.get("fragmentSums").toString()));
       }
-      // ensure the json data is an array
-      if (jsonObj.get("fragmentNullCounts") != null && !jsonObj.get("fragmentNullCounts").isJsonArray()) {
+      // ensure the optional json data is an array if present
+      if (jsonObj.get("fragmentNullCounts") != null && !jsonObj.get("fragmentNullCounts").isJsonNull() && !jsonObj.get("fragmentNullCounts").isJsonArray()) {
         throw new IllegalArgumentException(String.format("Expected the field `fragmentNullCounts` to be an array in the JSON string but got `%s`", jsonObj.get("fragmentNullCounts").toString()));
       }
-      // ensure the json data is an array
-      if (jsonObj.get("timestampRange") != null && !jsonObj.get("timestampRange").isJsonArray()) {
+      // ensure the optional json data is an array if present
+      if (jsonObj.get("timestampRange") != null && !jsonObj.get("timestampRange").isJsonNull() && !jsonObj.get("timestampRange").isJsonArray()) {
         throw new IllegalArgumentException(String.format("Expected the field `timestampRange` to be an array in the JSON string but got `%s`", jsonObj.get("timestampRange").toString()));
       }
       // validate the optional field `nonEmptyDomain`
-      if (jsonObj.getAsJsonObject("nonEmptyDomain") != null) {
-        NonEmptyDomainList.validateJsonObject(jsonObj.getAsJsonObject("nonEmptyDomain"));
+      if (jsonObj.get("nonEmptyDomain") != null && !jsonObj.get("nonEmptyDomain").isJsonNull()) {
+        NonEmptyDomainList.validateJsonElement(jsonObj.get("nonEmptyDomain"));
       }
       // validate the optional field `gtOffsets`
-      if (jsonObj.getAsJsonObject("gtOffsets") != null) {
-        GenericTileOffsets.validateJsonObject(jsonObj.getAsJsonObject("gtOffsets"));
+      if (jsonObj.get("gtOffsets") != null && !jsonObj.get("gtOffsets").isJsonNull()) {
+        GenericTileOffsets.validateJsonElement(jsonObj.get("gtOffsets"));
       }
   }
 
@@ -1262,7 +1166,7 @@ public class FragmentMetadata {
            public void write(JsonWriter out, FragmentMetadata value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              obj.remove("additionalProperties");
-             // serialize additonal properties
+             // serialize additional properties
              if (value.getAdditionalProperties() != null) {
                for (Map.Entry<String, Object> entry : value.getAdditionalProperties().entrySet()) {
                  if (entry.getValue() instanceof String)
@@ -1274,7 +1178,12 @@ public class FragmentMetadata {
                  else if (entry.getValue() instanceof Character)
                    obj.addProperty(entry.getKey(), (Character) entry.getValue());
                  else {
-                   obj.add(entry.getKey(), gson.toJsonTree(entry.getValue()).getAsJsonObject());
+                   JsonElement jsonElement = gson.toJsonTree(entry.getValue());
+                   if (jsonElement.isJsonArray()) {
+                     obj.add(entry.getKey(), jsonElement.getAsJsonArray());
+                   } else {
+                     obj.add(entry.getKey(), jsonElement.getAsJsonObject());
+                   }
                  }
                }
              }
@@ -1283,8 +1192,9 @@ public class FragmentMetadata {
 
            @Override
            public FragmentMetadata read(JsonReader in) throws IOException {
-             JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
-             validateJsonObject(jsonObj);
+             JsonElement jsonElement = elementAdapter.read(in);
+             validateJsonElement(jsonElement);
+             JsonObject jsonObj = jsonElement.getAsJsonObject();
              // store additional fields in the deserialized instance
              FragmentMetadata instance = thisAdapter.fromJsonTree(jsonObj);
              for (Map.Entry<String, JsonElement> entry : jsonObj.entrySet()) {
@@ -1298,8 +1208,10 @@ public class FragmentMetadata {
                      instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsBoolean());
                    else
                      throw new IllegalArgumentException(String.format("The field `%s` has unknown primitive type. Value: %s", entry.getKey(), entry.getValue().toString()));
-                 } else { // non-primitive type
-                   instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
+                 } else if (entry.getValue().isJsonArray()) {
+                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), List.class));
+                 } else { // JSON object
+                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
                  }
                }
              }
@@ -1310,22 +1222,22 @@ public class FragmentMetadata {
     }
   }
 
- /**
-  * Create an instance of FragmentMetadata given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of FragmentMetadata
-  * @throws IOException if the JSON string is invalid with respect to FragmentMetadata
-  */
+  /**
+   * Create an instance of FragmentMetadata given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of FragmentMetadata
+   * @throws IOException if the JSON string is invalid with respect to FragmentMetadata
+   */
   public static FragmentMetadata fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, FragmentMetadata.class);
   }
 
- /**
-  * Convert an instance of FragmentMetadata to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of FragmentMetadata to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

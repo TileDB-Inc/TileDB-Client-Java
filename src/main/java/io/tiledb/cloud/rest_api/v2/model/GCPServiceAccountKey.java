@@ -14,32 +14,42 @@
 package io.tiledb.cloud.rest_api.v2.model;
 
 import java.util.Objects;
-
 import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
+import java.util.Arrays;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import com.google.gson.TypeAdapterFactory;
 import com.google.gson.reflect.TypeToken;
+import com.google.gson.TypeAdapter;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+import java.io.IOException;
 
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import io.tiledb.cloud.rest_api.v2.JSON;
 
 /**
  * The key to a Google Cloud Platform service account.
  */
-@ApiModel(description = "The key to a Google Cloud Platform service account.")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-07-02T18:54:48.746612+03:00[Europe/Athens]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-30T04:47:07.570140+03:00[Europe/Athens]", comments = "Generator version: 7.7.0")
 public class GCPServiceAccountKey {
   public static final String SERIALIZED_NAME_ACCOUNT_ID = "account_id";
   @SerializedName(SERIALIZED_NAME_ACCOUNT_ID)
@@ -53,26 +63,22 @@ public class GCPServiceAccountKey {
   @SerializedName(SERIALIZED_NAME_KEY_TEXT)
   private String keyText;
 
-  public GCPServiceAccountKey() { 
+  public GCPServiceAccountKey() {
   }
 
   public GCPServiceAccountKey accountId(String accountId) {
-    
     this.accountId = accountId;
     return this;
   }
 
-   /**
+  /**
    * The ID of the service account (i.e., its email address).  This is ignored when uploading key information, and is only provided by the server when downloading metadata about an existing key. 
    * @return accountId
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "identity-data-reader@cinco-research.iam.gserviceaccount.com", value = "The ID of the service account (i.e., its email address).  This is ignored when uploading key information, and is only provided by the server when downloading metadata about an existing key. ")
-
   public String getAccountId() {
     return accountId;
   }
-
 
   public void setAccountId(String accountId) {
     this.accountId = accountId;
@@ -80,22 +86,18 @@ public class GCPServiceAccountKey {
 
 
   public GCPServiceAccountKey keyId(String keyId) {
-    
     this.keyId = keyId;
     return this;
   }
 
-   /**
+  /**
    * The ID of the particular key. This identifies it among other keys issued for this service account.  This is ignored when uploading key information, and is only provided by the server when downloading metadata about an existing key. 
    * @return keyId
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "b85b7bac16fabf44fd9cd6885d4d1b444f07e9ab", value = "The ID of the particular key. This identifies it among other keys issued for this service account.  This is ignored when uploading key information, and is only provided by the server when downloading metadata about an existing key. ")
-
   public String getKeyId() {
     return keyId;
   }
-
 
   public void setKeyId(String keyId) {
     this.keyId = keyId;
@@ -103,22 +105,18 @@ public class GCPServiceAccountKey {
 
 
   public GCPServiceAccountKey keyText(String keyText) {
-    
     this.keyText = keyText;
     return this;
   }
 
-   /**
+  /**
    * The full file provided by Google Cloud. This is usually in the form of a JSON document, but TileDB Cloud treats it as opaque (except to attempt to extract the service account ID and the key ID). 
    * @return keyText
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "{   \"type\": \"service_account\",   \"project_id\": \"cinco-research\",   \"private_key_id\": \"b85b7bac16fabf44fd9cd6885d4d1b444f07e9ab\",   \"private_key\": \"-----BEGIN PRIVATE KEY-----\\n[lots of data goes here]\\n-----END PRIVATE KEY-----\\n\",   \"client_email\": \"identity-data-reader@cinco-research.iam.gserviceaccount.com\",   \"client_id\": \"105800434159734259879\",   \"auth_uri\": \"https://accounts.google.com/o/oauth2/auth\",   \"token_uri\": \"https://oauth2.googleapis.com/token\",   \"auth_provider_x509_cert_url\": \"https://www.googleapis.com/oauth2/v1/certs\",   \"client_x509_cert_url\": \"https://www.googleapis.com/robot/v1/metadata/x509/identity-data-reader%40cinco-research.iam.gserviceaccount.com\",   \"universe_domain\": \"googleapis.com\" } ", value = "The full file provided by Google Cloud. This is usually in the form of a JSON document, but TileDB Cloud treats it as opaque (except to attempt to extract the service account ID and the key ID). ")
-
   public String getKeyText() {
     return keyText;
   }
-
 
   public void setKeyText(String keyText) {
     this.keyText = keyText;
@@ -134,6 +132,10 @@ public class GCPServiceAccountKey {
   /**
    * Set the additional (undeclared) property with the specified name and value.
    * If the property does not already exist, create it otherwise replace it.
+   *
+   * @param key name of the property
+   * @param value value of the property
+   * @return the GCPServiceAccountKey instance itself
    */
   public GCPServiceAccountKey putAdditionalProperty(String key, Object value) {
     if (this.additionalProperties == null) {
@@ -145,6 +147,8 @@ public class GCPServiceAccountKey {
 
   /**
    * Return the additional (undeclared) property.
+   *
+   * @return a map of objects
    */
   public Map<String, Object> getAdditionalProperties() {
     return additionalProperties;
@@ -152,6 +156,9 @@ public class GCPServiceAccountKey {
 
   /**
    * Return the additional (undeclared) property with the specified name.
+   *
+   * @param key name of the property
+   * @return an object
    */
   public Object getAdditionalProperty(String key) {
     if (this.additionalProperties == null) {
@@ -219,27 +226,26 @@ public class GCPServiceAccountKey {
     openapiRequiredFields = new HashSet<String>();
   }
 
- /**
-  * Validates the JSON Object and throws an exception if issues found
-  *
-  * @param jsonObj JSON Object
-  * @throws IOException if the JSON Object is invalid with respect to GCPServiceAccountKey
-  */
-  public static void validateJsonObject(JsonObject jsonObj) throws IOException {
-      if (jsonObj == null) {
-        if (GCPServiceAccountKey.openapiRequiredFields.isEmpty()) {
-          return;
-        } else { // has required fields
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to GCPServiceAccountKey
+   */
+  public static void validateJsonElement(JsonElement jsonElement) throws IOException {
+      if (jsonElement == null) {
+        if (!GCPServiceAccountKey.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
           throw new IllegalArgumentException(String.format("The required field(s) %s in GCPServiceAccountKey is not found in the empty JSON string", GCPServiceAccountKey.openapiRequiredFields.toString()));
         }
       }
-      if (jsonObj.get("account_id") != null && !jsonObj.get("account_id").isJsonPrimitive()) {
+        JsonObject jsonObj = jsonElement.getAsJsonObject();
+      if ((jsonObj.get("account_id") != null && !jsonObj.get("account_id").isJsonNull()) && !jsonObj.get("account_id").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `account_id` to be a primitive type in the JSON string but got `%s`", jsonObj.get("account_id").toString()));
       }
-      if (jsonObj.get("key_id") != null && !jsonObj.get("key_id").isJsonPrimitive()) {
+      if ((jsonObj.get("key_id") != null && !jsonObj.get("key_id").isJsonNull()) && !jsonObj.get("key_id").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `key_id` to be a primitive type in the JSON string but got `%s`", jsonObj.get("key_id").toString()));
       }
-      if (jsonObj.get("key_text") != null && !jsonObj.get("key_text").isJsonPrimitive()) {
+      if ((jsonObj.get("key_text") != null && !jsonObj.get("key_text").isJsonNull()) && !jsonObj.get("key_text").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `key_text` to be a primitive type in the JSON string but got `%s`", jsonObj.get("key_text").toString()));
       }
   }
@@ -260,7 +266,7 @@ public class GCPServiceAccountKey {
            public void write(JsonWriter out, GCPServiceAccountKey value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              obj.remove("additionalProperties");
-             // serialize additonal properties
+             // serialize additional properties
              if (value.getAdditionalProperties() != null) {
                for (Map.Entry<String, Object> entry : value.getAdditionalProperties().entrySet()) {
                  if (entry.getValue() instanceof String)
@@ -272,7 +278,12 @@ public class GCPServiceAccountKey {
                  else if (entry.getValue() instanceof Character)
                    obj.addProperty(entry.getKey(), (Character) entry.getValue());
                  else {
-                   obj.add(entry.getKey(), gson.toJsonTree(entry.getValue()).getAsJsonObject());
+                   JsonElement jsonElement = gson.toJsonTree(entry.getValue());
+                   if (jsonElement.isJsonArray()) {
+                     obj.add(entry.getKey(), jsonElement.getAsJsonArray());
+                   } else {
+                     obj.add(entry.getKey(), jsonElement.getAsJsonObject());
+                   }
                  }
                }
              }
@@ -281,8 +292,9 @@ public class GCPServiceAccountKey {
 
            @Override
            public GCPServiceAccountKey read(JsonReader in) throws IOException {
-             JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
-             validateJsonObject(jsonObj);
+             JsonElement jsonElement = elementAdapter.read(in);
+             validateJsonElement(jsonElement);
+             JsonObject jsonObj = jsonElement.getAsJsonObject();
              // store additional fields in the deserialized instance
              GCPServiceAccountKey instance = thisAdapter.fromJsonTree(jsonObj);
              for (Map.Entry<String, JsonElement> entry : jsonObj.entrySet()) {
@@ -296,8 +308,10 @@ public class GCPServiceAccountKey {
                      instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsBoolean());
                    else
                      throw new IllegalArgumentException(String.format("The field `%s` has unknown primitive type. Value: %s", entry.getKey(), entry.getValue().toString()));
-                 } else { // non-primitive type
-                   instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
+                 } else if (entry.getValue().isJsonArray()) {
+                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), List.class));
+                 } else { // JSON object
+                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
                  }
                }
              }
@@ -308,22 +322,22 @@ public class GCPServiceAccountKey {
     }
   }
 
- /**
-  * Create an instance of GCPServiceAccountKey given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of GCPServiceAccountKey
-  * @throws IOException if the JSON string is invalid with respect to GCPServiceAccountKey
-  */
+  /**
+   * Create an instance of GCPServiceAccountKey given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of GCPServiceAccountKey
+   * @throws IOException if the JSON string is invalid with respect to GCPServiceAccountKey
+   */
   public static GCPServiceAccountKey fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, GCPServiceAccountKey.class);
   }
 
- /**
-  * Convert an instance of GCPServiceAccountKey to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of GCPServiceAccountKey to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

@@ -14,35 +14,49 @@
 package io.tiledb.cloud.rest_api.v2.model;
 
 import java.util.Objects;
-
 import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.tiledb.cloud.rest_api.v2.model.ArrayType;
+import io.tiledb.cloud.rest_api.v2.model.Attribute;
+import io.tiledb.cloud.rest_api.v2.model.Domain;
+import io.tiledb.cloud.rest_api.v2.model.FilterPipeline;
+import io.tiledb.cloud.rest_api.v2.model.Layout;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import com.google.gson.TypeAdapterFactory;
 import com.google.gson.reflect.TypeToken;
+import com.google.gson.TypeAdapter;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+import java.io.IOException;
 
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import io.tiledb.cloud.rest_api.v2.JSON;
 
 /**
  * ArraySchema during creation or retrieval
  */
-@ApiModel(description = "ArraySchema during creation or retrieval")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-07-02T18:54:48.746612+03:00[Europe/Athens]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-30T04:47:07.570140+03:00[Europe/Athens]", comments = "Generator version: 7.7.0")
 public class ArraySchema {
   public static final String SERIALIZED_NAME_URI = "uri";
   @SerializedName(SERIALIZED_NAME_URI)
@@ -98,28 +112,24 @@ public class ArraySchema {
 
   public static final String SERIALIZED_NAME_TIMESTAMP_RANGE = "timestampRange";
   @SerializedName(SERIALIZED_NAME_TIMESTAMP_RANGE)
-  private List<Integer> timestampRange = null;
+  private List<Integer> timestampRange = new ArrayList<>();
 
-  public ArraySchema() { 
+  public ArraySchema() {
   }
 
   public ArraySchema uri(String uri) {
-    
     this.uri = uri;
     return this;
   }
 
-   /**
+  /**
    * URI of schema
    * @return uri
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "s3://<bucket>/test_array", value = "URI of schema")
-
   public String getUri() {
     return uri;
   }
-
 
   public void setUri(String uri) {
     this.uri = uri;
@@ -127,22 +137,18 @@ public class ArraySchema {
 
 
   public ArraySchema name(String name) {
-    
     this.name = name;
     return this;
   }
 
-   /**
+  /**
    * name of schema
    * @return name
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "name of schema")
-
   public String getName() {
     return name;
   }
-
 
   public void setName(String name) {
     this.name = name;
@@ -150,27 +156,26 @@ public class ArraySchema {
 
 
   public ArraySchema version(List<Integer> version) {
-    
     this.version = version;
     return this;
   }
 
   public ArraySchema addVersionItem(Integer versionItem) {
+    if (this.version == null) {
+      this.version = new ArrayList<>();
+    }
     this.version.add(versionItem);
     return this;
   }
 
-   /**
+  /**
    * file format version
    * @return version
-  **/
+   */
   @javax.annotation.Nonnull
-  @ApiModelProperty(example = "[1, 3, 0]", required = true, value = "file format version")
-
   public List<Integer> getVersion() {
     return version;
   }
-
 
   public void setVersion(List<Integer> version) {
     this.version = version;
@@ -178,22 +183,18 @@ public class ArraySchema {
 
 
   public ArraySchema arrayType(ArrayType arrayType) {
-    
     this.arrayType = arrayType;
     return this;
   }
 
-   /**
+  /**
    * Get arrayType
    * @return arrayType
-  **/
+   */
   @javax.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "")
-
   public ArrayType getArrayType() {
     return arrayType;
   }
-
 
   public void setArrayType(ArrayType arrayType) {
     this.arrayType = arrayType;
@@ -201,22 +202,18 @@ public class ArraySchema {
 
 
   public ArraySchema tileOrder(Layout tileOrder) {
-    
     this.tileOrder = tileOrder;
     return this;
   }
 
-   /**
+  /**
    * Get tileOrder
    * @return tileOrder
-  **/
+   */
   @javax.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "")
-
   public Layout getTileOrder() {
     return tileOrder;
   }
-
 
   public void setTileOrder(Layout tileOrder) {
     this.tileOrder = tileOrder;
@@ -224,22 +221,18 @@ public class ArraySchema {
 
 
   public ArraySchema cellOrder(Layout cellOrder) {
-    
     this.cellOrder = cellOrder;
     return this;
   }
 
-   /**
+  /**
    * Get cellOrder
    * @return cellOrder
-  **/
+   */
   @javax.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "")
-
   public Layout getCellOrder() {
     return cellOrder;
   }
-
 
   public void setCellOrder(Layout cellOrder) {
     this.cellOrder = cellOrder;
@@ -247,22 +240,18 @@ public class ArraySchema {
 
 
   public ArraySchema capacity(Integer capacity) {
-    
     this.capacity = capacity;
     return this;
   }
 
-   /**
+  /**
    * Capacity of array
    * @return capacity
-  **/
+   */
   @javax.annotation.Nonnull
-  @ApiModelProperty(example = "100000", required = true, value = "Capacity of array")
-
   public Integer getCapacity() {
     return capacity;
   }
-
 
   public void setCapacity(Integer capacity) {
     this.capacity = capacity;
@@ -270,22 +259,18 @@ public class ArraySchema {
 
 
   public ArraySchema coordsFilterPipeline(FilterPipeline coordsFilterPipeline) {
-    
     this.coordsFilterPipeline = coordsFilterPipeline;
     return this;
   }
 
-   /**
+  /**
    * Get coordsFilterPipeline
    * @return coordsFilterPipeline
-  **/
+   */
   @javax.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "")
-
   public FilterPipeline getCoordsFilterPipeline() {
     return coordsFilterPipeline;
   }
-
 
   public void setCoordsFilterPipeline(FilterPipeline coordsFilterPipeline) {
     this.coordsFilterPipeline = coordsFilterPipeline;
@@ -293,22 +278,18 @@ public class ArraySchema {
 
 
   public ArraySchema offsetFilterPipeline(FilterPipeline offsetFilterPipeline) {
-    
     this.offsetFilterPipeline = offsetFilterPipeline;
     return this;
   }
 
-   /**
+  /**
    * Get offsetFilterPipeline
    * @return offsetFilterPipeline
-  **/
+   */
   @javax.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "")
-
   public FilterPipeline getOffsetFilterPipeline() {
     return offsetFilterPipeline;
   }
-
 
   public void setOffsetFilterPipeline(FilterPipeline offsetFilterPipeline) {
     this.offsetFilterPipeline = offsetFilterPipeline;
@@ -316,22 +297,18 @@ public class ArraySchema {
 
 
   public ArraySchema validityFilterPipeline(FilterPipeline validityFilterPipeline) {
-    
     this.validityFilterPipeline = validityFilterPipeline;
     return this;
   }
 
-   /**
+  /**
    * Get validityFilterPipeline
    * @return validityFilterPipeline
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
   public FilterPipeline getValidityFilterPipeline() {
     return validityFilterPipeline;
   }
-
 
   public void setValidityFilterPipeline(FilterPipeline validityFilterPipeline) {
     this.validityFilterPipeline = validityFilterPipeline;
@@ -339,22 +316,18 @@ public class ArraySchema {
 
 
   public ArraySchema domain(Domain domain) {
-    
     this.domain = domain;
     return this;
   }
 
-   /**
+  /**
    * Get domain
    * @return domain
-  **/
+   */
   @javax.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "")
-
   public Domain getDomain() {
     return domain;
   }
-
 
   public void setDomain(Domain domain) {
     this.domain = domain;
@@ -362,27 +335,26 @@ public class ArraySchema {
 
 
   public ArraySchema attributes(List<Attribute> attributes) {
-    
     this.attributes = attributes;
     return this;
   }
 
   public ArraySchema addAttributesItem(Attribute attributesItem) {
+    if (this.attributes == null) {
+      this.attributes = new ArrayList<>();
+    }
     this.attributes.add(attributesItem);
     return this;
   }
 
-   /**
+  /**
    * Attributes of array
    * @return attributes
-  **/
+   */
   @javax.annotation.Nonnull
-  @ApiModelProperty(required = true, value = "Attributes of array")
-
   public List<Attribute> getAttributes() {
     return attributes;
   }
-
 
   public void setAttributes(List<Attribute> attributes) {
     this.attributes = attributes;
@@ -390,22 +362,18 @@ public class ArraySchema {
 
 
   public ArraySchema allowsDuplicates(Boolean allowsDuplicates) {
-    
     this.allowsDuplicates = allowsDuplicates;
     return this;
   }
 
-   /**
+  /**
    * True if the array allows coordinate duplicates. Applicable only to sparse arrays.
    * @return allowsDuplicates
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "True if the array allows coordinate duplicates. Applicable only to sparse arrays.")
-
   public Boolean getAllowsDuplicates() {
     return allowsDuplicates;
   }
-
 
   public void setAllowsDuplicates(Boolean allowsDuplicates) {
     this.allowsDuplicates = allowsDuplicates;
@@ -413,7 +381,6 @@ public class ArraySchema {
 
 
   public ArraySchema timestampRange(List<Integer> timestampRange) {
-    
     this.timestampRange = timestampRange;
     return this;
   }
@@ -426,17 +393,14 @@ public class ArraySchema {
     return this;
   }
 
-   /**
+  /**
    * The list of sizes per range
    * @return timestampRange
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "The list of sizes per range")
-
   public List<Integer> getTimestampRange() {
     return timestampRange;
   }
-
 
   public void setTimestampRange(List<Integer> timestampRange) {
     this.timestampRange = timestampRange;
@@ -452,6 +416,10 @@ public class ArraySchema {
   /**
    * Set the additional (undeclared) property with the specified name and value.
    * If the property does not already exist, create it otherwise replace it.
+   *
+   * @param key name of the property
+   * @param value value of the property
+   * @return the ArraySchema instance itself
    */
   public ArraySchema putAdditionalProperty(String key, Object value) {
     if (this.additionalProperties == null) {
@@ -463,6 +431,8 @@ public class ArraySchema {
 
   /**
    * Return the additional (undeclared) property.
+   *
+   * @return a map of objects
    */
   public Map<String, Object> getAdditionalProperties() {
     return additionalProperties;
@@ -470,6 +440,9 @@ public class ArraySchema {
 
   /**
    * Return the additional (undeclared) property with the specified name.
+   *
+   * @param key name of the property
+   * @return an object
    */
   public Object getAdditionalProperty(String key) {
     if (this.additionalProperties == null) {
@@ -579,67 +552,66 @@ public class ArraySchema {
     openapiRequiredFields.add("attributes");
   }
 
- /**
-  * Validates the JSON Object and throws an exception if issues found
-  *
-  * @param jsonObj JSON Object
-  * @throws IOException if the JSON Object is invalid with respect to ArraySchema
-  */
-  public static void validateJsonObject(JsonObject jsonObj) throws IOException {
-      if (jsonObj == null) {
-        if (ArraySchema.openapiRequiredFields.isEmpty()) {
-          return;
-        } else { // has required fields
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to ArraySchema
+   */
+  public static void validateJsonElement(JsonElement jsonElement) throws IOException {
+      if (jsonElement == null) {
+        if (!ArraySchema.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
           throw new IllegalArgumentException(String.format("The required field(s) %s in ArraySchema is not found in the empty JSON string", ArraySchema.openapiRequiredFields.toString()));
         }
       }
 
       // check to make sure all required properties/fields are present in the JSON string
       for (String requiredField : ArraySchema.openapiRequiredFields) {
-        if (jsonObj.get(requiredField) == null) {
-          throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonObj.toString()));
+        if (jsonElement.getAsJsonObject().get(requiredField) == null) {
+          throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonElement.toString()));
         }
       }
-      if (jsonObj.get("uri") != null && !jsonObj.get("uri").isJsonPrimitive()) {
+        JsonObject jsonObj = jsonElement.getAsJsonObject();
+      if ((jsonObj.get("uri") != null && !jsonObj.get("uri").isJsonNull()) && !jsonObj.get("uri").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `uri` to be a primitive type in the JSON string but got `%s`", jsonObj.get("uri").toString()));
       }
-      if (jsonObj.get("name") != null && !jsonObj.get("name").isJsonPrimitive()) {
+      if ((jsonObj.get("name") != null && !jsonObj.get("name").isJsonNull()) && !jsonObj.get("name").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `name` to be a primitive type in the JSON string but got `%s`", jsonObj.get("name").toString()));
       }
-      // ensure the json data is an array
-      if (jsonObj.get("version") != null && !jsonObj.get("version").isJsonArray()) {
+      // ensure the required json array is present
+      if (jsonObj.get("version") == null) {
+        throw new IllegalArgumentException("Expected the field `linkedContent` to be an array in the JSON string but got `null`");
+      } else if (!jsonObj.get("version").isJsonArray()) {
         throw new IllegalArgumentException(String.format("Expected the field `version` to be an array in the JSON string but got `%s`", jsonObj.get("version").toString()));
       }
-      // validate the optional field `coordsFilterPipeline`
-      if (jsonObj.getAsJsonObject("coordsFilterPipeline") != null) {
-        FilterPipeline.validateJsonObject(jsonObj.getAsJsonObject("coordsFilterPipeline"));
-      }
-      // validate the optional field `offsetFilterPipeline`
-      if (jsonObj.getAsJsonObject("offsetFilterPipeline") != null) {
-        FilterPipeline.validateJsonObject(jsonObj.getAsJsonObject("offsetFilterPipeline"));
-      }
+      // validate the required field `arrayType`
+      ArrayType.validateJsonElement(jsonObj.get("arrayType"));
+      // validate the required field `tileOrder`
+      Layout.validateJsonElement(jsonObj.get("tileOrder"));
+      // validate the required field `cellOrder`
+      Layout.validateJsonElement(jsonObj.get("cellOrder"));
+      // validate the required field `coordsFilterPipeline`
+      FilterPipeline.validateJsonElement(jsonObj.get("coordsFilterPipeline"));
+      // validate the required field `offsetFilterPipeline`
+      FilterPipeline.validateJsonElement(jsonObj.get("offsetFilterPipeline"));
       // validate the optional field `validityFilterPipeline`
-      if (jsonObj.getAsJsonObject("validityFilterPipeline") != null) {
-        FilterPipeline.validateJsonObject(jsonObj.getAsJsonObject("validityFilterPipeline"));
+      if (jsonObj.get("validityFilterPipeline") != null && !jsonObj.get("validityFilterPipeline").isJsonNull()) {
+        FilterPipeline.validateJsonElement(jsonObj.get("validityFilterPipeline"));
       }
-      // validate the optional field `domain`
-      if (jsonObj.getAsJsonObject("domain") != null) {
-        Domain.validateJsonObject(jsonObj.getAsJsonObject("domain"));
-      }
-      JsonArray jsonArrayattributes = jsonObj.getAsJsonArray("attributes");
-      if (jsonArrayattributes != null) {
-        // ensure the json data is an array
-        if (!jsonObj.get("attributes").isJsonArray()) {
-          throw new IllegalArgumentException(String.format("Expected the field `attributes` to be an array in the JSON string but got `%s`", jsonObj.get("attributes").toString()));
-        }
-
-        // validate the optional field `attributes` (array)
-        for (int i = 0; i < jsonArrayattributes.size(); i++) {
-          Attribute.validateJsonObject(jsonArrayattributes.get(i).getAsJsonObject());
-        };
-      }
+      // validate the required field `domain`
+      Domain.validateJsonElement(jsonObj.get("domain"));
       // ensure the json data is an array
-      if (jsonObj.get("timestampRange") != null && !jsonObj.get("timestampRange").isJsonArray()) {
+      if (!jsonObj.get("attributes").isJsonArray()) {
+        throw new IllegalArgumentException(String.format("Expected the field `attributes` to be an array in the JSON string but got `%s`", jsonObj.get("attributes").toString()));
+      }
+
+      JsonArray jsonArrayattributes = jsonObj.getAsJsonArray("attributes");
+      // validate the required field `attributes` (array)
+      for (int i = 0; i < jsonArrayattributes.size(); i++) {
+        Attribute.validateJsonElement(jsonArrayattributes.get(i));
+      };
+      // ensure the optional json data is an array if present
+      if (jsonObj.get("timestampRange") != null && !jsonObj.get("timestampRange").isJsonNull() && !jsonObj.get("timestampRange").isJsonArray()) {
         throw new IllegalArgumentException(String.format("Expected the field `timestampRange` to be an array in the JSON string but got `%s`", jsonObj.get("timestampRange").toString()));
       }
   }
@@ -660,7 +632,7 @@ public class ArraySchema {
            public void write(JsonWriter out, ArraySchema value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              obj.remove("additionalProperties");
-             // serialize additonal properties
+             // serialize additional properties
              if (value.getAdditionalProperties() != null) {
                for (Map.Entry<String, Object> entry : value.getAdditionalProperties().entrySet()) {
                  if (entry.getValue() instanceof String)
@@ -672,7 +644,12 @@ public class ArraySchema {
                  else if (entry.getValue() instanceof Character)
                    obj.addProperty(entry.getKey(), (Character) entry.getValue());
                  else {
-                   obj.add(entry.getKey(), gson.toJsonTree(entry.getValue()).getAsJsonObject());
+                   JsonElement jsonElement = gson.toJsonTree(entry.getValue());
+                   if (jsonElement.isJsonArray()) {
+                     obj.add(entry.getKey(), jsonElement.getAsJsonArray());
+                   } else {
+                     obj.add(entry.getKey(), jsonElement.getAsJsonObject());
+                   }
                  }
                }
              }
@@ -681,8 +658,9 @@ public class ArraySchema {
 
            @Override
            public ArraySchema read(JsonReader in) throws IOException {
-             JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
-             validateJsonObject(jsonObj);
+             JsonElement jsonElement = elementAdapter.read(in);
+             validateJsonElement(jsonElement);
+             JsonObject jsonObj = jsonElement.getAsJsonObject();
              // store additional fields in the deserialized instance
              ArraySchema instance = thisAdapter.fromJsonTree(jsonObj);
              for (Map.Entry<String, JsonElement> entry : jsonObj.entrySet()) {
@@ -696,8 +674,10 @@ public class ArraySchema {
                      instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsBoolean());
                    else
                      throw new IllegalArgumentException(String.format("The field `%s` has unknown primitive type. Value: %s", entry.getKey(), entry.getValue().toString()));
-                 } else { // non-primitive type
-                   instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
+                 } else if (entry.getValue().isJsonArray()) {
+                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), List.class));
+                 } else { // JSON object
+                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
                  }
                }
              }
@@ -708,22 +688,22 @@ public class ArraySchema {
     }
   }
 
- /**
-  * Create an instance of ArraySchema given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of ArraySchema
-  * @throws IOException if the JSON string is invalid with respect to ArraySchema
-  */
+  /**
+   * Create an instance of ArraySchema given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of ArraySchema
+   * @throws IOException if the JSON string is invalid with respect to ArraySchema
+   */
   public static ArraySchema fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, ArraySchema.class);
   }
 
- /**
-  * Convert an instance of ArraySchema to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of ArraySchema to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

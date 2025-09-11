@@ -14,36 +14,50 @@
 package io.tiledb.cloud.rest_api.v2.model;
 
 import java.util.Objects;
-
 import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
+import java.util.Arrays;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import com.google.gson.TypeAdapterFactory;
 import com.google.gson.reflect.TypeToken;
+import com.google.gson.TypeAdapter;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+import java.io.IOException;
 
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import io.tiledb.cloud.rest_api.v2.JSON;
 
 /**
  * Information of the created group
  */
-@ApiModel(description = "Information of the created group")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-07-02T18:54:48.746612+03:00[Europe/Athens]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-30T04:47:07.570140+03:00[Europe/Athens]", comments = "Generator version: 7.7.0")
 public class GroupCreationResponse {
   public static final String SERIALIZED_NAME_ID = "id";
   @SerializedName(SERIALIZED_NAME_ID)
   private String id;
+
+  public static final String SERIALIZED_NAME_ASSET_ID = "asset_id";
+  @SerializedName(SERIALIZED_NAME_ASSET_ID)
+  private String assetId;
 
   public static final String SERIALIZED_NAME_NAME = "name";
   @SerializedName(SERIALIZED_NAME_NAME)
@@ -53,49 +67,60 @@ public class GroupCreationResponse {
   @SerializedName(SERIALIZED_NAME_TILEDB_URI)
   private String tiledbUri;
 
-  public GroupCreationResponse() { 
+  public GroupCreationResponse() {
   }
 
   public GroupCreationResponse id(String id) {
-    
     this.id = id;
     return this;
   }
 
-   /**
+  /**
    * The UUID of the created Group
    * @return id
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "The UUID of the created Group")
-
   public String getId() {
     return id;
   }
-
 
   public void setId(String id) {
     this.id = id;
   }
 
 
+  public GroupCreationResponse assetId(String assetId) {
+    this.assetId = assetId;
+    return this;
+  }
+
+  /**
+   * The asset id of the created Group
+   * @return assetId
+   */
+  @javax.annotation.Nullable
+  public String getAssetId() {
+    return assetId;
+  }
+
+  public void setAssetId(String assetId) {
+    this.assetId = assetId;
+  }
+
+
   public GroupCreationResponse name(String name) {
-    
     this.name = name;
     return this;
   }
 
-   /**
+  /**
    * The name of the created Group
    * @return name
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "The name of the created Group")
-
   public String getName() {
     return name;
   }
-
 
   public void setName(String name) {
     this.name = name;
@@ -103,22 +128,18 @@ public class GroupCreationResponse {
 
 
   public GroupCreationResponse tiledbUri(String tiledbUri) {
-    
     this.tiledbUri = tiledbUri;
     return this;
   }
 
-   /**
+  /**
    * TileDB URI for access
    * @return tiledbUri
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "TileDB URI for access")
-
   public String getTiledbUri() {
     return tiledbUri;
   }
-
 
   public void setTiledbUri(String tiledbUri) {
     this.tiledbUri = tiledbUri;
@@ -134,6 +155,10 @@ public class GroupCreationResponse {
   /**
    * Set the additional (undeclared) property with the specified name and value.
    * If the property does not already exist, create it otherwise replace it.
+   *
+   * @param key name of the property
+   * @param value value of the property
+   * @return the GroupCreationResponse instance itself
    */
   public GroupCreationResponse putAdditionalProperty(String key, Object value) {
     if (this.additionalProperties == null) {
@@ -145,6 +170,8 @@ public class GroupCreationResponse {
 
   /**
    * Return the additional (undeclared) property.
+   *
+   * @return a map of objects
    */
   public Map<String, Object> getAdditionalProperties() {
     return additionalProperties;
@@ -152,6 +179,9 @@ public class GroupCreationResponse {
 
   /**
    * Return the additional (undeclared) property with the specified name.
+   *
+   * @param key name of the property
+   * @return an object
    */
   public Object getAdditionalProperty(String key) {
     if (this.additionalProperties == null) {
@@ -171,6 +201,7 @@ public class GroupCreationResponse {
     }
     GroupCreationResponse groupCreationResponse = (GroupCreationResponse) o;
     return Objects.equals(this.id, groupCreationResponse.id) &&
+        Objects.equals(this.assetId, groupCreationResponse.assetId) &&
         Objects.equals(this.name, groupCreationResponse.name) &&
         Objects.equals(this.tiledbUri, groupCreationResponse.tiledbUri)&&
         Objects.equals(this.additionalProperties, groupCreationResponse.additionalProperties);
@@ -178,7 +209,7 @@ public class GroupCreationResponse {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name, tiledbUri, additionalProperties);
+    return Objects.hash(id, assetId, name, tiledbUri, additionalProperties);
   }
 
   @Override
@@ -186,6 +217,7 @@ public class GroupCreationResponse {
     StringBuilder sb = new StringBuilder();
     sb.append("class GroupCreationResponse {\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    assetId: ").append(toIndentedString(assetId)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    tiledbUri: ").append(toIndentedString(tiledbUri)).append("\n");
     sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
@@ -212,6 +244,7 @@ public class GroupCreationResponse {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
     openapiFields.add("id");
+    openapiFields.add("asset_id");
     openapiFields.add("name");
     openapiFields.add("tiledb_uri");
 
@@ -219,28 +252,17 @@ public class GroupCreationResponse {
     openapiRequiredFields = new HashSet<String>();
   }
 
- /**
-  * Validates the JSON Object and throws an exception if issues found
-  *
-  * @param jsonObj JSON Object
-  * @throws IOException if the JSON Object is invalid with respect to GroupCreationResponse
-  */
-  public static void validateJsonObject(JsonObject jsonObj) throws IOException {
-      if (jsonObj == null) {
-        if (GroupCreationResponse.openapiRequiredFields.isEmpty()) {
-          return;
-        } else { // has required fields
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to GroupCreationResponse
+   */
+  public static void validateJsonElement(JsonElement jsonElement) throws IOException {
+      if (jsonElement == null) {
+        if (!GroupCreationResponse.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
           throw new IllegalArgumentException(String.format("The required field(s) %s in GroupCreationResponse is not found in the empty JSON string", GroupCreationResponse.openapiRequiredFields.toString()));
         }
-      }
-      if (jsonObj.get("id") != null && !jsonObj.get("id").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `id` to be a primitive type in the JSON string but got `%s`", jsonObj.get("id").toString()));
-      }
-      if (jsonObj.get("name") != null && !jsonObj.get("name").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `name` to be a primitive type in the JSON string but got `%s`", jsonObj.get("name").toString()));
-      }
-      if (jsonObj.get("tiledb_uri") != null && !jsonObj.get("tiledb_uri").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `tiledb_uri` to be a primitive type in the JSON string but got `%s`", jsonObj.get("tiledb_uri").toString()));
       }
   }
 
@@ -260,7 +282,7 @@ public class GroupCreationResponse {
            public void write(JsonWriter out, GroupCreationResponse value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              obj.remove("additionalProperties");
-             // serialize additonal properties
+             // serialize additional properties
              if (value.getAdditionalProperties() != null) {
                for (Map.Entry<String, Object> entry : value.getAdditionalProperties().entrySet()) {
                  if (entry.getValue() instanceof String)
@@ -272,7 +294,12 @@ public class GroupCreationResponse {
                  else if (entry.getValue() instanceof Character)
                    obj.addProperty(entry.getKey(), (Character) entry.getValue());
                  else {
-                   obj.add(entry.getKey(), gson.toJsonTree(entry.getValue()).getAsJsonObject());
+                   JsonElement jsonElement = gson.toJsonTree(entry.getValue());
+                   if (jsonElement.isJsonArray()) {
+                     obj.add(entry.getKey(), jsonElement.getAsJsonArray());
+                   } else {
+                     obj.add(entry.getKey(), jsonElement.getAsJsonObject());
+                   }
                  }
                }
              }
@@ -281,8 +308,9 @@ public class GroupCreationResponse {
 
            @Override
            public GroupCreationResponse read(JsonReader in) throws IOException {
-             JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
-             validateJsonObject(jsonObj);
+             JsonElement jsonElement = elementAdapter.read(in);
+             validateJsonElement(jsonElement);
+             JsonObject jsonObj = jsonElement.getAsJsonObject();
              // store additional fields in the deserialized instance
              GroupCreationResponse instance = thisAdapter.fromJsonTree(jsonObj);
              for (Map.Entry<String, JsonElement> entry : jsonObj.entrySet()) {
@@ -296,8 +324,10 @@ public class GroupCreationResponse {
                      instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsBoolean());
                    else
                      throw new IllegalArgumentException(String.format("The field `%s` has unknown primitive type. Value: %s", entry.getKey(), entry.getValue().toString()));
-                 } else { // non-primitive type
-                   instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
+                 } else if (entry.getValue().isJsonArray()) {
+                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), List.class));
+                 } else { // JSON object
+                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
                  }
                }
              }
@@ -308,22 +338,22 @@ public class GroupCreationResponse {
     }
   }
 
- /**
-  * Create an instance of GroupCreationResponse given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of GroupCreationResponse
-  * @throws IOException if the JSON string is invalid with respect to GroupCreationResponse
-  */
+  /**
+   * Create an instance of GroupCreationResponse given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of GroupCreationResponse
+   * @throws IOException if the JSON string is invalid with respect to GroupCreationResponse
+   */
   public static GroupCreationResponse fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, GroupCreationResponse.class);
   }
 
- /**
-  * Convert an instance of GroupCreationResponse to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of GroupCreationResponse to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

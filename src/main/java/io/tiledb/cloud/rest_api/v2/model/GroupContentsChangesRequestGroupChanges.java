@@ -14,47 +14,58 @@
 package io.tiledb.cloud.rest_api.v2.model;
 
 import java.util.Objects;
-
 import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import io.swagger.annotations.ApiModelProperty;
+import io.tiledb.cloud.rest_api.v2.model.GroupMember;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import com.google.gson.TypeAdapterFactory;
 import com.google.gson.reflect.TypeToken;
+import com.google.gson.TypeAdapter;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+import java.io.IOException;
 
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import io.tiledb.cloud.rest_api.v2.JSON;
 
 /**
  * GroupContentsChangesRequestGroupChanges
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-07-02T18:54:48.746612+03:00[Europe/Athens]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-30T04:47:07.570140+03:00[Europe/Athens]", comments = "Generator version: 7.7.0")
 public class GroupContentsChangesRequestGroupChanges {
   public static final String SERIALIZED_NAME_MEMBERS_TO_REMOVE = "members_to_remove";
   @SerializedName(SERIALIZED_NAME_MEMBERS_TO_REMOVE)
-  private List<String> membersToRemove = null;
+  private List<String> membersToRemove = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_MEMBERS_TO_ADD = "members_to_add";
   @SerializedName(SERIALIZED_NAME_MEMBERS_TO_ADD)
-  private List<GroupMember> membersToAdd = null;
+  private List<GroupMember> membersToAdd = new ArrayList<>();
 
-  public GroupContentsChangesRequestGroupChanges() { 
+  public GroupContentsChangesRequestGroupChanges() {
   }
 
   public GroupContentsChangesRequestGroupChanges membersToRemove(List<String> membersToRemove) {
-    
     this.membersToRemove = membersToRemove;
     return this;
   }
@@ -67,17 +78,14 @@ public class GroupContentsChangesRequestGroupChanges {
     return this;
   }
 
-   /**
+  /**
    * optional series of members to remove
    * @return membersToRemove
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "optional series of members to remove")
-
   public List<String> getMembersToRemove() {
     return membersToRemove;
   }
-
 
   public void setMembersToRemove(List<String> membersToRemove) {
     this.membersToRemove = membersToRemove;
@@ -85,7 +93,6 @@ public class GroupContentsChangesRequestGroupChanges {
 
 
   public GroupContentsChangesRequestGroupChanges membersToAdd(List<GroupMember> membersToAdd) {
-    
     this.membersToAdd = membersToAdd;
     return this;
   }
@@ -98,17 +105,14 @@ public class GroupContentsChangesRequestGroupChanges {
     return this;
   }
 
-   /**
+  /**
    * optional series of members to add
    * @return membersToAdd
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "optional series of members to add")
-
   public List<GroupMember> getMembersToAdd() {
     return membersToAdd;
   }
-
 
   public void setMembersToAdd(List<GroupMember> membersToAdd) {
     this.membersToAdd = membersToAdd;
@@ -124,6 +128,10 @@ public class GroupContentsChangesRequestGroupChanges {
   /**
    * Set the additional (undeclared) property with the specified name and value.
    * If the property does not already exist, create it otherwise replace it.
+   *
+   * @param key name of the property
+   * @param value value of the property
+   * @return the GroupContentsChangesRequestGroupChanges instance itself
    */
   public GroupContentsChangesRequestGroupChanges putAdditionalProperty(String key, Object value) {
     if (this.additionalProperties == null) {
@@ -135,6 +143,8 @@ public class GroupContentsChangesRequestGroupChanges {
 
   /**
    * Return the additional (undeclared) property.
+   *
+   * @return a map of objects
    */
   public Map<String, Object> getAdditionalProperties() {
     return additionalProperties;
@@ -142,6 +152,9 @@ public class GroupContentsChangesRequestGroupChanges {
 
   /**
    * Return the additional (undeclared) property with the specified name.
+   *
+   * @param key name of the property
+   * @return an object
    */
   public Object getAdditionalProperty(String key) {
     if (this.additionalProperties == null) {
@@ -206,35 +219,36 @@ public class GroupContentsChangesRequestGroupChanges {
     openapiRequiredFields = new HashSet<String>();
   }
 
- /**
-  * Validates the JSON Object and throws an exception if issues found
-  *
-  * @param jsonObj JSON Object
-  * @throws IOException if the JSON Object is invalid with respect to GroupContentsChangesRequestGroupChanges
-  */
-  public static void validateJsonObject(JsonObject jsonObj) throws IOException {
-      if (jsonObj == null) {
-        if (GroupContentsChangesRequestGroupChanges.openapiRequiredFields.isEmpty()) {
-          return;
-        } else { // has required fields
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to GroupContentsChangesRequestGroupChanges
+   */
+  public static void validateJsonElement(JsonElement jsonElement) throws IOException {
+      if (jsonElement == null) {
+        if (!GroupContentsChangesRequestGroupChanges.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
           throw new IllegalArgumentException(String.format("The required field(s) %s in GroupContentsChangesRequestGroupChanges is not found in the empty JSON string", GroupContentsChangesRequestGroupChanges.openapiRequiredFields.toString()));
         }
       }
-      // ensure the json data is an array
-      if (jsonObj.get("members_to_remove") != null && !jsonObj.get("members_to_remove").isJsonArray()) {
+        JsonObject jsonObj = jsonElement.getAsJsonObject();
+      // ensure the optional json data is an array if present
+      if (jsonObj.get("members_to_remove") != null && !jsonObj.get("members_to_remove").isJsonNull() && !jsonObj.get("members_to_remove").isJsonArray()) {
         throw new IllegalArgumentException(String.format("Expected the field `members_to_remove` to be an array in the JSON string but got `%s`", jsonObj.get("members_to_remove").toString()));
       }
-      JsonArray jsonArraymembersToAdd = jsonObj.getAsJsonArray("members_to_add");
-      if (jsonArraymembersToAdd != null) {
-        // ensure the json data is an array
-        if (!jsonObj.get("members_to_add").isJsonArray()) {
-          throw new IllegalArgumentException(String.format("Expected the field `members_to_add` to be an array in the JSON string but got `%s`", jsonObj.get("members_to_add").toString()));
-        }
+      if (jsonObj.get("members_to_add") != null && !jsonObj.get("members_to_add").isJsonNull()) {
+        JsonArray jsonArraymembersToAdd = jsonObj.getAsJsonArray("members_to_add");
+        if (jsonArraymembersToAdd != null) {
+          // ensure the json data is an array
+          if (!jsonObj.get("members_to_add").isJsonArray()) {
+            throw new IllegalArgumentException(String.format("Expected the field `members_to_add` to be an array in the JSON string but got `%s`", jsonObj.get("members_to_add").toString()));
+          }
 
-        // validate the optional field `members_to_add` (array)
-        for (int i = 0; i < jsonArraymembersToAdd.size(); i++) {
-          GroupMember.validateJsonObject(jsonArraymembersToAdd.get(i).getAsJsonObject());
-        };
+          // validate the optional field `members_to_add` (array)
+          for (int i = 0; i < jsonArraymembersToAdd.size(); i++) {
+            GroupMember.validateJsonElement(jsonArraymembersToAdd.get(i));
+          };
+        }
       }
   }
 
@@ -254,7 +268,7 @@ public class GroupContentsChangesRequestGroupChanges {
            public void write(JsonWriter out, GroupContentsChangesRequestGroupChanges value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              obj.remove("additionalProperties");
-             // serialize additonal properties
+             // serialize additional properties
              if (value.getAdditionalProperties() != null) {
                for (Map.Entry<String, Object> entry : value.getAdditionalProperties().entrySet()) {
                  if (entry.getValue() instanceof String)
@@ -266,7 +280,12 @@ public class GroupContentsChangesRequestGroupChanges {
                  else if (entry.getValue() instanceof Character)
                    obj.addProperty(entry.getKey(), (Character) entry.getValue());
                  else {
-                   obj.add(entry.getKey(), gson.toJsonTree(entry.getValue()).getAsJsonObject());
+                   JsonElement jsonElement = gson.toJsonTree(entry.getValue());
+                   if (jsonElement.isJsonArray()) {
+                     obj.add(entry.getKey(), jsonElement.getAsJsonArray());
+                   } else {
+                     obj.add(entry.getKey(), jsonElement.getAsJsonObject());
+                   }
                  }
                }
              }
@@ -275,8 +294,9 @@ public class GroupContentsChangesRequestGroupChanges {
 
            @Override
            public GroupContentsChangesRequestGroupChanges read(JsonReader in) throws IOException {
-             JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
-             validateJsonObject(jsonObj);
+             JsonElement jsonElement = elementAdapter.read(in);
+             validateJsonElement(jsonElement);
+             JsonObject jsonObj = jsonElement.getAsJsonObject();
              // store additional fields in the deserialized instance
              GroupContentsChangesRequestGroupChanges instance = thisAdapter.fromJsonTree(jsonObj);
              for (Map.Entry<String, JsonElement> entry : jsonObj.entrySet()) {
@@ -290,8 +310,10 @@ public class GroupContentsChangesRequestGroupChanges {
                      instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsBoolean());
                    else
                      throw new IllegalArgumentException(String.format("The field `%s` has unknown primitive type. Value: %s", entry.getKey(), entry.getValue().toString()));
-                 } else { // non-primitive type
-                   instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
+                 } else if (entry.getValue().isJsonArray()) {
+                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), List.class));
+                 } else { // JSON object
+                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
                  }
                }
              }
@@ -302,22 +324,22 @@ public class GroupContentsChangesRequestGroupChanges {
     }
   }
 
- /**
-  * Create an instance of GroupContentsChangesRequestGroupChanges given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of GroupContentsChangesRequestGroupChanges
-  * @throws IOException if the JSON string is invalid with respect to GroupContentsChangesRequestGroupChanges
-  */
+  /**
+   * Create an instance of GroupContentsChangesRequestGroupChanges given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of GroupContentsChangesRequestGroupChanges
+   * @throws IOException if the JSON string is invalid with respect to GroupContentsChangesRequestGroupChanges
+   */
   public static GroupContentsChangesRequestGroupChanges fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, GroupContentsChangesRequestGroupChanges.class);
   }
 
- /**
-  * Convert an instance of GroupContentsChangesRequestGroupChanges to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of GroupContentsChangesRequestGroupChanges to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

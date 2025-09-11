@@ -13,18 +13,23 @@
 
 package io.tiledb.cloud.rest_api.v2.api;
 
-import io.tiledb.cloud.rest_api.v2.model.FileUploaded;
 import io.tiledb.cloud.rest_api.v2.ApiCallback;
 import io.tiledb.cloud.rest_api.v2.ApiClient;
 import io.tiledb.cloud.rest_api.v2.ApiException;
 import io.tiledb.cloud.rest_api.v2.ApiResponse;
 import io.tiledb.cloud.rest_api.v2.Configuration;
 import io.tiledb.cloud.rest_api.v2.Pair;
+import io.tiledb.cloud.rest_api.v2.ProgressRequestBody;
+import io.tiledb.cloud.rest_api.v2.ProgressResponseBody;
 
 import com.google.gson.reflect.TypeToken;
 
+import java.io.IOException;
 
+
+import io.tiledb.cloud.rest_api.v2.model.Error;
 import java.io.File;
+import io.tiledb.cloud.rest_api.v2.model.FileUploaded;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -71,8 +76,9 @@ public class FilesApi {
 
     /**
      * Build call for handleUploadFile
-     * @param namespace The namespace of the file (required)
-     * @param array name/uri of array that is url-encoded (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the array belongs to (required)
+     * @param array asset ID or hierarchical path of array that is url-encoded (required)
      * @param contentType Content Type of input (required)
      * @param filesize size of the file to upload in bytes (required)
      * @param _file file to upload (required)
@@ -91,7 +97,7 @@ public class FilesApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call handleUploadFileCall(String namespace, String array, String contentType, Integer filesize, File _file, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, String name, String filename, String mimetype, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call handleUploadFileCall(String workspace, String teamspace, String array, String contentType, Integer filesize, File _file, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, String name, String filename, String mimetype, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -108,9 +114,10 @@ public class FilesApi {
         Object localVarPostBody = _file;
 
         // create path and map variables
-        String localVarPath = "/files/{namespace}/{array}/upload"
-            .replaceAll("\\{" + "namespace" + "\\}", localVarApiClient.escapeString(namespace.toString()))
-            .replaceAll("\\{" + "array" + "\\}", localVarApiClient.escapeString(array.toString()));
+        String localVarPath = "/files/{workspace}/{teamspace}/{array}/upload"
+            .replace("{" + "workspace" + "}", localVarApiClient.escapeString(workspace.toString()))
+            .replace("{" + "teamspace" + "}", localVarApiClient.escapeString(teamspace.toString()))
+            .replace("{" + "array" + "}", localVarApiClient.escapeString(array.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -158,49 +165,52 @@ public class FilesApi {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
 
-        String[] localVarAuthNames = new String[] { "ApiKeyAuth", "BasicAuth" };
+        String[] localVarAuthNames = new String[] { "BasicAuth", "ApiKeyAuth" };
         return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call handleUploadFileValidateBeforeCall(String namespace, String array, String contentType, Integer filesize, File _file, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, String name, String filename, String mimetype, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'namespace' is set
-        if (namespace == null) {
-            throw new ApiException("Missing the required parameter 'namespace' when calling handleUploadFile(Async)");
+    private okhttp3.Call handleUploadFileValidateBeforeCall(String workspace, String teamspace, String array, String contentType, Integer filesize, File _file, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, String name, String filename, String mimetype, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'workspace' is set
+        if (workspace == null) {
+            throw new ApiException("Missing the required parameter 'workspace' when calling handleUploadFile(Async)");
         }
-        
+
+        // verify the required parameter 'teamspace' is set
+        if (teamspace == null) {
+            throw new ApiException("Missing the required parameter 'teamspace' when calling handleUploadFile(Async)");
+        }
+
         // verify the required parameter 'array' is set
         if (array == null) {
             throw new ApiException("Missing the required parameter 'array' when calling handleUploadFile(Async)");
         }
-        
+
         // verify the required parameter 'contentType' is set
         if (contentType == null) {
             throw new ApiException("Missing the required parameter 'contentType' when calling handleUploadFile(Async)");
         }
-        
+
         // verify the required parameter 'filesize' is set
         if (filesize == null) {
             throw new ApiException("Missing the required parameter 'filesize' when calling handleUploadFile(Async)");
         }
-        
+
         // verify the required parameter '_file' is set
         if (_file == null) {
             throw new ApiException("Missing the required parameter '_file' when calling handleUploadFile(Async)");
         }
-        
 
-        okhttp3.Call localVarCall = handleUploadFileCall(namespace, array, contentType, filesize, _file, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, name, filename, mimetype, _callback);
-        return localVarCall;
+        return handleUploadFileCall(workspace, teamspace, array, contentType, filesize, _file, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, name, filename, mimetype, _callback);
 
     }
 
     /**
      * 
      * Upload a file at the specified location and wrap it in TileDB Array
-     * @param namespace The namespace of the file (required)
-     * @param array name/uri of array that is url-encoded (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the array belongs to (required)
+     * @param array asset ID or hierarchical path of array that is url-encoded (required)
      * @param contentType Content Type of input (required)
      * @param filesize size of the file to upload in bytes (required)
      * @param _file file to upload (required)
@@ -218,16 +228,17 @@ public class FilesApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public FileUploaded handleUploadFile(String namespace, String array, String contentType, Integer filesize, File _file, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, String name, String filename, String mimetype) throws ApiException {
-        ApiResponse<FileUploaded> localVarResp = handleUploadFileWithHttpInfo(namespace, array, contentType, filesize, _file, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, name, filename, mimetype);
+    public FileUploaded handleUploadFile(String workspace, String teamspace, String array, String contentType, Integer filesize, File _file, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, String name, String filename, String mimetype) throws ApiException {
+        ApiResponse<FileUploaded> localVarResp = handleUploadFileWithHttpInfo(workspace, teamspace, array, contentType, filesize, _file, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, name, filename, mimetype);
         return localVarResp.getData();
     }
 
     /**
      * 
      * Upload a file at the specified location and wrap it in TileDB Array
-     * @param namespace The namespace of the file (required)
-     * @param array name/uri of array that is url-encoded (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the array belongs to (required)
+     * @param array asset ID or hierarchical path of array that is url-encoded (required)
      * @param contentType Content Type of input (required)
      * @param filesize size of the file to upload in bytes (required)
      * @param _file file to upload (required)
@@ -245,8 +256,8 @@ public class FilesApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<FileUploaded> handleUploadFileWithHttpInfo(String namespace, String array, String contentType, Integer filesize, File _file, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, String name, String filename, String mimetype) throws ApiException {
-        okhttp3.Call localVarCall = handleUploadFileValidateBeforeCall(namespace, array, contentType, filesize, _file, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, name, filename, mimetype, null);
+    public ApiResponse<FileUploaded> handleUploadFileWithHttpInfo(String workspace, String teamspace, String array, String contentType, Integer filesize, File _file, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, String name, String filename, String mimetype) throws ApiException {
+        okhttp3.Call localVarCall = handleUploadFileValidateBeforeCall(workspace, teamspace, array, contentType, filesize, _file, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, name, filename, mimetype, null);
         Type localVarReturnType = new TypeToken<FileUploaded>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
@@ -254,8 +265,9 @@ public class FilesApi {
     /**
      *  (asynchronously)
      * Upload a file at the specified location and wrap it in TileDB Array
-     * @param namespace The namespace of the file (required)
-     * @param array name/uri of array that is url-encoded (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the array belongs to (required)
+     * @param array asset ID or hierarchical path of array that is url-encoded (required)
      * @param contentType Content Type of input (required)
      * @param filesize size of the file to upload in bytes (required)
      * @param _file file to upload (required)
@@ -274,9 +286,9 @@ public class FilesApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call handleUploadFileAsync(String namespace, String array, String contentType, Integer filesize, File _file, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, String name, String filename, String mimetype, final ApiCallback<FileUploaded> _callback) throws ApiException {
+    public okhttp3.Call handleUploadFileAsync(String workspace, String teamspace, String array, String contentType, Integer filesize, File _file, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, String name, String filename, String mimetype, final ApiCallback<FileUploaded> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = handleUploadFileValidateBeforeCall(namespace, array, contentType, filesize, _file, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, name, filename, mimetype, _callback);
+        okhttp3.Call localVarCall = handleUploadFileValidateBeforeCall(workspace, teamspace, array, contentType, filesize, _file, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, name, filename, mimetype, _callback);
         Type localVarReturnType = new TypeToken<FileUploaded>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;

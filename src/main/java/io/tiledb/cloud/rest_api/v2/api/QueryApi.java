@@ -19,10 +19,15 @@ import io.tiledb.cloud.rest_api.v2.ApiException;
 import io.tiledb.cloud.rest_api.v2.ApiResponse;
 import io.tiledb.cloud.rest_api.v2.Configuration;
 import io.tiledb.cloud.rest_api.v2.Pair;
+import io.tiledb.cloud.rest_api.v2.ProgressRequestBody;
+import io.tiledb.cloud.rest_api.v2.ProgressResponseBody;
 
 import com.google.gson.reflect.TypeToken;
 
+import java.io.IOException;
 
+
+import io.tiledb.cloud.rest_api.v2.model.Error;
 import java.io.File;
 import io.tiledb.cloud.rest_api.v2.model.Query;
 
@@ -71,8 +76,9 @@ public class QueryApi {
 
     /**
      * Build call for submitQuery
-     * @param namespace namespace array is in (an organization name or user&#39;s username) (required)
-     * @param array name/uri of array that is url-encoded (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the array belongs to (required)
+     * @param array asset ID or hierarchical path of array that is url-encoded (required)
      * @param type type of query (required)
      * @param contentType Content Type of input and return mime (required)
      * @param query query to run (required)
@@ -91,7 +97,7 @@ public class QueryApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call submitQueryCall(String namespace, String array, String type, String contentType, Query query, String xPayer, Integer openAt, String readAll, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call submitQueryCall(String workspace, String teamspace, String array, String type, String contentType, Query query, String xPayer, Integer openAt, String readAll, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -108,9 +114,10 @@ public class QueryApi {
         Object localVarPostBody = query;
 
         // create path and map variables
-        String localVarPath = "/arrays/{namespace}/{array}/query/submit"
-            .replaceAll("\\{" + "namespace" + "\\}", localVarApiClient.escapeString(namespace.toString()))
-            .replaceAll("\\{" + "array" + "\\}", localVarApiClient.escapeString(array.toString()));
+        String localVarPath = "/arrays/{workspace}/{teamspace}/{array}/query/submit"
+            .replace("{" + "workspace" + "}", localVarApiClient.escapeString(workspace.toString()))
+            .replace("{" + "teamspace" + "}", localVarApiClient.escapeString(teamspace.toString()))
+            .replace("{" + "array" + "}", localVarApiClient.escapeString(array.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -139,7 +146,8 @@ public class QueryApi {
         }
 
         final String[] localVarAccepts = {
-            "application/json", "application/capnp"
+            "application/json",
+            "application/capnp"
         };
         final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) {
@@ -147,56 +155,60 @@ public class QueryApi {
         }
 
         final String[] localVarContentTypes = {
-            "application/json", "application/capnp"
+            "application/json",
+            "application/capnp"
         };
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
         if (localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
 
-        String[] localVarAuthNames = new String[] { "ApiKeyAuth", "BasicAuth" };
+        String[] localVarAuthNames = new String[] { "BasicAuth", "ApiKeyAuth" };
         return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call submitQueryValidateBeforeCall(String namespace, String array, String type, String contentType, Query query, String xPayer, Integer openAt, String readAll, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'namespace' is set
-        if (namespace == null) {
-            throw new ApiException("Missing the required parameter 'namespace' when calling submitQuery(Async)");
+    private okhttp3.Call submitQueryValidateBeforeCall(String workspace, String teamspace, String array, String type, String contentType, Query query, String xPayer, Integer openAt, String readAll, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'workspace' is set
+        if (workspace == null) {
+            throw new ApiException("Missing the required parameter 'workspace' when calling submitQuery(Async)");
         }
-        
+
+        // verify the required parameter 'teamspace' is set
+        if (teamspace == null) {
+            throw new ApiException("Missing the required parameter 'teamspace' when calling submitQuery(Async)");
+        }
+
         // verify the required parameter 'array' is set
         if (array == null) {
             throw new ApiException("Missing the required parameter 'array' when calling submitQuery(Async)");
         }
-        
+
         // verify the required parameter 'type' is set
         if (type == null) {
             throw new ApiException("Missing the required parameter 'type' when calling submitQuery(Async)");
         }
-        
+
         // verify the required parameter 'contentType' is set
         if (contentType == null) {
             throw new ApiException("Missing the required parameter 'contentType' when calling submitQuery(Async)");
         }
-        
+
         // verify the required parameter 'query' is set
         if (query == null) {
             throw new ApiException("Missing the required parameter 'query' when calling submitQuery(Async)");
         }
-        
 
-        okhttp3.Call localVarCall = submitQueryCall(namespace, array, type, contentType, query, xPayer, openAt, readAll, _callback);
-        return localVarCall;
+        return submitQueryCall(workspace, teamspace, array, type, contentType, query, xPayer, openAt, readAll, _callback);
 
     }
 
     /**
      * 
      * send a query to run against a specified array/URI registered to a group/project
-     * @param namespace namespace array is in (an organization name or user&#39;s username) (required)
-     * @param array name/uri of array that is url-encoded (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the array belongs to (required)
+     * @param array asset ID or hierarchical path of array that is url-encoded (required)
      * @param type type of query (required)
      * @param contentType Content Type of input and return mime (required)
      * @param query query to run (required)
@@ -214,16 +226,17 @@ public class QueryApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public File submitQuery(String namespace, String array, String type, String contentType, Query query, String xPayer, Integer openAt, String readAll) throws ApiException {
-        ApiResponse<File> localVarResp = submitQueryWithHttpInfo(namespace, array, type, contentType, query, xPayer, openAt, readAll);
+    public File submitQuery(String workspace, String teamspace, String array, String type, String contentType, Query query, String xPayer, Integer openAt, String readAll) throws ApiException {
+        ApiResponse<File> localVarResp = submitQueryWithHttpInfo(workspace, teamspace, array, type, contentType, query, xPayer, openAt, readAll);
         return localVarResp.getData();
     }
 
     /**
      * 
      * send a query to run against a specified array/URI registered to a group/project
-     * @param namespace namespace array is in (an organization name or user&#39;s username) (required)
-     * @param array name/uri of array that is url-encoded (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the array belongs to (required)
+     * @param array asset ID or hierarchical path of array that is url-encoded (required)
      * @param type type of query (required)
      * @param contentType Content Type of input and return mime (required)
      * @param query query to run (required)
@@ -241,8 +254,8 @@ public class QueryApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<File> submitQueryWithHttpInfo(String namespace, String array, String type, String contentType, Query query, String xPayer, Integer openAt, String readAll) throws ApiException {
-        okhttp3.Call localVarCall = submitQueryValidateBeforeCall(namespace, array, type, contentType, query, xPayer, openAt, readAll, null);
+    public ApiResponse<File> submitQueryWithHttpInfo(String workspace, String teamspace, String array, String type, String contentType, Query query, String xPayer, Integer openAt, String readAll) throws ApiException {
+        okhttp3.Call localVarCall = submitQueryValidateBeforeCall(workspace, teamspace, array, type, contentType, query, xPayer, openAt, readAll, null);
         Type localVarReturnType = new TypeToken<File>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
@@ -250,8 +263,9 @@ public class QueryApi {
     /**
      *  (asynchronously)
      * send a query to run against a specified array/URI registered to a group/project
-     * @param namespace namespace array is in (an organization name or user&#39;s username) (required)
-     * @param array name/uri of array that is url-encoded (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the array belongs to (required)
+     * @param array asset ID or hierarchical path of array that is url-encoded (required)
      * @param type type of query (required)
      * @param contentType Content Type of input and return mime (required)
      * @param query query to run (required)
@@ -270,9 +284,9 @@ public class QueryApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call submitQueryAsync(String namespace, String array, String type, String contentType, Query query, String xPayer, Integer openAt, String readAll, final ApiCallback<File> _callback) throws ApiException {
+    public okhttp3.Call submitQueryAsync(String workspace, String teamspace, String array, String type, String contentType, Query query, String xPayer, Integer openAt, String readAll, final ApiCallback<File> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = submitQueryValidateBeforeCall(namespace, array, type, contentType, query, xPayer, openAt, readAll, _callback);
+        okhttp3.Call localVarCall = submitQueryValidateBeforeCall(workspace, teamspace, array, type, contentType, query, xPayer, openAt, readAll, _callback);
         Type localVarReturnType = new TypeToken<File>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;

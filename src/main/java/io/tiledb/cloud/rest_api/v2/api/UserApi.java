@@ -13,18 +13,23 @@
 
 package io.tiledb.cloud.rest_api.v2.api;
 
-import io.tiledb.cloud.rest_api.v2.model.AccessCredentialsData;
 import io.tiledb.cloud.rest_api.v2.ApiCallback;
 import io.tiledb.cloud.rest_api.v2.ApiClient;
 import io.tiledb.cloud.rest_api.v2.ApiException;
 import io.tiledb.cloud.rest_api.v2.ApiResponse;
 import io.tiledb.cloud.rest_api.v2.Configuration;
 import io.tiledb.cloud.rest_api.v2.Pair;
+import io.tiledb.cloud.rest_api.v2.ProgressRequestBody;
+import io.tiledb.cloud.rest_api.v2.ProgressResponseBody;
 
 import com.google.gson.reflect.TypeToken;
 
+import java.io.IOException;
+
 
 import io.tiledb.cloud.rest_api.v2.model.AccessCredential;
+import io.tiledb.cloud.rest_api.v2.model.AccessCredentialsData;
+import io.tiledb.cloud.rest_api.v2.model.Error;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -71,7 +76,8 @@ public class UserApi {
 
     /**
      * Build call for addCredential
-     * @param namespace namespace (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the array belongs to (required)
      * @param accessCredential The new credentials to be created. (required)
      * @param provider Show only the credentials from this provider. This should be one of the CloudProvider enum values. (optional)
      * @param type Show only the credentials of this type. This should be one of the AccessCredentialType enum values. (optional)
@@ -88,7 +94,7 @@ public class UserApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call addCredentialCall(String namespace, AccessCredential accessCredential, String provider, String type, Integer page, Integer perPage, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call addCredentialCall(String workspace, String teamspace, AccessCredential accessCredential, String provider, String type, Integer page, Integer perPage, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -105,8 +111,9 @@ public class UserApi {
         Object localVarPostBody = accessCredential;
 
         // create path and map variables
-        String localVarPath = "/credentials/{namespace}"
-            .replaceAll("\\{" + "namespace" + "\\}", localVarApiClient.escapeString(namespace.toString()));
+        String localVarPath = "/credentials/{workspace}/{teamspace}"
+            .replace("{" + "workspace" + "}", localVarApiClient.escapeString(workspace.toString()))
+            .replace("{" + "teamspace" + "}", localVarApiClient.escapeString(teamspace.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -146,33 +153,36 @@ public class UserApi {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
 
-        String[] localVarAuthNames = new String[] { "ApiKeyAuth", "BasicAuth" };
+        String[] localVarAuthNames = new String[] { "BasicAuth", "ApiKeyAuth" };
         return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call addCredentialValidateBeforeCall(String namespace, AccessCredential accessCredential, String provider, String type, Integer page, Integer perPage, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'namespace' is set
-        if (namespace == null) {
-            throw new ApiException("Missing the required parameter 'namespace' when calling addCredential(Async)");
+    private okhttp3.Call addCredentialValidateBeforeCall(String workspace, String teamspace, AccessCredential accessCredential, String provider, String type, Integer page, Integer perPage, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'workspace' is set
+        if (workspace == null) {
+            throw new ApiException("Missing the required parameter 'workspace' when calling addCredential(Async)");
         }
-        
+
+        // verify the required parameter 'teamspace' is set
+        if (teamspace == null) {
+            throw new ApiException("Missing the required parameter 'teamspace' when calling addCredential(Async)");
+        }
+
         // verify the required parameter 'accessCredential' is set
         if (accessCredential == null) {
             throw new ApiException("Missing the required parameter 'accessCredential' when calling addCredential(Async)");
         }
-        
 
-        okhttp3.Call localVarCall = addCredentialCall(namespace, accessCredential, provider, type, page, perPage, _callback);
-        return localVarCall;
+        return addCredentialCall(workspace, teamspace, accessCredential, provider, type, page, perPage, _callback);
 
     }
 
     /**
      * 
      * Create a new credential for the namespace
-     * @param namespace namespace (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the array belongs to (required)
      * @param accessCredential The new credentials to be created. (required)
      * @param provider Show only the credentials from this provider. This should be one of the CloudProvider enum values. (optional)
      * @param type Show only the credentials of this type. This should be one of the AccessCredentialType enum values. (optional)
@@ -187,14 +197,15 @@ public class UserApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public void addCredential(String namespace, AccessCredential accessCredential, String provider, String type, Integer page, Integer perPage) throws ApiException {
-        addCredentialWithHttpInfo(namespace, accessCredential, provider, type, page, perPage);
+    public void addCredential(String workspace, String teamspace, AccessCredential accessCredential, String provider, String type, Integer page, Integer perPage) throws ApiException {
+        addCredentialWithHttpInfo(workspace, teamspace, accessCredential, provider, type, page, perPage);
     }
 
     /**
      * 
      * Create a new credential for the namespace
-     * @param namespace namespace (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the array belongs to (required)
      * @param accessCredential The new credentials to be created. (required)
      * @param provider Show only the credentials from this provider. This should be one of the CloudProvider enum values. (optional)
      * @param type Show only the credentials of this type. This should be one of the AccessCredentialType enum values. (optional)
@@ -210,15 +221,16 @@ public class UserApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<Void> addCredentialWithHttpInfo(String namespace, AccessCredential accessCredential, String provider, String type, Integer page, Integer perPage) throws ApiException {
-        okhttp3.Call localVarCall = addCredentialValidateBeforeCall(namespace, accessCredential, provider, type, page, perPage, null);
+    public ApiResponse<Void> addCredentialWithHttpInfo(String workspace, String teamspace, AccessCredential accessCredential, String provider, String type, Integer page, Integer perPage) throws ApiException {
+        okhttp3.Call localVarCall = addCredentialValidateBeforeCall(workspace, teamspace, accessCredential, provider, type, page, perPage, null);
         return localVarApiClient.execute(localVarCall);
     }
 
     /**
      *  (asynchronously)
      * Create a new credential for the namespace
-     * @param namespace namespace (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the array belongs to (required)
      * @param accessCredential The new credentials to be created. (required)
      * @param provider Show only the credentials from this provider. This should be one of the CloudProvider enum values. (optional)
      * @param type Show only the credentials of this type. This should be one of the AccessCredentialType enum values. (optional)
@@ -235,15 +247,16 @@ public class UserApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call addCredentialAsync(String namespace, AccessCredential accessCredential, String provider, String type, Integer page, Integer perPage, final ApiCallback<Void> _callback) throws ApiException {
+    public okhttp3.Call addCredentialAsync(String workspace, String teamspace, AccessCredential accessCredential, String provider, String type, Integer page, Integer perPage, final ApiCallback<Void> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = addCredentialValidateBeforeCall(namespace, accessCredential, provider, type, page, perPage, _callback);
+        okhttp3.Call localVarCall = addCredentialValidateBeforeCall(workspace, teamspace, accessCredential, provider, type, page, perPage, _callback);
         localVarApiClient.executeAsync(localVarCall, _callback);
         return localVarCall;
     }
     /**
      * Build call for deleteCredential
-     * @param namespace namespace (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the array belongs to (required)
      * @param name A URL-safe version of the credential&#39;s user-provided name (required)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
@@ -256,7 +269,7 @@ public class UserApi {
         <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call deleteCredentialCall(String namespace, String name, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call deleteCredentialCall(String workspace, String teamspace, String name, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -273,9 +286,10 @@ public class UserApi {
         Object localVarPostBody = null;
 
         // create path and map variables
-        String localVarPath = "/credentials/{namespace}/{name}"
-            .replaceAll("\\{" + "namespace" + "\\}", localVarApiClient.escapeString(namespace.toString()))
-            .replaceAll("\\{" + "name" + "\\}", localVarApiClient.escapeString(name.toString()));
+        String localVarPath = "/credentials/{workspace}/{teamspace}/{name}"
+            .replace("{" + "workspace" + "}", localVarApiClient.escapeString(workspace.toString()))
+            .replace("{" + "teamspace" + "}", localVarApiClient.escapeString(teamspace.toString()))
+            .replace("{" + "name" + "}", localVarApiClient.escapeString(name.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -292,40 +306,42 @@ public class UserApi {
         }
 
         final String[] localVarContentTypes = {
-            
         };
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
         if (localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
 
-        String[] localVarAuthNames = new String[] { "ApiKeyAuth", "BasicAuth" };
+        String[] localVarAuthNames = new String[] { "BasicAuth", "ApiKeyAuth" };
         return localVarApiClient.buildCall(basePath, localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call deleteCredentialValidateBeforeCall(String namespace, String name, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'namespace' is set
-        if (namespace == null) {
-            throw new ApiException("Missing the required parameter 'namespace' when calling deleteCredential(Async)");
+    private okhttp3.Call deleteCredentialValidateBeforeCall(String workspace, String teamspace, String name, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'workspace' is set
+        if (workspace == null) {
+            throw new ApiException("Missing the required parameter 'workspace' when calling deleteCredential(Async)");
         }
-        
+
+        // verify the required parameter 'teamspace' is set
+        if (teamspace == null) {
+            throw new ApiException("Missing the required parameter 'teamspace' when calling deleteCredential(Async)");
+        }
+
         // verify the required parameter 'name' is set
         if (name == null) {
             throw new ApiException("Missing the required parameter 'name' when calling deleteCredential(Async)");
         }
-        
 
-        okhttp3.Call localVarCall = deleteCredentialCall(namespace, name, _callback);
-        return localVarCall;
+        return deleteCredentialCall(workspace, teamspace, name, _callback);
 
     }
 
     /**
      * 
      * Delete the named access credential. Any arrays still set to use this credential will use the namespace&#39;s default and may become unreachable.
-     * @param namespace namespace (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the array belongs to (required)
      * @param name A URL-safe version of the credential&#39;s user-provided name (required)
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -336,14 +352,15 @@ public class UserApi {
         <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
      </table>
      */
-    public void deleteCredential(String namespace, String name) throws ApiException {
-        deleteCredentialWithHttpInfo(namespace, name);
+    public void deleteCredential(String workspace, String teamspace, String name) throws ApiException {
+        deleteCredentialWithHttpInfo(workspace, teamspace, name);
     }
 
     /**
      * 
      * Delete the named access credential. Any arrays still set to use this credential will use the namespace&#39;s default and may become unreachable.
-     * @param namespace namespace (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the array belongs to (required)
      * @param name A URL-safe version of the credential&#39;s user-provided name (required)
      * @return ApiResponse&lt;Void&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -355,15 +372,16 @@ public class UserApi {
         <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<Void> deleteCredentialWithHttpInfo(String namespace, String name) throws ApiException {
-        okhttp3.Call localVarCall = deleteCredentialValidateBeforeCall(namespace, name, null);
+    public ApiResponse<Void> deleteCredentialWithHttpInfo(String workspace, String teamspace, String name) throws ApiException {
+        okhttp3.Call localVarCall = deleteCredentialValidateBeforeCall(workspace, teamspace, name, null);
         return localVarApiClient.execute(localVarCall);
     }
 
     /**
      *  (asynchronously)
      * Delete the named access credential. Any arrays still set to use this credential will use the namespace&#39;s default and may become unreachable.
-     * @param namespace namespace (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the array belongs to (required)
      * @param name A URL-safe version of the credential&#39;s user-provided name (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
@@ -376,15 +394,16 @@ public class UserApi {
         <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call deleteCredentialAsync(String namespace, String name, final ApiCallback<Void> _callback) throws ApiException {
+    public okhttp3.Call deleteCredentialAsync(String workspace, String teamspace, String name, final ApiCallback<Void> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = deleteCredentialValidateBeforeCall(namespace, name, _callback);
+        okhttp3.Call localVarCall = deleteCredentialValidateBeforeCall(workspace, teamspace, name, _callback);
         localVarApiClient.executeAsync(localVarCall, _callback);
         return localVarCall;
     }
     /**
      * Build call for getCredential
-     * @param namespace namespace (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the array belongs to (required)
      * @param name A URL-safe version of the credential&#39;s user-provided name (required)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
@@ -397,7 +416,7 @@ public class UserApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getCredentialCall(String namespace, String name, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call getCredentialCall(String workspace, String teamspace, String name, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -414,9 +433,10 @@ public class UserApi {
         Object localVarPostBody = null;
 
         // create path and map variables
-        String localVarPath = "/credentials/{namespace}/{name}"
-            .replaceAll("\\{" + "namespace" + "\\}", localVarApiClient.escapeString(namespace.toString()))
-            .replaceAll("\\{" + "name" + "\\}", localVarApiClient.escapeString(name.toString()));
+        String localVarPath = "/credentials/{workspace}/{teamspace}/{name}"
+            .replace("{" + "workspace" + "}", localVarApiClient.escapeString(workspace.toString()))
+            .replace("{" + "teamspace" + "}", localVarApiClient.escapeString(teamspace.toString()))
+            .replace("{" + "name" + "}", localVarApiClient.escapeString(name.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -433,40 +453,42 @@ public class UserApi {
         }
 
         final String[] localVarContentTypes = {
-            
         };
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
         if (localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
 
-        String[] localVarAuthNames = new String[] { "ApiKeyAuth", "BasicAuth" };
+        String[] localVarAuthNames = new String[] { "BasicAuth", "ApiKeyAuth" };
         return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getCredentialValidateBeforeCall(String namespace, String name, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'namespace' is set
-        if (namespace == null) {
-            throw new ApiException("Missing the required parameter 'namespace' when calling getCredential(Async)");
+    private okhttp3.Call getCredentialValidateBeforeCall(String workspace, String teamspace, String name, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'workspace' is set
+        if (workspace == null) {
+            throw new ApiException("Missing the required parameter 'workspace' when calling getCredential(Async)");
         }
-        
+
+        // verify the required parameter 'teamspace' is set
+        if (teamspace == null) {
+            throw new ApiException("Missing the required parameter 'teamspace' when calling getCredential(Async)");
+        }
+
         // verify the required parameter 'name' is set
         if (name == null) {
             throw new ApiException("Missing the required parameter 'name' when calling getCredential(Async)");
         }
-        
 
-        okhttp3.Call localVarCall = getCredentialCall(namespace, name, _callback);
-        return localVarCall;
+        return getCredentialCall(workspace, teamspace, name, _callback);
 
     }
 
     /**
      * 
      * Retrieve an access credential by name
-     * @param namespace namespace (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the array belongs to (required)
      * @param name A URL-safe version of the credential&#39;s user-provided name (required)
      * @return AccessCredential
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -478,15 +500,16 @@ public class UserApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public AccessCredential getCredential(String namespace, String name) throws ApiException {
-        ApiResponse<AccessCredential> localVarResp = getCredentialWithHttpInfo(namespace, name);
+    public AccessCredential getCredential(String workspace, String teamspace, String name) throws ApiException {
+        ApiResponse<AccessCredential> localVarResp = getCredentialWithHttpInfo(workspace, teamspace, name);
         return localVarResp.getData();
     }
 
     /**
      * 
      * Retrieve an access credential by name
-     * @param namespace namespace (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the array belongs to (required)
      * @param name A URL-safe version of the credential&#39;s user-provided name (required)
      * @return ApiResponse&lt;AccessCredential&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -498,8 +521,8 @@ public class UserApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<AccessCredential> getCredentialWithHttpInfo(String namespace, String name) throws ApiException {
-        okhttp3.Call localVarCall = getCredentialValidateBeforeCall(namespace, name, null);
+    public ApiResponse<AccessCredential> getCredentialWithHttpInfo(String workspace, String teamspace, String name) throws ApiException {
+        okhttp3.Call localVarCall = getCredentialValidateBeforeCall(workspace, teamspace, name, null);
         Type localVarReturnType = new TypeToken<AccessCredential>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
@@ -507,7 +530,8 @@ public class UserApi {
     /**
      *  (asynchronously)
      * Retrieve an access credential by name
-     * @param namespace namespace (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the array belongs to (required)
      * @param name A URL-safe version of the credential&#39;s user-provided name (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
@@ -520,16 +544,17 @@ public class UserApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getCredentialAsync(String namespace, String name, final ApiCallback<AccessCredential> _callback) throws ApiException {
+    public okhttp3.Call getCredentialAsync(String workspace, String teamspace, String name, final ApiCallback<AccessCredential> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = getCredentialValidateBeforeCall(namespace, name, _callback);
+        okhttp3.Call localVarCall = getCredentialValidateBeforeCall(workspace, teamspace, name, _callback);
         Type localVarReturnType = new TypeToken<AccessCredential>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
     /**
      * Build call for listCredentials
-     * @param namespace namespace (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the array belongs to (required)
      * @param provider Show only the credentials from this provider. This should be one of the CloudProvider enum values. (optional)
      * @param type Show only the credentials of this type. This should be one of the AccessCredentialType enum values. (optional)
      * @param page pagination offset (optional)
@@ -545,7 +570,7 @@ public class UserApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call listCredentialsCall(String namespace, String provider, String type, Integer page, Integer perPage, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call listCredentialsCall(String workspace, String teamspace, String provider, String type, Integer page, Integer perPage, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -562,8 +587,9 @@ public class UserApi {
         Object localVarPostBody = null;
 
         // create path and map variables
-        String localVarPath = "/credentials/{namespace}"
-            .replaceAll("\\{" + "namespace" + "\\}", localVarApiClient.escapeString(namespace.toString()));
+        String localVarPath = "/credentials/{workspace}/{teamspace}"
+            .replace("{" + "workspace" + "}", localVarApiClient.escapeString(workspace.toString()))
+            .replace("{" + "teamspace" + "}", localVarApiClient.escapeString(teamspace.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -596,35 +622,37 @@ public class UserApi {
         }
 
         final String[] localVarContentTypes = {
-            
         };
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
         if (localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
 
-        String[] localVarAuthNames = new String[] { "ApiKeyAuth", "BasicAuth" };
+        String[] localVarAuthNames = new String[] { "BasicAuth", "ApiKeyAuth" };
         return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call listCredentialsValidateBeforeCall(String namespace, String provider, String type, Integer page, Integer perPage, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'namespace' is set
-        if (namespace == null) {
-            throw new ApiException("Missing the required parameter 'namespace' when calling listCredentials(Async)");
+    private okhttp3.Call listCredentialsValidateBeforeCall(String workspace, String teamspace, String provider, String type, Integer page, Integer perPage, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'workspace' is set
+        if (workspace == null) {
+            throw new ApiException("Missing the required parameter 'workspace' when calling listCredentials(Async)");
         }
-        
 
-        okhttp3.Call localVarCall = listCredentialsCall(namespace, provider, type, page, perPage, _callback);
-        return localVarCall;
+        // verify the required parameter 'teamspace' is set
+        if (teamspace == null) {
+            throw new ApiException("Missing the required parameter 'teamspace' when calling listCredentials(Async)");
+        }
+
+        return listCredentialsCall(workspace, teamspace, provider, type, page, perPage, _callback);
 
     }
 
     /**
      * 
      * List the credentials available in the namespace
-     * @param namespace namespace (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the array belongs to (required)
      * @param provider Show only the credentials from this provider. This should be one of the CloudProvider enum values. (optional)
      * @param type Show only the credentials of this type. This should be one of the AccessCredentialType enum values. (optional)
      * @param page pagination offset (optional)
@@ -639,15 +667,16 @@ public class UserApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public AccessCredentialsData listCredentials(String namespace, String provider, String type, Integer page, Integer perPage) throws ApiException {
-        ApiResponse<AccessCredentialsData> localVarResp = listCredentialsWithHttpInfo(namespace, provider, type, page, perPage);
+    public AccessCredentialsData listCredentials(String workspace, String teamspace, String provider, String type, Integer page, Integer perPage) throws ApiException {
+        ApiResponse<AccessCredentialsData> localVarResp = listCredentialsWithHttpInfo(workspace, teamspace, provider, type, page, perPage);
         return localVarResp.getData();
     }
 
     /**
      * 
      * List the credentials available in the namespace
-     * @param namespace namespace (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the array belongs to (required)
      * @param provider Show only the credentials from this provider. This should be one of the CloudProvider enum values. (optional)
      * @param type Show only the credentials of this type. This should be one of the AccessCredentialType enum values. (optional)
      * @param page pagination offset (optional)
@@ -662,8 +691,8 @@ public class UserApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<AccessCredentialsData> listCredentialsWithHttpInfo(String namespace, String provider, String type, Integer page, Integer perPage) throws ApiException {
-        okhttp3.Call localVarCall = listCredentialsValidateBeforeCall(namespace, provider, type, page, perPage, null);
+    public ApiResponse<AccessCredentialsData> listCredentialsWithHttpInfo(String workspace, String teamspace, String provider, String type, Integer page, Integer perPage) throws ApiException {
+        okhttp3.Call localVarCall = listCredentialsValidateBeforeCall(workspace, teamspace, provider, type, page, perPage, null);
         Type localVarReturnType = new TypeToken<AccessCredentialsData>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
@@ -671,7 +700,8 @@ public class UserApi {
     /**
      *  (asynchronously)
      * List the credentials available in the namespace
-     * @param namespace namespace (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the array belongs to (required)
      * @param provider Show only the credentials from this provider. This should be one of the CloudProvider enum values. (optional)
      * @param type Show only the credentials of this type. This should be one of the AccessCredentialType enum values. (optional)
      * @param page pagination offset (optional)
@@ -687,16 +717,17 @@ public class UserApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call listCredentialsAsync(String namespace, String provider, String type, Integer page, Integer perPage, final ApiCallback<AccessCredentialsData> _callback) throws ApiException {
+    public okhttp3.Call listCredentialsAsync(String workspace, String teamspace, String provider, String type, Integer page, Integer perPage, final ApiCallback<AccessCredentialsData> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = listCredentialsValidateBeforeCall(namespace, provider, type, page, perPage, _callback);
+        okhttp3.Call localVarCall = listCredentialsValidateBeforeCall(workspace, teamspace, provider, type, page, perPage, _callback);
         Type localVarReturnType = new TypeToken<AccessCredentialsData>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
     /**
      * Build call for updateCredential
-     * @param namespace namespace (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the array belongs to (required)
      * @param name A URL-safe version of the credential&#39;s user-provided name (required)
      * @param accessCredential Changes to make to this credential (required)
      * @param _callback Callback for upload/download progress
@@ -710,7 +741,7 @@ public class UserApi {
         <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call updateCredentialCall(String namespace, String name, AccessCredential accessCredential, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call updateCredentialCall(String workspace, String teamspace, String name, AccessCredential accessCredential, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -727,9 +758,10 @@ public class UserApi {
         Object localVarPostBody = accessCredential;
 
         // create path and map variables
-        String localVarPath = "/credentials/{namespace}/{name}"
-            .replaceAll("\\{" + "namespace" + "\\}", localVarApiClient.escapeString(namespace.toString()))
-            .replaceAll("\\{" + "name" + "\\}", localVarApiClient.escapeString(name.toString()));
+        String localVarPath = "/credentials/{workspace}/{teamspace}/{name}"
+            .replace("{" + "workspace" + "}", localVarApiClient.escapeString(workspace.toString()))
+            .replace("{" + "teamspace" + "}", localVarApiClient.escapeString(teamspace.toString()))
+            .replace("{" + "name" + "}", localVarApiClient.escapeString(name.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -753,38 +785,41 @@ public class UserApi {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
 
-        String[] localVarAuthNames = new String[] { "ApiKeyAuth", "BasicAuth" };
+        String[] localVarAuthNames = new String[] { "BasicAuth", "ApiKeyAuth" };
         return localVarApiClient.buildCall(basePath, localVarPath, "PATCH", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call updateCredentialValidateBeforeCall(String namespace, String name, AccessCredential accessCredential, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'namespace' is set
-        if (namespace == null) {
-            throw new ApiException("Missing the required parameter 'namespace' when calling updateCredential(Async)");
+    private okhttp3.Call updateCredentialValidateBeforeCall(String workspace, String teamspace, String name, AccessCredential accessCredential, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'workspace' is set
+        if (workspace == null) {
+            throw new ApiException("Missing the required parameter 'workspace' when calling updateCredential(Async)");
         }
-        
+
+        // verify the required parameter 'teamspace' is set
+        if (teamspace == null) {
+            throw new ApiException("Missing the required parameter 'teamspace' when calling updateCredential(Async)");
+        }
+
         // verify the required parameter 'name' is set
         if (name == null) {
             throw new ApiException("Missing the required parameter 'name' when calling updateCredential(Async)");
         }
-        
+
         // verify the required parameter 'accessCredential' is set
         if (accessCredential == null) {
             throw new ApiException("Missing the required parameter 'accessCredential' when calling updateCredential(Async)");
         }
-        
 
-        okhttp3.Call localVarCall = updateCredentialCall(namespace, name, accessCredential, _callback);
-        return localVarCall;
+        return updateCredentialCall(workspace, teamspace, name, accessCredential, _callback);
 
     }
 
     /**
      * 
      * Update the named access credential. This will also update the information used to access arrays set to use this credential.
-     * @param namespace namespace (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the array belongs to (required)
      * @param name A URL-safe version of the credential&#39;s user-provided name (required)
      * @param accessCredential Changes to make to this credential (required)
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -796,14 +831,15 @@ public class UserApi {
         <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
      </table>
      */
-    public void updateCredential(String namespace, String name, AccessCredential accessCredential) throws ApiException {
-        updateCredentialWithHttpInfo(namespace, name, accessCredential);
+    public void updateCredential(String workspace, String teamspace, String name, AccessCredential accessCredential) throws ApiException {
+        updateCredentialWithHttpInfo(workspace, teamspace, name, accessCredential);
     }
 
     /**
      * 
      * Update the named access credential. This will also update the information used to access arrays set to use this credential.
-     * @param namespace namespace (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the array belongs to (required)
      * @param name A URL-safe version of the credential&#39;s user-provided name (required)
      * @param accessCredential Changes to make to this credential (required)
      * @return ApiResponse&lt;Void&gt;
@@ -816,15 +852,16 @@ public class UserApi {
         <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<Void> updateCredentialWithHttpInfo(String namespace, String name, AccessCredential accessCredential) throws ApiException {
-        okhttp3.Call localVarCall = updateCredentialValidateBeforeCall(namespace, name, accessCredential, null);
+    public ApiResponse<Void> updateCredentialWithHttpInfo(String workspace, String teamspace, String name, AccessCredential accessCredential) throws ApiException {
+        okhttp3.Call localVarCall = updateCredentialValidateBeforeCall(workspace, teamspace, name, accessCredential, null);
         return localVarApiClient.execute(localVarCall);
     }
 
     /**
      *  (asynchronously)
      * Update the named access credential. This will also update the information used to access arrays set to use this credential.
-     * @param namespace namespace (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the array belongs to (required)
      * @param name A URL-safe version of the credential&#39;s user-provided name (required)
      * @param accessCredential Changes to make to this credential (required)
      * @param _callback The callback to be executed when the API call finishes
@@ -838,9 +875,9 @@ public class UserApi {
         <tr><td> 0 </td><td> Error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call updateCredentialAsync(String namespace, String name, AccessCredential accessCredential, final ApiCallback<Void> _callback) throws ApiException {
+    public okhttp3.Call updateCredentialAsync(String workspace, String teamspace, String name, AccessCredential accessCredential, final ApiCallback<Void> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = updateCredentialValidateBeforeCall(namespace, name, accessCredential, _callback);
+        okhttp3.Call localVarCall = updateCredentialValidateBeforeCall(workspace, teamspace, name, accessCredential, _callback);
         localVarApiClient.executeAsync(localVarCall, _callback);
         return localVarCall;
     }

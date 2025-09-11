@@ -14,33 +14,43 @@
 package io.tiledb.cloud.rest_api.v2.model;
 
 import java.util.Objects;
-import java.util.Arrays;
 import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
+import java.util.Arrays;
 import org.openapitools.jackson.nullable.JsonNullable;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import com.google.gson.TypeAdapterFactory;
 import com.google.gson.reflect.TypeToken;
+import com.google.gson.TypeAdapter;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+import java.io.IOException;
 
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import io.tiledb.cloud.rest_api.v2.JSON;
 
 /**
  * Credential information to access Amazon Web Services
  */
-@ApiModel(description = "Credential information to access Amazon Web Services")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-07-02T18:54:48.746612+03:00[Europe/Athens]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-30T04:47:07.570140+03:00[Europe/Athens]", comments = "Generator version: 7.7.0")
 public class AWSCredential {
   public static final String SERIALIZED_NAME_ACCESS_KEY_ID = "access_key_id";
   @SerializedName(SERIALIZED_NAME_ACCESS_KEY_ID)
@@ -54,26 +64,22 @@ public class AWSCredential {
   @SerializedName(SERIALIZED_NAME_ENDPOINT)
   private String endpoint;
 
-  public AWSCredential() { 
+  public AWSCredential() {
   }
 
   public AWSCredential accessKeyId(String accessKeyId) {
-    
     this.accessKeyId = accessKeyId;
     return this;
   }
 
-   /**
+  /**
    * The ID of the access key
    * @return accessKeyId
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "The ID of the access key")
-
   public String getAccessKeyId() {
     return accessKeyId;
   }
-
 
   public void setAccessKeyId(String accessKeyId) {
     this.accessKeyId = accessKeyId;
@@ -81,22 +87,18 @@ public class AWSCredential {
 
 
   public AWSCredential secretAccessKey(String secretAccessKey) {
-    
     this.secretAccessKey = secretAccessKey;
     return this;
   }
 
-   /**
+  /**
    * The access key&#39;s secret. Never returned in responses.
    * @return secretAccessKey
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "The access key's secret. Never returned in responses.")
-
   public String getSecretAccessKey() {
     return secretAccessKey;
   }
-
 
   public void setSecretAccessKey(String secretAccessKey) {
     this.secretAccessKey = secretAccessKey;
@@ -104,22 +106,18 @@ public class AWSCredential {
 
 
   public AWSCredential endpoint(String endpoint) {
-    
     this.endpoint = endpoint;
     return this;
   }
 
-   /**
+  /**
    * The endpoint used for this credential
    * @return endpoint
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "https://example.us-west-2.amazonaws.com", value = "The endpoint used for this credential")
-
   public String getEndpoint() {
     return endpoint;
   }
-
 
   public void setEndpoint(String endpoint) {
     this.endpoint = endpoint;
@@ -135,6 +133,10 @@ public class AWSCredential {
   /**
    * Set the additional (undeclared) property with the specified name and value.
    * If the property does not already exist, create it otherwise replace it.
+   *
+   * @param key name of the property
+   * @param value value of the property
+   * @return the AWSCredential instance itself
    */
   public AWSCredential putAdditionalProperty(String key, Object value) {
     if (this.additionalProperties == null) {
@@ -146,6 +148,8 @@ public class AWSCredential {
 
   /**
    * Return the additional (undeclared) property.
+   *
+   * @return a map of objects
    */
   public Map<String, Object> getAdditionalProperties() {
     return additionalProperties;
@@ -153,6 +157,9 @@ public class AWSCredential {
 
   /**
    * Return the additional (undeclared) property with the specified name.
+   *
+   * @param key name of the property
+   * @return an object
    */
   public Object getAdditionalProperty(String key) {
     if (this.additionalProperties == null) {
@@ -231,27 +238,26 @@ public class AWSCredential {
     openapiRequiredFields = new HashSet<String>();
   }
 
- /**
-  * Validates the JSON Object and throws an exception if issues found
-  *
-  * @param jsonObj JSON Object
-  * @throws IOException if the JSON Object is invalid with respect to AWSCredential
-  */
-  public static void validateJsonObject(JsonObject jsonObj) throws IOException {
-      if (jsonObj == null) {
-        if (AWSCredential.openapiRequiredFields.isEmpty()) {
-          return;
-        } else { // has required fields
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to AWSCredential
+   */
+  public static void validateJsonElement(JsonElement jsonElement) throws IOException {
+      if (jsonElement == null) {
+        if (!AWSCredential.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
           throw new IllegalArgumentException(String.format("The required field(s) %s in AWSCredential is not found in the empty JSON string", AWSCredential.openapiRequiredFields.toString()));
         }
       }
-      if (jsonObj.get("access_key_id") != null && !jsonObj.get("access_key_id").isJsonPrimitive()) {
+        JsonObject jsonObj = jsonElement.getAsJsonObject();
+      if ((jsonObj.get("access_key_id") != null && !jsonObj.get("access_key_id").isJsonNull()) && !jsonObj.get("access_key_id").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `access_key_id` to be a primitive type in the JSON string but got `%s`", jsonObj.get("access_key_id").toString()));
       }
-      if (jsonObj.get("secret_access_key") != null && !jsonObj.get("secret_access_key").isJsonPrimitive()) {
+      if ((jsonObj.get("secret_access_key") != null && !jsonObj.get("secret_access_key").isJsonNull()) && !jsonObj.get("secret_access_key").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `secret_access_key` to be a primitive type in the JSON string but got `%s`", jsonObj.get("secret_access_key").toString()));
       }
-      if (jsonObj.get("endpoint") != null && !jsonObj.get("endpoint").isJsonPrimitive()) {
+      if ((jsonObj.get("endpoint") != null && !jsonObj.get("endpoint").isJsonNull()) && !jsonObj.get("endpoint").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `endpoint` to be a primitive type in the JSON string but got `%s`", jsonObj.get("endpoint").toString()));
       }
   }
@@ -272,7 +278,7 @@ public class AWSCredential {
            public void write(JsonWriter out, AWSCredential value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              obj.remove("additionalProperties");
-             // serialize additonal properties
+             // serialize additional properties
              if (value.getAdditionalProperties() != null) {
                for (Map.Entry<String, Object> entry : value.getAdditionalProperties().entrySet()) {
                  if (entry.getValue() instanceof String)
@@ -284,7 +290,12 @@ public class AWSCredential {
                  else if (entry.getValue() instanceof Character)
                    obj.addProperty(entry.getKey(), (Character) entry.getValue());
                  else {
-                   obj.add(entry.getKey(), gson.toJsonTree(entry.getValue()).getAsJsonObject());
+                   JsonElement jsonElement = gson.toJsonTree(entry.getValue());
+                   if (jsonElement.isJsonArray()) {
+                     obj.add(entry.getKey(), jsonElement.getAsJsonArray());
+                   } else {
+                     obj.add(entry.getKey(), jsonElement.getAsJsonObject());
+                   }
                  }
                }
              }
@@ -293,8 +304,9 @@ public class AWSCredential {
 
            @Override
            public AWSCredential read(JsonReader in) throws IOException {
-             JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
-             validateJsonObject(jsonObj);
+             JsonElement jsonElement = elementAdapter.read(in);
+             validateJsonElement(jsonElement);
+             JsonObject jsonObj = jsonElement.getAsJsonObject();
              // store additional fields in the deserialized instance
              AWSCredential instance = thisAdapter.fromJsonTree(jsonObj);
              for (Map.Entry<String, JsonElement> entry : jsonObj.entrySet()) {
@@ -308,8 +320,10 @@ public class AWSCredential {
                      instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsBoolean());
                    else
                      throw new IllegalArgumentException(String.format("The field `%s` has unknown primitive type. Value: %s", entry.getKey(), entry.getValue().toString()));
-                 } else { // non-primitive type
-                   instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
+                 } else if (entry.getValue().isJsonArray()) {
+                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), List.class));
+                 } else { // JSON object
+                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
                  }
                }
              }
@@ -320,22 +334,22 @@ public class AWSCredential {
     }
   }
 
- /**
-  * Create an instance of AWSCredential given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of AWSCredential
-  * @throws IOException if the JSON string is invalid with respect to AWSCredential
-  */
+  /**
+   * Create an instance of AWSCredential given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of AWSCredential
+   * @throws IOException if the JSON string is invalid with respect to AWSCredential
+   */
   public static AWSCredential fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, AWSCredential.class);
   }
 
- /**
-  * Convert an instance of AWSCredential to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of AWSCredential to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

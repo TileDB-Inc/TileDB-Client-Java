@@ -14,45 +14,54 @@
 package io.tiledb.cloud.rest_api.v2.model;
 
 import java.util.Objects;
-
 import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.tiledb.cloud.rest_api.v2.model.MetadataEntry;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import com.google.gson.TypeAdapterFactory;
 import com.google.gson.reflect.TypeToken;
+import com.google.gson.TypeAdapter;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+import java.io.IOException;
 
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import io.tiledb.cloud.rest_api.v2.JSON;
 
 /**
  * user&#39;s TileDB metadata
  */
-@ApiModel(description = "user's TileDB metadata")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-07-02T18:54:48.746612+03:00[Europe/Athens]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-30T04:47:07.570140+03:00[Europe/Athens]", comments = "Generator version: 7.7.0")
 public class Metadata {
   public static final String SERIALIZED_NAME_ENTRIES = "entries";
   @SerializedName(SERIALIZED_NAME_ENTRIES)
-  private List<MetadataEntry> entries = null;
+  private List<MetadataEntry> entries = new ArrayList<>();
 
-  public Metadata() { 
+  public Metadata() {
   }
 
   public Metadata entries(List<MetadataEntry> entries) {
-    
     this.entries = entries;
     return this;
   }
@@ -65,17 +74,14 @@ public class Metadata {
     return this;
   }
 
-   /**
+  /**
    * List of metadata entries
    * @return entries
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "List of metadata entries")
-
   public List<MetadataEntry> getEntries() {
     return entries;
   }
-
 
   public void setEntries(List<MetadataEntry> entries) {
     this.entries = entries;
@@ -91,6 +97,10 @@ public class Metadata {
   /**
    * Set the additional (undeclared) property with the specified name and value.
    * If the property does not already exist, create it otherwise replace it.
+   *
+   * @param key name of the property
+   * @param value value of the property
+   * @return the Metadata instance itself
    */
   public Metadata putAdditionalProperty(String key, Object value) {
     if (this.additionalProperties == null) {
@@ -102,6 +112,8 @@ public class Metadata {
 
   /**
    * Return the additional (undeclared) property.
+   *
+   * @return a map of objects
    */
   public Map<String, Object> getAdditionalProperties() {
     return additionalProperties;
@@ -109,6 +121,9 @@ public class Metadata {
 
   /**
    * Return the additional (undeclared) property with the specified name.
+   *
+   * @param key name of the property
+   * @return an object
    */
   public Object getAdditionalProperty(String key) {
     if (this.additionalProperties == null) {
@@ -170,31 +185,32 @@ public class Metadata {
     openapiRequiredFields = new HashSet<String>();
   }
 
- /**
-  * Validates the JSON Object and throws an exception if issues found
-  *
-  * @param jsonObj JSON Object
-  * @throws IOException if the JSON Object is invalid with respect to Metadata
-  */
-  public static void validateJsonObject(JsonObject jsonObj) throws IOException {
-      if (jsonObj == null) {
-        if (Metadata.openapiRequiredFields.isEmpty()) {
-          return;
-        } else { // has required fields
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to Metadata
+   */
+  public static void validateJsonElement(JsonElement jsonElement) throws IOException {
+      if (jsonElement == null) {
+        if (!Metadata.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
           throw new IllegalArgumentException(String.format("The required field(s) %s in Metadata is not found in the empty JSON string", Metadata.openapiRequiredFields.toString()));
         }
       }
-      JsonArray jsonArrayentries = jsonObj.getAsJsonArray("entries");
-      if (jsonArrayentries != null) {
-        // ensure the json data is an array
-        if (!jsonObj.get("entries").isJsonArray()) {
-          throw new IllegalArgumentException(String.format("Expected the field `entries` to be an array in the JSON string but got `%s`", jsonObj.get("entries").toString()));
-        }
+        JsonObject jsonObj = jsonElement.getAsJsonObject();
+      if (jsonObj.get("entries") != null && !jsonObj.get("entries").isJsonNull()) {
+        JsonArray jsonArrayentries = jsonObj.getAsJsonArray("entries");
+        if (jsonArrayentries != null) {
+          // ensure the json data is an array
+          if (!jsonObj.get("entries").isJsonArray()) {
+            throw new IllegalArgumentException(String.format("Expected the field `entries` to be an array in the JSON string but got `%s`", jsonObj.get("entries").toString()));
+          }
 
-        // validate the optional field `entries` (array)
-        for (int i = 0; i < jsonArrayentries.size(); i++) {
-          MetadataEntry.validateJsonObject(jsonArrayentries.get(i).getAsJsonObject());
-        };
+          // validate the optional field `entries` (array)
+          for (int i = 0; i < jsonArrayentries.size(); i++) {
+            MetadataEntry.validateJsonElement(jsonArrayentries.get(i));
+          };
+        }
       }
   }
 
@@ -214,7 +230,7 @@ public class Metadata {
            public void write(JsonWriter out, Metadata value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              obj.remove("additionalProperties");
-             // serialize additonal properties
+             // serialize additional properties
              if (value.getAdditionalProperties() != null) {
                for (Map.Entry<String, Object> entry : value.getAdditionalProperties().entrySet()) {
                  if (entry.getValue() instanceof String)
@@ -226,7 +242,12 @@ public class Metadata {
                  else if (entry.getValue() instanceof Character)
                    obj.addProperty(entry.getKey(), (Character) entry.getValue());
                  else {
-                   obj.add(entry.getKey(), gson.toJsonTree(entry.getValue()).getAsJsonObject());
+                   JsonElement jsonElement = gson.toJsonTree(entry.getValue());
+                   if (jsonElement.isJsonArray()) {
+                     obj.add(entry.getKey(), jsonElement.getAsJsonArray());
+                   } else {
+                     obj.add(entry.getKey(), jsonElement.getAsJsonObject());
+                   }
                  }
                }
              }
@@ -235,8 +256,9 @@ public class Metadata {
 
            @Override
            public Metadata read(JsonReader in) throws IOException {
-             JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
-             validateJsonObject(jsonObj);
+             JsonElement jsonElement = elementAdapter.read(in);
+             validateJsonElement(jsonElement);
+             JsonObject jsonObj = jsonElement.getAsJsonObject();
              // store additional fields in the deserialized instance
              Metadata instance = thisAdapter.fromJsonTree(jsonObj);
              for (Map.Entry<String, JsonElement> entry : jsonObj.entrySet()) {
@@ -250,8 +272,10 @@ public class Metadata {
                      instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsBoolean());
                    else
                      throw new IllegalArgumentException(String.format("The field `%s` has unknown primitive type. Value: %s", entry.getKey(), entry.getValue().toString()));
-                 } else { // non-primitive type
-                   instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
+                 } else if (entry.getValue().isJsonArray()) {
+                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), List.class));
+                 } else { // JSON object
+                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
                  }
                }
              }
@@ -262,22 +286,22 @@ public class Metadata {
     }
   }
 
- /**
-  * Create an instance of Metadata given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of Metadata
-  * @throws IOException if the JSON string is invalid with respect to Metadata
-  */
+  /**
+   * Create an instance of Metadata given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of Metadata
+   * @throws IOException if the JSON string is invalid with respect to Metadata
+   */
   public static Metadata fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, Metadata.class);
   }
 
- /**
-  * Convert an instance of Metadata to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of Metadata to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

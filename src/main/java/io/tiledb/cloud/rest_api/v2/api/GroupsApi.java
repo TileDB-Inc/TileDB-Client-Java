@@ -13,8 +13,22 @@
 
 package io.tiledb.cloud.rest_api.v2.api;
 
+import io.tiledb.cloud.rest_api.v2.ApiCallback;
 import io.tiledb.cloud.rest_api.v2.ApiClient;
 import io.tiledb.cloud.rest_api.v2.ApiException;
+import io.tiledb.cloud.rest_api.v2.ApiResponse;
+import io.tiledb.cloud.rest_api.v2.Configuration;
+import io.tiledb.cloud.rest_api.v2.Pair;
+import io.tiledb.cloud.rest_api.v2.ProgressRequestBody;
+import io.tiledb.cloud.rest_api.v2.ProgressResponseBody;
+
+import com.google.gson.reflect.TypeToken;
+
+import java.io.IOException;
+
+
+import io.tiledb.cloud.rest_api.v2.model.Error;
+import io.tiledb.cloud.rest_api.v2.model.GroupActivityResponse;
 import io.tiledb.cloud.rest_api.v2.model.GroupContentActivityResponse;
 import io.tiledb.cloud.rest_api.v2.model.GroupContentsChangesRequest;
 import io.tiledb.cloud.rest_api.v2.model.GroupContentsRetrievalRequest;
@@ -24,14 +38,8 @@ import io.tiledb.cloud.rest_api.v2.model.GroupCreationResponse;
 import io.tiledb.cloud.rest_api.v2.model.GroupMetadataRetrievalRequest;
 import io.tiledb.cloud.rest_api.v2.model.GroupMetadataUpdateRequest;
 import io.tiledb.cloud.rest_api.v2.model.GroupRegistrationRequest;
+import io.tiledb.cloud.rest_api.v2.model.GroupRegistrationResponse;
 import io.tiledb.cloud.rest_api.v2.model.Metadata;
-import io.tiledb.cloud.rest_api.v2.ApiCallback;
-import io.tiledb.cloud.rest_api.v2.ApiResponse;
-import io.tiledb.cloud.rest_api.v2.Configuration;
-import io.tiledb.cloud.rest_api.v2.Pair;
-
-import com.google.gson.reflect.TypeToken;
-
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -78,7 +86,9 @@ public class GroupsApi {
 
     /**
      * Build call for createGroup
-     * @param groupNamespace The namespace of the group (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the group belongs to (required)
+     * @param group The unique path or asset id of the group (required)
      * @param X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME Optional registered access credentials to use for creation (optional)
      * @param groupCreation  (optional)
      * @param _callback Callback for upload/download progress
@@ -92,7 +102,7 @@ public class GroupsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call createGroupCall(String groupNamespace, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, GroupCreationRequest groupCreation, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call createGroupCall(String workspace, String teamspace, String group, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, GroupCreationRequest groupCreation, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -109,8 +119,10 @@ public class GroupsApi {
         Object localVarPostBody = groupCreation;
 
         // create path and map variables
-        String localVarPath = "/groups/{group_namespace}"
-            .replaceAll("\\{" + "group_namespace" + "\\}", localVarApiClient.escapeString(groupNamespace.toString()));
+        String localVarPath = "/groups/{workspace}/{teamspace}/{group}"
+            .replace("{" + "workspace" + "}", localVarApiClient.escapeString(workspace.toString()))
+            .replace("{" + "teamspace" + "}", localVarApiClient.escapeString(teamspace.toString()))
+            .replace("{" + "group" + "}", localVarApiClient.escapeString(group.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -138,28 +150,37 @@ public class GroupsApi {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
 
-        String[] localVarAuthNames = new String[] { "ApiKeyAuth", "BasicAuth" };
+        String[] localVarAuthNames = new String[] { "BasicAuth", "ApiKeyAuth" };
         return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call createGroupValidateBeforeCall(String groupNamespace, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, GroupCreationRequest groupCreation, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'groupNamespace' is set
-        if (groupNamespace == null) {
-            throw new ApiException("Missing the required parameter 'groupNamespace' when calling createGroup(Async)");
+    private okhttp3.Call createGroupValidateBeforeCall(String workspace, String teamspace, String group, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, GroupCreationRequest groupCreation, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'workspace' is set
+        if (workspace == null) {
+            throw new ApiException("Missing the required parameter 'workspace' when calling createGroup(Async)");
         }
-        
 
-        okhttp3.Call localVarCall = createGroupCall(groupNamespace, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, groupCreation, _callback);
-        return localVarCall;
+        // verify the required parameter 'teamspace' is set
+        if (teamspace == null) {
+            throw new ApiException("Missing the required parameter 'teamspace' when calling createGroup(Async)");
+        }
+
+        // verify the required parameter 'group' is set
+        if (group == null) {
+            throw new ApiException("Missing the required parameter 'group' when calling createGroup(Async)");
+        }
+
+        return createGroupCall(workspace, teamspace, group, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, groupCreation, _callback);
 
     }
 
     /**
      * 
      * Creates an empty group
-     * @param groupNamespace The namespace of the group (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the group belongs to (required)
+     * @param group The unique path or asset id of the group (required)
      * @param X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME Optional registered access credentials to use for creation (optional)
      * @param groupCreation  (optional)
      * @return GroupCreationResponse
@@ -172,15 +193,17 @@ public class GroupsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public GroupCreationResponse createGroup(String groupNamespace, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, GroupCreationRequest groupCreation) throws ApiException {
-        ApiResponse<GroupCreationResponse> localVarResp = createGroupWithHttpInfo(groupNamespace, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, groupCreation);
+    public GroupCreationResponse createGroup(String workspace, String teamspace, String group, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, GroupCreationRequest groupCreation) throws ApiException {
+        ApiResponse<GroupCreationResponse> localVarResp = createGroupWithHttpInfo(workspace, teamspace, group, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, groupCreation);
         return localVarResp.getData();
     }
 
     /**
      * 
      * Creates an empty group
-     * @param groupNamespace The namespace of the group (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the group belongs to (required)
+     * @param group The unique path or asset id of the group (required)
      * @param X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME Optional registered access credentials to use for creation (optional)
      * @param groupCreation  (optional)
      * @return ApiResponse&lt;GroupCreationResponse&gt;
@@ -193,8 +216,8 @@ public class GroupsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<GroupCreationResponse> createGroupWithHttpInfo(String groupNamespace, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, GroupCreationRequest groupCreation) throws ApiException {
-        okhttp3.Call localVarCall = createGroupValidateBeforeCall(groupNamespace, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, groupCreation, null);
+    public ApiResponse<GroupCreationResponse> createGroupWithHttpInfo(String workspace, String teamspace, String group, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, GroupCreationRequest groupCreation) throws ApiException {
+        okhttp3.Call localVarCall = createGroupValidateBeforeCall(workspace, teamspace, group, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, groupCreation, null);
         Type localVarReturnType = new TypeToken<GroupCreationResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
@@ -202,7 +225,9 @@ public class GroupsApi {
     /**
      *  (asynchronously)
      * Creates an empty group
-     * @param groupNamespace The namespace of the group (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the group belongs to (required)
+     * @param group The unique path or asset id of the group (required)
      * @param X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME Optional registered access credentials to use for creation (optional)
      * @param groupCreation  (optional)
      * @param _callback The callback to be executed when the API call finishes
@@ -216,17 +241,18 @@ public class GroupsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call createGroupAsync(String groupNamespace, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, GroupCreationRequest groupCreation, final ApiCallback<GroupCreationResponse> _callback) throws ApiException {
+    public okhttp3.Call createGroupAsync(String workspace, String teamspace, String group, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, GroupCreationRequest groupCreation, final ApiCallback<GroupCreationResponse> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = createGroupValidateBeforeCall(groupNamespace, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, groupCreation, _callback);
+        okhttp3.Call localVarCall = createGroupValidateBeforeCall(workspace, teamspace, group, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, groupCreation, _callback);
         Type localVarReturnType = new TypeToken<GroupCreationResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
     /**
      * Build call for deleteGroup
-     * @param groupNamespace The namespace of the group (required)
-     * @param groupName The unique name or id of the group (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the group belongs to (required)
+     * @param group The unique path or asset id of the group (required)
      * @param recursive If true, it descends in the group and deletes every subgroup and subarray (optional)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
@@ -239,7 +265,7 @@ public class GroupsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call deleteGroupCall(String groupNamespace, String groupName, String recursive, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call deleteGroupCall(String workspace, String teamspace, String group, String recursive, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -256,9 +282,10 @@ public class GroupsApi {
         Object localVarPostBody = null;
 
         // create path and map variables
-        String localVarPath = "/groups/{group_namespace}/{group_name}/delete"
-            .replaceAll("\\{" + "group_namespace" + "\\}", localVarApiClient.escapeString(groupNamespace.toString()))
-            .replaceAll("\\{" + "group_name" + "\\}", localVarApiClient.escapeString(groupName.toString()));
+        String localVarPath = "/groups/{workspace}/{teamspace}/{group}/delete"
+            .replace("{" + "workspace" + "}", localVarApiClient.escapeString(workspace.toString()))
+            .replace("{" + "teamspace" + "}", localVarApiClient.escapeString(teamspace.toString()))
+            .replace("{" + "group" + "}", localVarApiClient.escapeString(group.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -279,41 +306,43 @@ public class GroupsApi {
         }
 
         final String[] localVarContentTypes = {
-            
         };
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
         if (localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
 
-        String[] localVarAuthNames = new String[] { "ApiKeyAuth", "BasicAuth" };
+        String[] localVarAuthNames = new String[] { "BasicAuth", "ApiKeyAuth" };
         return localVarApiClient.buildCall(basePath, localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call deleteGroupValidateBeforeCall(String groupNamespace, String groupName, String recursive, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'groupNamespace' is set
-        if (groupNamespace == null) {
-            throw new ApiException("Missing the required parameter 'groupNamespace' when calling deleteGroup(Async)");
+    private okhttp3.Call deleteGroupValidateBeforeCall(String workspace, String teamspace, String group, String recursive, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'workspace' is set
+        if (workspace == null) {
+            throw new ApiException("Missing the required parameter 'workspace' when calling deleteGroup(Async)");
         }
-        
-        // verify the required parameter 'groupName' is set
-        if (groupName == null) {
-            throw new ApiException("Missing the required parameter 'groupName' when calling deleteGroup(Async)");
-        }
-        
 
-        okhttp3.Call localVarCall = deleteGroupCall(groupNamespace, groupName, recursive, _callback);
-        return localVarCall;
+        // verify the required parameter 'teamspace' is set
+        if (teamspace == null) {
+            throw new ApiException("Missing the required parameter 'teamspace' when calling deleteGroup(Async)");
+        }
+
+        // verify the required parameter 'group' is set
+        if (group == null) {
+            throw new ApiException("Missing the required parameter 'group' when calling deleteGroup(Async)");
+        }
+
+        return deleteGroupCall(workspace, teamspace, group, recursive, _callback);
 
     }
 
     /**
      * 
      * Deregisters and physically deletes a group
-     * @param groupNamespace The namespace of the group (required)
-     * @param groupName The unique name or id of the group (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the group belongs to (required)
+     * @param group The unique path or asset id of the group (required)
      * @param recursive If true, it descends in the group and deletes every subgroup and subarray (optional)
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -324,15 +353,16 @@ public class GroupsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public void deleteGroup(String groupNamespace, String groupName, String recursive) throws ApiException {
-        deleteGroupWithHttpInfo(groupNamespace, groupName, recursive);
+    public void deleteGroup(String workspace, String teamspace, String group, String recursive) throws ApiException {
+        deleteGroupWithHttpInfo(workspace, teamspace, group, recursive);
     }
 
     /**
      * 
      * Deregisters and physically deletes a group
-     * @param groupNamespace The namespace of the group (required)
-     * @param groupName The unique name or id of the group (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the group belongs to (required)
+     * @param group The unique path or asset id of the group (required)
      * @param recursive If true, it descends in the group and deletes every subgroup and subarray (optional)
      * @return ApiResponse&lt;Void&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -344,16 +374,17 @@ public class GroupsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<Void> deleteGroupWithHttpInfo(String groupNamespace, String groupName, String recursive) throws ApiException {
-        okhttp3.Call localVarCall = deleteGroupValidateBeforeCall(groupNamespace, groupName, recursive, null);
+    public ApiResponse<Void> deleteGroupWithHttpInfo(String workspace, String teamspace, String group, String recursive) throws ApiException {
+        okhttp3.Call localVarCall = deleteGroupValidateBeforeCall(workspace, teamspace, group, recursive, null);
         return localVarApiClient.execute(localVarCall);
     }
 
     /**
      *  (asynchronously)
      * Deregisters and physically deletes a group
-     * @param groupNamespace The namespace of the group (required)
-     * @param groupName The unique name or id of the group (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the group belongs to (required)
+     * @param group The unique path or asset id of the group (required)
      * @param recursive If true, it descends in the group and deletes every subgroup and subarray (optional)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
@@ -366,16 +397,17 @@ public class GroupsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call deleteGroupAsync(String groupNamespace, String groupName, String recursive, final ApiCallback<Void> _callback) throws ApiException {
+    public okhttp3.Call deleteGroupAsync(String workspace, String teamspace, String group, String recursive, final ApiCallback<Void> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = deleteGroupValidateBeforeCall(groupNamespace, groupName, recursive, _callback);
+        okhttp3.Call localVarCall = deleteGroupValidateBeforeCall(workspace, teamspace, group, recursive, _callback);
         localVarApiClient.executeAsync(localVarCall, _callback);
         return localVarCall;
     }
     /**
      * Build call for deregisterGroup
-     * @param groupNamespace The namespace of the group (required)
-     * @param groupName The unique name or id of the group (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the group belongs to (required)
+     * @param group The unique path or asset id of the group (required)
      * @param X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME Optional registered access credentials to use for creation (optional)
      * @param recursive If true, it descends in the group and deregisters every subgroup and subarray (optional)
      * @param _callback Callback for upload/download progress
@@ -389,7 +421,7 @@ public class GroupsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call deregisterGroupCall(String groupNamespace, String groupName, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, String recursive, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call deregisterGroupCall(String workspace, String teamspace, String group, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, String recursive, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -406,9 +438,10 @@ public class GroupsApi {
         Object localVarPostBody = null;
 
         // create path and map variables
-        String localVarPath = "/groups/{group_namespace}/{group_name}"
-            .replaceAll("\\{" + "group_namespace" + "\\}", localVarApiClient.escapeString(groupNamespace.toString()))
-            .replaceAll("\\{" + "group_name" + "\\}", localVarApiClient.escapeString(groupName.toString()));
+        String localVarPath = "/groups/{workspace}/{teamspace}/{group}"
+            .replace("{" + "workspace" + "}", localVarApiClient.escapeString(workspace.toString()))
+            .replace("{" + "teamspace" + "}", localVarApiClient.escapeString(teamspace.toString()))
+            .replace("{" + "group" + "}", localVarApiClient.escapeString(group.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -433,41 +466,43 @@ public class GroupsApi {
         }
 
         final String[] localVarContentTypes = {
-            
         };
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
         if (localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
 
-        String[] localVarAuthNames = new String[] { "ApiKeyAuth", "BasicAuth" };
+        String[] localVarAuthNames = new String[] { "BasicAuth", "ApiKeyAuth" };
         return localVarApiClient.buildCall(basePath, localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call deregisterGroupValidateBeforeCall(String groupNamespace, String groupName, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, String recursive, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'groupNamespace' is set
-        if (groupNamespace == null) {
-            throw new ApiException("Missing the required parameter 'groupNamespace' when calling deregisterGroup(Async)");
+    private okhttp3.Call deregisterGroupValidateBeforeCall(String workspace, String teamspace, String group, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, String recursive, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'workspace' is set
+        if (workspace == null) {
+            throw new ApiException("Missing the required parameter 'workspace' when calling deregisterGroup(Async)");
         }
-        
-        // verify the required parameter 'groupName' is set
-        if (groupName == null) {
-            throw new ApiException("Missing the required parameter 'groupName' when calling deregisterGroup(Async)");
-        }
-        
 
-        okhttp3.Call localVarCall = deregisterGroupCall(groupNamespace, groupName, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, recursive, _callback);
-        return localVarCall;
+        // verify the required parameter 'teamspace' is set
+        if (teamspace == null) {
+            throw new ApiException("Missing the required parameter 'teamspace' when calling deregisterGroup(Async)");
+        }
+
+        // verify the required parameter 'group' is set
+        if (group == null) {
+            throw new ApiException("Missing the required parameter 'group' when calling deregisterGroup(Async)");
+        }
+
+        return deregisterGroupCall(workspace, teamspace, group, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, recursive, _callback);
 
     }
 
     /**
      * 
      * Deregisters a group
-     * @param groupNamespace The namespace of the group (required)
-     * @param groupName The unique name or id of the group (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the group belongs to (required)
+     * @param group The unique path or asset id of the group (required)
      * @param X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME Optional registered access credentials to use for creation (optional)
      * @param recursive If true, it descends in the group and deregisters every subgroup and subarray (optional)
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -479,15 +514,16 @@ public class GroupsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public void deregisterGroup(String groupNamespace, String groupName, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, String recursive) throws ApiException {
-        deregisterGroupWithHttpInfo(groupNamespace, groupName, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, recursive);
+    public void deregisterGroup(String workspace, String teamspace, String group, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, String recursive) throws ApiException {
+        deregisterGroupWithHttpInfo(workspace, teamspace, group, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, recursive);
     }
 
     /**
      * 
      * Deregisters a group
-     * @param groupNamespace The namespace of the group (required)
-     * @param groupName The unique name or id of the group (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the group belongs to (required)
+     * @param group The unique path or asset id of the group (required)
      * @param X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME Optional registered access credentials to use for creation (optional)
      * @param recursive If true, it descends in the group and deregisters every subgroup and subarray (optional)
      * @return ApiResponse&lt;Void&gt;
@@ -500,16 +536,17 @@ public class GroupsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<Void> deregisterGroupWithHttpInfo(String groupNamespace, String groupName, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, String recursive) throws ApiException {
-        okhttp3.Call localVarCall = deregisterGroupValidateBeforeCall(groupNamespace, groupName, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, recursive, null);
+    public ApiResponse<Void> deregisterGroupWithHttpInfo(String workspace, String teamspace, String group, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, String recursive) throws ApiException {
+        okhttp3.Call localVarCall = deregisterGroupValidateBeforeCall(workspace, teamspace, group, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, recursive, null);
         return localVarApiClient.execute(localVarCall);
     }
 
     /**
      *  (asynchronously)
      * Deregisters a group
-     * @param groupNamespace The namespace of the group (required)
-     * @param groupName The unique name or id of the group (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the group belongs to (required)
+     * @param group The unique path or asset id of the group (required)
      * @param X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME Optional registered access credentials to use for creation (optional)
      * @param recursive If true, it descends in the group and deregisters every subgroup and subarray (optional)
      * @param _callback The callback to be executed when the API call finishes
@@ -523,16 +560,200 @@ public class GroupsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call deregisterGroupAsync(String groupNamespace, String groupName, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, String recursive, final ApiCallback<Void> _callback) throws ApiException {
+    public okhttp3.Call deregisterGroupAsync(String workspace, String teamspace, String group, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, String recursive, final ApiCallback<Void> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = deregisterGroupValidateBeforeCall(groupNamespace, groupName, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, recursive, _callback);
+        okhttp3.Call localVarCall = deregisterGroupValidateBeforeCall(workspace, teamspace, group, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, recursive, _callback);
         localVarApiClient.executeAsync(localVarCall, _callback);
         return localVarCall;
     }
     /**
+     * Build call for getGroupActivity
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the group belongs to (required)
+     * @param group The unique path or asset id of the group (required)
+     * @param start Start time of window of fetch logs, unix epoch in seconds (default: seven days ago) (optional)
+     * @param end End time of window of fetch logs, unix epoch in seconds (default: current utc timestamp) (optional)
+     * @param page pagination offset (optional)
+     * @param perPage pagination limit (optional)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Activity logs of group and all its content along with the pagination metadata </td><td>  -  </td></tr>
+        <tr><td> 502 </td><td> Bad Gateway </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call getGroupActivityCall(String workspace, String teamspace, String group, Integer start, Integer end, Integer page, Integer perPage, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/groups/{workspace}/{teamspace}/{group}/activity"
+            .replace("{" + "workspace" + "}", localVarApiClient.escapeString(workspace.toString()))
+            .replace("{" + "teamspace" + "}", localVarApiClient.escapeString(teamspace.toString()))
+            .replace("{" + "group" + "}", localVarApiClient.escapeString(group.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        if (start != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("start", start));
+        }
+
+        if (end != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("end", end));
+        }
+
+        if (page != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("page", page));
+        }
+
+        if (perPage != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("per_page", perPage));
+        }
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "BasicAuth", "ApiKeyAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call getGroupActivityValidateBeforeCall(String workspace, String teamspace, String group, Integer start, Integer end, Integer page, Integer perPage, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'workspace' is set
+        if (workspace == null) {
+            throw new ApiException("Missing the required parameter 'workspace' when calling getGroupActivity(Async)");
+        }
+
+        // verify the required parameter 'teamspace' is set
+        if (teamspace == null) {
+            throw new ApiException("Missing the required parameter 'teamspace' when calling getGroupActivity(Async)");
+        }
+
+        // verify the required parameter 'group' is set
+        if (group == null) {
+            throw new ApiException("Missing the required parameter 'group' when calling getGroupActivity(Async)");
+        }
+
+        return getGroupActivityCall(workspace, teamspace, group, start, end, page, perPage, _callback);
+
+    }
+
+    /**
+     * 
+     * Retrieves activity logs for all assets contained in a group (arrays and other groups) including the parent group itself.
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the group belongs to (required)
+     * @param group The unique path or asset id of the group (required)
+     * @param start Start time of window of fetch logs, unix epoch in seconds (default: seven days ago) (optional)
+     * @param end End time of window of fetch logs, unix epoch in seconds (default: current utc timestamp) (optional)
+     * @param page pagination offset (optional)
+     * @param perPage pagination limit (optional)
+     * @return GroupActivityResponse
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Activity logs of group and all its content along with the pagination metadata </td><td>  -  </td></tr>
+        <tr><td> 502 </td><td> Bad Gateway </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
+     </table>
+     */
+    public GroupActivityResponse getGroupActivity(String workspace, String teamspace, String group, Integer start, Integer end, Integer page, Integer perPage) throws ApiException {
+        ApiResponse<GroupActivityResponse> localVarResp = getGroupActivityWithHttpInfo(workspace, teamspace, group, start, end, page, perPage);
+        return localVarResp.getData();
+    }
+
+    /**
+     * 
+     * Retrieves activity logs for all assets contained in a group (arrays and other groups) including the parent group itself.
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the group belongs to (required)
+     * @param group The unique path or asset id of the group (required)
+     * @param start Start time of window of fetch logs, unix epoch in seconds (default: seven days ago) (optional)
+     * @param end End time of window of fetch logs, unix epoch in seconds (default: current utc timestamp) (optional)
+     * @param page pagination offset (optional)
+     * @param perPage pagination limit (optional)
+     * @return ApiResponse&lt;GroupActivityResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Activity logs of group and all its content along with the pagination metadata </td><td>  -  </td></tr>
+        <tr><td> 502 </td><td> Bad Gateway </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<GroupActivityResponse> getGroupActivityWithHttpInfo(String workspace, String teamspace, String group, Integer start, Integer end, Integer page, Integer perPage) throws ApiException {
+        okhttp3.Call localVarCall = getGroupActivityValidateBeforeCall(workspace, teamspace, group, start, end, page, perPage, null);
+        Type localVarReturnType = new TypeToken<GroupActivityResponse>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     *  (asynchronously)
+     * Retrieves activity logs for all assets contained in a group (arrays and other groups) including the parent group itself.
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the group belongs to (required)
+     * @param group The unique path or asset id of the group (required)
+     * @param start Start time of window of fetch logs, unix epoch in seconds (default: seven days ago) (optional)
+     * @param end End time of window of fetch logs, unix epoch in seconds (default: current utc timestamp) (optional)
+     * @param page pagination offset (optional)
+     * @param perPage pagination limit (optional)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Activity logs of group and all its content along with the pagination metadata </td><td>  -  </td></tr>
+        <tr><td> 502 </td><td> Bad Gateway </td><td>  -  </td></tr>
+        <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call getGroupActivityAsync(String workspace, String teamspace, String group, Integer start, Integer end, Integer page, Integer perPage, final ApiCallback<GroupActivityResponse> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = getGroupActivityValidateBeforeCall(workspace, teamspace, group, start, end, page, perPage, _callback);
+        Type localVarReturnType = new TypeToken<GroupActivityResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
      * Build call for getGroupContentActivity
-     * @param groupNamespace The namespace of the group (required)
-     * @param groupName The unique name or id of the group (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the group belongs to (required)
+     * @param group The unique path or asset id of the group (required)
      * @param page pagination offset (optional)
      * @param perPage pagination limit (optional)
      * @param _callback Callback for upload/download progress
@@ -546,7 +767,7 @@ public class GroupsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getGroupContentActivityCall(String groupNamespace, String groupName, Integer page, Integer perPage, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call getGroupContentActivityCall(String workspace, String teamspace, String group, Integer page, Integer perPage, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -563,9 +784,10 @@ public class GroupsApi {
         Object localVarPostBody = null;
 
         // create path and map variables
-        String localVarPath = "/groups/{group_namespace}/{group_name}/content_activity"
-            .replaceAll("\\{" + "group_namespace" + "\\}", localVarApiClient.escapeString(groupNamespace.toString()))
-            .replaceAll("\\{" + "group_name" + "\\}", localVarApiClient.escapeString(groupName.toString()));
+        String localVarPath = "/groups/{workspace}/{teamspace}/{group}/content_activity"
+            .replace("{" + "workspace" + "}", localVarApiClient.escapeString(workspace.toString()))
+            .replace("{" + "teamspace" + "}", localVarApiClient.escapeString(teamspace.toString()))
+            .replace("{" + "group" + "}", localVarApiClient.escapeString(group.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -590,41 +812,43 @@ public class GroupsApi {
         }
 
         final String[] localVarContentTypes = {
-            
         };
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
         if (localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
 
-        String[] localVarAuthNames = new String[] { "ApiKeyAuth", "BasicAuth" };
+        String[] localVarAuthNames = new String[] { "BasicAuth", "ApiKeyAuth" };
         return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getGroupContentActivityValidateBeforeCall(String groupNamespace, String groupName, Integer page, Integer perPage, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'groupNamespace' is set
-        if (groupNamespace == null) {
-            throw new ApiException("Missing the required parameter 'groupNamespace' when calling getGroupContentActivity(Async)");
+    private okhttp3.Call getGroupContentActivityValidateBeforeCall(String workspace, String teamspace, String group, Integer page, Integer perPage, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'workspace' is set
+        if (workspace == null) {
+            throw new ApiException("Missing the required parameter 'workspace' when calling getGroupContentActivity(Async)");
         }
-        
-        // verify the required parameter 'groupName' is set
-        if (groupName == null) {
-            throw new ApiException("Missing the required parameter 'groupName' when calling getGroupContentActivity(Async)");
-        }
-        
 
-        okhttp3.Call localVarCall = getGroupContentActivityCall(groupNamespace, groupName, page, perPage, _callback);
-        return localVarCall;
+        // verify the required parameter 'teamspace' is set
+        if (teamspace == null) {
+            throw new ApiException("Missing the required parameter 'teamspace' when calling getGroupContentActivity(Async)");
+        }
+
+        // verify the required parameter 'group' is set
+        if (group == null) {
+            throw new ApiException("Missing the required parameter 'group' when calling getGroupContentActivity(Async)");
+        }
+
+        return getGroupContentActivityCall(workspace, teamspace, group, page, perPage, _callback);
 
     }
 
     /**
      * 
      * Retrieves combined activity logs for all assets contained in a group.
-     * @param groupNamespace The namespace of the group (required)
-     * @param groupName The unique name or id of the group (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the group belongs to (required)
+     * @param group The unique path or asset id of the group (required)
      * @param page pagination offset (optional)
      * @param perPage pagination limit (optional)
      * @return GroupContentActivityResponse
@@ -637,16 +861,17 @@ public class GroupsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public GroupContentActivityResponse getGroupContentActivity(String groupNamespace, String groupName, Integer page, Integer perPage) throws ApiException {
-        ApiResponse<GroupContentActivityResponse> localVarResp = getGroupContentActivityWithHttpInfo(groupNamespace, groupName, page, perPage);
+    public GroupContentActivityResponse getGroupContentActivity(String workspace, String teamspace, String group, Integer page, Integer perPage) throws ApiException {
+        ApiResponse<GroupContentActivityResponse> localVarResp = getGroupContentActivityWithHttpInfo(workspace, teamspace, group, page, perPage);
         return localVarResp.getData();
     }
 
     /**
      * 
      * Retrieves combined activity logs for all assets contained in a group.
-     * @param groupNamespace The namespace of the group (required)
-     * @param groupName The unique name or id of the group (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the group belongs to (required)
+     * @param group The unique path or asset id of the group (required)
      * @param page pagination offset (optional)
      * @param perPage pagination limit (optional)
      * @return ApiResponse&lt;GroupContentActivityResponse&gt;
@@ -659,8 +884,8 @@ public class GroupsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<GroupContentActivityResponse> getGroupContentActivityWithHttpInfo(String groupNamespace, String groupName, Integer page, Integer perPage) throws ApiException {
-        okhttp3.Call localVarCall = getGroupContentActivityValidateBeforeCall(groupNamespace, groupName, page, perPage, null);
+    public ApiResponse<GroupContentActivityResponse> getGroupContentActivityWithHttpInfo(String workspace, String teamspace, String group, Integer page, Integer perPage) throws ApiException {
+        okhttp3.Call localVarCall = getGroupContentActivityValidateBeforeCall(workspace, teamspace, group, page, perPage, null);
         Type localVarReturnType = new TypeToken<GroupContentActivityResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
@@ -668,8 +893,9 @@ public class GroupsApi {
     /**
      *  (asynchronously)
      * Retrieves combined activity logs for all assets contained in a group.
-     * @param groupNamespace The namespace of the group (required)
-     * @param groupName The unique name or id of the group (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the group belongs to (required)
+     * @param group The unique path or asset id of the group (required)
      * @param page pagination offset (optional)
      * @param perPage pagination limit (optional)
      * @param _callback The callback to be executed when the API call finishes
@@ -683,17 +909,18 @@ public class GroupsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getGroupContentActivityAsync(String groupNamespace, String groupName, Integer page, Integer perPage, final ApiCallback<GroupContentActivityResponse> _callback) throws ApiException {
+    public okhttp3.Call getGroupContentActivityAsync(String workspace, String teamspace, String group, Integer page, Integer perPage, final ApiCallback<GroupContentActivityResponse> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = getGroupContentActivityValidateBeforeCall(groupNamespace, groupName, page, perPage, _callback);
+        okhttp3.Call localVarCall = getGroupContentActivityValidateBeforeCall(workspace, teamspace, group, page, perPage, _callback);
         Type localVarReturnType = new TypeToken<GroupContentActivityResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
     /**
      * Build call for getGroupMetadata
-     * @param groupNamespace The namespace of the group (required)
-     * @param groupName The unique name or id of the group (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the group belongs to (required)
+     * @param group The unique path or asset id of the group (required)
      * @param metadataRetrieval  (optional)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
@@ -706,7 +933,7 @@ public class GroupsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getGroupMetadataCall(String groupNamespace, String groupName, GroupMetadataRetrievalRequest metadataRetrieval, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call getGroupMetadataCall(String workspace, String teamspace, String group, GroupMetadataRetrievalRequest metadataRetrieval, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -723,9 +950,10 @@ public class GroupsApi {
         Object localVarPostBody = metadataRetrieval;
 
         // create path and map variables
-        String localVarPath = "/groups/{group_namespace}/{group_name}/metadata"
-            .replaceAll("\\{" + "group_namespace" + "\\}", localVarApiClient.escapeString(groupNamespace.toString()))
-            .replaceAll("\\{" + "group_name" + "\\}", localVarApiClient.escapeString(groupName.toString()));
+        String localVarPath = "/groups/{workspace}/{teamspace}/{group}/metadata"
+            .replace("{" + "workspace" + "}", localVarApiClient.escapeString(workspace.toString()))
+            .replace("{" + "teamspace" + "}", localVarApiClient.escapeString(teamspace.toString()))
+            .replace("{" + "group" + "}", localVarApiClient.escapeString(group.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -749,34 +977,37 @@ public class GroupsApi {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
 
-        String[] localVarAuthNames = new String[] { "ApiKeyAuth", "BasicAuth" };
+        String[] localVarAuthNames = new String[] { "BasicAuth", "ApiKeyAuth" };
         return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getGroupMetadataValidateBeforeCall(String groupNamespace, String groupName, GroupMetadataRetrievalRequest metadataRetrieval, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'groupNamespace' is set
-        if (groupNamespace == null) {
-            throw new ApiException("Missing the required parameter 'groupNamespace' when calling getGroupMetadata(Async)");
+    private okhttp3.Call getGroupMetadataValidateBeforeCall(String workspace, String teamspace, String group, GroupMetadataRetrievalRequest metadataRetrieval, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'workspace' is set
+        if (workspace == null) {
+            throw new ApiException("Missing the required parameter 'workspace' when calling getGroupMetadata(Async)");
         }
-        
-        // verify the required parameter 'groupName' is set
-        if (groupName == null) {
-            throw new ApiException("Missing the required parameter 'groupName' when calling getGroupMetadata(Async)");
-        }
-        
 
-        okhttp3.Call localVarCall = getGroupMetadataCall(groupNamespace, groupName, metadataRetrieval, _callback);
-        return localVarCall;
+        // verify the required parameter 'teamspace' is set
+        if (teamspace == null) {
+            throw new ApiException("Missing the required parameter 'teamspace' when calling getGroupMetadata(Async)");
+        }
+
+        // verify the required parameter 'group' is set
+        if (group == null) {
+            throw new ApiException("Missing the required parameter 'group' when calling getGroupMetadata(Async)");
+        }
+
+        return getGroupMetadataCall(workspace, teamspace, group, metadataRetrieval, _callback);
 
     }
 
     /**
      * 
      * get metadata on a group using the requested config
-     * @param groupNamespace The namespace of the group (required)
-     * @param groupName The unique name or id of the group (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the group belongs to (required)
+     * @param group The unique path or asset id of the group (required)
      * @param metadataRetrieval  (optional)
      * @return Metadata
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -788,16 +1019,17 @@ public class GroupsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public Metadata getGroupMetadata(String groupNamespace, String groupName, GroupMetadataRetrievalRequest metadataRetrieval) throws ApiException {
-        ApiResponse<Metadata> localVarResp = getGroupMetadataWithHttpInfo(groupNamespace, groupName, metadataRetrieval);
+    public Metadata getGroupMetadata(String workspace, String teamspace, String group, GroupMetadataRetrievalRequest metadataRetrieval) throws ApiException {
+        ApiResponse<Metadata> localVarResp = getGroupMetadataWithHttpInfo(workspace, teamspace, group, metadataRetrieval);
         return localVarResp.getData();
     }
 
     /**
      * 
      * get metadata on a group using the requested config
-     * @param groupNamespace The namespace of the group (required)
-     * @param groupName The unique name or id of the group (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the group belongs to (required)
+     * @param group The unique path or asset id of the group (required)
      * @param metadataRetrieval  (optional)
      * @return ApiResponse&lt;Metadata&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -809,8 +1041,8 @@ public class GroupsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<Metadata> getGroupMetadataWithHttpInfo(String groupNamespace, String groupName, GroupMetadataRetrievalRequest metadataRetrieval) throws ApiException {
-        okhttp3.Call localVarCall = getGroupMetadataValidateBeforeCall(groupNamespace, groupName, metadataRetrieval, null);
+    public ApiResponse<Metadata> getGroupMetadataWithHttpInfo(String workspace, String teamspace, String group, GroupMetadataRetrievalRequest metadataRetrieval) throws ApiException {
+        okhttp3.Call localVarCall = getGroupMetadataValidateBeforeCall(workspace, teamspace, group, metadataRetrieval, null);
         Type localVarReturnType = new TypeToken<Metadata>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
@@ -818,8 +1050,9 @@ public class GroupsApi {
     /**
      *  (asynchronously)
      * get metadata on a group using the requested config
-     * @param groupNamespace The namespace of the group (required)
-     * @param groupName The unique name or id of the group (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the group belongs to (required)
+     * @param group The unique path or asset id of the group (required)
      * @param metadataRetrieval  (optional)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
@@ -832,17 +1065,18 @@ public class GroupsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getGroupMetadataAsync(String groupNamespace, String groupName, GroupMetadataRetrievalRequest metadataRetrieval, final ApiCallback<Metadata> _callback) throws ApiException {
+    public okhttp3.Call getGroupMetadataAsync(String workspace, String teamspace, String group, GroupMetadataRetrievalRequest metadataRetrieval, final ApiCallback<Metadata> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = getGroupMetadataValidateBeforeCall(groupNamespace, groupName, metadataRetrieval, _callback);
+        okhttp3.Call localVarCall = getGroupMetadataValidateBeforeCall(workspace, teamspace, group, metadataRetrieval, _callback);
         Type localVarReturnType = new TypeToken<Metadata>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
     /**
-     * Build call for groupsGroupNamespaceGroupNameOptions
-     * @param groupNamespace The namespace of the group (required)
-     * @param groupName The unique name or id of the group (required)
+     * Build call for groupsWorkspaceTeamspaceGroupOptions
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the group belongs to (required)
+     * @param group The unique path or asset id of the group (required)
      * @param X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME Optional registered access credentials to use for creation (optional)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
@@ -856,7 +1090,7 @@ public class GroupsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call groupsGroupNamespaceGroupNameOptionsCall(String groupNamespace, String groupName, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call groupsWorkspaceTeamspaceGroupOptionsCall(String workspace, String teamspace, String group, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -873,9 +1107,10 @@ public class GroupsApi {
         Object localVarPostBody = null;
 
         // create path and map variables
-        String localVarPath = "/groups/{group_namespace}/{group_name}"
-            .replaceAll("\\{" + "group_namespace" + "\\}", localVarApiClient.escapeString(groupNamespace.toString()))
-            .replaceAll("\\{" + "group_name" + "\\}", localVarApiClient.escapeString(groupName.toString()));
+        String localVarPath = "/groups/{workspace}/{teamspace}/{group}"
+            .replace("{" + "workspace" + "}", localVarApiClient.escapeString(workspace.toString()))
+            .replace("{" + "teamspace" + "}", localVarApiClient.escapeString(teamspace.toString()))
+            .replace("{" + "group" + "}", localVarApiClient.escapeString(group.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -896,41 +1131,43 @@ public class GroupsApi {
         }
 
         final String[] localVarContentTypes = {
-            
         };
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
         if (localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
 
-        String[] localVarAuthNames = new String[] { "ApiKeyAuth", "BasicAuth" };
+        String[] localVarAuthNames = new String[] { "BasicAuth", "ApiKeyAuth" };
         return localVarApiClient.buildCall(basePath, localVarPath, "OPTIONS", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call groupsGroupNamespaceGroupNameOptionsValidateBeforeCall(String groupNamespace, String groupName, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'groupNamespace' is set
-        if (groupNamespace == null) {
-            throw new ApiException("Missing the required parameter 'groupNamespace' when calling groupsGroupNamespaceGroupNameOptions(Async)");
+    private okhttp3.Call groupsWorkspaceTeamspaceGroupOptionsValidateBeforeCall(String workspace, String teamspace, String group, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'workspace' is set
+        if (workspace == null) {
+            throw new ApiException("Missing the required parameter 'workspace' when calling groupsWorkspaceTeamspaceGroupOptions(Async)");
         }
-        
-        // verify the required parameter 'groupName' is set
-        if (groupName == null) {
-            throw new ApiException("Missing the required parameter 'groupName' when calling groupsGroupNamespaceGroupNameOptions(Async)");
-        }
-        
 
-        okhttp3.Call localVarCall = groupsGroupNamespaceGroupNameOptionsCall(groupNamespace, groupName, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, _callback);
-        return localVarCall;
+        // verify the required parameter 'teamspace' is set
+        if (teamspace == null) {
+            throw new ApiException("Missing the required parameter 'teamspace' when calling groupsWorkspaceTeamspaceGroupOptions(Async)");
+        }
+
+        // verify the required parameter 'group' is set
+        if (group == null) {
+            throw new ApiException("Missing the required parameter 'group' when calling groupsWorkspaceTeamspaceGroupOptions(Async)");
+        }
+
+        return groupsWorkspaceTeamspaceGroupOptionsCall(workspace, teamspace, group, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, _callback);
 
     }
 
     /**
      * 
      * can be used to check if the resource exists
-     * @param groupNamespace The namespace of the group (required)
-     * @param groupName The unique name or id of the group (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the group belongs to (required)
+     * @param group The unique path or asset id of the group (required)
      * @param X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME Optional registered access credentials to use for creation (optional)
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -942,15 +1179,16 @@ public class GroupsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public void groupsGroupNamespaceGroupNameOptions(String groupNamespace, String groupName, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME) throws ApiException {
-        groupsGroupNamespaceGroupNameOptionsWithHttpInfo(groupNamespace, groupName, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME);
+    public void groupsWorkspaceTeamspaceGroupOptions(String workspace, String teamspace, String group, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME) throws ApiException {
+        groupsWorkspaceTeamspaceGroupOptionsWithHttpInfo(workspace, teamspace, group, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME);
     }
 
     /**
      * 
      * can be used to check if the resource exists
-     * @param groupNamespace The namespace of the group (required)
-     * @param groupName The unique name or id of the group (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the group belongs to (required)
+     * @param group The unique path or asset id of the group (required)
      * @param X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME Optional registered access credentials to use for creation (optional)
      * @return ApiResponse&lt;Void&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -963,16 +1201,17 @@ public class GroupsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<Void> groupsGroupNamespaceGroupNameOptionsWithHttpInfo(String groupNamespace, String groupName, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME) throws ApiException {
-        okhttp3.Call localVarCall = groupsGroupNamespaceGroupNameOptionsValidateBeforeCall(groupNamespace, groupName, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, null);
+    public ApiResponse<Void> groupsWorkspaceTeamspaceGroupOptionsWithHttpInfo(String workspace, String teamspace, String group, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME) throws ApiException {
+        okhttp3.Call localVarCall = groupsWorkspaceTeamspaceGroupOptionsValidateBeforeCall(workspace, teamspace, group, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, null);
         return localVarApiClient.execute(localVarCall);
     }
 
     /**
      *  (asynchronously)
      * can be used to check if the resource exists
-     * @param groupNamespace The namespace of the group (required)
-     * @param groupName The unique name or id of the group (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the group belongs to (required)
+     * @param group The unique path or asset id of the group (required)
      * @param X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME Optional registered access credentials to use for creation (optional)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
@@ -986,15 +1225,17 @@ public class GroupsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call groupsGroupNamespaceGroupNameOptionsAsync(String groupNamespace, String groupName, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, final ApiCallback<Void> _callback) throws ApiException {
+    public okhttp3.Call groupsWorkspaceTeamspaceGroupOptionsAsync(String workspace, String teamspace, String group, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, final ApiCallback<Void> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = groupsGroupNamespaceGroupNameOptionsValidateBeforeCall(groupNamespace, groupName, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, _callback);
+        okhttp3.Call localVarCall = groupsWorkspaceTeamspaceGroupOptionsValidateBeforeCall(workspace, teamspace, group, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, _callback);
         localVarApiClient.executeAsync(localVarCall, _callback);
         return localVarCall;
     }
     /**
      * Build call for registerGroup
-     * @param groupNamespace The namespace of the group (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the group belongs to (required)
+     * @param group The unique path or asset id of the group (required)
      * @param X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME Optional registered access credentials to use for creation (optional)
      * @param groupRegistration  (optional)
      * @param _callback Callback for upload/download progress
@@ -1003,12 +1244,12 @@ public class GroupsApi {
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 201 </td><td> group created successfully </td><td>  -  </td></tr>
+        <tr><td> 201 </td><td> group registered successfully </td><td>  -  </td></tr>
         <tr><td> 502 </td><td> Bad Gateway </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call registerGroupCall(String groupNamespace, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, GroupRegistrationRequest groupRegistration, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call registerGroupCall(String workspace, String teamspace, String group, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, GroupRegistrationRequest groupRegistration, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -1025,8 +1266,10 @@ public class GroupsApi {
         Object localVarPostBody = groupRegistration;
 
         // create path and map variables
-        String localVarPath = "/groups/{group_namespace}"
-            .replaceAll("\\{" + "group_namespace" + "\\}", localVarApiClient.escapeString(groupNamespace.toString()));
+        String localVarPath = "/groups/{workspace}/{teamspace}/{group}"
+            .replace("{" + "workspace" + "}", localVarApiClient.escapeString(workspace.toString()))
+            .replace("{" + "teamspace" + "}", localVarApiClient.escapeString(teamspace.toString()))
+            .replace("{" + "group" + "}", localVarApiClient.escapeString(group.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -1054,68 +1297,84 @@ public class GroupsApi {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
 
-        String[] localVarAuthNames = new String[] { "ApiKeyAuth", "BasicAuth" };
+        String[] localVarAuthNames = new String[] { "BasicAuth", "ApiKeyAuth" };
         return localVarApiClient.buildCall(basePath, localVarPath, "PUT", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call registerGroupValidateBeforeCall(String groupNamespace, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, GroupRegistrationRequest groupRegistration, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'groupNamespace' is set
-        if (groupNamespace == null) {
-            throw new ApiException("Missing the required parameter 'groupNamespace' when calling registerGroup(Async)");
+    private okhttp3.Call registerGroupValidateBeforeCall(String workspace, String teamspace, String group, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, GroupRegistrationRequest groupRegistration, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'workspace' is set
+        if (workspace == null) {
+            throw new ApiException("Missing the required parameter 'workspace' when calling registerGroup(Async)");
         }
-        
 
-        okhttp3.Call localVarCall = registerGroupCall(groupNamespace, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, groupRegistration, _callback);
-        return localVarCall;
+        // verify the required parameter 'teamspace' is set
+        if (teamspace == null) {
+            throw new ApiException("Missing the required parameter 'teamspace' when calling registerGroup(Async)");
+        }
+
+        // verify the required parameter 'group' is set
+        if (group == null) {
+            throw new ApiException("Missing the required parameter 'group' when calling registerGroup(Async)");
+        }
+
+        return registerGroupCall(workspace, teamspace, group, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, groupRegistration, _callback);
 
     }
 
     /**
      * 
      * Registers an already existing group
-     * @param groupNamespace The namespace of the group (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the group belongs to (required)
+     * @param group The unique path or asset id of the group (required)
      * @param X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME Optional registered access credentials to use for creation (optional)
      * @param groupRegistration  (optional)
+     * @return GroupRegistrationResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 201 </td><td> group created successfully </td><td>  -  </td></tr>
+        <tr><td> 201 </td><td> group registered successfully </td><td>  -  </td></tr>
         <tr><td> 502 </td><td> Bad Gateway </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public void registerGroup(String groupNamespace, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, GroupRegistrationRequest groupRegistration) throws ApiException {
-        registerGroupWithHttpInfo(groupNamespace, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, groupRegistration);
+    public GroupRegistrationResponse registerGroup(String workspace, String teamspace, String group, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, GroupRegistrationRequest groupRegistration) throws ApiException {
+        ApiResponse<GroupRegistrationResponse> localVarResp = registerGroupWithHttpInfo(workspace, teamspace, group, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, groupRegistration);
+        return localVarResp.getData();
     }
 
     /**
      * 
      * Registers an already existing group
-     * @param groupNamespace The namespace of the group (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the group belongs to (required)
+     * @param group The unique path or asset id of the group (required)
      * @param X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME Optional registered access credentials to use for creation (optional)
      * @param groupRegistration  (optional)
-     * @return ApiResponse&lt;Void&gt;
+     * @return ApiResponse&lt;GroupRegistrationResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 201 </td><td> group created successfully </td><td>  -  </td></tr>
+        <tr><td> 201 </td><td> group registered successfully </td><td>  -  </td></tr>
         <tr><td> 502 </td><td> Bad Gateway </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<Void> registerGroupWithHttpInfo(String groupNamespace, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, GroupRegistrationRequest groupRegistration) throws ApiException {
-        okhttp3.Call localVarCall = registerGroupValidateBeforeCall(groupNamespace, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, groupRegistration, null);
-        return localVarApiClient.execute(localVarCall);
+    public ApiResponse<GroupRegistrationResponse> registerGroupWithHttpInfo(String workspace, String teamspace, String group, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, GroupRegistrationRequest groupRegistration) throws ApiException {
+        okhttp3.Call localVarCall = registerGroupValidateBeforeCall(workspace, teamspace, group, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, groupRegistration, null);
+        Type localVarReturnType = new TypeToken<GroupRegistrationResponse>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
      *  (asynchronously)
      * Registers an already existing group
-     * @param groupNamespace The namespace of the group (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the group belongs to (required)
+     * @param group The unique path or asset id of the group (required)
      * @param X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME Optional registered access credentials to use for creation (optional)
      * @param groupRegistration  (optional)
      * @param _callback The callback to be executed when the API call finishes
@@ -1124,21 +1383,23 @@ public class GroupsApi {
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 201 </td><td> group created successfully </td><td>  -  </td></tr>
+        <tr><td> 201 </td><td> group registered successfully </td><td>  -  </td></tr>
         <tr><td> 502 </td><td> Bad Gateway </td><td>  -  </td></tr>
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call registerGroupAsync(String groupNamespace, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, GroupRegistrationRequest groupRegistration, final ApiCallback<Void> _callback) throws ApiException {
+    public okhttp3.Call registerGroupAsync(String workspace, String teamspace, String group, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, GroupRegistrationRequest groupRegistration, final ApiCallback<GroupRegistrationResponse> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = registerGroupValidateBeforeCall(groupNamespace, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, groupRegistration, _callback);
-        localVarApiClient.executeAsync(localVarCall, _callback);
+        okhttp3.Call localVarCall = registerGroupValidateBeforeCall(workspace, teamspace, group, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, groupRegistration, _callback);
+        Type localVarReturnType = new TypeToken<GroupRegistrationResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
     /**
      * Build call for retrieveGroup
-     * @param groupNamespace The namespace of the group (required)
-     * @param groupName The unique name or id of the group (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the group belongs to (required)
+     * @param group The unique path or asset id of the group (required)
      * @param X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME Optional registered access credentials to use for creation (optional)
      * @param groupRetrieval  (optional)
      * @param _callback Callback for upload/download progress
@@ -1152,7 +1413,7 @@ public class GroupsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call retrieveGroupCall(String groupNamespace, String groupName, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, GroupContentsRetrievalRequest groupRetrieval, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call retrieveGroupCall(String workspace, String teamspace, String group, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, GroupContentsRetrievalRequest groupRetrieval, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -1169,9 +1430,10 @@ public class GroupsApi {
         Object localVarPostBody = groupRetrieval;
 
         // create path and map variables
-        String localVarPath = "/groups/{group_namespace}/{group_name}"
-            .replaceAll("\\{" + "group_namespace" + "\\}", localVarApiClient.escapeString(groupNamespace.toString()))
-            .replaceAll("\\{" + "group_name" + "\\}", localVarApiClient.escapeString(groupName.toString()));
+        String localVarPath = "/groups/{workspace}/{teamspace}/{group}/contents"
+            .replace("{" + "workspace" + "}", localVarApiClient.escapeString(workspace.toString()))
+            .replace("{" + "teamspace" + "}", localVarApiClient.escapeString(teamspace.toString()))
+            .replace("{" + "group" + "}", localVarApiClient.escapeString(group.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -1199,34 +1461,37 @@ public class GroupsApi {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
 
-        String[] localVarAuthNames = new String[] { "ApiKeyAuth", "BasicAuth" };
+        String[] localVarAuthNames = new String[] { "BasicAuth", "ApiKeyAuth" };
         return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call retrieveGroupValidateBeforeCall(String groupNamespace, String groupName, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, GroupContentsRetrievalRequest groupRetrieval, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'groupNamespace' is set
-        if (groupNamespace == null) {
-            throw new ApiException("Missing the required parameter 'groupNamespace' when calling retrieveGroup(Async)");
+    private okhttp3.Call retrieveGroupValidateBeforeCall(String workspace, String teamspace, String group, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, GroupContentsRetrievalRequest groupRetrieval, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'workspace' is set
+        if (workspace == null) {
+            throw new ApiException("Missing the required parameter 'workspace' when calling retrieveGroup(Async)");
         }
-        
-        // verify the required parameter 'groupName' is set
-        if (groupName == null) {
-            throw new ApiException("Missing the required parameter 'groupName' when calling retrieveGroup(Async)");
-        }
-        
 
-        okhttp3.Call localVarCall = retrieveGroupCall(groupNamespace, groupName, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, groupRetrieval, _callback);
-        return localVarCall;
+        // verify the required parameter 'teamspace' is set
+        if (teamspace == null) {
+            throw new ApiException("Missing the required parameter 'teamspace' when calling retrieveGroup(Async)");
+        }
+
+        // verify the required parameter 'group' is set
+        if (group == null) {
+            throw new ApiException("Missing the required parameter 'group' when calling retrieveGroup(Async)");
+        }
+
+        return retrieveGroupCall(workspace, teamspace, group, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, groupRetrieval, _callback);
 
     }
 
     /**
      * 
      * Retrieves the contents of a group
-     * @param groupNamespace The namespace of the group (required)
-     * @param groupName The unique name or id of the group (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the group belongs to (required)
+     * @param group The unique path or asset id of the group (required)
      * @param X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME Optional registered access credentials to use for creation (optional)
      * @param groupRetrieval  (optional)
      * @return GroupContentsRetrievalResponse
@@ -1239,16 +1504,17 @@ public class GroupsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public GroupContentsRetrievalResponse retrieveGroup(String groupNamespace, String groupName, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, GroupContentsRetrievalRequest groupRetrieval) throws ApiException {
-        ApiResponse<GroupContentsRetrievalResponse> localVarResp = retrieveGroupWithHttpInfo(groupNamespace, groupName, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, groupRetrieval);
+    public GroupContentsRetrievalResponse retrieveGroup(String workspace, String teamspace, String group, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, GroupContentsRetrievalRequest groupRetrieval) throws ApiException {
+        ApiResponse<GroupContentsRetrievalResponse> localVarResp = retrieveGroupWithHttpInfo(workspace, teamspace, group, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, groupRetrieval);
         return localVarResp.getData();
     }
 
     /**
      * 
      * Retrieves the contents of a group
-     * @param groupNamespace The namespace of the group (required)
-     * @param groupName The unique name or id of the group (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the group belongs to (required)
+     * @param group The unique path or asset id of the group (required)
      * @param X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME Optional registered access credentials to use for creation (optional)
      * @param groupRetrieval  (optional)
      * @return ApiResponse&lt;GroupContentsRetrievalResponse&gt;
@@ -1261,8 +1527,8 @@ public class GroupsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<GroupContentsRetrievalResponse> retrieveGroupWithHttpInfo(String groupNamespace, String groupName, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, GroupContentsRetrievalRequest groupRetrieval) throws ApiException {
-        okhttp3.Call localVarCall = retrieveGroupValidateBeforeCall(groupNamespace, groupName, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, groupRetrieval, null);
+    public ApiResponse<GroupContentsRetrievalResponse> retrieveGroupWithHttpInfo(String workspace, String teamspace, String group, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, GroupContentsRetrievalRequest groupRetrieval) throws ApiException {
+        okhttp3.Call localVarCall = retrieveGroupValidateBeforeCall(workspace, teamspace, group, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, groupRetrieval, null);
         Type localVarReturnType = new TypeToken<GroupContentsRetrievalResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
@@ -1270,8 +1536,9 @@ public class GroupsApi {
     /**
      *  (asynchronously)
      * Retrieves the contents of a group
-     * @param groupNamespace The namespace of the group (required)
-     * @param groupName The unique name or id of the group (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the group belongs to (required)
+     * @param group The unique path or asset id of the group (required)
      * @param X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME Optional registered access credentials to use for creation (optional)
      * @param groupRetrieval  (optional)
      * @param _callback The callback to be executed when the API call finishes
@@ -1285,17 +1552,18 @@ public class GroupsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call retrieveGroupAsync(String groupNamespace, String groupName, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, GroupContentsRetrievalRequest groupRetrieval, final ApiCallback<GroupContentsRetrievalResponse> _callback) throws ApiException {
+    public okhttp3.Call retrieveGroupAsync(String workspace, String teamspace, String group, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, GroupContentsRetrievalRequest groupRetrieval, final ApiCallback<GroupContentsRetrievalResponse> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = retrieveGroupValidateBeforeCall(groupNamespace, groupName, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, groupRetrieval, _callback);
+        okhttp3.Call localVarCall = retrieveGroupValidateBeforeCall(workspace, teamspace, group, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, groupRetrieval, _callback);
         Type localVarReturnType = new TypeToken<GroupContentsRetrievalResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
     /**
      * Build call for updateGroupContents
-     * @param groupNamespace The namespace of the group (required)
-     * @param groupName The unique name or id of the group (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the group belongs to (required)
+     * @param group The unique path or asset id of the group (required)
      * @param X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME Optional registered access credentials to use for creation (optional)
      * @param groupUpdateContents  (optional)
      * @param _callback Callback for upload/download progress
@@ -1309,7 +1577,7 @@ public class GroupsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call updateGroupContentsCall(String groupNamespace, String groupName, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, GroupContentsChangesRequest groupUpdateContents, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call updateGroupContentsCall(String workspace, String teamspace, String group, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, GroupContentsChangesRequest groupUpdateContents, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -1326,9 +1594,10 @@ public class GroupsApi {
         Object localVarPostBody = groupUpdateContents;
 
         // create path and map variables
-        String localVarPath = "/groups/{group_namespace}/{group_name}"
-            .replaceAll("\\{" + "group_namespace" + "\\}", localVarApiClient.escapeString(groupNamespace.toString()))
-            .replaceAll("\\{" + "group_name" + "\\}", localVarApiClient.escapeString(groupName.toString()));
+        String localVarPath = "/groups/{workspace}/{teamspace}/{group}/contents"
+            .replace("{" + "workspace" + "}", localVarApiClient.escapeString(workspace.toString()))
+            .replace("{" + "teamspace" + "}", localVarApiClient.escapeString(teamspace.toString()))
+            .replace("{" + "group" + "}", localVarApiClient.escapeString(group.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -1356,34 +1625,37 @@ public class GroupsApi {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
 
-        String[] localVarAuthNames = new String[] { "ApiKeyAuth", "BasicAuth" };
+        String[] localVarAuthNames = new String[] { "BasicAuth", "ApiKeyAuth" };
         return localVarApiClient.buildCall(basePath, localVarPath, "PATCH", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call updateGroupContentsValidateBeforeCall(String groupNamespace, String groupName, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, GroupContentsChangesRequest groupUpdateContents, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'groupNamespace' is set
-        if (groupNamespace == null) {
-            throw new ApiException("Missing the required parameter 'groupNamespace' when calling updateGroupContents(Async)");
+    private okhttp3.Call updateGroupContentsValidateBeforeCall(String workspace, String teamspace, String group, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, GroupContentsChangesRequest groupUpdateContents, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'workspace' is set
+        if (workspace == null) {
+            throw new ApiException("Missing the required parameter 'workspace' when calling updateGroupContents(Async)");
         }
-        
-        // verify the required parameter 'groupName' is set
-        if (groupName == null) {
-            throw new ApiException("Missing the required parameter 'groupName' when calling updateGroupContents(Async)");
-        }
-        
 
-        okhttp3.Call localVarCall = updateGroupContentsCall(groupNamespace, groupName, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, groupUpdateContents, _callback);
-        return localVarCall;
+        // verify the required parameter 'teamspace' is set
+        if (teamspace == null) {
+            throw new ApiException("Missing the required parameter 'teamspace' when calling updateGroupContents(Async)");
+        }
+
+        // verify the required parameter 'group' is set
+        if (group == null) {
+            throw new ApiException("Missing the required parameter 'group' when calling updateGroupContents(Async)");
+        }
+
+        return updateGroupContentsCall(workspace, teamspace, group, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, groupUpdateContents, _callback);
 
     }
 
     /**
      * 
      * Change the contents of the group
-     * @param groupNamespace The namespace of the group (required)
-     * @param groupName The unique name or id of the group (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the group belongs to (required)
+     * @param group The unique path or asset id of the group (required)
      * @param X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME Optional registered access credentials to use for creation (optional)
      * @param groupUpdateContents  (optional)
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -1395,15 +1667,16 @@ public class GroupsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public void updateGroupContents(String groupNamespace, String groupName, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, GroupContentsChangesRequest groupUpdateContents) throws ApiException {
-        updateGroupContentsWithHttpInfo(groupNamespace, groupName, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, groupUpdateContents);
+    public void updateGroupContents(String workspace, String teamspace, String group, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, GroupContentsChangesRequest groupUpdateContents) throws ApiException {
+        updateGroupContentsWithHttpInfo(workspace, teamspace, group, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, groupUpdateContents);
     }
 
     /**
      * 
      * Change the contents of the group
-     * @param groupNamespace The namespace of the group (required)
-     * @param groupName The unique name or id of the group (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the group belongs to (required)
+     * @param group The unique path or asset id of the group (required)
      * @param X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME Optional registered access credentials to use for creation (optional)
      * @param groupUpdateContents  (optional)
      * @return ApiResponse&lt;Void&gt;
@@ -1416,16 +1689,17 @@ public class GroupsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<Void> updateGroupContentsWithHttpInfo(String groupNamespace, String groupName, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, GroupContentsChangesRequest groupUpdateContents) throws ApiException {
-        okhttp3.Call localVarCall = updateGroupContentsValidateBeforeCall(groupNamespace, groupName, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, groupUpdateContents, null);
+    public ApiResponse<Void> updateGroupContentsWithHttpInfo(String workspace, String teamspace, String group, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, GroupContentsChangesRequest groupUpdateContents) throws ApiException {
+        okhttp3.Call localVarCall = updateGroupContentsValidateBeforeCall(workspace, teamspace, group, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, groupUpdateContents, null);
         return localVarApiClient.execute(localVarCall);
     }
 
     /**
      *  (asynchronously)
      * Change the contents of the group
-     * @param groupNamespace The namespace of the group (required)
-     * @param groupName The unique name or id of the group (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the group belongs to (required)
+     * @param group The unique path or asset id of the group (required)
      * @param X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME Optional registered access credentials to use for creation (optional)
      * @param groupUpdateContents  (optional)
      * @param _callback The callback to be executed when the API call finishes
@@ -1439,16 +1713,17 @@ public class GroupsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call updateGroupContentsAsync(String groupNamespace, String groupName, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, GroupContentsChangesRequest groupUpdateContents, final ApiCallback<Void> _callback) throws ApiException {
+    public okhttp3.Call updateGroupContentsAsync(String workspace, String teamspace, String group, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, GroupContentsChangesRequest groupUpdateContents, final ApiCallback<Void> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = updateGroupContentsValidateBeforeCall(groupNamespace, groupName, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, groupUpdateContents, _callback);
+        okhttp3.Call localVarCall = updateGroupContentsValidateBeforeCall(workspace, teamspace, group, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, groupUpdateContents, _callback);
         localVarApiClient.executeAsync(localVarCall, _callback);
         return localVarCall;
     }
     /**
      * Build call for updateGroupMetadata
-     * @param groupNamespace The namespace of the group (required)
-     * @param groupName The unique name or id of the group (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the group belongs to (required)
+     * @param group The unique path or asset id of the group (required)
      * @param metadataUpdating  (optional)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
@@ -1461,7 +1736,7 @@ public class GroupsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call updateGroupMetadataCall(String groupNamespace, String groupName, GroupMetadataUpdateRequest metadataUpdating, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call updateGroupMetadataCall(String workspace, String teamspace, String group, GroupMetadataUpdateRequest metadataUpdating, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -1478,9 +1753,10 @@ public class GroupsApi {
         Object localVarPostBody = metadataUpdating;
 
         // create path and map variables
-        String localVarPath = "/groups/{group_namespace}/{group_name}/metadata"
-            .replaceAll("\\{" + "group_namespace" + "\\}", localVarApiClient.escapeString(groupNamespace.toString()))
-            .replaceAll("\\{" + "group_name" + "\\}", localVarApiClient.escapeString(groupName.toString()));
+        String localVarPath = "/groups/{workspace}/{teamspace}/{group}/metadata"
+            .replace("{" + "workspace" + "}", localVarApiClient.escapeString(workspace.toString()))
+            .replace("{" + "teamspace" + "}", localVarApiClient.escapeString(teamspace.toString()))
+            .replace("{" + "group" + "}", localVarApiClient.escapeString(group.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -1504,34 +1780,37 @@ public class GroupsApi {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
 
-        String[] localVarAuthNames = new String[] { "ApiKeyAuth", "BasicAuth" };
+        String[] localVarAuthNames = new String[] { "BasicAuth", "ApiKeyAuth" };
         return localVarApiClient.buildCall(basePath, localVarPath, "PUT", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call updateGroupMetadataValidateBeforeCall(String groupNamespace, String groupName, GroupMetadataUpdateRequest metadataUpdating, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'groupNamespace' is set
-        if (groupNamespace == null) {
-            throw new ApiException("Missing the required parameter 'groupNamespace' when calling updateGroupMetadata(Async)");
+    private okhttp3.Call updateGroupMetadataValidateBeforeCall(String workspace, String teamspace, String group, GroupMetadataUpdateRequest metadataUpdating, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'workspace' is set
+        if (workspace == null) {
+            throw new ApiException("Missing the required parameter 'workspace' when calling updateGroupMetadata(Async)");
         }
-        
-        // verify the required parameter 'groupName' is set
-        if (groupName == null) {
-            throw new ApiException("Missing the required parameter 'groupName' when calling updateGroupMetadata(Async)");
-        }
-        
 
-        okhttp3.Call localVarCall = updateGroupMetadataCall(groupNamespace, groupName, metadataUpdating, _callback);
-        return localVarCall;
+        // verify the required parameter 'teamspace' is set
+        if (teamspace == null) {
+            throw new ApiException("Missing the required parameter 'teamspace' when calling updateGroupMetadata(Async)");
+        }
+
+        // verify the required parameter 'group' is set
+        if (group == null) {
+            throw new ApiException("Missing the required parameter 'group' when calling updateGroupMetadata(Async)");
+        }
+
+        return updateGroupMetadataCall(workspace, teamspace, group, metadataUpdating, _callback);
 
     }
 
     /**
      * 
      * update metadata on a group
-     * @param groupNamespace The namespace of the group (required)
-     * @param groupName The unique name or id of the group (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the group belongs to (required)
+     * @param group The unique path or asset id of the group (required)
      * @param metadataUpdating  (optional)
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -1542,15 +1821,16 @@ public class GroupsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public void updateGroupMetadata(String groupNamespace, String groupName, GroupMetadataUpdateRequest metadataUpdating) throws ApiException {
-        updateGroupMetadataWithHttpInfo(groupNamespace, groupName, metadataUpdating);
+    public void updateGroupMetadata(String workspace, String teamspace, String group, GroupMetadataUpdateRequest metadataUpdating) throws ApiException {
+        updateGroupMetadataWithHttpInfo(workspace, teamspace, group, metadataUpdating);
     }
 
     /**
      * 
      * update metadata on a group
-     * @param groupNamespace The namespace of the group (required)
-     * @param groupName The unique name or id of the group (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the group belongs to (required)
+     * @param group The unique path or asset id of the group (required)
      * @param metadataUpdating  (optional)
      * @return ApiResponse&lt;Void&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -1562,16 +1842,17 @@ public class GroupsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<Void> updateGroupMetadataWithHttpInfo(String groupNamespace, String groupName, GroupMetadataUpdateRequest metadataUpdating) throws ApiException {
-        okhttp3.Call localVarCall = updateGroupMetadataValidateBeforeCall(groupNamespace, groupName, metadataUpdating, null);
+    public ApiResponse<Void> updateGroupMetadataWithHttpInfo(String workspace, String teamspace, String group, GroupMetadataUpdateRequest metadataUpdating) throws ApiException {
+        okhttp3.Call localVarCall = updateGroupMetadataValidateBeforeCall(workspace, teamspace, group, metadataUpdating, null);
         return localVarApiClient.execute(localVarCall);
     }
 
     /**
      *  (asynchronously)
      * update metadata on a group
-     * @param groupNamespace The namespace of the group (required)
-     * @param groupName The unique name or id of the group (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the group belongs to (required)
+     * @param group The unique path or asset id of the group (required)
      * @param metadataUpdating  (optional)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
@@ -1584,9 +1865,9 @@ public class GroupsApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call updateGroupMetadataAsync(String groupNamespace, String groupName, GroupMetadataUpdateRequest metadataUpdating, final ApiCallback<Void> _callback) throws ApiException {
+    public okhttp3.Call updateGroupMetadataAsync(String workspace, String teamspace, String group, GroupMetadataUpdateRequest metadataUpdating, final ApiCallback<Void> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = updateGroupMetadataValidateBeforeCall(groupNamespace, groupName, metadataUpdating, _callback);
+        okhttp3.Call localVarCall = updateGroupMetadataValidateBeforeCall(workspace, teamspace, group, metadataUpdating, _callback);
         localVarApiClient.executeAsync(localVarCall, _callback);
         return localVarCall;
     }

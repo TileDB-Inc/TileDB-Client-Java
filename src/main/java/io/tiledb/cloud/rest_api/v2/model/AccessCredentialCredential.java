@@ -14,34 +14,46 @@
 package io.tiledb.cloud.rest_api.v2.model;
 
 import java.util.Objects;
-import java.util.Arrays;
 import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.tiledb.cloud.rest_api.v2.model.AWSCredential;
+import io.tiledb.cloud.rest_api.v2.model.AzureCredential;
+import io.tiledb.cloud.rest_api.v2.model.GCPInteroperabilityCredential;
 import java.io.IOException;
-
+import java.util.Arrays;
 import org.openapitools.jackson.nullable.JsonNullable;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import com.google.gson.TypeAdapterFactory;
 import com.google.gson.reflect.TypeToken;
+import com.google.gson.TypeAdapter;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+import java.io.IOException;
 
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import io.tiledb.cloud.rest_api.v2.JSON;
 
 /**
  * The credential information itself. Exactly one sub-field may be set. The names match those in the CloudProvider enum.
  */
-@ApiModel(description = "The credential information itself. Exactly one sub-field may be set. The names match those in the CloudProvider enum.")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-07-02T18:54:48.746612+03:00[Europe/Athens]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-30T04:47:07.570140+03:00[Europe/Athens]", comments = "Generator version: 7.7.0")
 public class AccessCredentialCredential {
   public static final String SERIALIZED_NAME_AWS = "aws";
   @SerializedName(SERIALIZED_NAME_AWS)
@@ -55,26 +67,22 @@ public class AccessCredentialCredential {
   @SerializedName(SERIALIZED_NAME_GCP)
   private GCPInteroperabilityCredential gcp;
 
-  public AccessCredentialCredential() { 
+  public AccessCredentialCredential() {
   }
 
   public AccessCredentialCredential aws(AWSCredential aws) {
-    
     this.aws = aws;
     return this;
   }
 
-   /**
+  /**
    * Get aws
    * @return aws
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
   public AWSCredential getAws() {
     return aws;
   }
-
 
   public void setAws(AWSCredential aws) {
     this.aws = aws;
@@ -82,22 +90,18 @@ public class AccessCredentialCredential {
 
 
   public AccessCredentialCredential azure(AzureCredential azure) {
-    
     this.azure = azure;
     return this;
   }
 
-   /**
+  /**
    * Get azure
    * @return azure
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
   public AzureCredential getAzure() {
     return azure;
   }
-
 
   public void setAzure(AzureCredential azure) {
     this.azure = azure;
@@ -105,22 +109,18 @@ public class AccessCredentialCredential {
 
 
   public AccessCredentialCredential gcp(GCPInteroperabilityCredential gcp) {
-    
     this.gcp = gcp;
     return this;
   }
 
-   /**
+  /**
    * Get gcp
    * @return gcp
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
   public GCPInteroperabilityCredential getGcp() {
     return gcp;
   }
-
 
   public void setGcp(GCPInteroperabilityCredential gcp) {
     this.gcp = gcp;
@@ -136,6 +136,10 @@ public class AccessCredentialCredential {
   /**
    * Set the additional (undeclared) property with the specified name and value.
    * If the property does not already exist, create it otherwise replace it.
+   *
+   * @param key name of the property
+   * @param value value of the property
+   * @return the AccessCredentialCredential instance itself
    */
   public AccessCredentialCredential putAdditionalProperty(String key, Object value) {
     if (this.additionalProperties == null) {
@@ -147,6 +151,8 @@ public class AccessCredentialCredential {
 
   /**
    * Return the additional (undeclared) property.
+   *
+   * @return a map of objects
    */
   public Map<String, Object> getAdditionalProperties() {
     return additionalProperties;
@@ -154,6 +160,9 @@ public class AccessCredentialCredential {
 
   /**
    * Return the additional (undeclared) property with the specified name.
+   *
+   * @param key name of the property
+   * @return an object
    */
   public Object getAdditionalProperty(String key) {
     if (this.additionalProperties == null) {
@@ -232,31 +241,30 @@ public class AccessCredentialCredential {
     openapiRequiredFields = new HashSet<String>();
   }
 
- /**
-  * Validates the JSON Object and throws an exception if issues found
-  *
-  * @param jsonObj JSON Object
-  * @throws IOException if the JSON Object is invalid with respect to AccessCredentialCredential
-  */
-  public static void validateJsonObject(JsonObject jsonObj) throws IOException {
-      if (jsonObj == null) {
-        if (AccessCredentialCredential.openapiRequiredFields.isEmpty()) {
-          return;
-        } else { // has required fields
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to AccessCredentialCredential
+   */
+  public static void validateJsonElement(JsonElement jsonElement) throws IOException {
+      if (jsonElement == null) {
+        if (!AccessCredentialCredential.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
           throw new IllegalArgumentException(String.format("The required field(s) %s in AccessCredentialCredential is not found in the empty JSON string", AccessCredentialCredential.openapiRequiredFields.toString()));
         }
       }
+        JsonObject jsonObj = jsonElement.getAsJsonObject();
       // validate the optional field `aws`
-      if (jsonObj.getAsJsonObject("aws") != null) {
-        AWSCredential.validateJsonObject(jsonObj.getAsJsonObject("aws"));
+      if (jsonObj.get("aws") != null && !jsonObj.get("aws").isJsonNull()) {
+        AWSCredential.validateJsonElement(jsonObj.get("aws"));
       }
       // validate the optional field `azure`
-      if (jsonObj.getAsJsonObject("azure") != null) {
-        AzureCredential.validateJsonObject(jsonObj.getAsJsonObject("azure"));
+      if (jsonObj.get("azure") != null && !jsonObj.get("azure").isJsonNull()) {
+        AzureCredential.validateJsonElement(jsonObj.get("azure"));
       }
       // validate the optional field `gcp`
-      if (jsonObj.getAsJsonObject("gcp") != null) {
-        GCPInteroperabilityCredential.validateJsonObject(jsonObj.getAsJsonObject("gcp"));
+      if (jsonObj.get("gcp") != null && !jsonObj.get("gcp").isJsonNull()) {
+        GCPInteroperabilityCredential.validateJsonElement(jsonObj.get("gcp"));
       }
   }
 
@@ -276,7 +284,7 @@ public class AccessCredentialCredential {
            public void write(JsonWriter out, AccessCredentialCredential value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              obj.remove("additionalProperties");
-             // serialize additonal properties
+             // serialize additional properties
              if (value.getAdditionalProperties() != null) {
                for (Map.Entry<String, Object> entry : value.getAdditionalProperties().entrySet()) {
                  if (entry.getValue() instanceof String)
@@ -288,7 +296,12 @@ public class AccessCredentialCredential {
                  else if (entry.getValue() instanceof Character)
                    obj.addProperty(entry.getKey(), (Character) entry.getValue());
                  else {
-                   obj.add(entry.getKey(), gson.toJsonTree(entry.getValue()).getAsJsonObject());
+                   JsonElement jsonElement = gson.toJsonTree(entry.getValue());
+                   if (jsonElement.isJsonArray()) {
+                     obj.add(entry.getKey(), jsonElement.getAsJsonArray());
+                   } else {
+                     obj.add(entry.getKey(), jsonElement.getAsJsonObject());
+                   }
                  }
                }
              }
@@ -297,8 +310,9 @@ public class AccessCredentialCredential {
 
            @Override
            public AccessCredentialCredential read(JsonReader in) throws IOException {
-             JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
-             validateJsonObject(jsonObj);
+             JsonElement jsonElement = elementAdapter.read(in);
+             validateJsonElement(jsonElement);
+             JsonObject jsonObj = jsonElement.getAsJsonObject();
              // store additional fields in the deserialized instance
              AccessCredentialCredential instance = thisAdapter.fromJsonTree(jsonObj);
              for (Map.Entry<String, JsonElement> entry : jsonObj.entrySet()) {
@@ -312,8 +326,10 @@ public class AccessCredentialCredential {
                      instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsBoolean());
                    else
                      throw new IllegalArgumentException(String.format("The field `%s` has unknown primitive type. Value: %s", entry.getKey(), entry.getValue().toString()));
-                 } else { // non-primitive type
-                   instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
+                 } else if (entry.getValue().isJsonArray()) {
+                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), List.class));
+                 } else { // JSON object
+                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
                  }
                }
              }
@@ -324,22 +340,22 @@ public class AccessCredentialCredential {
     }
   }
 
- /**
-  * Create an instance of AccessCredentialCredential given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of AccessCredentialCredential
-  * @throws IOException if the JSON string is invalid with respect to AccessCredentialCredential
-  */
+  /**
+   * Create an instance of AccessCredentialCredential given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of AccessCredentialCredential
+   * @throws IOException if the JSON string is invalid with respect to AccessCredentialCredential
+   */
   public static AccessCredentialCredential fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, AccessCredentialCredential.class);
   }
 
- /**
-  * Convert an instance of AccessCredentialCredential to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of AccessCredentialCredential to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

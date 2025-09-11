@@ -13,8 +13,8 @@
 
 package io.tiledb.cloud.rest_api.v2.auth;
 
-import io.tiledb.cloud.rest_api.v2.ApiException;
 import io.tiledb.cloud.rest_api.v2.Pair;
+import io.tiledb.cloud.rest_api.v2.ApiException;
 
 import okhttp3.Credentials;
 

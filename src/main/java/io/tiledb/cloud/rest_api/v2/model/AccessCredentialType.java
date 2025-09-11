@@ -13,8 +13,12 @@
 
 package io.tiledb.cloud.rest_api.v2.model;
 
+import java.util.Objects;
+import com.google.gson.annotations.SerializedName;
+
 import java.io.IOException;
 import com.google.gson.TypeAdapter;
+import com.google.gson.JsonElement;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
@@ -28,6 +32,8 @@ public enum AccessCredentialType {
   KEY("key"),
   
   ARN("arn"),
+  
+  TOKEN("token"),
   
   AZURE_TOKEN("azure_token");
 
@@ -66,6 +72,11 @@ public enum AccessCredentialType {
       String value = jsonReader.nextString();
       return AccessCredentialType.fromValue(value);
     }
+  }
+
+  public static void validateJsonElement(JsonElement jsonElement) throws IOException {
+    String value = jsonElement.getAsString();
+    AccessCredentialType.fromValue(value);
   }
 }
 

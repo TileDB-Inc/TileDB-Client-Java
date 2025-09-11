@@ -14,49 +14,59 @@
 package io.tiledb.cloud.rest_api.v2.model;
 
 import java.util.Objects;
-
 import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.tiledb.cloud.rest_api.v2.model.ArrayActivityLog;
+import io.tiledb.cloud.rest_api.v2.model.PaginationMetadata;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import com.google.gson.TypeAdapterFactory;
 import com.google.gson.reflect.TypeToken;
+import com.google.gson.TypeAdapter;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+import java.io.IOException;
 
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import io.tiledb.cloud.rest_api.v2.JSON;
 
 /**
  * Object including array tasks and metadata
  */
-@ApiModel(description = "Object including array tasks and metadata")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-07-02T18:54:48.746612+03:00[Europe/Athens]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-30T04:47:07.570140+03:00[Europe/Athens]", comments = "Generator version: 7.7.0")
 public class ArrayActivityLogData {
   public static final String SERIALIZED_NAME_ACTIVITYLOGS = "activitylogs";
   @SerializedName(SERIALIZED_NAME_ACTIVITYLOGS)
-  private List<ArrayActivityLog> activitylogs = null;
+  private List<ArrayActivityLog> activitylogs = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_PAGINATION_METADATA = "pagination_metadata";
   @SerializedName(SERIALIZED_NAME_PAGINATION_METADATA)
   private PaginationMetadata paginationMetadata;
 
-  public ArrayActivityLogData() { 
+  public ArrayActivityLogData() {
   }
 
   public ArrayActivityLogData activitylogs(List<ArrayActivityLog> activitylogs) {
-    
     this.activitylogs = activitylogs;
     return this;
   }
@@ -69,17 +79,14 @@ public class ArrayActivityLogData {
     return this;
   }
 
-   /**
+  /**
    * Array ArrayActivityLog
    * @return activitylogs
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Array ArrayActivityLog")
-
   public List<ArrayActivityLog> getActivitylogs() {
     return activitylogs;
   }
-
 
   public void setActivitylogs(List<ArrayActivityLog> activitylogs) {
     this.activitylogs = activitylogs;
@@ -87,22 +94,18 @@ public class ArrayActivityLogData {
 
 
   public ArrayActivityLogData paginationMetadata(PaginationMetadata paginationMetadata) {
-    
     this.paginationMetadata = paginationMetadata;
     return this;
   }
 
-   /**
+  /**
    * Get paginationMetadata
    * @return paginationMetadata
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
   public PaginationMetadata getPaginationMetadata() {
     return paginationMetadata;
   }
-
 
   public void setPaginationMetadata(PaginationMetadata paginationMetadata) {
     this.paginationMetadata = paginationMetadata;
@@ -118,6 +121,10 @@ public class ArrayActivityLogData {
   /**
    * Set the additional (undeclared) property with the specified name and value.
    * If the property does not already exist, create it otherwise replace it.
+   *
+   * @param key name of the property
+   * @param value value of the property
+   * @return the ArrayActivityLogData instance itself
    */
   public ArrayActivityLogData putAdditionalProperty(String key, Object value) {
     if (this.additionalProperties == null) {
@@ -129,6 +136,8 @@ public class ArrayActivityLogData {
 
   /**
    * Return the additional (undeclared) property.
+   *
+   * @return a map of objects
    */
   public Map<String, Object> getAdditionalProperties() {
     return additionalProperties;
@@ -136,6 +145,9 @@ public class ArrayActivityLogData {
 
   /**
    * Return the additional (undeclared) property with the specified name.
+   *
+   * @param key name of the property
+   * @return an object
    */
   public Object getAdditionalProperty(String key) {
     if (this.additionalProperties == null) {
@@ -200,35 +212,36 @@ public class ArrayActivityLogData {
     openapiRequiredFields = new HashSet<String>();
   }
 
- /**
-  * Validates the JSON Object and throws an exception if issues found
-  *
-  * @param jsonObj JSON Object
-  * @throws IOException if the JSON Object is invalid with respect to ArrayActivityLogData
-  */
-  public static void validateJsonObject(JsonObject jsonObj) throws IOException {
-      if (jsonObj == null) {
-        if (ArrayActivityLogData.openapiRequiredFields.isEmpty()) {
-          return;
-        } else { // has required fields
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to ArrayActivityLogData
+   */
+  public static void validateJsonElement(JsonElement jsonElement) throws IOException {
+      if (jsonElement == null) {
+        if (!ArrayActivityLogData.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
           throw new IllegalArgumentException(String.format("The required field(s) %s in ArrayActivityLogData is not found in the empty JSON string", ArrayActivityLogData.openapiRequiredFields.toString()));
         }
       }
-      JsonArray jsonArrayactivitylogs = jsonObj.getAsJsonArray("activitylogs");
-      if (jsonArrayactivitylogs != null) {
-        // ensure the json data is an array
-        if (!jsonObj.get("activitylogs").isJsonArray()) {
-          throw new IllegalArgumentException(String.format("Expected the field `activitylogs` to be an array in the JSON string but got `%s`", jsonObj.get("activitylogs").toString()));
-        }
+        JsonObject jsonObj = jsonElement.getAsJsonObject();
+      if (jsonObj.get("activitylogs") != null && !jsonObj.get("activitylogs").isJsonNull()) {
+        JsonArray jsonArrayactivitylogs = jsonObj.getAsJsonArray("activitylogs");
+        if (jsonArrayactivitylogs != null) {
+          // ensure the json data is an array
+          if (!jsonObj.get("activitylogs").isJsonArray()) {
+            throw new IllegalArgumentException(String.format("Expected the field `activitylogs` to be an array in the JSON string but got `%s`", jsonObj.get("activitylogs").toString()));
+          }
 
-        // validate the optional field `activitylogs` (array)
-        for (int i = 0; i < jsonArrayactivitylogs.size(); i++) {
-          ArrayActivityLog.validateJsonObject(jsonArrayactivitylogs.get(i).getAsJsonObject());
-        };
+          // validate the optional field `activitylogs` (array)
+          for (int i = 0; i < jsonArrayactivitylogs.size(); i++) {
+            ArrayActivityLog.validateJsonElement(jsonArrayactivitylogs.get(i));
+          };
+        }
       }
       // validate the optional field `pagination_metadata`
-      if (jsonObj.getAsJsonObject("pagination_metadata") != null) {
-        PaginationMetadata.validateJsonObject(jsonObj.getAsJsonObject("pagination_metadata"));
+      if (jsonObj.get("pagination_metadata") != null && !jsonObj.get("pagination_metadata").isJsonNull()) {
+        PaginationMetadata.validateJsonElement(jsonObj.get("pagination_metadata"));
       }
   }
 
@@ -248,7 +261,7 @@ public class ArrayActivityLogData {
            public void write(JsonWriter out, ArrayActivityLogData value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              obj.remove("additionalProperties");
-             // serialize additonal properties
+             // serialize additional properties
              if (value.getAdditionalProperties() != null) {
                for (Map.Entry<String, Object> entry : value.getAdditionalProperties().entrySet()) {
                  if (entry.getValue() instanceof String)
@@ -260,7 +273,12 @@ public class ArrayActivityLogData {
                  else if (entry.getValue() instanceof Character)
                    obj.addProperty(entry.getKey(), (Character) entry.getValue());
                  else {
-                   obj.add(entry.getKey(), gson.toJsonTree(entry.getValue()).getAsJsonObject());
+                   JsonElement jsonElement = gson.toJsonTree(entry.getValue());
+                   if (jsonElement.isJsonArray()) {
+                     obj.add(entry.getKey(), jsonElement.getAsJsonArray());
+                   } else {
+                     obj.add(entry.getKey(), jsonElement.getAsJsonObject());
+                   }
                  }
                }
              }
@@ -269,8 +287,9 @@ public class ArrayActivityLogData {
 
            @Override
            public ArrayActivityLogData read(JsonReader in) throws IOException {
-             JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
-             validateJsonObject(jsonObj);
+             JsonElement jsonElement = elementAdapter.read(in);
+             validateJsonElement(jsonElement);
+             JsonObject jsonObj = jsonElement.getAsJsonObject();
              // store additional fields in the deserialized instance
              ArrayActivityLogData instance = thisAdapter.fromJsonTree(jsonObj);
              for (Map.Entry<String, JsonElement> entry : jsonObj.entrySet()) {
@@ -284,8 +303,10 @@ public class ArrayActivityLogData {
                      instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsBoolean());
                    else
                      throw new IllegalArgumentException(String.format("The field `%s` has unknown primitive type. Value: %s", entry.getKey(), entry.getValue().toString()));
-                 } else { // non-primitive type
-                   instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
+                 } else if (entry.getValue().isJsonArray()) {
+                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), List.class));
+                 } else { // JSON object
+                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
                  }
                }
              }
@@ -296,22 +317,22 @@ public class ArrayActivityLogData {
     }
   }
 
- /**
-  * Create an instance of ArrayActivityLogData given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of ArrayActivityLogData
-  * @throws IOException if the JSON string is invalid with respect to ArrayActivityLogData
-  */
+  /**
+   * Create an instance of ArrayActivityLogData given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of ArrayActivityLogData
+   * @throws IOException if the JSON string is invalid with respect to ArrayActivityLogData
+   */
   public static ArrayActivityLogData fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, ArrayActivityLogData.class);
   }
 
- /**
-  * Convert an instance of ArrayActivityLogData to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of ArrayActivityLogData to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }

@@ -13,18 +13,23 @@
 
 package io.tiledb.cloud.rest_api.v2.api;
 
-import io.tiledb.cloud.rest_api.v2.model.NotebookUploaded;
 import io.tiledb.cloud.rest_api.v2.ApiCallback;
 import io.tiledb.cloud.rest_api.v2.ApiClient;
 import io.tiledb.cloud.rest_api.v2.ApiException;
 import io.tiledb.cloud.rest_api.v2.ApiResponse;
 import io.tiledb.cloud.rest_api.v2.Configuration;
 import io.tiledb.cloud.rest_api.v2.Pair;
+import io.tiledb.cloud.rest_api.v2.ProgressRequestBody;
+import io.tiledb.cloud.rest_api.v2.ProgressResponseBody;
 
 import com.google.gson.reflect.TypeToken;
 
+import java.io.IOException;
 
+
+import io.tiledb.cloud.rest_api.v2.model.Error;
 import java.io.File;
+import io.tiledb.cloud.rest_api.v2.model.NotebookUploaded;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -71,8 +76,9 @@ public class NotebooksApi {
 
     /**
      * Build call for handleUploadNotebook
-     * @param namespace The namespace of the notebook (required)
-     * @param array name/uri of array that is url-encoded (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the array belongs to (required)
+     * @param array asset ID or hierarchical path of array that is url-encoded (required)
      * @param filesize size of the notebook to upload in bytes (required)
      * @param notebook notebook to upload (required)
      * @param X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME Optional registered access credentials to use for creation (optional)
@@ -88,7 +94,7 @@ public class NotebooksApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call handleUploadNotebookCall(String namespace, String array, Integer filesize, File notebook, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, String name, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call handleUploadNotebookCall(String workspace, String teamspace, String array, Integer filesize, File notebook, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, String name, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -105,9 +111,10 @@ public class NotebooksApi {
         Object localVarPostBody = notebook;
 
         // create path and map variables
-        String localVarPath = "/notebooks/{namespace}/{array}/upload"
-            .replaceAll("\\{" + "namespace" + "\\}", localVarApiClient.escapeString(namespace.toString()))
-            .replaceAll("\\{" + "array" + "\\}", localVarApiClient.escapeString(array.toString()));
+        String localVarPath = "/notebooks/{workspace}/{teamspace}/{array}/upload"
+            .replace("{" + "workspace" + "}", localVarApiClient.escapeString(workspace.toString()))
+            .replace("{" + "teamspace" + "}", localVarApiClient.escapeString(teamspace.toString()))
+            .replace("{" + "array" + "}", localVarApiClient.escapeString(array.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -143,44 +150,47 @@ public class NotebooksApi {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
 
-        String[] localVarAuthNames = new String[] { "ApiKeyAuth", "BasicAuth" };
+        String[] localVarAuthNames = new String[] { "BasicAuth", "ApiKeyAuth" };
         return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call handleUploadNotebookValidateBeforeCall(String namespace, String array, Integer filesize, File notebook, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, String name, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'namespace' is set
-        if (namespace == null) {
-            throw new ApiException("Missing the required parameter 'namespace' when calling handleUploadNotebook(Async)");
+    private okhttp3.Call handleUploadNotebookValidateBeforeCall(String workspace, String teamspace, String array, Integer filesize, File notebook, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, String name, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'workspace' is set
+        if (workspace == null) {
+            throw new ApiException("Missing the required parameter 'workspace' when calling handleUploadNotebook(Async)");
         }
-        
+
+        // verify the required parameter 'teamspace' is set
+        if (teamspace == null) {
+            throw new ApiException("Missing the required parameter 'teamspace' when calling handleUploadNotebook(Async)");
+        }
+
         // verify the required parameter 'array' is set
         if (array == null) {
             throw new ApiException("Missing the required parameter 'array' when calling handleUploadNotebook(Async)");
         }
-        
+
         // verify the required parameter 'filesize' is set
         if (filesize == null) {
             throw new ApiException("Missing the required parameter 'filesize' when calling handleUploadNotebook(Async)");
         }
-        
+
         // verify the required parameter 'notebook' is set
         if (notebook == null) {
             throw new ApiException("Missing the required parameter 'notebook' when calling handleUploadNotebook(Async)");
         }
-        
 
-        okhttp3.Call localVarCall = handleUploadNotebookCall(namespace, array, filesize, notebook, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, name, _callback);
-        return localVarCall;
+        return handleUploadNotebookCall(workspace, teamspace, array, filesize, notebook, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, name, _callback);
 
     }
 
     /**
      * 
      * Upload a notebook at the specified location and wrap it in TileDB Array
-     * @param namespace The namespace of the notebook (required)
-     * @param array name/uri of array that is url-encoded (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the array belongs to (required)
+     * @param array asset ID or hierarchical path of array that is url-encoded (required)
      * @param filesize size of the notebook to upload in bytes (required)
      * @param notebook notebook to upload (required)
      * @param X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME Optional registered access credentials to use for creation (optional)
@@ -195,16 +205,17 @@ public class NotebooksApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public NotebookUploaded handleUploadNotebook(String namespace, String array, Integer filesize, File notebook, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, String name) throws ApiException {
-        ApiResponse<NotebookUploaded> localVarResp = handleUploadNotebookWithHttpInfo(namespace, array, filesize, notebook, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, name);
+    public NotebookUploaded handleUploadNotebook(String workspace, String teamspace, String array, Integer filesize, File notebook, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, String name) throws ApiException {
+        ApiResponse<NotebookUploaded> localVarResp = handleUploadNotebookWithHttpInfo(workspace, teamspace, array, filesize, notebook, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, name);
         return localVarResp.getData();
     }
 
     /**
      * 
      * Upload a notebook at the specified location and wrap it in TileDB Array
-     * @param namespace The namespace of the notebook (required)
-     * @param array name/uri of array that is url-encoded (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the array belongs to (required)
+     * @param array asset ID or hierarchical path of array that is url-encoded (required)
      * @param filesize size of the notebook to upload in bytes (required)
      * @param notebook notebook to upload (required)
      * @param X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME Optional registered access credentials to use for creation (optional)
@@ -219,8 +230,8 @@ public class NotebooksApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<NotebookUploaded> handleUploadNotebookWithHttpInfo(String namespace, String array, Integer filesize, File notebook, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, String name) throws ApiException {
-        okhttp3.Call localVarCall = handleUploadNotebookValidateBeforeCall(namespace, array, filesize, notebook, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, name, null);
+    public ApiResponse<NotebookUploaded> handleUploadNotebookWithHttpInfo(String workspace, String teamspace, String array, Integer filesize, File notebook, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, String name) throws ApiException {
+        okhttp3.Call localVarCall = handleUploadNotebookValidateBeforeCall(workspace, teamspace, array, filesize, notebook, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, name, null);
         Type localVarReturnType = new TypeToken<NotebookUploaded>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
@@ -228,8 +239,9 @@ public class NotebooksApi {
     /**
      *  (asynchronously)
      * Upload a notebook at the specified location and wrap it in TileDB Array
-     * @param namespace The namespace of the notebook (required)
-     * @param array name/uri of array that is url-encoded (required)
+     * @param workspace the workspace containing the teamspace the array belongs to (required)
+     * @param teamspace the teamspace the array belongs to (required)
+     * @param array asset ID or hierarchical path of array that is url-encoded (required)
      * @param filesize size of the notebook to upload in bytes (required)
      * @param notebook notebook to upload (required)
      * @param X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME Optional registered access credentials to use for creation (optional)
@@ -245,9 +257,9 @@ public class NotebooksApi {
         <tr><td> 0 </td><td> error response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call handleUploadNotebookAsync(String namespace, String array, Integer filesize, File notebook, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, String name, final ApiCallback<NotebookUploaded> _callback) throws ApiException {
+    public okhttp3.Call handleUploadNotebookAsync(String workspace, String teamspace, String array, Integer filesize, File notebook, String X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, String name, final ApiCallback<NotebookUploaded> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = handleUploadNotebookValidateBeforeCall(namespace, array, filesize, notebook, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, name, _callback);
+        okhttp3.Call localVarCall = handleUploadNotebookValidateBeforeCall(workspace, teamspace, array, filesize, notebook, X_TILEDB_CLOUD_ACCESS_CREDENTIALS_NAME, name, _callback);
         Type localVarReturnType = new TypeToken<NotebookUploaded>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;

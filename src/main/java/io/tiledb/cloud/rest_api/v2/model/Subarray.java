@@ -14,72 +14,110 @@
 package io.tiledb.cloud.rest_api.v2.model;
 
 import java.util.Objects;
-
 import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.tiledb.cloud.rest_api.v2.model.Layout;
+import io.tiledb.cloud.rest_api.v2.model.Stats;
+import io.tiledb.cloud.rest_api.v2.model.SubarrayRanges;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import com.google.gson.TypeAdapterFactory;
 import com.google.gson.reflect.TypeToken;
+import com.google.gson.TypeAdapter;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+import java.io.IOException;
 
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import io.tiledb.cloud.rest_api.v2.JSON;
 
 /**
  * A Subarray
  */
-@ApiModel(description = "A Subarray")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-07-02T18:54:48.746612+03:00[Europe/Athens]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-08-30T04:47:07.570140+03:00[Europe/Athens]", comments = "Generator version: 7.7.0")
 public class Subarray {
   public static final String SERIALIZED_NAME_LAYOUT = "layout";
   @SerializedName(SERIALIZED_NAME_LAYOUT)
   private Layout layout;
 
+  public static final String SERIALIZED_NAME_STATS = "stats";
+  @SerializedName(SERIALIZED_NAME_STATS)
+  private Stats stats;
+
   public static final String SERIALIZED_NAME_RANGES = "ranges";
   @SerializedName(SERIALIZED_NAME_RANGES)
-  private List<SubarrayRanges> ranges = null;
+  private List<SubarrayRanges> ranges = new ArrayList<>();
 
-  public Subarray() { 
+  public static final String SERIALIZED_NAME_RELEVANT_FRAGMENTS = "relevantFragments";
+  @SerializedName(SERIALIZED_NAME_RELEVANT_FRAGMENTS)
+  private List<Integer> relevantFragments = new ArrayList<>();
+
+  public static final String SERIALIZED_NAME_COALESCE_RANGES = "coalesceRanges";
+  @SerializedName(SERIALIZED_NAME_COALESCE_RANGES)
+  private Boolean coalesceRanges;
+
+  public Subarray() {
   }
 
   public Subarray layout(Layout layout) {
-    
     this.layout = layout;
     return this;
   }
 
-   /**
+  /**
    * Get layout
    * @return layout
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
   public Layout getLayout() {
     return layout;
   }
-
 
   public void setLayout(Layout layout) {
     this.layout = layout;
   }
 
 
+  public Subarray stats(Stats stats) {
+    this.stats = stats;
+    return this;
+  }
+
+  /**
+   * Get stats
+   * @return stats
+   */
+  @javax.annotation.Nullable
+  public Stats getStats() {
+    return stats;
+  }
+
+  public void setStats(Stats stats) {
+    this.stats = stats;
+  }
+
+
   public Subarray ranges(List<SubarrayRanges> ranges) {
-    
     this.ranges = ranges;
     return this;
   }
@@ -92,20 +130,63 @@ public class Subarray {
     return this;
   }
 
-   /**
+  /**
    * List of 1D ranges, one per dimension
    * @return ranges
-  **/
+   */
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "List of 1D ranges, one per dimension")
-
   public List<SubarrayRanges> getRanges() {
     return ranges;
   }
 
-
   public void setRanges(List<SubarrayRanges> ranges) {
     this.ranges = ranges;
+  }
+
+
+  public Subarray relevantFragments(List<Integer> relevantFragments) {
+    this.relevantFragments = relevantFragments;
+    return this;
+  }
+
+  public Subarray addRelevantFragmentsItem(Integer relevantFragmentsItem) {
+    if (this.relevantFragments == null) {
+      this.relevantFragments = new ArrayList<>();
+    }
+    this.relevantFragments.add(relevantFragmentsItem);
+    return this;
+  }
+
+  /**
+   * Get relevantFragments
+   * @return relevantFragments
+   */
+  @javax.annotation.Nullable
+  public List<Integer> getRelevantFragments() {
+    return relevantFragments;
+  }
+
+  public void setRelevantFragments(List<Integer> relevantFragments) {
+    this.relevantFragments = relevantFragments;
+  }
+
+
+  public Subarray coalesceRanges(Boolean coalesceRanges) {
+    this.coalesceRanges = coalesceRanges;
+    return this;
+  }
+
+  /**
+   * Get coalesceRanges
+   * @return coalesceRanges
+   */
+  @javax.annotation.Nullable
+  public Boolean getCoalesceRanges() {
+    return coalesceRanges;
+  }
+
+  public void setCoalesceRanges(Boolean coalesceRanges) {
+    this.coalesceRanges = coalesceRanges;
   }
 
   /**
@@ -118,6 +199,10 @@ public class Subarray {
   /**
    * Set the additional (undeclared) property with the specified name and value.
    * If the property does not already exist, create it otherwise replace it.
+   *
+   * @param key name of the property
+   * @param value value of the property
+   * @return the Subarray instance itself
    */
   public Subarray putAdditionalProperty(String key, Object value) {
     if (this.additionalProperties == null) {
@@ -129,6 +214,8 @@ public class Subarray {
 
   /**
    * Return the additional (undeclared) property.
+   *
+   * @return a map of objects
    */
   public Map<String, Object> getAdditionalProperties() {
     return additionalProperties;
@@ -136,6 +223,9 @@ public class Subarray {
 
   /**
    * Return the additional (undeclared) property with the specified name.
+   *
+   * @param key name of the property
+   * @return an object
    */
   public Object getAdditionalProperty(String key) {
     if (this.additionalProperties == null) {
@@ -155,13 +245,16 @@ public class Subarray {
     }
     Subarray subarray = (Subarray) o;
     return Objects.equals(this.layout, subarray.layout) &&
-        Objects.equals(this.ranges, subarray.ranges)&&
+        Objects.equals(this.stats, subarray.stats) &&
+        Objects.equals(this.ranges, subarray.ranges) &&
+        Objects.equals(this.relevantFragments, subarray.relevantFragments) &&
+        Objects.equals(this.coalesceRanges, subarray.coalesceRanges)&&
         Objects.equals(this.additionalProperties, subarray.additionalProperties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(layout, ranges, additionalProperties);
+    return Objects.hash(layout, stats, ranges, relevantFragments, coalesceRanges, additionalProperties);
   }
 
   @Override
@@ -169,7 +262,10 @@ public class Subarray {
     StringBuilder sb = new StringBuilder();
     sb.append("class Subarray {\n");
     sb.append("    layout: ").append(toIndentedString(layout)).append("\n");
+    sb.append("    stats: ").append(toIndentedString(stats)).append("\n");
     sb.append("    ranges: ").append(toIndentedString(ranges)).append("\n");
+    sb.append("    relevantFragments: ").append(toIndentedString(relevantFragments)).append("\n");
+    sb.append("    coalesceRanges: ").append(toIndentedString(coalesceRanges)).append("\n");
     sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -194,38 +290,28 @@ public class Subarray {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
     openapiFields.add("layout");
+    openapiFields.add("stats");
     openapiFields.add("ranges");
+    openapiFields.add("relevantFragments");
+    openapiFields.add("coalesceRanges");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
   }
 
- /**
-  * Validates the JSON Object and throws an exception if issues found
-  *
-  * @param jsonObj JSON Object
-  * @throws IOException if the JSON Object is invalid with respect to Subarray
-  */
-  public static void validateJsonObject(JsonObject jsonObj) throws IOException {
-      if (jsonObj == null) {
-        if (Subarray.openapiRequiredFields.isEmpty()) {
-          return;
-        } else { // has required fields
+  /**
+   * Validates the JSON Element and throws an exception if issues found
+   *
+   * @param jsonElement JSON Element
+   * @throws IOException if the JSON Element is invalid with respect to Subarray
+   */
+  public static void validateJsonElement(JsonElement jsonElement) throws IOException {
+      if (jsonElement == null) {
+        if (!Subarray.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
           throw new IllegalArgumentException(String.format("The required field(s) %s in Subarray is not found in the empty JSON string", Subarray.openapiRequiredFields.toString()));
         }
       }
-      JsonArray jsonArrayranges = jsonObj.getAsJsonArray("ranges");
-      if (jsonArrayranges != null) {
-        // ensure the json data is an array
-        if (!jsonObj.get("ranges").isJsonArray()) {
-          throw new IllegalArgumentException(String.format("Expected the field `ranges` to be an array in the JSON string but got `%s`", jsonObj.get("ranges").toString()));
-        }
-
-        // validate the optional field `ranges` (array)
-        for (int i = 0; i < jsonArrayranges.size(); i++) {
-          SubarrayRanges.validateJsonObject(jsonArrayranges.get(i).getAsJsonObject());
-        };
-      }
+        JsonObject jsonObj = jsonElement.getAsJsonObject();
   }
 
   public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
@@ -244,7 +330,7 @@ public class Subarray {
            public void write(JsonWriter out, Subarray value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              obj.remove("additionalProperties");
-             // serialize additonal properties
+             // serialize additional properties
              if (value.getAdditionalProperties() != null) {
                for (Map.Entry<String, Object> entry : value.getAdditionalProperties().entrySet()) {
                  if (entry.getValue() instanceof String)
@@ -256,7 +342,12 @@ public class Subarray {
                  else if (entry.getValue() instanceof Character)
                    obj.addProperty(entry.getKey(), (Character) entry.getValue());
                  else {
-                   obj.add(entry.getKey(), gson.toJsonTree(entry.getValue()).getAsJsonObject());
+                   JsonElement jsonElement = gson.toJsonTree(entry.getValue());
+                   if (jsonElement.isJsonArray()) {
+                     obj.add(entry.getKey(), jsonElement.getAsJsonArray());
+                   } else {
+                     obj.add(entry.getKey(), jsonElement.getAsJsonObject());
+                   }
                  }
                }
              }
@@ -265,8 +356,9 @@ public class Subarray {
 
            @Override
            public Subarray read(JsonReader in) throws IOException {
-             JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
-             validateJsonObject(jsonObj);
+             JsonElement jsonElement = elementAdapter.read(in);
+             validateJsonElement(jsonElement);
+             JsonObject jsonObj = jsonElement.getAsJsonObject();
              // store additional fields in the deserialized instance
              Subarray instance = thisAdapter.fromJsonTree(jsonObj);
              for (Map.Entry<String, JsonElement> entry : jsonObj.entrySet()) {
@@ -280,8 +372,10 @@ public class Subarray {
                      instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsBoolean());
                    else
                      throw new IllegalArgumentException(String.format("The field `%s` has unknown primitive type. Value: %s", entry.getKey(), entry.getValue().toString()));
-                 } else { // non-primitive type
-                   instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
+                 } else if (entry.getValue().isJsonArray()) {
+                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), List.class));
+                 } else { // JSON object
+                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
                  }
                }
              }
@@ -292,22 +386,22 @@ public class Subarray {
     }
   }
 
- /**
-  * Create an instance of Subarray given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of Subarray
-  * @throws IOException if the JSON string is invalid with respect to Subarray
-  */
+  /**
+   * Create an instance of Subarray given an JSON string
+   *
+   * @param jsonString JSON string
+   * @return An instance of Subarray
+   * @throws IOException if the JSON string is invalid with respect to Subarray
+   */
   public static Subarray fromJson(String jsonString) throws IOException {
     return JSON.getGson().fromJson(jsonString, Subarray.class);
   }
 
- /**
-  * Convert an instance of Subarray to an JSON string
-  *
-  * @return JSON string
-  */
+  /**
+   * Convert an instance of Subarray to an JSON string
+   *
+   * @return JSON string
+   */
   public String toJson() {
     return JSON.getGson().toJson(this);
   }
