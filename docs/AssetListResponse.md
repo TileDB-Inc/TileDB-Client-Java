@@ -2,14 +2,14 @@
 
 # AssetListResponse
 
-Asset associated with a TileDB Cloud account
+The response object when requesting the list of assets
 
 ## Properties
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**data** | [**List&lt;AssetInfo&gt;**](AssetInfo.md) | asset information for each asset |  [optional] |
-|**paginationMetadata** | [**PaginationMetadata**](PaginationMetadata.md) |  |  [optional] |
+|**data** | [**List&lt;Asset&gt;**](Asset.md) | An array of assets |  |
+|**paginationMetadata** | [**PaginationMetadata**](PaginationMetadata.md) |  |  |
 
 
 

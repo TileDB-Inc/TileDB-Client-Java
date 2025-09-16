@@ -5,11 +5,11 @@
 ## Enum
 
 
+* `STAR` (value: `"*"`)
+
 * `PASSWORD_RESET` (value: `"password_reset"`)
 
 * `CONFIRM_EMAIL` (value: `"confirm_email"`)
-
-* `STAR` (value: `"*"`)
 
 * `USER_READ` (value: `"user:read"`)
 

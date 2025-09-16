@@ -9,5 +9,9 @@
 
 * `GROUP` (value: `"group"`)
 
+* `FILE` (value: `"file"`)
+
+* `FOLDER` (value: `"folder"`)
+
 
 

@@ -2,17 +2,14 @@
 
 # Token
 
-A api token and its metadata
+The token information itself. Exactly one sub-field may be set. The names match those in the CloudProvider enum
 
 ## Properties
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**token** | **String** | A api token |  [optional] |
-|**name** | **String** | Name of token to revoke |  [optional] |
-|**issuedAt** | **OffsetDateTime** | datetime the token was created |  [optional] |
-|**expiresAt** | **OffsetDateTime** | datetime the token when token will expire |  [optional] |
-|**scope** | **List&lt;TokenScope&gt;** | Optional scope to limit token, defaults to all permissions, current supported values are password_reset or * |  [optional] |
+|**azure** | [**AzureToken**](AzureToken.md) |  |  [optional] |
+|**gcp** | [**GCPServiceAccountKey**](GCPServiceAccountKey.md) |  |  [optional] |
 
 
 
