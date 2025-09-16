@@ -291,11 +291,11 @@ public class TileDBClient{
         apiClient.setBasePath(basePath);
     }
 
+    @Deprecated
+    // Replaced by: getV1Client()
     public io.tiledb.cloud.rest_api.ApiClient getApiClient() {
         return apiClient;
     }
-
-    // ------- New Versioned Client Accessors -------
 
     private String normalizeBaseHost(String inputBase) {
         if (inputBase == null || inputBase.isEmpty()) {
