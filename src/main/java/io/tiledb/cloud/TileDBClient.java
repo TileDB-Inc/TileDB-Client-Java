@@ -1,6 +1,5 @@
 package io.tiledb.cloud;
 
-import io.tiledb.cloud.rest_api.ApiClient;
 import okhttp3.OkHttpClient;
 import org.json.JSONObject;
 import org.json.JSONTokener;
@@ -32,7 +31,14 @@ public class TileDBClient{
 
     static Logger logger = Logger.getLogger(TileDBClient.class.getName());
 
-    private ApiClient apiClient;
+    private io.tiledb.cloud.rest_api.ApiClient apiClient;
+
+    // Lazy-initialized versioned clients (v4 is optional and created via reflection)
+    private io.tiledb.cloud.rest_api.ApiClient v1Client;
+    private io.tiledb.cloud.rest_api.v2.ApiClient v2Client;
+    private io.tiledb.cloud.rest_api.v4.ApiClient v4Client;
+
+    public enum ApiVersion { V1, V2, V4 }
 
     /**
      * Static initialization.
@@ -42,7 +48,7 @@ public class TileDBClient{
         apiKey = "";
         username = "";
         password = "";
-        basePath = "https://api.tiledb.com/v1"; //default is TileDB
+        basePath = "https://api.tiledb.com/v1"; //default is TileDB (v1 for backward compatibility)
         loginInfoIsInJSONFile = true;
         verifyingSsl = true;
 
@@ -102,11 +108,7 @@ public class TileDBClient{
 
         if (object.has("host")){
             String host = object.getString("host");
-            if (host.equals("https://api.tiledb.com")){
-                basePath = host + "/v1";
-            } else {
-                basePath = host;
-            }
+            basePath = host;
             logger.log(Level.INFO, "Found host from disk");
         }
 
@@ -203,7 +205,7 @@ public class TileDBClient{
      * @param tileDBLogin Login object with credentials
      */
     public TileDBClient(OkHttpClient client, TileDBLogin tileDBLogin){
-        apiClient = new ApiClient(client);
+        apiClient = new io.tiledb.cloud.rest_api.ApiClient(client);
         setClientCredentials(tileDBLogin);
         setReadTimeout(0);
     }
@@ -214,7 +216,7 @@ public class TileDBClient{
      * @param client an okhttp3.OkHttpClient object
      */
     public TileDBClient(OkHttpClient client){
-        apiClient = new ApiClient(client);
+        apiClient = new io.tiledb.cloud.rest_api.ApiClient(client);
         setClientCredentials(new TileDBLogin());
         setReadTimeout(0);
     }
@@ -225,7 +227,7 @@ public class TileDBClient{
      * @param tileDBLogin Login object with credentials
      */
     public TileDBClient(TileDBLogin tileDBLogin){
-        apiClient = new ApiClient();
+        apiClient = new io.tiledb.cloud.rest_api.ApiClient();
         setClientCredentials(tileDBLogin);
         setReadTimeout(0);
     }
@@ -235,7 +237,7 @@ public class TileDBClient{
      *
      */
     public TileDBClient(){
-        apiClient = new ApiClient();
+        apiClient = new io.tiledb.cloud.rest_api.ApiClient();
         setClientCredentials(new TileDBLogin());
         setReadTimeout(0);
     }
@@ -249,7 +251,7 @@ public class TileDBClient{
      * @param parameters a java.util.Map of parameters
      */
     public TileDBClient(String basePath, String clientId, String clientSecret, Map<String, String> parameters){
-        apiClient = new ApiClient(basePath, clientId, clientSecret, parameters);
+        apiClient = new io.tiledb.cloud.rest_api.ApiClient(basePath, clientId, clientSecret, parameters);
         setClientCredentials(new TileDBLogin());
         setReadTimeout(0);
     }
@@ -264,7 +266,7 @@ public class TileDBClient{
      * @param tileDBLogin Login object with credentials
      */
     public TileDBClient(String basePath, String clientId, String clientSecret, Map<String, String> parameters, TileDBLogin tileDBLogin){
-        apiClient = new ApiClient(basePath, clientId, clientSecret, parameters);
+        apiClient = new io.tiledb.cloud.rest_api.ApiClient(basePath, clientId, clientSecret, parameters);
         setClientCredentials(tileDBLogin);
         setReadTimeout(0);
     }
@@ -289,7 +291,87 @@ public class TileDBClient{
         apiClient.setBasePath(basePath);
     }
 
-    public ApiClient getApiClient() {
+    @Deprecated
+    // Replaced by: getV1Client()
+    public io.tiledb.cloud.rest_api.ApiClient getApiClient() {
         return apiClient;
+    }
+
+    private String normalizeBaseHost(String inputBase) {
+        if (inputBase == null || inputBase.isEmpty()) {
+            return "https://api.tiledb.com";
+        }
+        // strip trailing /v{digits}
+        String trimmed = inputBase.trim();
+        return trimmed.replaceFirst("/v\\d+$", "");
+    }
+
+    private String versionedBasePath(ApiVersion version) {
+        String hostOnly = normalizeBaseHost(basePath);
+        String suffix;
+        switch (version) {
+            case V2:
+                suffix = "/v2";
+                break;
+            case V4:
+                suffix = "/v4";
+                break;
+            case V1:
+            default:
+                suffix = "/v1";
+                break;
+        }
+        return hostOnly + suffix;
+    }
+
+    public io.tiledb.cloud.rest_api.ApiClient getV1Client() {
+        if (v1Client == null) {
+            v1Client = new io.tiledb.cloud.rest_api.ApiClient();
+            v1Client.setApiKey(apiKey);
+            v1Client.setUsername(username);
+            v1Client.setPassword(password);
+            v1Client.setVerifyingSsl(verifyingSsl);
+            v1Client.setBasePath(versionedBasePath(ApiVersion.V1));
+            v1Client = v1Client.setReadTimeout(this.apiClient.getReadTimeout());
+        }
+        return v1Client;
+    }
+
+    public io.tiledb.cloud.rest_api.v2.ApiClient getV2Client() {
+        if (v2Client == null) {
+            v2Client = new io.tiledb.cloud.rest_api.v2.ApiClient();
+            v2Client.setApiKey(apiKey);
+            v2Client.setUsername(username);
+            v2Client.setPassword(password);
+            v2Client.setVerifyingSsl(verifyingSsl);
+            v2Client.setBasePath(versionedBasePath(ApiVersion.V2));
+            v2Client = v2Client.setReadTimeout(this.apiClient.getReadTimeout());
+        }
+        return v2Client;
+    }
+
+    public io.tiledb.cloud.rest_api.v4.ApiClient getV4Client() {
+        if (v4Client == null) {
+            v4Client = new io.tiledb.cloud.rest_api.v4.ApiClient();
+            v4Client.setApiKey(apiKey);
+            v4Client.setUsername(username);
+            v4Client.setPassword(password);
+            v4Client.setVerifyingSsl(verifyingSsl);
+            v4Client.setBasePath(versionedBasePath(ApiVersion.V4));
+            v4Client = v4Client.setReadTimeout(this.apiClient.getReadTimeout());
+        }
+        return v4Client;
+    }
+
+    public Object getApiClient(ApiVersion version) {
+        switch (version) {
+            case V1:
+                return getV1Client();
+            case V2:
+                return getV2Client();
+            case V4:
+            default:
+                return getV4Client();
+        }
     }
 }
