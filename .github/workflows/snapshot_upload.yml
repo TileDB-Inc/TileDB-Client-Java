@@ -1,0 +1,48 @@
+name: TileDB-Cloud-Java
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+      - seth/eng-142-enable-snapshot-maven-central-uploads-for-tiledb-cloud-java 
+
+jobs:
+  Snapshot:
+#    if: github.ref == 'refs/heads/master'
+    name: Create-Snapshot-Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up Java
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: '11'
+          check-latest: true
+
+      - name: Check version
+        run: |
+          VERSION=$(awk -F"'" '/^version = / {print $2}' build.gradle)
+          if [[ "$VERSION" != *-SNAPSHOT ]]; then
+            echo "Error: Version $VERSION in build.gradle does not end with -SNAPSHOT."
+            exit 1
+          fi
+          echo "Version $VERSION is a snapshot version. Proceeding."
+
+      - name: Create-Jars
+        run: unset SYSTEM; set +e; ./gradlew assemble; ./gradlew shadowJar; mkdir jars/; cp ./build/libs/*.jar jars/
+
+      - name: Upload to maven
+        run: |
+          chmod +x ./ci/upload_to_maven.sh
+          ./ci/upload_to_maven.sh
+        shell: bash
+        env:
+          GPG_KEY_ID: ${{ secrets.GPG_KEY_ID }}
+          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+          GPG_SECRET_KEYS_ENC: ${{ secrets.GPG_SECRET_KEYS_ENC }}
+          SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
+          SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
