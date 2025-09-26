@@ -8,7 +8,7 @@ echo "$GPG_SECRET_KEYS_ENC" | base64 --decode > "$GPG_KEY_LOCATION"
 export PROJECT_VERSION="$(./gradlew properties -q | grep "^version: " | awk '{print $2}')"
 echo "\$PROJECT_VERSION: $PROJECT_VERSION" >&2
 # Upload only snapshots to Sonatype OSS so it can make its way to Maven Central
-# https://oss.sonatype.org/content/repositories/snapshots/io/tiledb/tiledb-cloud-java/
+# https://ossrh-staging-api.central.sonatype.com/content/repositories/snapshots/io/tiledb/tiledb-cloud-java/
 ./gradlew publishMavenJavaPublicationToMavenRepository
 
 # Only non-snapshot can be pushed as Maven releases
